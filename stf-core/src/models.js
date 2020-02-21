@@ -1,0 +1,73 @@
+const userSchema = {
+  email: 'email',
+  password: 'password',
+  status: 'status'
+}
+
+const authManagementSchema = {
+  isVerified: 'isVerified',
+  verifyToken: 'verifyToken',
+  verifyShortToken: 'verifyShortToken',
+  verifyExpires: 'verifyExpires',
+  resetToken: 'resetToken',
+  resetShortToken: 'resetShortToken',
+  resetExpires: 'resetExpires'
+}
+
+const admins = {
+  name: 'admins',
+  fields: {
+    ...userSchema
+  }
+}
+
+const players = {
+  name: 'players',
+  fields: {
+    ...userSchema,
+    ...authManagementSchema,
+    firstName: 'firstName',
+    lastName: 'lastName',
+    useDarkTheme: 'useDarkTheme',
+    googleId: 'googleId',
+    facebookId: 'facebookId'
+  }
+}
+
+const teams = {
+  name: 'teams',
+  fields: {
+    name: 'name',
+    players: 'players'
+  }
+}
+
+const matches = {
+  name: 'matches',
+  fields: {
+    teamA: 'teamA',
+    teamB: 'teamB',
+    winner: 'winner',
+    status: 'status',
+    replayTime: 'replayTime'
+  }
+}
+
+const goals = {
+  name: 'goals',
+  fields: {
+    team: 'team',
+    match: 'match',
+    replay: 'replay'
+  }
+}
+
+module.exports = {
+  userSchema,
+  authManagementSchema,
+  admins,
+  players,
+  teams,
+  matches,
+  goals
+}

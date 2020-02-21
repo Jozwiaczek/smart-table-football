@@ -1,0 +1,18 @@
+{
+  "name": "stf-core",
+  "version": "0.0.1",
+  "description": "Set of core elements for stf projects.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "standard",
+    "eslint-fix": "standard --fix"
+  },
+  "keywords": [],
+  "author": "Jakub Jóźwiak",
+  "license": "ISC",
+  "devDependencies": {
+    "standard": "^12.0.1",
+    "eslint": "^6.5.1"
+  }
+}
