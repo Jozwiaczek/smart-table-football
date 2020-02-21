@@ -38,9 +38,9 @@ app.use(express.urlencoded({
   extended: true,
   limit: '50mb'
 }))
-app.use(favicon(path.join('../public/', 'favicon.ico')))
+app.use(favicon(path.join('./public/', 'favicon.ico')))
 // Host the public folder
-app.use('/', express.static('../public/'))
+app.use('/', express.static('./public/'))
 
 // Set up Plugins and providers
 app.configure(express.rest())
