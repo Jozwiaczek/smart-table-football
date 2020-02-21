@@ -1,4 +1,5 @@
 {
-  "host": "stf-api-app.feathersjs.com",
-  "port": "PORT"
+  "host": "smartTableFootball.api.com",
+  "port": 8080,
+  "public": "../public/"
 }
