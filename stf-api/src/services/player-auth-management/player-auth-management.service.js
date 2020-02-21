@@ -5,7 +5,7 @@ const hooks = require('./player-auth-management.hooks')
 
 const {
   resources
-} = require('@stf/stf-core').constants
+} = require('../../../../stf-core').constants
 
 module.exports = function (app) {
   // Get our initialized service so that we can register hooks

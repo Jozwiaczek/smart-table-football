@@ -3,7 +3,7 @@ const validator = require('validator')
 const {
   models,
   constants
-} = require('@stf/stf-core')
+} = require('../../../../../stf-core')
 
 module.exports = {
   [models.userSchema.email]: {

@@ -5,7 +5,7 @@
 const {
   models,
   constants
-} = require('@stf/stf-core')
+} = require('../../../stf-core')
 
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient')

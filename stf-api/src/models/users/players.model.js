@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const userSchema = require('./schema/user.schema')
 const authManagementSchema = require('./schema/authManagement.schema')
 
-const { models } = require('@stf/stf-core')
+const { models } = require('../../../../stf-core')
 
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient')

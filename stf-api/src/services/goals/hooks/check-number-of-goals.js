@@ -3,7 +3,7 @@
 const {
   constants,
   models
-} = require('@stf/stf-core')
+} = require('../../../../../stf-core')
 
 const errors = require('@feathersjs/errors')
 

@@ -2,7 +2,7 @@ const {
   hashPassword, protect
 } = require('@feathersjs/authentication-local').hooks
 
-const { models } = require('@stf/stf-core')
+const { models } = require('../../../../stf-core')
 
 module.exports = {
   before: {

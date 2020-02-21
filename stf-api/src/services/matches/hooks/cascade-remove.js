@@ -4,7 +4,7 @@
 const {
   constants,
   models
-} = require('@stf/stf-core')
+} = require('../../../../../stf-core')
 
 // eslint-disable-next-line no-unused-vars
 module.exports = function (options = {}) {

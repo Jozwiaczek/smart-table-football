@@ -5,7 +5,7 @@ const hooks = require('./teams.hooks')
 
 const {
   constants
-} = require('@stf/stf-core')
+} = require('../../../../stf-core')
 
 module.exports = function (app) {
   const Model = createModel(app)

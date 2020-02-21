@@ -1,6 +1,6 @@
 const {
   models
-} = require('@stf/stf-core')
+} = require('../../../../../stf-core')
 
 module.exports = {
   [models.authManagementSchema.isVerified]: { type: Boolean },
