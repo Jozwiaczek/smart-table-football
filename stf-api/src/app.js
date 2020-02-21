@@ -11,6 +11,8 @@ const configuration = require('@feathersjs/configuration')
 const express = require('@feathersjs/express')
 const socketio = require('@feathersjs/socketio')
 
+console.log('here')
+
 const middleware = require('./middleware')
 const services = require('./services')
 const appHooks = require('./app.hooks')
