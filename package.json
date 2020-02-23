@@ -7,8 +7,7 @@
   "license": "MIT",
   "workspaces": [
     "stf-api",
-    "stf-core",
-    "stf-player"
+    "stf-core"
   ],
   "scripts": {
     "heroku-postbuild": "yarn install"
