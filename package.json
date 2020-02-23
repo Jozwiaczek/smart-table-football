@@ -2,13 +2,13 @@
   "name": "smart-table-football",
   "private": true,
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "git@github.com:Jozwiaczek/smart-table-football.git",
   "author": "jozwiak <kubencki@gmail.com>",
   "license": "MIT",
   "workspaces": [
     "stf-api",
-    "stf-core"
+    "stf-core",
+    "stf-player"
   ],
   "scripts": {
     "heroku-postbuild": "yarn install",
