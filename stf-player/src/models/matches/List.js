@@ -27,7 +27,7 @@ import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo'
 import {
   models,
   constants
-} from '../../../../stf-core'
+} from 'stf-core'
 
 import DateFilters from '../../elements/DateFilters'
 import { getTimerUnit } from '../../utils/getTimerUnits'

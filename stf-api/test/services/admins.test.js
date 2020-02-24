@@ -3,7 +3,7 @@ const app = require('../../src/app')
 
 const {
   constants
-} = require('@stf/stf-core')
+} = require('stf-core')
 
 describe('\'admins\' service', () => {
   it('registered the service', () => {

@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core'
 import CancelIcon from '@material-ui/icons/Cancel'
 
-import { models } from '../../../../stf-core'
+import { models } from 'stf-core'
 
 const styles = () => ({
   button: {

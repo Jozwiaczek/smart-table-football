@@ -29,7 +29,7 @@ import { themeProvider } from '../../themes'
 import {
   constants,
   models
-} from '../../../../stf-core'
+} from 'stf-core'
 
 import Ball from '../../elements/Ball'
 import BackgroundGraphic from '../../elements/BackgroundGraphic'

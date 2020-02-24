@@ -19,7 +19,7 @@ import InviteFirendsIcon from '@material-ui/icons/GroupAdd'
 import styled, { css } from 'styled-components'
 import compose from 'recompose/compose'
 
-import { constants, models } from '../../../../stf-core'
+import { constants, models } from 'stf-core'
 import Ball from '../../elements/Ball'
 import BackgroundGraphic from '../../elements/BackgroundGraphic'
 import { getPlayerId } from '../../utils/getPlayerId'
