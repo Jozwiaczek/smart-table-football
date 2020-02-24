@@ -6,7 +6,8 @@ jobs:
     steps:
       - checkout
       - run: yarn install || npm i
-      - run: yarn build
+      - run: cd stf-api && yarn build
+      - run: cd stf-player && yarn build
 workflows:
   main:
     jobs:
