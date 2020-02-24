@@ -1,5 +1,5 @@
 {
-  "host": "smartTableFootball.api.com",
+  "host": "localhost",
   "port": 8080,
   "public": "../public/"
 }
