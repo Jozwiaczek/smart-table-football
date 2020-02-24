@@ -1,0 +1,14 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.15
+    steps:
+      - checkout
+      - run: yarn install || npm i
+#      - run: cd stf-api && yarn eslint
+      - run: cd stf-player && yarn build
+workflows:
+  main:
+    jobs:
+      - build
