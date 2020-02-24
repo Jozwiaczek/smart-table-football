@@ -1,6 +1,6 @@
 /* global localStorage */
 import decodeJwt from 'jwt-decode'
-import { constants } from '../../../stf-core'
+import { constants } from 'stf-core'
 
 export const getPlayerId = () => {
   let token = localStorage.getItem(constants.storageKey)

@@ -31,7 +31,7 @@ import Casino from '@material-ui/icons/Casino'
 import {
   constants,
   models
-} from '../../../../stf-core'
+} from 'stf-core'
 import { getPlayerId } from '../../utils/getPlayerId'
 
 const styles = () => ({

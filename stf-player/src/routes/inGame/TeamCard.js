@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { models } from '../../../../stf-core'
+import { models } from 'stf-core'
 
 import {
   Typography,

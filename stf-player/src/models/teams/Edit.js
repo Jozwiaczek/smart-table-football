@@ -21,7 +21,7 @@ import {
 import {
   constants,
   models
-} from '../../../../stf-core'
+} from 'stf-core'
 
 import { withStyles } from '@material-ui/core/styles'
 

@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom'
 import List from '@material-ui/core/List'
 import Person from '@material-ui/icons/Person'
 
-import { constants } from '../../../stf-core'
+import { constants } from 'stf-core'
 import { getPlayerId } from '../utils/getPlayerId'
 
 import Dashboard from '@material-ui/icons/Dashboard'

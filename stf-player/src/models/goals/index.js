@@ -22,7 +22,7 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft'
 import {
   constants,
   models
-} from '../../../../stf-core'
+} from 'stf-core'
 
 const styles = {
   replayFieldContainer: {

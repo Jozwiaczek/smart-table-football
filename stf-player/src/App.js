@@ -10,7 +10,7 @@ import Group from '@material-ui/icons/Group'
 import Casino from '@material-ui/icons/Casino'
 import { MuiThemeProvider } from '@material-ui/core'
 
-import { constants } from '../../stf-core'
+import { constants } from 'stf-core'
 
 import feathersRestClient from './client/feathersRestClient'
 import dataProvider from './dataProvider'
@@ -96,7 +96,8 @@ const App = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'
-    }}>
+    }}
+    >
       <div style={{
         width: 200,
         height: 50,
@@ -105,7 +106,8 @@ const App = () => {
         justifyContent: 'center',
         backgroundColor: 'rgba(255, 0, 0, 0.2)',
         padding: 50
-      }}>
+      }}
+      >
         Theme could not be loaded
       </div>
     </div>

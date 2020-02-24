@@ -15,7 +15,7 @@ import {
   Link,
   withDataProvider
 } from 'react-admin'
-import { models, constants } from '../../../../../stf-core'
+import { models, constants } from 'stf-core'
 import FormTextField from '../../../elements/FormTextField'
 import validator from 'validator'
 

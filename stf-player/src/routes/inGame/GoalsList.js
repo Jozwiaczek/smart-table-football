@@ -16,7 +16,7 @@ import {
 import SportsSoccerIcon from '@material-ui/icons/SportsSoccer'
 import DeleteIcon from '@material-ui/icons/Delete'
 
-import { models } from '../../../../stf-core'
+import { models } from 'stf-core'
 
 const styles = () => ({
   listContainer: {

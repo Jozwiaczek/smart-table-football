@@ -29,7 +29,7 @@ import Send from '@material-ui/icons/Send'
 import {
   constants,
   models
-} from '../../../../stf-core'
+} from 'stf-core'
 
 import { getChoices } from '../../enum'
 import clientAuthManagementActionFactory from '../../actions/clientAuthManagement'

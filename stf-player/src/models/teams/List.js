@@ -18,7 +18,7 @@ import CustomizableDatagrid from 'ra-customizable-datagrid'
 import {
   models,
   constants
-} from '../../../../stf-core'
+} from 'stf-core'
 
 import DateFilters from '../../elements/DateFilters'
 import { getPlayerId } from '../../utils/getPlayerId'

@@ -29,7 +29,7 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
 import {
   constants,
   models
-} from '../../../../stf-core'
+} from 'stf-core'
 
 const styles = {
   form: {
