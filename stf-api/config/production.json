@@ -1,5 +1,63 @@
 {
   "host": "localhost",
   "port": 8080,
-  "public": "../public/"
+  "public": "../public/",
+  "paginate": {
+    "default": 10,
+    "max": 50
+  },
+  "authentication": {
+    "secret": "Cq95EofkZV0JAt7cMh5IU5wPaPc=",
+    "strategies": [
+      "jwtAdmin",
+      "jwtPlayer",
+      "jwtRaspberry",
+      "admin",
+      "player",
+      "raspberry"
+    ],
+    "path": "/authentication",
+    "entity": "admins",
+    "service": "admins",
+    "jwt": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "subject": "anonymous",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "admin": {
+      "name": "admin",
+      "entity": "admin",
+      "usernameField": "email",
+      "passwordField": "password",
+      "service": "admins"
+    },
+    "player": {
+      "name": "player",
+      "entity": "player",
+      "usernameField": "email",
+      "passwordField": "password",
+      "service": "players"
+    },
+    "oauth": {
+      "redirect": "/",
+      "google": {
+        "key": "<google oauth key>",
+        "secret": "<google oauth secret>",
+        "scope": [
+          "email",
+          "profile",
+          "openid"
+        ]
+      },
+      "facebook": {
+        "key": "<facebook oauth key>",
+        "secret": "<facebook oauth secret>"
+      }
+    }
+  }
 }
