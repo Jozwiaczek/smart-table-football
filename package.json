@@ -11,6 +11,7 @@
     "stf-player"
   ],
   "scripts": {
-    "heroku-postbuild": "yarn install"
+    "heroku-postbuild": "yarn install",
+    "start": "if [ -n \"$START_API\" ]; then cd stf-api && echo api && yarn start; else cd stf-player && echo player && yarn start; fi"
   }
 }
