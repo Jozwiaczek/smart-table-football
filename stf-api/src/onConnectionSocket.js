@@ -1,7 +1,7 @@
 const {
   constants,
   models
-} = require('../../stf-core')
+} = require('stf-core')
 
 const createMatch = (app, socket, match) => {
   if (match[models.matches.fields.status] === constants.statusMatch.active) {

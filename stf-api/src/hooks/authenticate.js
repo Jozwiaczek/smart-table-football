@@ -3,7 +3,7 @@
 const { authenticate } = require('@feathersjs/authentication').hooks
 const { NotAuthenticated, NotFound } = require('@feathersjs/errors')
 
-const { constants } = require('../../../stf-core')
+const { constants } = require('stf-core')
 
 function hasToken (hook) {
   return hook.params.headers[constants.authorizationHeaders.player] ||

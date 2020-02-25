@@ -2,7 +2,7 @@ const verifyHooks = require('feathers-authentication-management').hooks
 const {
   models,
   constants
-} = require('../../../../stf-core')
+} = require('stf-core')
 
 const {
   hashPassword, protect
