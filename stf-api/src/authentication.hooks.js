@@ -8,7 +8,7 @@ module.exports = (app) => ({
     find: [],
     get: [],
     create: [
-      // authentication.hooks.authenticate(app.get('authentication').strategies)
+      authentication.hooks.authenticate(app.get('authentication').strategies)
     ],
     update: [],
     patch: [],
