@@ -8,7 +8,8 @@
   "workspaces": [
     "stf-api",
     "stf-core",
-    "stf-player"
+    "stf-player",
+    "stf-admin"
   ],
   "scripts": {
     "heroku-postbuild": "yarn install",

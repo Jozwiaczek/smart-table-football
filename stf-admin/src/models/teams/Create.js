@@ -14,7 +14,7 @@ import {
 import {
   constants,
   models
-} from '@stf/stf-core'
+} from 'stf-core'
 
 const CreateActions = ({ basePath }) => (
   <TopToolbar>

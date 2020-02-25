@@ -31,7 +31,7 @@ import { withStyles } from '@material-ui/core/styles'
 import {
   constants,
   models
-} from '@stf/stf-core'
+} from 'stf-core'
 import { getChoices } from '../../enum'
 import { getTimerUnit } from '../../utils/getTimerUnits'
 

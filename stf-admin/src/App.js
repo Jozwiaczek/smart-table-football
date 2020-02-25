@@ -11,7 +11,7 @@ import Group from '@material-ui/icons/Group'
 import Casino from '@material-ui/icons/Casino'
 import SportsSoccer from '@material-ui/icons/SportsSoccer'
 
-import { constants } from '@stf/stf-core'
+import { constants } from 'stf-core'
 
 import feathersRestClient from './client/feathersRestClient'
 import dataProvider from './dataProvider'

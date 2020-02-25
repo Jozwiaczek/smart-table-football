@@ -1,7 +1,7 @@
 import { CREATE } from 'react-admin'
 import {
   constants
-} from '@stf/stf-core'
+} from 'stf-core'
 
 function _getPayload () {
   return {}
