@@ -68,20 +68,22 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
       setPlayer(resPlayer)
 
       const resTeams = await dataProvider(GET_LIST, constants.resources.teams, {}).then(res => res.data).catch(e => new Error(e))
-      const playersTeams = resTeams.filter(team => team[models.teams.fields.players].find(player => player === resPlayer._id))
-      setTeams(playersTeams)
+      if(Array.isArray(resTeams) && resTeams.length > 0) {
+        const playersTeams = resTeams.filter(team => team[models.teams.fields.players].find(player => player === resPlayer._id))
+        setTeams(playersTeams)
 
-      const resMatches = await dataProvider(GET_LIST, constants.resources.matches, {}).then(res => res.data).catch(e => new Error(e))
-      const playersMatches = resMatches.filter(match =>
-        playersTeams.map(team =>
-          match[models.matches.fields.teamA] === team._id || match[models.matches.fields.teamB] === team._id
+        const resMatches = await dataProvider(GET_LIST, constants.resources.matches, {}).then(res => res.data).catch(e => new Error(e))
+        const playersMatches = resMatches.filter(match =>
+          playersTeams.map(team =>
+            match[models.matches.fields.teamA] === team._id || match[models.matches.fields.teamB] === team._id
+          )
         )
-      )
-      setMatches(playersMatches)
+        setMatches(playersMatches)
 
-      const resGoals = await dataProvider(GET_LIST, constants.resources.goals, {}).then(res => res.data).catch(e => new Error(e))
-      const playersGoals = resGoals.filter(goal => resTeams.map(team => goal[models.goals.fields.team] === team._id))
-      setGoals(playersGoals)
+        const resGoals = await dataProvider(GET_LIST, constants.resources.goals, {}).then(res => res.data).catch(e => new Error(e))
+        const playersGoals = resGoals.filter(goal => resTeams.map(team => goal[models.goals.fields.team] === team._id))
+        setGoals(playersGoals)
+      }
     }
     call()
   }, [])
