@@ -12,7 +12,8 @@ module.exports = {
     all: [
       iff(
         hook => hook.params.provider && `/${hook.path}` !== hook.app.get(constants.resources.authentication).path, // ignore authentication
-        authenticate()
+        authenticate(),
+        () => console.log('here')
       ),
       translateDateToUTC('date')
     ],

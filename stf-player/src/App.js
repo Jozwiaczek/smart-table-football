@@ -131,6 +131,9 @@ const App = () => {
         loginPage={Login}
       >
         <Resource
+          name={constants.resources.playerAuthManagement}
+        />
+        <Resource
           name={constants.resources.players}
           icon={Person}
           edit={PlayerEdit}
