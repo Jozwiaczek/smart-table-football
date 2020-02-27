@@ -14,7 +14,6 @@ function hasToken (hook) {
 // eslint-disable-next-line no-unused-vars
 module.exports = function (options = {}) {
   return async context => {
-    //TODO FIX AUTHENTICATE WHEN REGISTRATION
     try {
       let strategy = constants.authStrategies.jwtPlayer
       if (context.params.headers[constants.authorizationHeaders.admin]) {
