@@ -4,6 +4,6 @@ import InGame from './routes/inGame'
 import Registration from './routes/auth/registration/Registration'
 
 export default [
-  <Route exact path='/registration' component={Registration} noLayout />,
-  <Route exact path='/inGame' component={InGame} noLayout />
+  <Route key={1} exact path='/registration' component={Registration} noLayout />,
+  <Route key={2} exact path='/inGame' component={InGame} noLayout />
 ]

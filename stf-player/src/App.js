@@ -90,27 +90,29 @@ const App = () => {
   }, [])
 
   if (!theme && !themeLoading) {
-    return <div style={{
-      width: '100vw',
-      height: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}
-    >
+    return (
       <div style={{
-        width: 200,
-        height: 50,
+        width: '100vw',
+        height: '100vh',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(255, 0, 0, 0.2)',
-        padding: 50
+        justifyContent: 'center'
       }}
       >
+        <div style={{
+          width: 200,
+          height: 50,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'rgba(255, 0, 0, 0.2)',
+          padding: 50
+        }}
+        >
         Theme could not be loaded
+        </div>
       </div>
-    </div>
+    )
   }
 
   if (!theme) {

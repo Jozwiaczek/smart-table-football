@@ -43,7 +43,7 @@ const TeamEdit = (props) => (
     {...props}
     actions={<EditActions />}
     undoable={false}
-    title={'Team Edit'}
+    title='Team Edit'
   >
     <TabbedForm
       redirect={false}
@@ -60,7 +60,7 @@ const TeamEdit = (props) => (
           source={models.teams.fields.players}
           reference={constants.resources.players}
           validate={required()}
-          label={'Players'}
+          label='Players'
           sort={{
             field: models.players.fields.email,
             order: 'ASC'

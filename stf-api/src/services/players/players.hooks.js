@@ -19,8 +19,8 @@ module.exports = {
       hashPassword(models.players.fields.password),
       verifyHooks.addVerification(constants.resources.playerAuthManagement)
     ],
-    update: [ hashPassword(models.players.fields.password) ],
-    patch: [ hashPassword(models.players.fields.password) ],
+    update: [hashPassword(models.players.fields.password)],
+    patch: [hashPassword(models.players.fields.password)],
     remove: []
   },
 

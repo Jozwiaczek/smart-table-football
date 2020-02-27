@@ -21,7 +21,7 @@ module.exports = function (app) {
         type: Schema.Types.ObjectId,
         ref: constants.resources.players
       }],
-      validate: [ array => array.length < 3 && array.length > 0, 'Maximum number of players in team is 2 and minimum is 1' ]
+      validate: [array => array.length < 3 && array.length > 0, 'Maximum number of players in team is 2 and minimum is 1']
     }
   }, {
     timestamps: true

@@ -6,22 +6,22 @@ const removeReplay = require('./hooks/remove-replay')
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [authenticate('jwt')],
     find: [],
     get: [],
-    create: [ checkMatchStatus() ],
+    create: [checkMatchStatus()],
     update: [],
     patch: [],
-    remove: [ removeReplay() ]
+    remove: [removeReplay()]
   },
 
   after: {
     all: [],
     find: [],
     get: [],
-    create: [ checkNumberOfGoals() ],
-    update: [ checkNumberOfGoals() ],
-    patch: [ checkNumberOfGoals() ],
+    create: [checkNumberOfGoals()],
+    update: [checkNumberOfGoals()],
+    patch: [checkNumberOfGoals()],
     remove: []
   },
 

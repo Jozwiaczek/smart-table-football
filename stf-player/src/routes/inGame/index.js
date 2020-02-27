@@ -244,11 +244,11 @@ const InGame = ({ history, classes, dataProvider }) => {
             graphic={<Ball />}
           >
             <div className={classes.navBar}>
-              <Button color={'secondary'} onClick={() => finishMatch(match, history, dataProvider, stopTimer)}>
+              <Button color='secondary' onClick={() => finishMatch(match, history, dataProvider, stopTimer)}>
                 <ArrowBackIcon style={{ fontSize: 60 }} />
               </Button>
 
-              <Button color={'secondary'} onClick={() => setFullScreen(prevState => !prevState)}>
+              <Button color='secondary' onClick={() => setFullScreen(prevState => !prevState)}>
                 {isFullScreen ? <FullscreenExitIcon style={{ fontSize: 60 }} /> : <FullscreenIcon style={{ fontSize: 60 }} />}
               </Button>
             </div>
@@ -263,10 +263,10 @@ const InGame = ({ history, classes, dataProvider }) => {
 
                 <div className={classes.controlsSection}>
                   <Timer time={elapsedTimer} />
-                  <Button variant={'outlined'} color={'secondary'} onClick={() => changeStatus(match, dataProvider, status, setStatus, startTimer, stopTimer)}>
+                  <Button variant='outlined' color='secondary' onClick={() => changeStatus(match, dataProvider, status, setStatus, startTimer, stopTimer)}>
                     {status !== constants.statusMatch.active ? <><PlayArrowIcon />&nbsp;Start match</> : <><PauseIcon />&nbsp;Pause match</>}
                   </Button>
-                  <Button variant={'contained'} color={'secondary'} onClick={() => finishMatch(match, history, dataProvider, stopTimer)}>
+                  <Button variant='contained' color='secondary' onClick={() => finishMatch(match, history, dataProvider, stopTimer)}>
                     Finish match
                   </Button>
                 </div>
@@ -275,10 +275,10 @@ const InGame = ({ history, classes, dataProvider }) => {
               </div>
             </div>
 
-            <Typography align={'center'} variant={'h3'}>Goals history</Typography>
+            <Typography align='center' variant='h3'>Goals history</Typography>
             <div className={classes.goalsList}>
-              <GoalsList title={'Team A'} getTeamName={getTeamName} goals={teamAGoals} removeGoal={removeGoal} onItemClick={showGoalDetailsModal} />
-              <GoalsList title={'Team B'} getTeamName={getTeamName} goals={teamBGoals} removeGoal={removeGoal} onItemClick={showGoalDetailsModal} />
+              <GoalsList title='Team A' getTeamName={getTeamName} goals={teamAGoals} removeGoal={removeGoal} onItemClick={showGoalDetailsModal} />
+              <GoalsList title='Team B' getTeamName={getTeamName} goals={teamBGoals} removeGoal={removeGoal} onItemClick={showGoalDetailsModal} />
             </div>
           </BackgroundGraphic>
         </div>

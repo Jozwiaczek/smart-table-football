@@ -1,17 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {
-  withDataProvider,
-  Title,
-  showNotification,
-  GET_ONE,
-  GET_LIST
-} from 'react-admin'
+import { GET_LIST, GET_ONE, showNotification, Title, withDataProvider } from 'react-admin'
 
-import {
-  Button,
-  Typography
-} from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import CreateIcon from '@material-ui/icons/Create'
 import StatisticsIcon from '@material-ui/icons/BarChart'
 import InviteFirendsIcon from '@material-ui/icons/GroupAdd'
@@ -23,7 +14,6 @@ import { constants, models } from 'stf-core'
 import Ball from '../../elements/Ball'
 import BackgroundGraphic from '../../elements/BackgroundGraphic'
 import { getPlayerId } from '../../utils/getPlayerId'
-import CardStatistic from './CardStatistic'
 
 const DashboardContainer = styled.div`
   padding-top: 1rem;
@@ -68,7 +58,7 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
       setPlayer(resPlayer)
 
       const resTeams = await dataProvider(GET_LIST, constants.resources.teams, {}).then(res => res.data).catch(e => new Error(e))
-      if(Array.isArray(resTeams) && resTeams.length > 0) {
+      if (Array.isArray(resTeams) && resTeams.length > 0) {
         const playersTeams = resTeams.filter(team => team[models.teams.fields.players].find(player => player === resPlayer._id))
         setTeams(playersTeams)
 
@@ -108,29 +98,29 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
 
         <DashboardFragment small={small}>
           <DashboardSection>
-            <Typography variant={'h3'} color={'textPrimary'} gutterBottom>
+            <Typography variant='h3' color='textPrimary' gutterBottom>
               Welcome {player[models.players.fields.firstName]}!
             </Typography>
           </DashboardSection>
 
           <DashboardSection>
-            <Typography variant={'h5'} align={'center'} color={'textPrimary'} gutterBottom>
+            <Typography variant='h5' align='center' color='textPrimary' gutterBottom>
               If you want to play a game, click button below
             </Typography>
-            <Button color={'primary'} variant={'contained'} onClick={() => history.push(`/${constants.resources.matches}/create`)}>
+            <Button color='primary' variant='contained' onClick={() => history.push(`/${constants.resources.matches}/create`)}>
               <CreateIcon />
               Prepare match
             </Button>
           </DashboardSection>
 
           <DashboardSection>
-            <Typography variant={'h4'} color={'textPrimary'} gutterBottom>
+            <Typography variant='h4' color='textPrimary' gutterBottom>
               Friends
             </Typography>
-            <Typography variant={'body1'} color={'textPrimary'} gutterBottom>
+            <Typography variant='body1' color='textPrimary' gutterBottom>
               If you want invite friends, click button below
             </Typography>
-            <Button color={'primary'} variant={'contained'} onClick={() => console.log('Invite friend btn clicked')}>
+            <Button color='primary' variant='contained' onClick={() => console.log('Invite friend btn clicked')}>
               <InviteFirendsIcon />&nbsp;
               Invite friend
             </Button>
@@ -139,16 +129,16 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
 
         <DashboardFragment small={small}>
           <DashboardSection>
-            <Typography variant={'h4'} color={'textPrimary'} gutterBottom>
+            <Typography variant='h4' color='textPrimary' gutterBottom>
               Statistic
             </Typography>
-            <Typography variant={'body1'} color={'textPrimary'} gutterBottom>
+            <Typography variant='body1' color='textPrimary' gutterBottom>
                 Total goals: {goals.length}
             </Typography>
             {/* <CardStatistic title={'Test'} > */}
             {/*  Joloolol */}
             {/* </CardStatistic> */}
-            <Typography variant={'body1'} color={'textPrimary'}>
+            <Typography variant='body1' color='textPrimary'>
               Win Ratio: {getPlayerWinRatio()}%
             </Typography>
             {/* <Typography variant={'body1'} color={'textPrimary'}> */}
@@ -160,14 +150,14 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
           </DashboardSection>
 
           <DashboardSection>
-            <Typography variant={'h4'} color={'textPrimary'} gutterBottom>
+            <Typography variant='h4' color='textPrimary' gutterBottom>
               Last Match
             </Typography>
-            <Typography variant={'body1'} align={'center'} color={'textPrimary'} gutterBottom>
+            <Typography variant='body1' align='center' color='textPrimary' gutterBottom>
               Click button below to show<br />
               statistic of your last match
             </Typography>
-            <Button color={'primary'} variant={'outlined'} onClick={() => history.push(`/${constants.resources.matches}/${getLastMatch()._id}`)}>
+            <Button color='primary' variant='outlined' onClick={() => history.push(`/${constants.resources.matches}/${getLastMatch()._id}`)}>
               <StatisticsIcon />
               Show
             </Button>
@@ -178,7 +168,7 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
   )
 }
 
-const matchStateToProps = (state) => ({})
+const matchStateToProps = () => ({})
 
 const enhance = compose(
   withDataProvider,

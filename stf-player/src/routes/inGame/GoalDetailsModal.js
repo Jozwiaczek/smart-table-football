@@ -81,9 +81,9 @@ const GoalDetailsModal = ({
     >
       <Fade in={isAlertOpen}>
         <div className={classes.paper}>
-          <Typography variant={'h2'} align={'center'}>GOAL!</Typography>
+          <Typography variant='h2' align='center'>GOAL!</Typography>
           <div className={classes.newGoalAlertContent}>
-            <Typography variant={'h5'} gutterBottom>
+            <Typography variant='h5' gutterBottom>
               Team: {teamName}
             </Typography>
             {
@@ -111,8 +111,8 @@ const GoalDetailsModal = ({
             {
               completedCountdown === 0 ? null
                 : <Button
-                  variant={'contained'}
-                  color={'secondary'}
+                  variant='contained'
+                  color='secondary'
                   onClick={async () => {
                     await removeGoal(goal)
                     closeAlertNewGoal()

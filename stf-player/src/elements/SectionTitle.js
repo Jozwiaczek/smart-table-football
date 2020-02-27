@@ -11,13 +11,14 @@ const SectionTitle = ({ title, loading, loadingColor }) => {
         height: '1.5rem',
         width: '10rem',
         background: loadingColor,
-        borderRadius: '4px' }}
+        borderRadius: '4px'
+      }}
       />
     )
   }
   return (
     <Typography
-      variant={'title'}
+      variant='title'
       style={{
         textAlign: 'center',
         marginBottom: '1rem',

@@ -2,36 +2,29 @@ import React, { useCallback } from 'react'
 
 import {
   Create,
-  SimpleForm,
-  TopToolbar,
+  CREATE,
   ListButton,
+  maxValue,
+  minValue,
+  number,
+  NumberInput,
+  ReferenceInput,
   required,
   SelectInput,
-  ReferenceInput,
-  NumberInput,
-  number,
-  minValue,
-  maxValue,
+  SimpleForm,
   Toolbar,
-  withDataProvider,
-  CREATE,
+  TopToolbar,
+  useNotify,
   useRedirect,
-  useNotify
+  withDataProvider
 } from 'react-admin'
 
-import { useFormState, useForm } from 'react-final-form'
+import { useFormState } from 'react-final-form'
 
-import {
-  InputAdornment,
-  withStyles,
-  Button
-} from '@material-ui/core'
+import { Button, InputAdornment, withStyles } from '@material-ui/core'
 import Casino from '@material-ui/icons/Casino'
 
-import {
-  constants,
-  models
-} from 'stf-core'
+import { constants, models } from 'stf-core'
 import { getPlayerId } from '../../utils/getPlayerId'
 
 const styles = () => ({
@@ -51,7 +44,7 @@ const CreateMatchButton = ({ dataProvider, history, ...props }) => {
   const notify = useNotify()
   const { redirect, basePath } = props
 
-  const form = useForm()
+  // const form = useForm()
   const formState = useFormState()
 
   const handleClick = useCallback(async () => {
@@ -72,8 +65,8 @@ const CreateMatchButton = ({ dataProvider, history, ...props }) => {
 
   return (
     <Button
-      variant={'contained'}
-      color={'secondary'}
+      variant='contained'
+      color='secondary'
       onClick={handleClick}
     >
       <Casino />&nbsp;&nbsp;Start New Match
@@ -91,7 +84,7 @@ const CreateToolbar = withStyles(styles)(({ history, dataProvider, classes, ...p
 ))
 
 const TeamSelect = ({ type, choices, ...rest }) => {
-  let filteredChoices = choices.filter(choice => {
+  const filteredChoices = choices.filter(choice => {
     const isUserTeam = choice[models.teams.fields.players].includes(getPlayerId())
     if (type === 'own') {
       return isUserTeam
@@ -108,33 +101,33 @@ const MatchCreate = (props) => (
   <Create
     {...props}
     actions={<CreateActions />}
-    title={'Match Create'}
+    title='Match Create'
   >
     <SimpleForm toolbar={<CreateToolbar {...props} />}>
       <ReferenceInput
         source={models.matches.fields.teamA}
         reference={constants.resources.teams}
         validate={required()}
-        label={'Your Team'}
+        label='Your Team'
         sort={{
           field: models.teams.fields.name,
           order: 'ASC'
         }}
       >
-        <TeamSelect type={'own'} />
+        <TeamSelect type='own' />
       </ReferenceInput>
 
       <ReferenceInput
         source={models.matches.fields.teamB}
         reference={constants.resources.teams}
         validate={[required()]}
-        label={'Opponent Team'}
+        label='Opponent Team'
         sort={{
           field: models.teams.fields.name,
           order: 'ASC'
         }}
       >
-        <TeamSelect type={'opponent'} />
+        <TeamSelect type='opponent' />
       </ReferenceInput>
 
       <NumberInput
@@ -143,7 +136,7 @@ const MatchCreate = (props) => (
         defaultValue={4}
         options={{
           InputProps: {
-            endAdornment: <InputAdornment position={'start'}>
+            endAdornment: <InputAdornment position='start'>
               seconds
             </InputAdornment>
           }

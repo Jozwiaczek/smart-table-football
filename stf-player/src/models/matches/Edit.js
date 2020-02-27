@@ -34,7 +34,7 @@ const styles = {
   }
 }
 
-const EditActions = ({ basePath, data }) => (
+const EditActions = ({ basePath }) => (
   <TopToolbar>
     <ListButton basePath={basePath} />
   </TopToolbar>
@@ -58,8 +58,8 @@ const Teams = ({ teamA, teamB, classes }) => {
 
   return (
     <div>
-      <CustomTextField classes={classes} label={teamA[models.teams.fields.name]} header={'Team A'} />
-      <CustomTextField classes={classes} label={teamB[models.teams.fields.name]} header={'Team B'} />
+      <CustomTextField classes={classes} label={teamA[models.teams.fields.name]} header='Team A' />
+      <CustomTextField classes={classes} label={teamB[models.teams.fields.name]} header='Team B' />
     </div>
   )
 }
@@ -104,12 +104,14 @@ const MatchEdit = ({ dataProvider, ...props }) => {
 
           <TextField source={models.matches.fields.status} />
 
-          <FunctionField source={models.matches.fields.elapsedTime} label={'Time'} render={record => {
-            const elapsedTime = record[models.matches.fields.elapsedTime]
-            return (
-              `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
-            )
-          }} />
+          <FunctionField
+            source={models.matches.fields.elapsedTime} label='Time' render={record => {
+              const elapsedTime = record[models.matches.fields.elapsedTime]
+              return (
+                `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
+              )
+            }}
+          />
 
           <DateField source='createdAt' showTime />
 

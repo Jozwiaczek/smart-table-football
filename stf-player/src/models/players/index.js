@@ -1,39 +1,10 @@
 import React from 'react'
 
-import {
-  DateField,
-  TextInput,
-  TextField,
-  Edit,
-  SelectInput,
-  TopToolbar,
-  ListButton,
-  CloneButton,
-  TabbedForm,
-  FormTab,
-  required,
-  BooleanInput,
-  DateTimeInput,
-  ReferenceArrayField,
-  ReferenceManyField,
-  ChipField,
-  SingleFieldList,
-  Datagrid
-} from 'react-admin'
+import { DateField, Edit, FormTab, required, TabbedForm, TextInput } from 'react-admin'
 
 import { withStyles } from '@material-ui/core/styles'
 
-import VerifiedUser from '@material-ui/icons/VerifiedUser'
-import Send from '@material-ui/icons/Send'
-
-import {
-  constants,
-  models
-} from 'stf-core'
-
-import { getChoices } from '../../enum'
-import clientAuthManagementActionFactory from '../../actions/clientAuthManagement'
-import ButtonInput from '../../elements/ButtonInput'
+import { models } from 'stf-core'
 
 const styles = {
   fullWidth: {
@@ -45,14 +16,14 @@ const _PlayerEdit = (props) => (
   <Edit
     {...props}
     actions={null}
-    title={'Profile'}
+    title='Profile'
   >
     <TabbedForm
       redirect={false}
     >
       <FormTab
         label='summary'
-        path={'basic'}
+        path='basic'
       >
         <TextInput
           source={models.players.fields.email}

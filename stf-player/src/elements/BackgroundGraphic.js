@@ -37,7 +37,8 @@ const BackgroundGraphic = ({ classes, children, graphic }) => (
         <div className={classes.children}>
           {children}
         </div>
-      </>}
+      </>
+    }
   />
 )
 
