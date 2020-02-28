@@ -14,6 +14,8 @@ jobs:
       - run: cd stf-api && yarn test
       - run: cd stf-player && yarn eslint && yarn build
       - run: cd stf-admin && yarn eslint && yarn build
+      - run: cd stf-admin-desktop && yarn eslint && yarn pack
+      - run: cd stf-rasp && yarn eslint
 workflows:
   main:
     jobs:
