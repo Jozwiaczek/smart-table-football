@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: yarn install || npm i
       - run: cd stf-core && yarn eslint
-      - run: cd stf-api && yarn eslint
+      - run: cd stf-api && yarn test
       - run: cd stf-player && yarn eslint && yarn build
 workflows:
   main:
