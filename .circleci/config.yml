@@ -13,6 +13,7 @@ jobs:
       - run: cd stf-core && yarn eslint
       - run: cd stf-api && yarn test
       - run: cd stf-player && yarn eslint && yarn build
+      - run: cd stf-admin && yarn eslint && yarn build
 workflows:
   main:
     jobs:

@@ -42,14 +42,16 @@ const MatchField = ({ teams, ...rest }) => {
   const match = rest.record
   const teamA = teams.find(team => team.id === match[models.matches.fields.teamA])
   const teamB = teams.find(team => team.id === match[models.matches.fields.teamB])
-  // return <FunctionField label='Name' render={() => `${teamA[models.teams.fields.name]} vs ${teamB[models.teams.fields.name]}`} />
-  return <FunctionField label='Name' reference={match.id} render={() =>
-    <>
-      <ChipField record={teamA} source={models.teams.fields.name} />
-      vs
-      <ChipField record={teamB} source={models.teams.fields.name} />
-    </>
-  } />
+  return (
+    <FunctionField
+      label='Name' reference={match.id} render={() =>
+        <>
+          <ChipField record={teamA} source={models.teams.fields.name} />
+          vs
+          <ChipField record={teamB} source={models.teams.fields.name} />
+        </>}
+    />
+  )
 }
 
 const IsReplay = ({ record }) => {
@@ -70,7 +72,7 @@ const GoalsList = ({
         .then(result => result.data))
     }
     getTeams()
-  }, [])
+  }, [dataProvider])
 
   return (
     <List
