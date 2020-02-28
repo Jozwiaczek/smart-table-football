@@ -6,6 +6,8 @@ jobs:
       - image: circleci/mongo:4.2.0
     steps:
       - checkout
+      - store_test_results:
+          path: ~/stf-api/test
       - run: yarn install || npm i
       - run:
           name: Waiting for Mongo
