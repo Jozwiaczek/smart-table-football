@@ -8,11 +8,12 @@
   "workspaces": [
     "stf-api",
     "stf-core",
-    "stf-player"
+    "stf-player",
+    "stf-admin"
   ],
   "scripts": {
     "heroku-postbuild": "yarn install",
-    "start": "if [ -n \"$START_API\" ]; then cd stf-api && echo api && yarn start; else cd stf-player && echo player && yarn start; fi"
+    "start": "if [ -n \"$START_API\" ]; then cd stf-api && echo api && yarn start; elif [ -n \"$START_ADMIN\" ]; then cd stf-admin && echo admin && yarn start; else cd stf-player && echo player && yarn start; fi"
   },
   "dependencies": {
     "standard": "^12.0.1"
