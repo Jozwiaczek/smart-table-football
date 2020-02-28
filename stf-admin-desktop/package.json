@@ -1,0 +1,27 @@
+{
+  "name": "stf-admin-desktop",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "eslint": "standard",
+    "eslint-fix": "standard --fix",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "yourappid",
+    "mac": {
+      "category": "your.app.category.type"
+    }
+  },
+  "devDependencies": {
+    "electron": "latest",
+    "standard": "^12.0.1",
+    "electron-builder": "latest"
+  }
+}
