@@ -25,7 +25,7 @@ const styles = theme => ({
   },
   betaTag: {
     color: theme.palette.primary.main,
-    border: `1px solid`,
+    border: '1px solid',
     borderColor: theme.palette.primary.main,
     padding: '0.1rem 0.2rem',
     borderRadius: '5px',
@@ -37,7 +37,8 @@ const styles = theme => ({
 const BetaTag = withStyles(styles)(({ classes }) => (
   <Typography
     className={classes.betaTag}
-    variant={'button'}>
+    variant='button'
+  >
     beta
   </Typography>
 ))
@@ -55,7 +56,7 @@ const Menu = props => {
   return (
     <List>
       <MenuItemLink
-        to={`/`}
+        to='/'
         isActive={active => active.isExact}
         primaryText={<div className={props.classes.menuItem}>Dashboard</div>}
         onClick={() => onMenuTap(props)}

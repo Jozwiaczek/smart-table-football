@@ -4,6 +4,7 @@ import rest from '@feathersjs/rest-client'
 import auth from '@feathersjs/authentication-client'
 
 import appHooks from './app.hooks'
+import { constants } from 'stf-core'
 
 const app = feathers()
 
@@ -14,9 +15,9 @@ const restClient = rest(APIEndpoint)
 app.configure(restClient.fetch(window.fetch))
 
 app.configure(auth({
-  jwtStrategy: 'jwtPlayer',
+  jwtStrategy: constants.authStrategies.jwtPlayer,
   storage: window.localStorage,
-  header: 'authorization-player'
+  header: constants.authorizationHeaders.player
 }))
 
 app.hooks(appHooks)

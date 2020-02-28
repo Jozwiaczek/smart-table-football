@@ -3,7 +3,7 @@ const validator = require('validator')
 const {
   models,
   constants
-} = require('../../../../../stf-core')
+} = require('stf-core')
 
 module.exports = {
   [models.userSchema.email]: {
@@ -23,7 +23,6 @@ module.exports = {
   [models.userSchema.status]: {
     type: String,
     enum: Object.keys(constants.statusEnum),
-    default: constants.statusEnum.approved,
-    required: true
+    default: constants.statusEnum.approved
   }
 }

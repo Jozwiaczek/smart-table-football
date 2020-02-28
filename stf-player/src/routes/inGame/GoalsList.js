@@ -34,7 +34,7 @@ const getTime = time => {
 const GoalsList = ({ title, goals, classes, removeGoal, getTeamName, onItemClick }) => {
   return (
     <div className={classes.listContainer}>
-      <Typography variant={'h4'} align={'center'}>
+      <Typography variant='h4' align='center'>
         {title}
       </Typography>
       <List> {/* TODO add possibility for mark GREAT GOALS || Add button show all goals */}

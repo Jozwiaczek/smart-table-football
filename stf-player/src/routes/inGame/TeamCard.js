@@ -24,10 +24,10 @@ const styles = () => ({
 const TeamCard = ({ theme, classes, team, teamGoals }) => {
   return (
     <Card className={classes.teamCard} style={{ backgroundColor: theme.palette.primary.main }}>
-      <Typography variant={'h4'} align={'center'}>
+      <Typography variant='h4' align='center'>
         {team[models.teams.fields.name]}
       </Typography>
-      <Typography variant={'h3'}>
+      <Typography variant='h3'>
         {teamGoals.length}
       </Typography>
     </Card>

@@ -1,10 +1,11 @@
+/* eslint-disable */
 const assert = require('assert')
 const axios = require('axios')
 const url = require('url')
 const app = require('../src/app')
 
 const hostname = app.get('host') || 'localhost'
-const port = app.get('port') || 8998
+const port = app.get('port') || 8080
 const getUrl = pathname => url.format({
   protocol: 'http',
   hostname,
@@ -35,14 +36,15 @@ describe('Feathers application tests', () => {
       try {
         await axios.get(getUrl('path/to/nowhere'), {
           headers: {
-            'Accept': 'text/html'
+            Accept: 'text/html'
           }
         })
         assert.fail('should never get here')
       } catch (error) {
         const { response } = error
 
-        assert.equal(response.status, 404)
+        assert.strictEqual(response.status, 404)
+
         assert.ok(response.data.indexOf('<html>') !== -1)
       }
     })
@@ -56,10 +58,10 @@ describe('Feathers application tests', () => {
       } catch (error) {
         const { response } = error
 
-        assert.equal(response.status, 404)
-        assert.equal(response.data.code, 404)
-        assert.equal(response.data.message, 'Page not found')
-        assert.equal(response.data.name, 'NotFound')
+        assert.strictEqual(response.status, 404)
+        assert.strictEqual(response.data.code, 404)
+        assert.strictEqual(response.data.message, 'Page not found')
+        assert.strictEqual(response.data.name, 'NotFound')
       }
     })
   })

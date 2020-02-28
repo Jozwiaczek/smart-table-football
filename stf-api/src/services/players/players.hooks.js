@@ -2,7 +2,7 @@ const verifyHooks = require('feathers-authentication-management').hooks
 const {
   models,
   constants
-} = require('../../../../stf-core')
+} = require('stf-core')
 
 const {
   hashPassword, protect
@@ -19,8 +19,8 @@ module.exports = {
       hashPassword(models.players.fields.password),
       verifyHooks.addVerification(constants.resources.playerAuthManagement)
     ],
-    update: [ hashPassword(models.players.fields.password) ],
-    patch: [ hashPassword(models.players.fields.password) ],
+    update: [hashPassword(models.players.fields.password)],
+    patch: [hashPassword(models.players.fields.password)],
     remove: []
   },
 

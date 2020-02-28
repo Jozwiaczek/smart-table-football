@@ -104,7 +104,7 @@ const LoginForm = ({ classes, redirectTo }) => {
                   id='username'
                   name='username'
                   component={Input}
-                  label={'Email'}
+                  label='Email'
                   disabled={loading}
                 />
               </div>
@@ -120,7 +120,7 @@ const LoginForm = ({ classes, redirectTo }) => {
               </div>
             </div>
           </CardContent>
-          <CardActions style={{ flexDirection: 'column' }} >
+          <CardActions style={{ flexDirection: 'column' }}>
             <Button
               variant='contained'
               type='submit'
@@ -130,9 +130,9 @@ const LoginForm = ({ classes, redirectTo }) => {
             >
               {
                 loading &&
-                <div className={classes.loadingBar} >
-                  <CircularProgress size={15} thickness={2} />
-                </div>
+                  <div className={classes.loadingBar}>
+                    <CircularProgress size={15} thickness={2} />
+                  </div>
               }
               {translate('ra.auth.sign_in')}
             </Button>

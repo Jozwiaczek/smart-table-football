@@ -76,7 +76,7 @@ class Login extends Component {
           ref={this.containerRef}
         >
           <Card className={classes.card}>
-            <Typography variant={'h2'} align={'center'} className={classes.logo}>
+            <Typography variant='h2' align='center' className={classes.logo}>
               Smart Table Football
             </Typography>
             {loginForm}
