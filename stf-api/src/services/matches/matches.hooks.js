@@ -5,13 +5,13 @@ const validateTeams = require('./hooks/validate-teams')
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [authenticate('jwt')],
     find: [],
     get: [],
-    create: [ validateTeams() ],
+    create: [validateTeams()],
     update: [],
     patch: [],
-    remove: [ cascadeRemove() ]
+    remove: [cascadeRemove()]
   },
 
   after: {

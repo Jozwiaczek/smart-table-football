@@ -2,7 +2,7 @@ const authentication = require('@feathersjs/authentication')
 const jwt = require('@feathersjs/authentication-jwt')
 const local = require('@feathersjs/authentication-local')
 
-const { constants } = require('../../stf-core')
+const { constants } = require('stf-core')
 
 const createAuthHooks = require('./authentication.hooks')
 

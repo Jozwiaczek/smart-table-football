@@ -27,6 +27,7 @@ class ApproveButton extends Component {
     this._handleApprove = this._handleApprove.bind(this)
     this._handleReject = this._handleReject.bind(this)
   }
+
   _handleApprove (e) {
     e.stopPropagation()
     const {
@@ -57,9 +58,9 @@ class ApproveButton extends Component {
       <div className={label && classes.approveButtonWithLabel}>
         {
           label &&
-          <Typography variant={'caption'}>
-            {label}
-          </Typography>
+            <Typography variant='caption'>
+              {label}
+            </Typography>
         }
         <IconButton
           onClick={this._handleApprove}

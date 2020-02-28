@@ -2,20 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Field, Form } from 'react-final-form'
 import compose from 'recompose/compose'
-import {
-  CardActions,
-  Button,
-  CircularProgress,
-  CardContent,
-  Typography
-} from '@material-ui/core'
-import { withStyles, createStyles } from '@material-ui/core/styles'
-import { useTranslate, useLogin, useNotify, useSafeSetState } from 'ra-core'
-import {
-  Link,
-  withDataProvider
-} from 'react-admin'
-import { models, constants } from 'stf-core'
+import { Button, CardActions, CardContent, CircularProgress, Typography } from '@material-ui/core'
+import { createStyles, withStyles } from '@material-ui/core/styles'
+import { useLogin, useNotify, useSafeSetState } from 'ra-core'
+import { Link, withDataProvider } from 'react-admin'
+import { constants, models } from 'stf-core'
 import FormTextField from '../../../elements/FormTextField'
 import validator from 'validator'
 
@@ -49,7 +40,6 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
   const [loading, setLoading] = useSafeSetState(false)
   const login = useLogin()
   const notify = useNotify()
-  const translate = useTranslate()
 
   const validate = (values) => {
     const errors = {}
@@ -73,8 +63,8 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
       errors[models.players.fields.password] = requiredMessage
     } else if (values[models.players.fields.password].length < 6) {
       errors[models.players.fields.password] = 'Password must contain at least 6 characters'
-    } else if (values[models.players.fields.password] !== values['repeatPassword']) {
-      errors['repeatPassword'] = 'Password must be the same as above'
+    } else if (values[models.players.fields.password] !== values.repeatPassword) {
+      errors.repeatPassword = 'Password must be the same as above'
     }
 
     return errors
@@ -129,7 +119,7 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
                   id={models.players.fields.firstName}
                   name={models.players.fields.firstName}
                   component={FormTextField}
-                  label={'First Name'}
+                  label='First Name'
                   disabled={loading}
                   className={classes.input}
                   required
@@ -141,7 +131,7 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
                   id={models.players.fields.lastName}
                   name={models.players.fields.lastName}
                   component={FormTextField}
-                  label={'Last Name'}
+                  label='Last Name'
                   disabled={loading}
                   className={classes.input}
                   required
@@ -153,7 +143,7 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
                   id={models.players.fields.email}
                   name={models.players.fields.email}
                   component={FormTextField}
-                  label={'Email'}
+                  label='Email'
                   disabled={loading}
                   className={classes.input}
                   required
@@ -165,8 +155,8 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
                   id={models.players.fields.password}
                   name={models.players.fields.password}
                   component={FormTextField}
-                  label={'Password'}
-                  type={'password'}
+                  label='Password'
+                  type='password'
                   disabled={loading}
                   className={classes.input}
                   required
@@ -178,7 +168,7 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
                   id='repeatPassword'
                   name='repeatPassword'
                   component={FormTextField}
-                  label={'Repeat password'}
+                  label='Repeat password'
                   type='password'
                   disabled={loading}
                   className={classes.lastInput}
@@ -187,7 +177,7 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
               </div>
             </div>
           </CardContent>
-          <CardActions style={{ flexDirection: 'column' }} >
+          <CardActions style={{ flexDirection: 'column' }}>
             <Button
               variant='contained'
               type='submit'
@@ -197,17 +187,17 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
             >
               {
                 loading &&
-                <div className={classes.loadingBar} >
-                  <CircularProgress size={15} thickness={2} />
-                </div>
+                  <div className={classes.loadingBar}>
+                    <CircularProgress size={15} thickness={2} />
+                  </div>
               }
               Sign Up
             </Button>
             <Typography
               component={Link}
-              to={'/login'}
+              to='/login'
               className={classes.linkToLog}
-              variant={'caption'}
+              variant='caption'
             >
               I have an account
             </Typography>

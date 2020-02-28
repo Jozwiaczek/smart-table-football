@@ -33,12 +33,14 @@ const styles = {
   }
 }
 
+const goBack = history => history.goBack
+
 const ShowActions = ({ history }) => (
   <TopToolbar>
     <Button
       color='primary'
       label='Back'
-      onClick={history.goBack}
+      onClick={goBack(history)}
     >
       <ChevronLeft />
     </Button>
@@ -51,13 +53,16 @@ const MatchField = ({ teams, ...rest }) => {
   const match = rest.record
   const teamA = teams.find(team => team.id === match[models.matches.fields.teamA])
   const teamB = teams.find(team => team.id === match[models.matches.fields.teamB])
-  return <FunctionField label='Name' reference={match.id} render={() =>
-    <>
-      <ChipField record={teamA} source={models.teams.fields.name} />
+  return (
+    <FunctionField
+      label='Name' reference={match.id} render={() =>
+        <>
+          <ChipField record={teamA} source={models.teams.fields.name} />
       vs
-      <ChipField record={teamB} source={models.teams.fields.name} />
-    </>
-  } />
+          <ChipField record={teamB} source={models.teams.fields.name} />
+        </>}
+    />
+  )
 }
 
 const ReplayField = ({ record, classes }) => {
@@ -108,13 +113,13 @@ const GoalShow = ({
         .then(result => result.data))
     }
     getTeams()
-  }, [])
+  }, [dataProvider])
 
   return (
     <Show
       {...rest}
       actions={<ShowActions history={history} />}
-      title={'Goal Show'}
+      title='Goal Show'
     >
       <TabbedShowLayout>
         <Tab

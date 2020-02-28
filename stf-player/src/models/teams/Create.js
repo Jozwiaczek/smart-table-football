@@ -3,33 +3,20 @@ import compose from 'recompose/compose'
 
 import {
   Create,
+  ListButton,
+  RadioButtonGroupInput,
+  ReferenceArrayInput,
+  required,
+  SelectArrayInput,
   SimpleForm,
   TextInput,
-  TopToolbar,
-  ListButton,
-  required,
-  ReferenceArrayInput,
-  SelectArrayInput,
-  RadioButtonGroupInput, Link
+  TopToolbar
 } from 'react-admin'
-
-import { Field, Form } from 'react-final-form'
-
-import {
-  CardActions,
-  Button,
-  TextField,
-  CircularProgress,
-  CardContent
-} from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import PersonIcon from '@material-ui/icons/Person'
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
 
-import {
-  constants,
-  models
-} from 'stf-core'
+import { constants, models } from 'stf-core'
 
 const styles = {
   form: {
@@ -69,20 +56,6 @@ const Test = ({ choices, input, ...rest }) => {
 }
 
 const FullNameField = ({ record }) => record.name === 'single' ? <PersonIcon /> : <PeopleAltIcon />
-
-const Input = ({
-  meta: { touched, error }, // eslint-disable-line react/prop-types
-  input: inputProps, // eslint-disable-line react/prop-types
-  ...props
-}) => (
-  <TextField
-    error={!!(touched && error)}
-    helperText={touched && error}
-    {...inputProps}
-    {...props}
-    fullWidth
-  />
-)
 
 // const TeamCreate = ({ classes, ...rest }) => {
 //   const [loading, setLoading] = React.useState(false)
@@ -142,7 +115,7 @@ const TeamCreate = (props) => {
     <Create
       {...props}
       actions={<CreateActions />}
-      title={'Team Create'}
+      title='Team Create'
     >
       <SimpleForm>
         <RadioButtonGroupInput
@@ -161,7 +134,7 @@ const TeamCreate = (props) => {
           source={models.teams.fields.players}
           reference={constants.resources.players}
           validate={required()}
-          label={'Team mate'}
+          label='Team mate'
           sort={{
             field: models.players.fields.email,
             order: 'ASC'

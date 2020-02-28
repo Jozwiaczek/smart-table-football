@@ -6,8 +6,8 @@ import {
   withStyles,
   TextField
 } from '@material-ui/core'
-import VisibilityIcon from '@material-ui/icons/Visibility'
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
+import Visibility from '@material-ui/icons/Visibility'
+import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 const styles = () => ({
   eye: {
@@ -27,6 +27,25 @@ const PasswordInput = ({
     setPasswordIsMasked(!passwordIsMasked)
   }
 
+  const VisibilityIcon = () => {
+    if (passwordIsMasked) {
+      return (
+        <Visibility
+          className={classes.eye}
+          onClick={togglePasswordMask}
+          color='primary'
+        />
+      )
+    }
+    return (
+      <VisibilityOff
+        className={classes.eye}
+        onClick={togglePasswordMask}
+        color='primary'
+      />
+    )
+  }
+
   return (
     <TextField
       error={!!(touched && error)}
@@ -35,18 +54,7 @@ const PasswordInput = ({
       InputProps={{
         endAdornment: (
           <InputAdornment position='end'>
-            {passwordIsMasked
-              ? <VisibilityIcon
-                className={classes.eye}
-                onClick={togglePasswordMask}
-                color={'primary'}
-              />
-              : <VisibilityOffIcon
-                className={classes.eye}
-                onClick={togglePasswordMask}
-                color={'primary'}
-              />
-            }
+            <VisibilityIcon />
           </InputAdornment>
         )
       }}

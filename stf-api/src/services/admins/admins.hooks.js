@@ -2,16 +2,16 @@ const {
   hashPassword, protect
 } = require('@feathersjs/authentication-local').hooks
 
-const { models } = require('../../../../stf-core')
+const { models } = require('stf-core')
 
 module.exports = {
   before: {
     all: [],
     find: [],
     get: [],
-    create: [ hashPassword(models.admins.fields.password) ],
-    update: [ hashPassword(models.admins.fields.password) ],
-    patch: [ hashPassword(models.admins.fields.password) ],
+    create: [hashPassword(models.admins.fields.password)],
+    update: [hashPassword(models.admins.fields.password)],
+    patch: [hashPassword(models.admins.fields.password)],
     remove: []
   },
 

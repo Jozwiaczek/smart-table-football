@@ -3,7 +3,7 @@
 const { authenticate } = require('@feathersjs/authentication').hooks
 const { NotAuthenticated, NotFound } = require('@feathersjs/errors')
 
-const { constants } = require('../../../stf-core')
+const { constants } = require('stf-core')
 
 function hasToken (hook) {
   return hook.params.headers[constants.authorizationHeaders.player] ||
@@ -15,9 +15,9 @@ function hasToken (hook) {
 module.exports = function (options = {}) {
   return async context => {
     try {
-      let strategy = constants.authStrategies.jwtAdmin
-      if (context.params.headers[constants.authorizationHeaders.player]) {
-        strategy = constants.authStrategies.jwtPlayer
+      let strategy = constants.authStrategies.jwtPlayer
+      if (context.params.headers[constants.authorizationHeaders.admin]) {
+        strategy = constants.authStrategies.jwtAdmin
       }
       return await authenticate(strategy)(context)
     } catch (error) {

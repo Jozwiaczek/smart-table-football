@@ -52,9 +52,9 @@ export const Filters = (props) => (
 
 const ShowStatistic = ({ classes, record, history, mobile }) => {
   return (
-    <Button color={'primary'} onClick={() => history.push(`/${constants.resources.matches}/${record._id}`)}>
+    <Button color='primary' onClick={() => history.push(`/${constants.resources.matches}/${record._id}`)}>
       <AssessmentIcon className={classes.buttonIcon} />
-      { mobile ? null : 'Statistic'}
+      {mobile ? null : 'Statistic'}
     </Button>
   )
 }
@@ -62,9 +62,9 @@ const ShowStatistic = ({ classes, record, history, mobile }) => {
 const ContinueButton = ({ classes, record, history, mobile }) => {
   if (record[models.matches.fields.status] === constants.statusMatch.paused) {
     return (
-      <Button color={'primary'} onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}>
+      <Button color='primary' onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}>
         <SlowMotionVideoIcon className={classes.buttonIcon} />
-        { mobile ? null : 'Continue'}
+        {mobile ? null : 'Continue'}
       </Button>
     )
   }
@@ -104,7 +104,7 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
       }
     }
     call()
-  }, [])
+  }, [dataProvider])
 
   return (
     <List
@@ -136,14 +136,14 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
             <ReferenceField
               source={models.matches.fields.teamA}
               reference={constants.resources.teams}
-              label={'Team A'}
+              label='Team A'
             >
               <TextField source={models.teams.fields.name} />
             </ReferenceField>
             <ReferenceField
               source={models.matches.fields.teamB}
               reference={constants.resources.teams}
-              label={'Team B'}
+              label='Team B'
             >
               <TextField source={models.teams.fields.name} />
             </ReferenceField>
@@ -154,12 +154,14 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
               <TextField source={models.teams.fields.name} />
             </ReferenceField>
             <TextField source={models.matches.fields.status} />
-            <FunctionField source={models.matches.fields.elapsedTime} label={'Time'} render={record => {
-              const elapsedTime = record[models.matches.fields.elapsedTime]
-              return (
-                `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
-              )
-            }} />
+            <FunctionField
+              source={models.matches.fields.elapsedTime} label='Time' render={record => {
+                const elapsedTime = record[models.matches.fields.elapsedTime]
+                return (
+                  `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
+                )
+              }}
+            />
             <DateField source='createdAt' showTime />
             <ContinueButton classes={classes} {...rest} />
             <ShowStatistic classes={classes} {...rest} />

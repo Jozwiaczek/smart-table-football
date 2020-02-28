@@ -1,13 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Typography
-} from '@material-ui/core'
+import { Card, CardActions, CardContent, CardHeader, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -26,20 +19,20 @@ const CardStatistic = ({ title, actions, children }) => {
     <Card className={classes.root}>
       {
         title &&
-        <CardHeader
-          title={title}
-        />
+          <CardHeader
+            title={title}
+          />
       }
       <CardContent>
-        <Typography variant={'body1'}>
+        <Typography variant='body1'>
           {children}
         </Typography>
       </CardContent>
       {
         actions &&
-        <CardActions>
-          {actions}
-        </CardActions>
+          <CardActions>
+            {actions}
+          </CardActions>
       }
     </Card>
   )

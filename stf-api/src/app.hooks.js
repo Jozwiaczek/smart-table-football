@@ -5,7 +5,7 @@ const { iff } = require('feathers-hooks-common')
 
 const authenticate = require('./hooks/authenticate')
 
-const { constants } = require('../../stf-core')
+const { constants } = require('stf-core')
 
 module.exports = {
   before: {
