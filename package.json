@@ -9,7 +9,9 @@
     "stf-api",
     "stf-core",
     "stf-player",
-    "stf-admin"
+    "stf-admin",
+    "stf-rasp",
+    "stf-admin-desktop"
   ],
   "scripts": {
     "heroku-postbuild": "yarn install",
