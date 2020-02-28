@@ -104,7 +104,7 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
       }
     }
     call()
-  }, [])
+  }, [dataProvider])
 
   return (
     <List

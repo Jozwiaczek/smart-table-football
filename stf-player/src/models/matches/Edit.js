@@ -80,7 +80,7 @@ const MatchEdit = ({ dataProvider, ...props }) => {
       }
     }
     getTeams()
-  }, [match])
+  }, [match, dataProvider])
 
   const SetCurrentMatch = ({ record }) => {
     setMatch(record)

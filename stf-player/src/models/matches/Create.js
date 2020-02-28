@@ -14,8 +14,6 @@ import {
   SimpleForm,
   Toolbar,
   TopToolbar,
-  useNotify,
-  useRedirect,
   withDataProvider
 } from 'react-admin'
 
@@ -39,12 +37,7 @@ const CreateActions = ({ basePath }) => (
   </TopToolbar>
 )
 
-const CreateMatchButton = ({ dataProvider, history, ...props }) => {
-  const redirectTo = useRedirect()
-  const notify = useNotify()
-  const { redirect, basePath } = props
-
-  // const form = useForm()
+const CreateMatchButton = ({ dataProvider, history, resource }) => {
   const formState = useFormState()
 
   const handleClick = useCallback(async () => {
@@ -52,15 +45,14 @@ const CreateMatchButton = ({ dataProvider, history, ...props }) => {
       return
     }
 
-    const newMatch = await dataProvider(CREATE, props.resource, { data: formState.values })
+    const newMatch = await dataProvider(CREATE, resource, { data: formState.values })
     history.push({ pathname: '/inGame', search: `?match=${newMatch.data._id}` })
   }, [
+    dataProvider,
+    history,
+    resource,
     formState.valid,
-    formState.values,
-    notify,
-    redirectTo,
-    redirect,
-    basePath
+    formState.values
   ])
 
   return (
@@ -90,7 +82,7 @@ const TeamSelect = ({ type, choices, ...rest }) => {
       return isUserTeam
     } else if (type === 'opponent') {
       return !isUserTeam
-    }
+    } else return null
   })
   return (
     <SelectInput optionText={models.teams.fields.name} choices={filteredChoices} {...rest} />
@@ -136,9 +128,7 @@ const MatchCreate = (props) => (
         defaultValue={4}
         options={{
           InputProps: {
-            endAdornment: <InputAdornment position='start'>
-              seconds
-            </InputAdornment>
+            endAdornment: <InputAdornment position='start'>seconds</InputAdornment>
           }
         }}
       />

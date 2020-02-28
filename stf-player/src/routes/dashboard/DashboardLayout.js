@@ -76,7 +76,7 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
       }
     }
     call()
-  }, [])
+  }, [dataProvider])
 
   if (!player || !goals) {
     return null

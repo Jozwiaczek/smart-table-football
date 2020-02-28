@@ -205,7 +205,7 @@ const InGame = ({ history, classes, dataProvider }) => {
       }
     }
     call()
-  }, [])
+  }, [dataProvider, matchId])
 
   if (!theme || !teamA || !teamB) {
     return null
