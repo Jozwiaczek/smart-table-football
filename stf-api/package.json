@@ -2,6 +2,7 @@
   "name": "stf-api",
   "description": "Smart Table Football API",
   "version": "0.0.1",
+  "license": "MIT",
   "homepage": "",
   "main": "src",
   "keywords": [
