@@ -6,7 +6,7 @@ export default {
       delete: 'delete'
     },
     resources: {
-      clients: {
+      players: {
         notification: {
           appendImage: {
             profilePicture: {
@@ -42,30 +42,15 @@ export default {
               failure: 'Appending profile picture failed'
             }
           },
-          clientAuthManagement: {
+          playerAuthManagement: {
             success: {
-              clientAuthManagement: 'Auth management action success',
+              playerAuthManagement: 'Auth management action success',
               sendResetPwd: 'Send password rest to %{email}',
               verifySignupShort: 'Verification successful',
               verifySignupLong: 'Verification successful'
             },
             failure: {
-              clientAuthManagement: 'Auth management action failure',
-              sendResetPwd: 'Failed to send password reset',
-              verifySignupShort: 'Verification failed',
-              verifySignupLong: 'Verification failed'
-
-            }
-          },
-          trainerAuthManagement: {
-            success: {
-              clientAuthManagement: 'Auth management action success',
-              sendResetPwd: 'Send password rest to %{email}',
-              verifySignupShort: 'Verification successful',
-              verifySignupLong: 'Verification successful'
-            },
-            failure: {
-              clientAuthManagement: 'Auth management action failure',
+              playerAuthManagement: 'Auth management action failure',
               sendResetPwd: 'Failed to send password reset',
               verifySignupShort: 'Verification failed',
               verifySignupLong: 'Verification failed'

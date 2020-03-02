@@ -10,7 +10,7 @@ export default function parsMongoDbRegexQueries (queryType = '$regex', field = '
             const q = context.params.query[key]
             context.params.query[key] = {
               ...q,
-              '$options': 'i'
+              $options: 'i'
             }
           }
         )

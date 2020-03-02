@@ -11,6 +11,7 @@ const styles = {
     width: '100%'
   }
 }
+// todo add possibility to change password
 
 const _PlayerEdit = (props) => (
   <Edit
@@ -46,7 +47,7 @@ const _PlayerEdit = (props) => (
       {/*  <ButtonInput */}
       {/*    label='resources.users.actions.verifySignupLong.label' */}
       {/*    buttonLabel='resources.users.actions.verifySignupLong.buttonLabel' */}
-      {/*    action={clientAuthManagementActionFactory('verifySignupLong', (id, data) => ({ */}
+      {/*    action={playerAuthManagementActionFactory('verifySignupLong', (id, data) => ({ */}
       {/*      value: data[models.players.fields.verifyToken] || '' */}
       {/*    }))} */}
       {/*  > */}
@@ -55,7 +56,7 @@ const _PlayerEdit = (props) => (
       {/*  <ButtonInput */}
       {/*    label='resources.users.actions.verifySignupShort.label' */}
       {/*    buttonLabel='resources.users.actions.verifySignupShort.buttonLabel' */}
-      {/*    action={clientAuthManagementActionFactory('verifySignupShort', (id, data) => ({ */}
+      {/*    action={playerAuthManagementActionFactory('verifySignupShort', (id, data) => ({ */}
       {/*      value: { */}
       {/*        user: { */}
       {/*          email: data[models.players.fields.email] */}
@@ -74,7 +75,7 @@ const _PlayerEdit = (props) => (
       {/*  <ButtonInput */}
       {/*    label='resources.users.actions.sendResetPwd.label' */}
       {/*    buttonLabel='resources.users.actions.sendResetPwd.buttonLabel' */}
-      {/*    action={clientAuthManagementActionFactory('sendResetPwd', (id, data) => ({ */}
+      {/*    action={playerAuthManagementActionFactory('sendResetPwd', (id, data) => ({ */}
       {/*      value: { */}
       {/*        email: data[models.players.fields.email] */}
       {/*      } */}

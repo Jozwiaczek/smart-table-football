@@ -34,6 +34,12 @@ module.exports = function (app) {
     timestamps: true
   })
 
+  players.index({
+    [models.players.fields.email]: 1
+  }, {
+    unique: true
+  })
+
   const model = mongooseClient.model(models.players.name, players)
 
   model.ensureIndexes((err) => {

@@ -35,14 +35,14 @@ const MatchCreate = (props) => (
   <Create
     {...props}
     actions={<CreateActions />}
-    title={'Match Create'}
+    title='Match Create'
   >
     <SimpleForm>
       <ReferenceInput
         source={models.matches.fields.teamA}
         reference={constants.resources.teams}
         validate={required()}
-        label={'Team A'}
+        label='Team A'
         sort={{
           field: models.teams.fields.name,
           order: 'ASC'
@@ -55,7 +55,7 @@ const MatchCreate = (props) => (
         source={models.matches.fields.teamB}
         reference={constants.resources.teams}
         validate={[required()]}
-        label={'Team B'}
+        label='Team B'
         sort={{
           field: models.teams.fields.name,
           order: 'ASC'
@@ -76,7 +76,7 @@ const MatchCreate = (props) => (
         default={7}
         options={{
           InputProps: {
-            endAdornment: <InputAdornment position={'start'}>
+            endAdornment: <InputAdornment position='start'>
               seconds
             </InputAdornment>
           }

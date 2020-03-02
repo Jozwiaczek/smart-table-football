@@ -24,7 +24,7 @@ const styles = {
   }
 }
 
-const BackgroundGraphic = ({ classes, children, graphic }) => (
+const BackgroundGraphic = ({ classes, children, graphic, className }) => (
   <Responsive
     small={
       <>
@@ -34,7 +34,7 @@ const BackgroundGraphic = ({ classes, children, graphic }) => (
     medium={
       <>
         {React.cloneElement(graphic, { className: classes.graphic })}
-        <div className={classes.children}>
+        <div className={classes.children && className}>
           {children}
         </div>
       </>

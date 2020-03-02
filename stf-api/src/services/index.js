@@ -5,6 +5,8 @@ const matches = require('./matches/matches.service.js')
 const teams = require('./teams/teams.service.js')
 const playerAuthManagement = require('./player-auth-management/player-auth-management.service.js')
 
+const mailer = require('./mailer/mailer.service.js')
+
 module.exports = function (app) {
   app.configure(players)
   app.configure(playerAuthManagement)
@@ -12,4 +14,5 @@ module.exports = function (app) {
   app.configure(goals)
   app.configure(matches)
   app.configure(teams)
+  app.configure(mailer)
 }
