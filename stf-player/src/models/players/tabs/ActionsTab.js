@@ -3,29 +3,32 @@ import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 
 import {
-  TextInput,
-  FormTab,
+  CREATE,
   DELETE,
-  userLogout,
-  showNotification,
-  withDataProvider,
   FormDataConsumer,
-  REDUX_FORM_NAME,
-  CREATE
+  FormTab,
+  showNotification,
+  TextInput,
+  userLogout,
+  withDataProvider
 } from 'react-admin'
 
-import { Button } from '@material-ui/core'
+import { Button, CircularProgress } from '@material-ui/core'
 import Security from '@material-ui/icons/Security'
 
-import { models, constants } from '@sbody/sbody-core'
+import { constants, models } from 'stf-core'
 import ConfirmDeleteButton from '../../../elements/ConfirmDeleteButton'
 import SectionTitle from '../../../elements/SectionTitle'
 import ValidateEmailButton from './../components/ValidateEmailButton'
 
-const changePasswordRender = ({ dataProvider, classes, showNotification, reduxForm, loading }) => ({ formData, record }) => {
+const changePasswordRender = ({ dataProvider, classes, showNotification, loading }) => ({ formData, record }) => {
+  const [isLoading, setIsLoading] = React.useState(false)
+
   const changePassword = async () => {
     try {
-      await dataProvider(CREATE, constants.resources.clientAuthManagement, {
+      setIsLoading(true)
+
+      await dataProvider(CREATE, constants.resources.playerAuthManagement, {
         data: {
           action: 'passwordChange',
           value: {
@@ -35,36 +38,37 @@ const changePasswordRender = ({ dataProvider, classes, showNotification, reduxFo
           }
         }
       })
-      showNotification('resources.clients.notification.saveChanges.success', 'info')
+      showNotification('resources.players.notification.saveChanges.success', 'info')
     } catch (e) {
       showNotification(e.message, 'warning')
+    } finally {
+      setIsLoading(false)
     }
   }
-  const recordForm = reduxForm[REDUX_FORM_NAME]
-  let syncErrors = {}
-  if (recordForm) {
-    syncErrors = recordForm.syncErrors
-  }
+
   return (
     <Button
       variant={'contained'}
       color={'primary'}
       onClick={changePassword}
       className={classes.buttonContained}
-      disabled={!!syncErrors || loading}
+      disabled={loading || isLoading}
     >
-      <Security className={classes.buttonIcon} />
+      {isLoading
+        ? <div className={classes.loadingBar}>
+          <CircularProgress size={17} thickness={2} />
+        </div>
+        : <Security className={classes.buttonIcon} style={{ marginRight: '0.5rem' }} />
+      }
       Change Password
     </Button>
   )
 }
 
 const ActionTab = ({
-  theme,
   classes,
   dataProvider,
-  client,
-  reduxForm,
+  player,
   loading,
   showNotification,
   hasList,
@@ -76,8 +80,8 @@ const ActionTab = ({
   basePath,
   ...rest
 }) => (
-  <FormTab style={{ color: theme.palette.text.primary }} label={'Actions'} {...rest}>
-    <SectionTitle variant='body2' className={classes.sectionTitle} >
+  <FormTab label={'Actions'} {...rest}>
+    <SectionTitle className={classes.sectionTitle} >
       Change password
     </SectionTitle>
     <TextInput
@@ -85,27 +89,29 @@ const ActionTab = ({
       type='password'
     />
     <TextInput
-      source={models.clients.fields.password}
+      source={models.players.fields.password}
       type='password'
+      label='New password'
     />
     <TextInput
-      source='Confirm password'
+      source='confirmPassword'
       type='password'
+      label='Confirm new password'
     />
     <FormDataConsumer classes={classes}>
-      {changePasswordRender({ dataProvider, classes, showNotification, reduxForm, loading })}
+      {changePasswordRender({ dataProvider, classes, showNotification, loading })}
     </FormDataConsumer>
-    <ValidateEmailButton dataProvider={dataProvider} client={client} classes={classes} showNotification={showNotification} />
-    <SectionTitle variant='body2' className={classes.sectionTitle} >
+    <ValidateEmailButton dataProvider={dataProvider} player={player} classes={classes} showNotification={showNotification} />
+    <SectionTitle className={classes.sectionTitle} >
       Delete account
     </SectionTitle>
     <ConfirmDeleteButton
       {...rest}
       label={'Delete account'}
       variant={'contained'}
-      className={classes.buttonContained}
+      className={classes.buttonContained && classes.deleteAccountBtn}
       onConfirm={async record => {
-        await dataProvider(DELETE, constants.resources.clients, {
+        await dataProvider(DELETE, constants.resources.players, {
           id: record._id
         })
         userLogout()
@@ -120,7 +126,6 @@ const matchStateToProps = {
 }
 
 const mapStateToProps = state => ({
-  reduxForm: state.form,
   loading: state.admin.loading
 })
 

@@ -8,11 +8,10 @@ export default {
     resources: {
       players: {
         notification: {
-          appendImage: {
-            profilePicture: {
-              success: 'Appending profile picture successful',
-              failure: 'Appending profile picture failed'
-            }
+          removeAccount: 'Account deleted',
+          saveChanges: {
+            success: 'Saving changes successful',
+            failure: 'Saving changes failed'
           }
         }
       },

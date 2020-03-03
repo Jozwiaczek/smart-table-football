@@ -1,44 +1,55 @@
-import { constants, models } from '@sbody/sbody-core'
+import { constants, models } from 'stf-core'
 import React from 'react'
-import { Button } from '@material-ui/core'
+import { Button, CircularProgress } from '@material-ui/core'
 import Send from '@material-ui/icons/Send'
 import SectionTitle from '../../../elements/SectionTitle'
 
-const _sendVerificationEmail = async (dataProvider, client, showNotification) => {
+const _sendVerificationEmail = async (dataProvider, player, showNotification, setIsLoading) => {
   try {
-    await dataProvider('CREATE', constants.resources.clientAuthManagement, {
+    setIsLoading(true)
+    await dataProvider('CREATE', constants.resources.playerAuthManagement, {
       data: {
         action: 'resendVerifySignup',
         value: {
-          email: client[models.clients.fields.email],
-          trainerSite: client[models.clients.fields.trainerSite]
+          email: player[models.players.fields.email],
+          trainerSite: player[models.players.fields.trainerSite]
         }
       }
     })
     showNotification('Verification email sent', 'info')
   } catch (e) {
     showNotification('Verification email not sent', 'warning')
-    console.log('e ===', e)
+    console.error(e)
+  } finally {
+    setIsLoading(false)
   }
 }
 
-const ValidateEmailButton = ({ dataProvider, client, classes, showNotification }) => {
-  if (client[models.authManagementSchema.isVerified]) {
+const ValidateEmailButton = ({ dataProvider, player, classes, showNotification }) => {
+  const [isLoading, setIsLoading] = React.useState(false)
+
+  if (player[models.authManagementSchema.isVerified]) {
     return null
   }
 
   return (
     <>
-      <SectionTitle variant='body2' className={classes.sectionTitle} >
+      <SectionTitle className={classes.sectionTitle} >
         Validate your email
       </SectionTitle>
       <Button
         className={classes.buttonContained}
-        onClick={() => _sendVerificationEmail(dataProvider, client, showNotification)}
+        onClick={() => _sendVerificationEmail(dataProvider, player, showNotification, setIsLoading)}
         variant={'contained'}
         color={'primary'}
+        disabled={isLoading}
       >
-        <Send style={{ marginRight: '0.5rem' }} />
+        {isLoading
+          ? <div className={classes.loadingBar}>
+            <CircularProgress size={17} thickness={2} />
+          </div>
+          : <Send style={{ marginRight: '0.5rem' }} />
+        }
         send verification email
       </Button>
     </>

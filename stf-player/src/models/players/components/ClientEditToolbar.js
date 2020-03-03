@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
-import { constants } from '@sbody/sbody-core'
+import { constants } from 'stf-core'
 import ContentSave from '@material-ui/icons/Save'
-import {
-  Toolbar,
-  Mutation,
-  FormDataConsumer
-} from 'react-admin'
+import { FormDataConsumer, Mutation, Toolbar } from 'react-admin'
 import { Button } from '@material-ui/core'
 
 class ClientEditToolbar extends Component {

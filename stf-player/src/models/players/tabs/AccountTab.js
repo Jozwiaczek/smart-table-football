@@ -1,17 +1,10 @@
 import React from 'react'
 
-import {
-  TextField,
-  TextInput,
-  BooleanInput,
-  FormTab,
-  required
-} from 'react-admin'
+import { DateField, FormTab, required, TextField, TextInput } from 'react-admin'
 
-import { models } from '@sbody/sbody-core'
+import { models } from 'stf-core'
 
 const AccountTab = ({
-  theme,
   classes,
   trainerSite,
   hasList,
@@ -21,21 +14,19 @@ const AccountTab = ({
   basePath,
   ...rest
 }) => (
-  <FormTab style={{ color: theme.palette.text.primary }} label={'Account details'} {...rest} >
+  <FormTab label={'Account details'} {...rest} >
     <TextInput
-      source={models.clients.fields.email}
+      source={models.players.fields.email}
       type='email'
       validate={required()}
       disabled
-      helperText={`To change your email contact: ${trainerSite && trainerSite.email}`}
+      helperText={`To change your email contact: support@stf.io`}
     />
     <TextField
-      source={models.clients.fields.status}
+      source={models.players.fields.status}
     />
-    <BooleanInput
-      source={models.clients.fields.useCalories}
-      label={'Use calories'}
-    />
+    <DateField source='createdAt' showTime />
+    <DateField source='updatedAt' showTime />
   </FormTab>
 )
 
