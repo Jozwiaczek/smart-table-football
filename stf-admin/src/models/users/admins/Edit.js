@@ -35,7 +35,7 @@ const AdminEdit = (props) => (
     {...props}
     actions={<EditActions />}
     undoable={false}
-    title={'Admin Edit'}
+    title='Admin Edit'
   >
     <TabbedForm
       redirect={false}

@@ -1,6 +1,6 @@
 /* global localStorage */
 import React from 'react'
-import { Admin, Resource, withDataProvider, GET_ONE } from 'react-admin'
+import { Admin, GET_ONE, Resource, withDataProvider } from 'react-admin'
 import { authClient } from 'ra-data-feathers'
 import englishMessages from 'ra-language-english'
 import polyglotI18nProvider from 'ra-i18n-polyglot'
@@ -19,34 +19,12 @@ import domainMessages from './i18n'
 import { defaultTheme } from './themes'
 import { getAdminId } from './utils/getAdminId'
 
-import {
-  AdminCreate,
-  AdminEdit,
-  AdminsList
-} from './models/users/admins'
-
-import {
-  PlayerCreate,
-  PlayerEdit,
-  PlayersList
-} from './models/users/players'
-
-import {
-  TeamsList,
-  TeamCreate,
-  TeamEdit
-} from './models/teams'
-
-import {
-  MatchList,
-  MatchCreate,
-  MatchEdit
-} from './models/matches'
-
-import {
-  GoalsList,
-  GoalShow
-} from './models/goals'
+import { AdminCreate, AdminEdit, AdminsList } from './models/users/admins'
+import { PlayerCreate, PlayerEdit, PlayersList } from './models/users/players'
+import { TeamCreate, TeamEdit, TeamsList } from './models/teams'
+import { MatchCreate, MatchEdit, MatchList } from './models/matches'
+import { GoalShow, GoalsList } from './models/goals'
+import { MailerCreate } from './models/mailer'
 
 const authClientOptions = {
   storageKey: constants.storageKey, // The key in localStorage used to store the authentication token
@@ -122,6 +100,11 @@ const App = () => (
       icon={SportsSoccer}
       list={GoalsList}
       show={GoalShow}
+    />
+    {/* Add posibility to create mail */}
+    <Resource
+      name={constants.resources.mailer}
+      create={MailerCreate}
     />
     <GetAdmin />
   </Admin>

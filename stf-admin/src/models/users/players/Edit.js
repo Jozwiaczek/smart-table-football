@@ -32,7 +32,7 @@ import {
 } from 'stf-core'
 
 import { getChoices } from '../../../enum'
-import clientAuthManagementActionFactory from '../../../actions/clientAuthManagement'
+import playerAuthManagementActionFactory from '../../../actions/playerAuthManagement'
 import ButtonInput from '../../../elements/ButtonInput'
 
 const styles = {
@@ -53,7 +53,7 @@ const PlayerEdit = (props) => (
     {...props}
     actions={<EditActions />}
     undoable={false}
-    title={'Player Edit'}
+    title='Player Edit'
   >
     <TabbedForm
       redirect={false}
@@ -87,7 +87,7 @@ const PlayerEdit = (props) => (
         <ButtonInput
           label='resources.users.actions.verifySignupLong.label'
           buttonLabel='resources.users.actions.verifySignupLong.buttonLabel'
-          action={clientAuthManagementActionFactory('verifySignupLong', (id, data) => ({
+          action={playerAuthManagementActionFactory('verifySignupLong', (id, data) => ({
             value: data[models.players.fields.verifyToken] || ''
           }))}
         >
@@ -96,7 +96,7 @@ const PlayerEdit = (props) => (
         <ButtonInput
           label='resources.users.actions.verifySignupShort.label'
           buttonLabel='resources.users.actions.verifySignupShort.buttonLabel'
-          action={clientAuthManagementActionFactory('verifySignupShort', (id, data) => ({
+          action={playerAuthManagementActionFactory('verifySignupShort', (id, data) => ({
             value: {
               user: {
                 email: data[models.players.fields.email]
@@ -115,7 +115,7 @@ const PlayerEdit = (props) => (
         <ButtonInput
           label='resources.users.actions.sendResetPwd.label'
           buttonLabel='resources.users.actions.sendResetPwd.buttonLabel'
-          action={clientAuthManagementActionFactory('sendResetPwd', (id, data) => ({
+          action={playerAuthManagementActionFactory('sendResetPwd', (id, data) => ({
             value: {
               email: data[models.players.fields.email]
             }

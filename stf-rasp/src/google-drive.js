@@ -28,7 +28,7 @@ const createPermissions = (fileId, role, type) => new Promise((resolve, reject) 
 
 const uploadFile = (fileName) => new Promise((resolve, reject) => {
   const fileMetadata = {
-    'name': fileName + '.mp4'
+    name: fileName + '.mp4'
   }
   const media = {
     mimeType: 'video/mp4',

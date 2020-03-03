@@ -7,7 +7,8 @@ import {
   Button,
   TextField,
   CircularProgress,
-  CardContent
+  CardContent,
+  Typography
 } from '@material-ui/core'
 import { withStyles, createStyles } from '@material-ui/core/styles'
 import { useTranslate, useLogin, useNotify, useSafeSetState } from 'ra-core'
@@ -145,9 +146,9 @@ const LoginForm = ({ classes, redirectTo }) => {
             >
               Sign Up
             </Button>
-            {/* <Typography className={classes.resetLink} component={Link} to='/passwordReset' variant={'caption'}> */}
-            {/*  I don't remember my password */}
-            {/* </Typography> */}
+            <Typography className={classes.resetLink} component={Link} to='/passwordReset' variant='caption'>
+              I don't remember my password
+            </Typography>
           </CardActions>
         </form>
       )}

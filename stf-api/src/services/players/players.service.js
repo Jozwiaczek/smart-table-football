@@ -3,9 +3,7 @@ const createService = require('feathers-mongoose')
 const createModel = require('../../models/users/players.model')
 const hooks = require('./players.hooks')
 
-const {
-  constants
-} = require('stf-core')
+const { constants } = require('stf-core')
 
 module.exports = function (app) {
   const Model = createModel(app)

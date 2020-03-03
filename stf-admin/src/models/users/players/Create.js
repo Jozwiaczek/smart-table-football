@@ -29,7 +29,7 @@ const PlayerCreate = (props) => (
   <Create
     {...props}
     actions={<CreateActions />}
-    title={'Player Create'}
+    title='Player Create'
   >
     <SimpleForm>
       <TextInput

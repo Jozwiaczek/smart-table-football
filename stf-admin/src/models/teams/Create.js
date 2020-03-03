@@ -26,7 +26,7 @@ const TeamCreate = (props) => (
   <Create
     {...props}
     actions={<CreateActions />}
-    title={'Team Create'}
+    title='Team Create'
   >
     <SimpleForm>
       <TextInput
@@ -37,7 +37,7 @@ const TeamCreate = (props) => (
         source={models.teams.fields.players}
         reference={constants.resources.players}
         validate={required()}
-        label={'Players'}
+        label='Players'
         sort={{
           field: models.players.fields.email,
           order: 'ASC'

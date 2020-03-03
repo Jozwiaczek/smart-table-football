@@ -1,92 +1,111 @@
 import React from 'react'
+import compose from 'recompose/compose'
+import { connect } from 'react-redux'
 
-import { DateField, Edit, FormTab, required, TabbedForm, TextInput } from 'react-admin'
+import { Edit, TabbedForm } from 'react-admin'
 
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core'
 
 import { models } from 'stf-core'
+import ClientEditToolbar from './components/ClientEditToolbar'
+import { getPlayerId } from '../../utils/getPlayerId'
+import ActionTab from './tabs/ActionsTab'
+import PersonalTab from './tabs/PersonalTab'
+import AccountTab from './tabs/AccountTab'
 
-const styles = {
-  fullWidth: {
-    width: '100%'
+const styles = () => ({
+  buttonContained: {
+    marginBottom: '1rem',
+    width: '16rem',
+    fontSize: '0.85rem'
+  },
+  sectionTitle: {
+    textAlign: 'bottom'
+  },
+  deleteAccountBtn: {
+    marginBottom: '3rem'
+  },
+  loadingBar: {
+    marginRight: '0.5rem',
+    display: 'flex',
+    alignItems: 'center'
   }
+})
+
+const validatePasswordChange = (values) => {
+  const errors = {}
+  if (!values[models.players.fields.password]) {
+    errors[models.players.fields.password] = 'Required'
+  } else if (values[models.players.fields.password].length < 6) {
+    errors[models.players.fields.password] = 'Password must contain at least 6 characters'
+  } else if (values[models.players.fields.password] !== values['confirmPassword']) {
+    errors['Confirm password'] = 'Password must be the same as above'
+  }
+
+  if (!values['oldPassword']) {
+    errors['oldPassword'] = 'Required'
+  }
+
+  if (!values['confirmPassword']) {
+    errors['Confirm password'] = 'Required'
+  }
+
+  return errors
 }
 
-const _PlayerEdit = (props) => (
-  <Edit
-    {...props}
-    actions={null}
-    title='Profile'
-  >
-    <TabbedForm
-      redirect={false}
+const _PlayerEdit = ({
+  location,
+  classes,
+  players,
+  loading,
+  ...props
+}) => {
+  if (!players || !players.data) {
+    return null
+  }
+  const player = players.data[getPlayerId()]
+
+  return (
+    <Edit
+      title='Profile'
+      actions={null}
+      {...props}
     >
-      <FormTab
-        label='summary'
-        path='basic'
+      <TabbedForm
+        validate={validatePasswordChange}
+        toolbar={
+          <ClientEditToolbar
+            location={location}
+          />
+        }
       >
-        <TextInput
-          source={models.players.fields.email}
-          type='email'
-          validate={required()}
+        <PersonalTab
+          path={'basic'}
+          classes={classes}
+          {...props}
         />
-        <TextInput
-          source={models.players.fields.firstName}
-          validate={required()}
+        <AccountTab
+          path={'account'}
+          classes={classes}
+          {...props}
         />
-        <TextInput
-          source={models.players.fields.lastName}
-          validate={required()}
+        <ActionTab
+          path={'actions'}
+          classes={classes}
+          player={player}
+          {...props}
         />
-        <DateField source='createdAt' showTime />
-        <DateField source='updatedAt' showTime />
-      </FormTab>
+      </TabbedForm>
+    </Edit>
+  )
+}
 
-      {/* <FormTab label='verify'> */}
-      {/*  <ButtonInput */}
-      {/*    label='resources.users.actions.verifySignupLong.label' */}
-      {/*    buttonLabel='resources.users.actions.verifySignupLong.buttonLabel' */}
-      {/*    action={clientAuthManagementActionFactory('verifySignupLong', (id, data) => ({ */}
-      {/*      value: data[models.players.fields.verifyToken] || '' */}
-      {/*    }))} */}
-      {/*  > */}
-      {/*    <VerifiedUser /> */}
-      {/*  </ButtonInput> */}
-      {/*  <ButtonInput */}
-      {/*    label='resources.users.actions.verifySignupShort.label' */}
-      {/*    buttonLabel='resources.users.actions.verifySignupShort.buttonLabel' */}
-      {/*    action={clientAuthManagementActionFactory('verifySignupShort', (id, data) => ({ */}
-      {/*      value: { */}
-      {/*        user: { */}
-      {/*          email: data[models.players.fields.email] */}
-      {/*        }, */}
-      {/*        token: data[models.players.fields.verifyShortToken] || '' */}
-      {/*      } */}
-      {/*    }))} */}
-      {/*  > */}
-      {/*    <VerifiedUser /> */}
-      {/*  </ButtonInput> */}
-      {/*  <BooleanInput source={models.players.fields.isVerified} /> */}
-      {/*  <DateTimeInput source={models.players.fields.verifyExpires} /> */}
-      {/* </FormTab> */}
-
-      {/* <FormTab label='password reset'> */}
-      {/*  <ButtonInput */}
-      {/*    label='resources.users.actions.sendResetPwd.label' */}
-      {/*    buttonLabel='resources.users.actions.sendResetPwd.buttonLabel' */}
-      {/*    action={clientAuthManagementActionFactory('sendResetPwd', (id, data) => ({ */}
-      {/*      value: { */}
-      {/*        email: data[models.players.fields.email] */}
-      {/*      } */}
-      {/*    }))} */}
-      {/*  > */}
-      {/*    <Send /> */}
-      {/*  </ButtonInput> */}
-      {/*  <DateTimeInput source={models.players.fields.resetExpires} /> */}
-      {/* </FormTab> */}
-
-    </TabbedForm>
-  </Edit>
+const mapStateToProps = state => ({
+  players: state.admin.resources.players
+})
+const enhance = compose(
+  withStyles(styles),
+  connect(mapStateToProps, {})
 )
 
-export const PlayerEdit = withStyles(styles)(_PlayerEdit)
+export const PlayerEdit = enhance(_PlayerEdit)

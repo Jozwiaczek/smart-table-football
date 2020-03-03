@@ -10,8 +10,8 @@ module.exports = {
     find: [],
     get: [],
     create: [hashPassword(models.admins.fields.password)],
-    update: [hashPassword(models.admins.fields.password)],
-    patch: [hashPassword(models.admins.fields.password)],
+    update: [],
+    patch: [],
     remove: []
   },
 

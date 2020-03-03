@@ -75,7 +75,7 @@ socket.on('startListening', async match => {
       checker = 1
       RED_LIGHT.writeSync(1)
       const replayId = await saveVideo()
-      socket.emit('goal', { team: match['teamA'], replayId: replayId, matchId })
+      socket.emit('goal', { team: match.teamA, replayId: replayId, matchId })
 
       await setTimeout(() => {
         startRecordVideo(replayTime)
