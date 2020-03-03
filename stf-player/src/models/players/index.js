@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DateField, Edit, FormTab, required, TabbedForm, TextInput } from 'react-admin'
+import { DateField, Edit, FormTab, required, TabbedForm, TextInput, TextField } from 'react-admin'
 
 import { withStyles } from '@material-ui/core/styles'
 
@@ -27,17 +27,22 @@ const _PlayerEdit = (props) => (
         path='basic'
       >
         <TextInput
-          source={models.players.fields.email}
-          type='email'
-          validate={required()}
-        />
-        <TextInput
           source={models.players.fields.firstName}
           validate={required()}
         />
         <TextInput
           source={models.players.fields.lastName}
           validate={required()}
+        />
+        <TextInput
+          source={models.players.fields.email}
+          type='email'
+          validate={required()}
+          disabled
+          helperText={`To change your email contact: support@stf.io`}
+        />
+        <TextField
+          source={models.players.fields.status}
         />
         <DateField source='createdAt' showTime />
         <DateField source='updatedAt' showTime />
