@@ -7,7 +7,7 @@ function _getPayload () {
   return {}
 }
 
-const clientAuthManagementActionFactory = (action = 'clientAuthManagement', getPayload = _getPayload) => {
+const playerAuthManagementActionFactory = (action = 'playerAuthManagement', getPayload = _getPayload) => {
   return (id, data) => ({
     type: action.toUpperCase(),
     payload: {
@@ -17,11 +17,11 @@ const clientAuthManagementActionFactory = (action = 'clientAuthManagement', getP
       }
     },
     meta: {
-      resource: constants.resources.clientAuthManagement,
+      resource: constants.resources.playerAuthManagement,
       fetch: CREATE,
       onSuccess: {
         notification: {
-          body: `resources.users.notification.clientAuthManagement.success.${action}`,
+          body: `resources.users.notification.playerAuthManagement.success.${action}`,
           level: 'info',
           messageArgs: {
             ...data
@@ -30,7 +30,7 @@ const clientAuthManagementActionFactory = (action = 'clientAuthManagement', getP
       },
       onFailure: {
         notification: {
-          body: `resources.users.notification.clientAuthManagement.failure.${action}`,
+          body: `resources.users.notification.playerAuthManagement.failure.${action}`,
           level: 'warning',
           messageArgs: {
             ...data
@@ -41,4 +41,4 @@ const clientAuthManagementActionFactory = (action = 'clientAuthManagement', getP
   })
 }
 
-export default clientAuthManagementActionFactory
+export default playerAuthManagementActionFactory

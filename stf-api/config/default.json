@@ -4,7 +4,21 @@
   "public": "../public/",
   "paginate": {
     "default": 10,
-    "max": 50
+    "max": 500
+  },
+  "mailer": {
+    "host": "smtp.ethereal.email",
+    "port": "587",
+    "secure": false,
+    "requireTLS": true,
+    "auth": {
+      "user": "avery.berge@ethereal.email",
+      "pass": "gXeVgKBkhkdsCyc3th"
+    },
+    "from": {
+      "name": "dev@stf.io",
+      "address": "STF DEV"
+    }
   },
   "authentication": {
     "secret": "Cq95EofkZV0JAt7cMh5IU5wPaPc=",

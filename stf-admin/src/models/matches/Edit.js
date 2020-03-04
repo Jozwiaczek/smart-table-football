@@ -53,7 +53,7 @@ const MatchEdit = props => (
     {...props}
     actions={<EditActions />}
     undoable={false}
-    title={'Match Edit'}
+    title='Match Edit'
   >
     <TabbedForm
       redirect={false}
@@ -66,7 +66,7 @@ const MatchEdit = props => (
           source={models.matches.fields.teamA}
           reference={constants.resources.teams}
           validate={required()}
-          label={'Team A'}
+          label='Team A'
           sort={{
             field: models.teams.fields.name,
             order: 'ASC'
@@ -78,7 +78,7 @@ const MatchEdit = props => (
           source={models.matches.fields.teamB}
           reference={constants.resources.teams}
           validate={required()}
-          label={'Team B'}
+          label='Team B'
           sort={{
             field: models.teams.fields.name,
             order: 'ASC'
@@ -97,18 +97,20 @@ const MatchEdit = props => (
           default={7}
           options={{
             InputProps: {
-              endAdornment: <InputAdornment position={'start'}>
+              endAdornment: <InputAdornment position='start'>
                   seconds
               </InputAdornment>
             }
           }}
         />
-        <FunctionField label={'Elapsed Time'} render={record => {
-          const elapsedTime = record[models.matches.fields.elapsedTime]
-          return (
-            `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
-          )
-        }} />
+        <FunctionField
+          label='Elapsed Time' render={record => {
+            const elapsedTime = record[models.matches.fields.elapsedTime]
+            return (
+              `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
+            )
+          }}
+        />
         <DateField source='createdAt' showTime />
         <DateField source='updatedAt' showTime />
       </FormTab>

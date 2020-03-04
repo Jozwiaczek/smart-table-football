@@ -75,9 +75,7 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
     try {
       await dataProvider('CREATE', constants.resources.players, { data: values })
       await login({ username: values[models.players.fields.email], password: values[models.players.fields.password] }, redirectTo)
-      setLoading(false)
     } catch (error) {
-      setLoading(false)
       notify(
         typeof error === 'string'
           ? error
@@ -86,23 +84,9 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
             : error.message,
         'warning'
       )
+    } finally {
+      setLoading(false)
     }
-
-    // login(values, redirectTo)
-    //   .then(() => {
-    //     setLoading(false)
-    //   })
-    //   .catch(error => {
-    //     setLoading(false)
-    //     notify(
-    //       typeof error === 'string'
-    //         ? error
-    //         : typeof error === 'undefined' || !error.message
-    //           ? 'ra.auth.sign_in_error'
-    //           : error.message,
-    //       'warning'
-    //     )
-    //   })
   }
 
   return (

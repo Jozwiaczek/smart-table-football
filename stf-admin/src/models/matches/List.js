@@ -55,14 +55,14 @@ const MatchList = (props) =>
           <ReferenceField
             source={models.matches.fields.teamA}
             reference={constants.resources.teams}
-            label={'Team A'}
+            label='Team A'
           >
             <TextField source={models.teams.fields.name} />
           </ReferenceField>
           <ReferenceField
             source={models.matches.fields.teamB}
             reference={constants.resources.teams}
-            label={'Team B'}
+            label='Team B'
           >
             <TextField source={models.teams.fields.name} />
           </ReferenceField>

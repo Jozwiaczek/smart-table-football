@@ -29,7 +29,7 @@ const AdminCreate = (props) => (
   <Create
     {...props}
     actions={<CreateActions />}
-    title={'Admin Create'}
+    title='Admin Create'
   >
     <SimpleForm>
       <TextInput

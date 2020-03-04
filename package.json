@@ -9,13 +9,17 @@
     "stf-api",
     "stf-core",
     "stf-player",
-    "stf-admin"
+    "stf-admin",
+    "stf-rasp",
+    "stf-admin-desktop"
   ],
   "scripts": {
     "heroku-postbuild": "yarn install",
-    "start": "if [ -n \"$START_API\" ]; then cd stf-api && echo api && yarn start; elif [ -n \"$START_ADMIN\" ]; then cd stf-admin && echo admin && yarn start; else cd stf-player && echo player && yarn start; fi"
+    "start": "if [ -n \"$START_API\" ]; then cd stf-api && echo api && yarn start; elif [ -n \"$START_ADMIN\" ]; then cd stf-admin && echo admin && yarn start; else cd stf-player && echo player && yarn start; fi",
+    "lint": "yarn wsrun eslint"
   },
   "dependencies": {
-    "standard": "^12.0.1"
+    "standard": "^12.0.1",
+    "wsrun": "latest"
   }
 }

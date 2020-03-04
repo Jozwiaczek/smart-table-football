@@ -66,7 +66,7 @@ const PlayersList = props => (
           <TextField source='_id' />
           <EmailField source={models.admins.fields.email} />
           <FunctionField
-            source={'name'}
+            source='name'
             render={record => `${record[models.players.fields.firstName]} ${record[models.players.fields.lastName]}`}
           />
           <ApproveButton source={models.players.fields.status} />

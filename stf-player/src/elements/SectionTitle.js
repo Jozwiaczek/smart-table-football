@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Typography } from '@material-ui/core'
 
-const SectionTitle = ({ title, loading, loadingColor }) => {
+const SectionTitle = ({ children, loading, loadingColor }) => {
   if (loading) {
     return (
       <div style={{
@@ -18,20 +18,18 @@ const SectionTitle = ({ title, loading, loadingColor }) => {
   }
   return (
     <Typography
-      variant='title'
+      variant={'subtitle1'}
       style={{
-        textAlign: 'center',
         marginBottom: '1rem',
-        marginTop: '2rem'
+        marginTop: '1rem'
       }}
     >
-      {title}
+      {children}
     </Typography>
   )
 }
 
 SectionTitle.propTypes = {
-  title: PropTypes.string,
   loading: PropTypes.bool,
   loadingColor: PropTypes.string
 }

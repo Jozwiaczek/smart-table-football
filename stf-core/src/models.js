@@ -49,7 +49,8 @@ const matches = {
     teamB: 'teamB',
     winner: 'winner',
     status: 'status',
-    replayTime: 'replayTime'
+    replayTime: 'replayTime',
+    elapsedTime: 'elapsedTime'
   }
 }
 

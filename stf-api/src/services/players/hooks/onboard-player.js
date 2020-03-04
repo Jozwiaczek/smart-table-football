@@ -6,12 +6,10 @@ const {
   models
 } = require('stf-core')
 
-const { logger } = require('../../../logger')
-
 const errors = require('@feathersjs/errors')
 
 // eslint-disable-next-line no-unused-vars
-module.exports = function (options = {}) {
+module.exports = function () {
   return async context => {
     const { email } = context.data
 
@@ -26,18 +24,16 @@ module.exports = function (options = {}) {
       const Teams = context.app.service(constants.resources.teams)
 
       await Teams.create({
-        [models.teams.fields.name]: 'Default',
+        [models.teams.fields.name]: `Personal: ${email}`,
         [models.teams.fields.players]: [context.result._id]
       })
     } catch (error) {
-      logger.error(error)
-      console.log('error', error)
-      console.log('here')
+      console.error(error)
 
       const Players = context.app.service(constants.resources.players)
       await Players.remove(context.result._id)
 
-      errors.BadRequest('Failed to create client')
+      errors.BadRequest('Failed to create player')
     }
   }
 }
