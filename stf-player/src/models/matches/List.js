@@ -2,32 +2,26 @@ import React from 'react'
 import compose from 'recompose/compose'
 
 import {
-  List,
   DateField,
   Filter,
-  SearchInput,
-  TextField,
-  Responsive,
-  SimpleList,
-  ReferenceField,
   FunctionField,
-  withDataProvider,
-  GET_LIST
+  GET_MANY,
+  List,
+  ReferenceField,
+  Responsive,
+  SearchInput,
+  SimpleList,
+  TextField,
+  withDataProvider
 } from 'react-admin'
 import CustomizableDatagrid from 'ra-customizable-datagrid'
 
-import {
-  Button,
-  Typography
-} from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import AssessmentIcon from '@material-ui/icons/Assessment'
 import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo'
 
-import {
-  models,
-  constants
-} from 'stf-core'
+import { constants, models } from 'stf-core'
 
 import DateFilters from '../../elements/DateFilters'
 import { getTimerUnit } from '../../utils/getTimerUnits'
@@ -98,8 +92,13 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
   React.useEffect(() => {
     const call = async () => {
       try {
-        setTeams(await dataProvider(GET_LIST, constants.resources.teams, {}).then(res => res.data))
+        const res = await dataProvider(GET_MANY, constants.resources.teams, {
+          pagination: { page: 1, perPage: 5 }
+        })
+        console.log('res', res)
+        setTeams(res)
       } catch (e) {
+        console.log(e)
         throw new Error(e)
       }
     }
