@@ -17,6 +17,7 @@ import dataProvider from './dataProvider'
 import domainMessages from './i18n'
 import { themeProvider } from './themes'
 import { getPlayerId } from './utils/getPlayerId'
+import Layout from './elements/layout'
 
 import { PlayerEdit } from './models/players'
 
@@ -131,6 +132,7 @@ const App = () => {
         menu={Menu}
         dashboard={Dashboard}
         loginPage={Login}
+        layout={Layout}
       >
         <Resource
           name={constants.resources.playerAuthManagement}
