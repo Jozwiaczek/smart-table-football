@@ -28,9 +28,11 @@ const PasswordInput = ({
   }
 
   const VisibilityIcon = () => {
+    if (!inputProps.value) return null
+
     if (passwordIsMasked) {
       return (
-        <Visibility
+        <VisibilityOff
           className={classes.eye}
           onClick={togglePasswordMask}
           color='primary'
@@ -38,7 +40,7 @@ const PasswordInput = ({
       )
     }
     return (
-      <VisibilityOff
+      <Visibility
         className={classes.eye}
         onClick={togglePasswordMask}
         color='primary'

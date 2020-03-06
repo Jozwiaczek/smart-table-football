@@ -1,24 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-import {
-  Notification
-} from 'react-admin'
-import {
-  Card,
-  Typography
-} from '@material-ui/core'
-import {
-  createMuiTheme,
-  withStyles,
-  createStyles
-} from '@material-ui/core/styles'
+import { Notification } from 'react-admin'
+import { Card } from '@material-ui/core'
+import { createStyles, withStyles } from '@material-ui/core/styles'
 
 import DefaultLoginForm from './LoginForm'
 import BackgroundGraphic from '../../../elements/BackgroundGraphic'
-import { themeProvider } from '../../../themes'
 import Ball from '../../../elements/Ball'
+import Logo from '../../../elements/Logo'
 
 const styles = () => createStyles({
   main: {
@@ -44,48 +35,19 @@ const styles = () => createStyles({
   }
 })
 
-const sanitizeRestProps = ({
-  array,
-  backgroundImage,
-  classes,
-  className,
-  location,
-  staticContext,
-  theme,
-  title,
-  ...rest
-}) => rest
-
-class Login extends Component {
-  constructor (props) {
-    super(props)
-    this.theme = createMuiTheme(props.theme)
-    this.containerRef = React.createRef()
-  }
-
-  render () {
-    const { classes, className, loginForm, ...rest } = this.props
-
-    return (
-      <BackgroundGraphic
-        graphic={<Ball />}
-      >
-        <div
-          className={classnames(classes.main, className)}
-          {...sanitizeRestProps(rest)}
-          ref={this.containerRef}
-        >
-          <Card className={classes.card}>
-            <Typography variant='h2' align='center' className={classes.logo}>
-              Smart Table Football
-            </Typography>
-            {loginForm}
-          </Card>
-          <Notification />
-        </div>
-      </BackgroundGraphic>
-    )
-  }
+const Login = ({ classes, className, loginForm }) => {
+  const containerRef = React.createRef()
+  return (
+    <BackgroundGraphic graphic={<Ball />}>
+      <div className={classnames(classes.main, className)} ref={containerRef}>
+        <Card className={classes.card}>
+          <Logo className={classes.logo} />
+          {loginForm}
+        </Card>
+        <Notification />
+      </div>
+    </BackgroundGraphic>
+  )
 }
 
 Login.propTypes = {
@@ -95,7 +57,6 @@ Login.propTypes = {
 }
 
 Login.defaultProps = {
-  theme: themeProvider(true),
   loginForm: <DefaultLoginForm />
 }
 

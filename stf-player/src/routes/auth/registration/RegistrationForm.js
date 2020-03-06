@@ -4,11 +4,12 @@ import { Field, Form } from 'react-final-form'
 import compose from 'recompose/compose'
 import { Button, CardActions, CardContent, CircularProgress, Typography } from '@material-ui/core'
 import { createStyles, withStyles } from '@material-ui/core/styles'
-import { useLogin, useNotify, useSafeSetState } from 'ra-core'
+import { useLogin, useNotify, useTranslate, useSafeSetState } from 'ra-core'
 import { Link, withDataProvider } from 'react-admin'
 import { constants, models } from 'stf-core'
 import FormTextField from '../../../elements/FormTextField'
-import validator from 'validator'
+import { validateRegistration } from '../validate'
+import PasswordInput from '../../../elements/PasswordInput'
 
 const styles = () => createStyles({
   form: {
@@ -40,35 +41,7 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
   const [loading, setLoading] = useSafeSetState(false)
   const login = useLogin()
   const notify = useNotify()
-
-  const validate = (values) => {
-    const errors = {}
-    const requiredMessage = 'Required'
-
-    if (!values[models.players.fields.firstName]) {
-      errors[models.players.fields.firstName] = requiredMessage
-    }
-
-    if (!values[models.players.fields.lastName]) {
-      errors[models.players.fields.lastName] = requiredMessage
-    }
-
-    if (!values[models.players.fields.email]) {
-      errors[models.players.fields.email] = requiredMessage
-    } else if (!validator.isEmail(values[models.players.fields.email])) {
-      errors[models.players.fields.email] = 'Incorrect email'
-    }
-
-    if (!values[models.players.fields.password]) {
-      errors[models.players.fields.password] = requiredMessage
-    } else if (values[models.players.fields.password].length < 6) {
-      errors[models.players.fields.password] = 'Password must contain at least 6 characters'
-    } else if (values[models.players.fields.password] !== values.repeatPassword) {
-      errors.repeatPassword = 'Password must be the same as above'
-    }
-
-    return errors
-  }
+  const translate = useTranslate()
 
   const register = async values => {
     setLoading(true)
@@ -92,7 +65,7 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
   return (
     <Form
       onSubmit={register}
-      validate={validate}
+      validate={values => validateRegistration(values, translate)}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit} noValidate>
           <CardContent>
@@ -106,7 +79,6 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
                   label='First Name'
                   disabled={loading}
                   className={classes.input}
-                  required
                 />
               </div>
 
@@ -118,7 +90,6 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
                   label='Last Name'
                   disabled={loading}
                   className={classes.input}
-                  required
                 />
               </div>
 
@@ -130,7 +101,6 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
                   label='Email'
                   disabled={loading}
                   className={classes.input}
-                  required
                 />
               </div>
 
@@ -138,12 +108,11 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
                 <Field
                   id={models.players.fields.password}
                   name={models.players.fields.password}
-                  component={FormTextField}
-                  label='Password'
-                  type='password'
+                  component={PasswordInput}
+                  label={translate('ra.auth.password')}
                   disabled={loading}
+                  autoComplete='current-password'
                   className={classes.input}
-                  required
                 />
               </div>
 
@@ -151,12 +120,11 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
                 <Field
                   id='repeatPassword'
                   name='repeatPassword'
-                  component={FormTextField}
+                  component={PasswordInput}
                   label='Repeat password'
-                  type='password'
                   disabled={loading}
+                  autoComplete='current-password'
                   className={classes.lastInput}
-                  required
                 />
               </div>
             </div>

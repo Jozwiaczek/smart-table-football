@@ -8,10 +8,10 @@ import PasswordReset from './routes/auth/passwordReset/PasswordReset'
 import PasswordEmailSend from './routes/auth/passwordReset/PasswordEmailSend'
 
 export default [
-  <Route key={1} exact path='/registration' component={Registration} noLayout />,
-  <Route key={2} exact path='/inGame' component={InGame} noLayout />,
+  <Route exact path='/registration' component={Registration} noLayout />,
+  <Route exact path='/inGame' component={InGame} noLayout />,
   <Route exact path='/verify' component={Verify} noLayout />,
-  <Route exact path='/password/edit' component={PasswordRecovery} noLayout />,
+  <Route exact path='/passwordRecovery' component={PasswordRecovery} noLayout />,
   <Route exact path='/passwordReset' component={PasswordReset} noLayout />,
   <Route exact path='/passwordEmailSend' component={PasswordEmailSend} noLayout />
 ]
