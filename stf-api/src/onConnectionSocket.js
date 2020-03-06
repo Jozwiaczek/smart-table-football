@@ -3,37 +3,24 @@ const {
   models
 } = require('stf-core')
 
-const createMatch = (app, socket, match) => {
+// func name to change
+const manageStatus = (app, socket, match) => {
   if (match[models.matches.fields.status] === constants.statusMatch.active) {
-    socket.emit('startListening', { [models.matches.fields.replayTime]: match[models.matches.fields.replayTime] })
-
-    socket.on('goal', async data => {
-      const { team, replayId } = data
-
-      await app.service('goals').create({
-        [models.goals.fields.match]: match._id,
-        [models.goals.fields.team]: match[team],
-        [models.goals.fields.replay]: replayId
-      })
-    })
-  } else if (match[models.matches.fields.status] === constants.statusMatch.finished) {
-    socket.emit('stopListening')
-  } else if (match[models.matches.fields.status] === constants.statusMatch.paused) {
-    socket.emit('stopListening')
-  } else if (match[models.matches.fields.status] === constants.statusMatch.await) {
+    socket.emit('startListening', match)
+  } else {
     socket.emit('stopListening')
   }
 }
 
 const onPatchMatch = (app, socket, matches) => {
   matches.on('patched', match => {
-    createMatch(app, socket, match)
+    manageStatus(app, socket, match)
   })
 }
 
 const onCreateMatch = (app, socket, matches) => {
   matches.on('created', match => {
-    createMatch(app, socket, match)
+    manageStatus(app, socket, match)
   })
 }
 
@@ -42,6 +29,12 @@ const onRemoveMatch = (app, socket, matches) => {
     if (match[models.matches.fields.status] === constants.statusMatch.active) {
       socket.emit('stopListening')
     }
+  })
+}
+
+const onCreateGoal = (app, socket, goals) => {
+  goals.on('created', goal => {
+    socket.emit('createdGoal', goal)
   })
 }
 
@@ -61,8 +54,24 @@ const onSocketDisconnect = (app, socket) => {
 
 module.exports = function (app, socket) {
   const matches = app.service(constants.resources.matches)
-  onSocketDisconnect(app, socket)
+  const goals = app.service(constants.resources.goals)
+
+  socket.on('goal', async data => {
+    const { team, replayId, matchId } = data
+    console.log(data)
+
+    await app.service('goals').create({
+      [models.goals.fields.match]: matchId,
+      [models.goals.fields.team]: team,
+      [models.goals.fields.replay]: replayId
+    })
+  })
+
+  onCreateGoal(app, socket, goals)
+
   onPatchMatch(app, socket, matches)
   onCreateMatch(app, socket, matches)
   onRemoveMatch(app, socket, matches)
+
+  onSocketDisconnect(app, socket)
 }
