@@ -76,7 +76,7 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
           setGoals(playersGoals)
         }
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     }
     call()
