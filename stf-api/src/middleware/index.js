@@ -11,13 +11,13 @@ module.exports = function (app) {
   //     html: '<p>Test mail html</p>'
   //   })
   // })
-
-  // Create first admin
-  app.use('/create-first-admin', function (req, res) {
-    console.log('/create-first-admin')
-    app.service('admins').create({
-      email: 'test@test.com',
-      password: '123123'
-    })
-  })
+  //
+  // // Create first admin
+  // app.use('/create-first-admin', function (req, res) {
+  //   console.log('/create-first-admin')
+  //   app.service('admins').create({
+  //     email: 'test@test.com',
+  //     password: '123123'
+  //   })
+  // })
 }
