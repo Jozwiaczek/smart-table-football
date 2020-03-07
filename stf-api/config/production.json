@@ -2,6 +2,7 @@
   "host": "localhost",
   "port": 8080,
   "public": "../public/",
+  "url": "https://stf-player.herokuapp.com",
   "paginate": {
     "default": 10,
     "max": 50
@@ -21,8 +22,8 @@
       "pass": "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"
     },
     "from": {
-      "name": "api@no-reply.stf.io",
-      "address": "SmartTableFootball"
+      "name": "no-reply@stf.io",
+      "address": "Smart Table Football"
     }
   }
 }
