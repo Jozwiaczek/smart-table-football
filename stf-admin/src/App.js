@@ -101,7 +101,7 @@ const App = () => (
       list={GoalsList}
       show={GoalShow}
     />
-    {/* Add posibility to create mail */}
+    {/* TODO: Add possibility to create mail */}
     <Resource
       name={constants.resources.mailer}
       create={MailerCreate}

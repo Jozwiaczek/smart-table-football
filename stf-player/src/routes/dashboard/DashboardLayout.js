@@ -54,39 +54,59 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
 
   React.useEffect(() => {
     const call = async () => {
-      const resPlayer = await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() }).then(res => res.data).catch(e => new Error(e))
-      setPlayer(resPlayer)
+      try {
+        const resPlayer = await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() }).then(res => res.data)
+        setPlayer(resPlayer)
 
-      const resTeams = await dataProvider(GET_LIST, constants.resources.teams, {}).then(res => res.data).catch(e => new Error(e))
-      if (Array.isArray(resTeams) && resTeams.length > 0) {
-        const playersTeams = resTeams.filter(team => team[models.teams.fields.players].find(player => player === resPlayer._id))
-        setTeams(playersTeams)
+        const resTeams = await dataProvider(GET_LIST, constants.resources.teams, {}).then(res => res.data)
+        if (Array.isArray(resTeams) && resTeams.length > 0 && resPlayer) {
+          const playersTeams = resTeams.filter(team => team[models.teams.fields.players].find(player => player === resPlayer._id))
+          setTeams(playersTeams)
 
-        const resMatches = await dataProvider(GET_LIST, constants.resources.matches, {}).then(res => res.data).catch(e => new Error(e))
-        const playersMatches = resMatches.filter(match =>
-          playersTeams.map(team =>
-            match[models.matches.fields.teamA] === team._id || match[models.matches.fields.teamB] === team._id
+          const resMatches = await dataProvider(GET_LIST, constants.resources.matches, {}).then(res => res.data)
+          const playersMatches = resMatches.filter(match =>
+            playersTeams.map(team =>
+              match[models.matches.fields.teamA] === team._id || match[models.matches.fields.teamB] === team._id
+            )
           )
-        )
-        setMatches(playersMatches)
+          setMatches(playersMatches)
 
-        const resGoals = await dataProvider(GET_LIST, constants.resources.goals, {}).then(res => res.data).catch(e => new Error(e))
-        const playersGoals = resGoals.filter(goal => resTeams.map(team => goal[models.goals.fields.team] === team._id))
-        setGoals(playersGoals)
+          const resGoals = await dataProvider(GET_LIST, constants.resources.goals, {}).then(res => res.data)
+          const playersGoals = resGoals.filter(goal => resTeams.map(team => goal[models.goals.fields.team] === team._id))
+          setGoals(playersGoals)
+        }
+      } catch (e) {
+        console.error(e)
       }
     }
     call()
   }, [dataProvider])
 
-  if (!player || !goals) {
+  if (!player) {
     return null
   }
 
-  const wonMatches = matches.filter(match => teams.find(team => match[models.matches.fields.winner] === team._id))
+  const wonMatches = () => {
+    if (!matches || !teams) {
+      return null
+    }
+    return matches.filter(match => teams.find(team => match[models.matches.fields.winner] === team._id))
+  }
 
-  const getPlayerWinRatio = () => ((wonMatches.length / matches.length) * 100).toFixed(0)
+  const getPlayerWinRatio = () => {
+    const temp = wonMatches()
+    if (!temp) {
+      return 0
+    }
+    return ((wonMatches.length / matches.length) * 100).toFixed(0)
+  }
 
-  const getLastMatch = () => matches.reduce((m, v, i) => (v.createdAt > m.createdAt) && i ? v : m)
+  const getLastMatch = () => {
+    if (!matches) {
+      return null
+    }
+    return matches.reduce((m, v, i) => (v.createdAt > m.createdAt) && i ? v : m)
+  }
 
   return (
     <BackgroundGraphic
@@ -133,11 +153,8 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
               Statistic
             </Typography>
             <Typography variant='body1' color='textPrimary' gutterBottom>
-                Total goals: {goals.length}
+              {goals ? `Total goals: ${goals.length}` : 'You dont have any goals'}
             </Typography>
-            {/* <CardStatistic title={'Test'} > */}
-            {/*  Joloolol */}
-            {/* </CardStatistic> */}
             <Typography variant='body1' color='textPrimary'>
               Win Ratio: {getPlayerWinRatio()}%
             </Typography>
@@ -153,14 +170,22 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
             <Typography variant='h4' color='textPrimary' gutterBottom>
               Last Match
             </Typography>
-            <Typography variant='body1' align='center' color='textPrimary' gutterBottom>
-              Click button below to show<br />
-              statistic of your last match
-            </Typography>
-            <Button color='primary' variant='outlined' onClick={() => history.push(`/${constants.resources.matches}/${getLastMatch()._id}`)}>
-              <StatisticsIcon />
-              Show
-            </Button>
+            {
+              getLastMatch()
+                ? <>
+                  <Typography variant='body1' align='center' color='textPrimary' gutterBottom>
+                Click button below to show<br />
+                statistic of your last match
+                  </Typography>
+                  <Button color='primary' variant='outlined' onClick={() => history.push(`/${constants.resources.matches}/${getLastMatch()._id}`)}>
+                    <StatisticsIcon />
+                    Show
+                  </Button>
+              </>
+                : <Typography variant='body1' align='center' color='textPrimary' gutterBottom>
+                  You dont have any matches
+                </Typography>
+            }
           </DashboardSection>
         </DashboardFragment>
       </DashboardContainer>

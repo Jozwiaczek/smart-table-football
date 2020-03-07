@@ -1,28 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import compose from 'recompose/compose'
 
 import {
-  DateField,
-  TextField,
-  Show,
-  TopToolbar,
-  ReferenceField,
-  FunctionField,
+  Button,
   ChipField,
-  withDataProvider,
-  TabbedShowLayout,
+  DateField,
+  FunctionField,
+  GET_LIST,
+  ReferenceField,
+  Show,
   Tab,
-  Button
+  TabbedShowLayout,
+  TextField,
+  TopToolbar,
+  withDataProvider
 } from 'react-admin'
 
-import { Typography } from '@material-ui/core'
+import { Typography, CircularProgress } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
 
-import {
-  constants,
-  models
-} from 'stf-core'
+import { constants, models } from 'stf-core'
 
 const styles = {
   replayFieldContainer: {
@@ -30,6 +28,13 @@ const styles = {
   },
   replayFieldVideo: {
     margin: '1em 0 0 0.5em'
+  },
+  loadingAnimation: {
+    height: '120px',
+    width: '160px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 }
 
@@ -66,6 +71,8 @@ const MatchField = ({ teams, ...rest }) => {
 }
 
 const ReplayField = ({ record, classes }) => {
+  const [isReplayLoading, setReplayLoading] = useState(false)
+
   const replayId = record[models.goals.fields.replay]
 
   if (!replayId) {
@@ -90,9 +97,21 @@ const ReplayField = ({ record, classes }) => {
       >
         Replay
         <div className={classes.replayFieldVideo}>
-          <video width='300' autoPlay loop>
+          <video
+            width='300'
+            autoPlay
+            loop
+            onLoadStart={() => setReplayLoading(true)}
+            onLoadedData={() => setReplayLoading(false)}
+          >
             <source src={`https://drive.google.com/uc?id=${replayId}&export=download`} type='video/mp4' />
           </video>
+          {
+            isReplayLoading &&
+            <div className={classes.loadingAnimation}>
+              <CircularProgress size={50} />
+            </div>
+          }
         </div>
       </Typography>
     </div>
@@ -109,8 +128,12 @@ const GoalShow = ({
 
   React.useEffect(() => {
     const getTeams = async () => {
-      setTeams(await dataProvider('GET_LIST', constants.resources.teams, {})
-        .then(result => result.data))
+      try {
+        let res = await dataProvider(GET_LIST, constants.resources.teams, {}).then(res => res.data)
+        setTeams(res)
+      } catch (e) {
+        console.error(e)
+      }
     }
     getTeams()
   }, [dataProvider])

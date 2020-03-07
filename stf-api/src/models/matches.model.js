@@ -37,6 +37,10 @@ module.exports = function (app) {
       required: true,
       min: 4,
       max: 10
+    },
+    [models.matches.fields.elapsedTime]: {
+      type: Schema.Types.Number,
+      default: 0
     }
   }, {
     timestamps: true

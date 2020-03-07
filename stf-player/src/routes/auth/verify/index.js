@@ -1,12 +1,10 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import compose from 'recompose/compose'
+import React, { useEffect } from 'react'
 
 import { Button, Card, Typography } from '@material-ui/core'
 
-import { Link, CREATE } from 'react-admin'
+import { CREATE, Link } from 'react-admin'
 
-import { MuiThemeProvider, withStyles } from '@material-ui/core/styles'
+import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
 
 import PropTypes from 'prop-types'
 import { themeProvider } from '../../../themes'
@@ -14,8 +12,9 @@ import { themeProvider } from '../../../themes'
 import dataProvider from '../../../dataProvider'
 
 import { constants } from 'stf-core'
+import Logo from '../../../elements/Logo'
 
-const styles = {
+const useStyles = makeStyles(() => ({
   main: {
     display: 'flex',
     flexDirection: 'column',
@@ -34,11 +33,6 @@ const styles = {
     flexDirection: 'column',
     boxSizing: 'border-box'
   },
-  avatar: {
-    marginBottom: '1rem',
-    display: 'flex',
-    justifyContent: 'center'
-  },
   title: {
     margin: '2rem 0 1rem 0'
   },
@@ -51,94 +45,78 @@ const styles = {
     margin: '2rem 0 0.5rem 0',
     width: '100%'
   }
-}
+}))
 
-class Verify extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      theme: null,
-      success: false,
-      verifying: true
+const Verify = ({ location }) => {
+  const [theme, setTheme] = React.useState(null)
+  const [verifying, setVerifying] = React.useState(true)
+  const [success, setSuccess] = React.useState(false)
+
+  const classes = useStyles()
+
+  useEffect(() => {
+    const setThemeProvider = async () => {
+      setTheme(await themeProvider())
     }
 
-    this._renderMessage = this._renderMessage.bind(this)
+    const extracted = async () => {
+      const params = new URLSearchParams(location.search)
+      const token = params.get('token')
+
+      try {
+        await dataProvider(CREATE, constants.resources.playerAuthManagement, {
+          data: {
+            action: 'verifySignupLong',
+            value: token
+          }
+        })
+
+        setSuccess(true)
+      } catch (e) {
+        console.error(e)
+        setSuccess(false)
+      } finally {
+        setVerifying(false)
+      }
+    }
+
+    extracted()
+    setThemeProvider()
+  }, [location])
+
+  if (!theme) {
+    return null
   }
 
-  async componentDidMount () {
-    this.setState({ theme: await themeProvider() })
-
-    const params = new URLSearchParams(this.props.location.search)
-    const token = params.get('token')
-
-    try {
-      await dataProvider(CREATE, constants.resources.playerAuthManagement, {
-        data: {
-          action: 'verifySignupLong',
-          value: token
-        }
-      })
-
-      this.setState({
-        success: true,
-        verifying: false
-      })
-    } catch (e) {
-      console.error(e)
-      this.setState({
-        success: false,
-        verifying: false
-      })
+  const renderMessage = () => {
+    if (verifying) {
+      return <Typography variant='h6' className={classes.title} align='center'>Loading</Typography>
     }
+    if (success) {
+      return <Typography variant='h6' className={classes.title} align='center'>Verification Successful</Typography>
+    }
+    return <Typography variant='h6' className={classes.title} align='center'>Verification Failed</Typography>
   }
 
-  _renderMessage (classes) {
-    if (this.state.verifying) {
-      return (
-        <Typography variant='h6' className={classes.title} align='center'>Loading</Typography>
-      )
-    }
-    if (this.state.success) {
-      return (
-        <Typography variant='h6' className={classes.title} align='center'>Verification Successful</Typography>
-      )
-    }
-    return (
-      <Typography variant='h6' className={classes.title} align='center'>Verification Failed</Typography>
-    )
-  }
-
-  render () {
-    const { classes } = this.props
-
-    if (!this.state.theme) {
-      return null
-    }
-
-    return (
-      <MuiThemeProvider theme={this.state.theme}>
-        <div className={classes.main} style={{ backgroundColor: this.state.theme.palette.background.default }}>
-          <Card className={classes.card}>
-            <div className={classes.avatar}>
-              <Typography variant='h2' align='center' className={classes.logo}>
-                Smart Table Football
-              </Typography>
-            </div>
-            {this._renderMessage(classes)}
-            <Button
-              variant='contained'
-              color='primary'
-              className={classes.button}
-              component={Link}
-              to='/login'
-            >
-              Back to app
-            </Button>
-          </Card>
-        </div>
-      </MuiThemeProvider>
-    )
-  }
+  return (
+    <MuiThemeProvider theme={theme}>
+      <div className={classes.main} style={{ backgroundColor: theme.palette.background.default }}>
+        <Card className={classes.card}>
+          <Logo linkTo='/login' className={classes.logo} />
+          {renderMessage()}
+          <Button
+            variant='contained'
+            color='primary'
+            className={classes.button}
+            component={Link}
+            to='/login'
+          >
+            Back to app
+          </Button>
+        </Card>
+      </div>
+    </MuiThemeProvider>
+  )
 }
 
 Verify.propTypes = {
@@ -149,11 +127,4 @@ Verify.propTypes = {
   isLoading: PropTypes.bool
 }
 
-const mapStateToProps = state => ({ isLoading: state.admin.loading > 0 })
-
-const enhance = compose(
-  withStyles(styles, { withTheme: true }),
-  connect(mapStateToProps)
-)
-
-export default enhance(Verify)
+export default Verify
