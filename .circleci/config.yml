@@ -27,6 +27,9 @@ jobs:
       - run:
           name: Core
           command: cd stf-core && yarn eslint
+      - run:
+          name: Admin-desktop
+          command: cd stf-admin-desktop && yarn eslint && yarn pack
 workflows:
   main:
     jobs:
