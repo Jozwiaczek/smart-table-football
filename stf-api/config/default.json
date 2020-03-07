@@ -2,6 +2,7 @@
   "host": "localhost",
   "port": 8080,
   "public": "../public/",
+  "url": "http://localhost:8081",
   "paginate": {
     "default": 10,
     "max": 500
@@ -16,7 +17,7 @@
       "pass": "gXeVgKBkhkdsCyc3th"
     },
     "from": {
-      "name": "dev@stf.io",
+      "name": "stf@.io",
       "address": "STF DEV"
     }
   },

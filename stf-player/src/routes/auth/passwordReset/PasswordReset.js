@@ -1,38 +1,21 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import {
-  connect
-} from 'react-redux'
 import { Field, Form } from 'react-final-form'
-import compose from 'recompose/compose'
-
-import FormTextField from '../../../elements/FormTextField'
-
-import {
-  Link,
-  Notification,
-  showNotification
-} from 'react-admin'
+import { Link, Notification, useNotify } from 'react-admin'
 import { translate } from 'ra-core'
-import {
-  Button,
-  Typography,
-  MuiThemeProvider,
-  Card,
-  CardContent,
-  CircularProgress
-} from '@material-ui/core'
-import { withStyles, createStyles } from '@material-ui/core/styles'
-import { models, constants } from 'stf-core'
+import { Button, Card, CardContent, CircularProgress, MuiThemeProvider, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import { constants, models } from 'stf-core'
 import red from '@material-ui/core/colors/red'
 import { themeProvider } from '../../../themes'
 import dataProvider from '../../../dataProvider'
-import validator from 'validator'
 import Ball from '../../../elements/Ball'
 import BackgroundGraphic from '../../../elements/BackgroundGraphic'
 import Logo from '../../../elements/Logo'
+import FormTextField from '../../../elements/FormTextField'
+import { validatePasswordReset } from '../validate'
 
-const styles = () => createStyles({
+const useStyles = makeStyles(() => ({
   main: {
     display: 'flex',
     minHeight: '100vh',
@@ -74,121 +57,99 @@ const styles = () => createStyles({
     display: 'flex',
     alignItems: 'center'
   }
-})
+}))
 
-const validate = (values) => {
-  const errors = { username: undefined, password: undefined }
+const PasswordReset = ({ history }) => {
+  const [theme, setTheme] = React.useState(null)
+  const [processing, setProcessing] = React.useState(false)
 
-  if (!values[models.players.fields.email]) {
-    errors[models.players.fields.email] = translate('ra.validation.required')
-  } else if (!validator.isEmail(values[models.players.fields.email])) {
-    errors[models.players.fields.email] = 'Incorrect email'
-  }
+  const classes = useStyles()
+  const notify = useNotify()
 
-  return errors
-}
-
-class PasswordReset extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      theme: null,
-      processing: false
+  useEffect(() => {
+    const setThemeProvider = async () => {
+      setTheme(await themeProvider())
     }
-    this.sendEmail = this.sendEmail.bind(this)
-  }
+    setThemeProvider()
+  }, [])
 
-  async sendEmail (userData) {
+  const sendEmail = async userData => {
     try {
-      this.setState({ processing: true })
+      setProcessing(true)
       await dataProvider('CREATE', constants.resources.playerAuthManagement, {
         data: {
           action: 'sendResetPwd',
           value: { email: userData.email }
         }
       })
-      this.props.history.push('/passwordEmailSend')
+      history.push('/passwordEmailSend')
     } catch (e) {
-      this.setState({ processing: false })
-      await this.props.showNotification(e.message, 'warning')
+      setProcessing(false)
+      await notify(e.message, 'warning')
     }
   }
 
-  async componentDidMount () {
-    this.setState({ theme: await themeProvider() })
+  if (!theme) {
+    return null
   }
 
-  render () {
-    const { classes } = this.props
-
-    if (!this.state.theme) {
-      return null
-    }
-
-    return (
-      <BackgroundGraphic graphic={<Ball />} className={classes.main}>
-        <MuiThemeProvider theme={this.state.theme}>
-          <Card className={classes.card}>
-            <CardContent>
-              <Logo linkTo='/login' />
-              <Form
-                onSubmit={this.sendEmail}
-                validate={validate}
-                render={({ handleSubmit }) => (
-                  <form onSubmit={handleSubmit} className={classes.form}>
-                    <Field
-                      autoFocus
-                      id={models.players.fields.email}
-                      name={models.players.fields.email}
-                      component={FormTextField}
-                      label='Email'
-                      disabled={this.state.processing}
-                      required
-                      className={classes.input}
-                    />
-                    <Button
-                      type='submit'
-                      variant='contained'
-                      color='primary'
-                      disabled={this.state.processing}
-                      className={classes.button}
-                    >
-                      {
-                        this.state.processing &&
-                          <div className={classes.loadingBar}>
-                            <CircularProgress size={17} thickness={2} />
-                          </div>
-                      }
-                      Send password reset link
-                    </Button>
-                    <Typography
-                      className={classes.backLink}
-                      component={Link}
-                      to='/login'
-                      variant='caption'
-                    >
-                      Back to login
-                    </Typography>
-                  </form>
-                )}
-              />
-            </CardContent>
-          </Card>
-          <Notification />
-        </MuiThemeProvider>
-      </BackgroundGraphic>
-    )
-  }
+  return (
+    <BackgroundGraphic graphic={<Ball />} className={classes.main}>
+      <MuiThemeProvider theme={theme}>
+        <Card className={classes.card}>
+          <CardContent>
+            <Logo linkTo='/login' className={classes.logo} />
+            <Form
+              onSubmit={sendEmail}
+              validate={values => validatePasswordReset(values, translate)}
+              render={({ handleSubmit }) => (
+                <form onSubmit={handleSubmit} className={classes.form}>
+                  <Field
+                    autoFocus
+                    id={models.players.fields.email}
+                    name={models.players.fields.email}
+                    component={FormTextField}
+                    label='Email'
+                    disabled={processing}
+                    className={classes.input}
+                    required
+                  />
+                  <Button
+                    type='submit'
+                    variant='contained'
+                    color='primary'
+                    disabled={processing}
+                    className={classes.button}
+                  >
+                    {
+                      processing &&
+                      <div className={classes.loadingBar}>
+                        <CircularProgress size={17} thickness={2} />
+                      </div>
+                    }
+                    Send password reset link
+                  </Button>
+                  <Typography
+                    className={classes.backLink}
+                    component={Link}
+                    to='/login'
+                    variant='caption'
+                  >
+                    Back to login
+                  </Typography>
+                </form>
+              )}
+            />
+          </CardContent>
+        </Card>
+        <Notification />
+      </MuiThemeProvider>
+    </BackgroundGraphic>
+  )
 }
+
 PasswordReset.propTypes = {
-  classes: PropTypes.object,
-  redirectTo: PropTypes.string
+  history: PropTypes.object
 }
 
-const enhance = compose(
-  withStyles(styles),
-  connect(null, { showNotification }),
-  translate
-)
-
-export default enhance(PasswordReset)
+export default PasswordReset

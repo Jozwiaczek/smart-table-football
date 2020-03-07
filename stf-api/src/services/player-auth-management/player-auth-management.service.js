@@ -17,7 +17,7 @@ function notifier (app) {
     switch (type) {
       case 'resendVerifySignup': {
         try {
-          const verifyURL = `http://localhost:8081/#/verify?token=${user.verifyToken}`
+          const verifyURL = `${config.get('url')}/#/verify?token=${user.verifyToken}`
 
           const emailTemplateParams = {
             verifyURL
@@ -45,7 +45,7 @@ function notifier (app) {
       // case 'verifySignupLong': {}
       case 'sendResetPwd': {
         try {
-          const resetURL = `http://localhost:8081/#/${playerRoutes.passwordReset}?reset_token=${user.resetToken}`
+          const resetURL = `${config.get('url')}/#/${playerRoutes.passwordReset}?reset_token=${user.resetToken}`
 
           const html = resetPasswordEmail({ resetURL })
 

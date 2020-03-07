@@ -19,8 +19,10 @@
       "category": "your.app.category.type"
     }
   },
+  "dependencies": {
+    "electron": "latest"
+  },
   "devDependencies": {
-    "electron": "latest",
     "standard": "^12.0.1",
     "electron-builder": "latest"
   }
