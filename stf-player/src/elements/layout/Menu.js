@@ -8,7 +8,7 @@ import List from '@material-ui/core/List'
 import Person from '@material-ui/icons/Person'
 
 import { constants } from 'stf-core'
-import { getPlayerId } from '../utils/getPlayerId'
+import { getPlayerId } from '../../utils/getPlayerId'
 
 import Dashboard from '@material-ui/icons/Dashboard'
 import Group from '@material-ui/icons/Group'
@@ -60,7 +60,7 @@ const Menu = props => {
       <MenuItemLink
         to='/'
         isActive={active => active.isExact}
-        primaryText={<div className={props.classes.menuItem}>{translate('pos.menu.dashboard')}</div>}
+        primaryText={<div className={props.classes.menuItem}>{translate('pos.menu.dashboard')} <BetaTag /></div>}
         onClick={() => onMenuTap(props)}
         leftIcon={<Dashboard />}
         sidebarIsOpen={open}
@@ -81,7 +81,7 @@ const Menu = props => {
       />
       <MenuItemLink
         to={`/${constants.resources.matches}`}
-        primaryText={<div className={props.classes.menuItem}>{translate('pos.menu.matches')} <BetaTag /></div>}
+        primaryText={<div className={props.classes.menuItem}>{translate('pos.menu.matches')}</div>}
         onClick={() => onMenuTap(props)}
         leftIcon={<Casino />}
         sidebarIsOpen={open}

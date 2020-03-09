@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   title: {
     flex: 1,
     textOverflow: 'ellipsis',
@@ -13,8 +13,16 @@ const useStyles = makeStyles({
   },
   spacer: {
     flex: 1
-  }
-})
+  },
+  betaTag: {
+    color: theme.palette.primary.contrastText,
+    border: `2px solid ${theme.palette.primary.contrastText}`,
+    padding: '0.1rem 0.4rem',
+    borderRadius: '5px',
+    marginRight: '0.75rem',
+    lineHeight: 1
+  },
+}))
 
 const ConfigurationMenu = forwardRef((props, ref) => {
   const translate = useTranslate()
@@ -46,6 +54,11 @@ export default (props) => {
         id='react-admin-title'
       />
       <span className={classes.spacer} />
+      <Typography
+        className={classes.betaTag}
+        variant={'button'}>
+        beta
+      </Typography>
     </AppBar>
   )
 }

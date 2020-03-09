@@ -26,7 +26,7 @@ import { MatchCreate, MatchEdit, MatchList } from './models/matches'
 
 import GoalShow from './models/goals'
 
-import Menu from './containers/Menu'
+import Menu from './elements/layout/Menu'
 import Dashboard from './routes/dashboard'
 import customRoutes from './customRoutes'
 import Login from './routes/auth/login/Login'
