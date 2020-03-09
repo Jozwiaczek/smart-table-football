@@ -16,6 +16,7 @@ import BackgroundGraphic from '../../elements/BackgroundGraphic'
 import { getPlayerId } from '../../utils/getPlayerId'
 import WinRatio from './statisticSection/WinRatio'
 import GoalsNumber from './statisticSection/GoalsNumber'
+import FriendsSection from './FriendsSection'
 
 const DashboardContainer = styled.div`
   padding-top: 1rem;
@@ -135,6 +136,7 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
           </DashboardSection>
 
           <DashboardSection>
+            <FriendsSection />
             <Typography variant='h4' color='textPrimary' gutterBottom>
               Friends
             </Typography>
