@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect, useSelector } from 'react-redux'
 import compose from 'recompose/compose'
-import { MenuItemLink, getResources, Responsive, toggleSidebar } from 'react-admin'
+import { getResources, MenuItemLink, Responsive, toggleSidebar } from 'react-admin'
+import { useTranslate } from 'ra-core'
 import { withRouter } from 'react-router-dom'
 import List from '@material-ui/core/List'
 import Person from '@material-ui/icons/Person'
@@ -13,7 +14,7 @@ import Dashboard from '@material-ui/icons/Dashboard'
 import Group from '@material-ui/icons/Group'
 import Casino from '@material-ui/icons/Casino'
 
-import { withStyles, withWidth, Typography } from '@material-ui/core'
+import { Typography, withStyles, withWidth } from '@material-ui/core'
 
 const styles = theme => ({
   menuItem: {
@@ -52,34 +53,35 @@ const onMenuTap = (props) => {
 const Menu = props => {
   const playerId = getPlayerId()
   const open = useSelector(state => state.admin.ui.sidebarOpen)
+  const translate = useTranslate()
 
   return (
     <List>
       <MenuItemLink
         to='/'
         isActive={active => active.isExact}
-        primaryText={<div className={props.classes.menuItem}>Dashboard</div>}
+        primaryText={<div className={props.classes.menuItem}>{translate('pos.menu.dashboard')}</div>}
         onClick={() => onMenuTap(props)}
         leftIcon={<Dashboard />}
         sidebarIsOpen={open}
       />
       <MenuItemLink
         to={`/${constants.resources.players}/${playerId}/basic`}
-        primaryText={<div className={props.classes.menuItem}>Profile</div>}
+        primaryText={<div className={props.classes.menuItem}>{translate('pos.menu.profile')}</div>}
         onClick={() => onMenuTap(props)}
         leftIcon={<Person />}
         sidebarIsOpen={open}
       />
       <MenuItemLink
         to={`/${constants.resources.teams}`}
-        primaryText={<div className={props.classes.menuItem}>Teams</div>}
+        primaryText={<div className={props.classes.menuItem}>{translate('pos.menu.teams')}</div>}
         onClick={() => onMenuTap(props)}
         leftIcon={<Group />}
         sidebarIsOpen={open}
       />
       <MenuItemLink
         to={`/${constants.resources.matches}`}
-        primaryText={<div className={props.classes.menuItem}>Matches <BetaTag /></div>}
+        primaryText={<div className={props.classes.menuItem}>{translate('pos.menu.matches')} <BetaTag /></div>}
         onClick={() => onMenuTap(props)}
         leftIcon={<Casino />}
         sidebarIsOpen={open}

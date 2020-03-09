@@ -15,5 +15,5 @@ export default [
   <Route exact path='/passwordRecovery' component={PasswordRecovery} noLayout />,
   <Route exact path='/passwordReset' component={PasswordReset} noLayout />,
   <Route exact path='/passwordEmailSend' component={PasswordEmailSend} noLayout />,
-  <Route exact path='/settings' component={Settings} noLayout />
+  <Route exact path='/settings' component={Settings} />
 ]

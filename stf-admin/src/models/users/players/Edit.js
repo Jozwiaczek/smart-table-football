@@ -79,6 +79,12 @@ const PlayerEdit = (props) => (
           source={models.players.fields.status}
           choices={getChoices(constants.statusEnum)}
         />
+        <SelectInput
+          label='Language'
+          source={models.players.fields.locale}
+          choices={getChoices(constants.locales)}
+          validate={required()}
+        />
         <DateField source='createdAt' showTime />
         <DateField source='updatedAt' showTime />
       </FormTab>
@@ -152,6 +158,7 @@ const PlayerEdit = (props) => (
                 />
               </SingleFieldList>
             </ReferenceArrayField>
+
             <DateField source='createdAt' />
           </Datagrid>
         </ReferenceManyField>

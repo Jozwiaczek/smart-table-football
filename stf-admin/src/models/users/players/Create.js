@@ -55,6 +55,12 @@ const PlayerCreate = (props) => (
         choices={getChoices(constants.statusEnum)}
         initialValues={constants.statusEnum.approved}
       />
+      <SelectInput
+        label='Language'
+        source={models.players.fields.locale}
+        choices={getChoices(constants.locales)}
+        validate={required()}
+      />
     </SimpleForm>
   </Create>
 )

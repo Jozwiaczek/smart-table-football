@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const userSchema = require('./schema/user.schema')
 const authManagementSchema = require('./schema/authManagement.schema')
 
-const { models } = require('stf-core')
+const { models, constants } = require('stf-core')
 
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient')
@@ -29,6 +29,10 @@ module.exports = function (app) {
     [models.players.fields.useDarkTheme]: {
       type: mongoose.SchemaTypes.Boolean,
       default: false
+    },
+    [models.players.fields.locale]: {
+      type: mongoose.SchemaTypes.String,
+      default: constants.locales.en
     }
   }, {
     timestamps: true

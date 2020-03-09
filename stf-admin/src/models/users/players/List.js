@@ -70,6 +70,7 @@ const PlayersList = props => (
             render={record => `${record[models.players.fields.firstName]} ${record[models.players.fields.lastName]}`}
           />
           <ApproveButton source={models.players.fields.status} />
+          <TextField source={models.players.fields.locale} />
           <DateField source='createdAt' />
           <DateField source='updatedAt' />
           <EditButton />

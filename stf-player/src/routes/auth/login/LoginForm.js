@@ -118,7 +118,7 @@ const LoginForm = ({ classes, redirectTo }) => {
               )
             )}
           >
-            Sign Up
+            {translate('pos.auth.login.sign_up')}
           </Button>
 
           <Typography
