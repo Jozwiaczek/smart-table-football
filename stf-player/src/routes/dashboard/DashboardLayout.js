@@ -5,7 +5,6 @@ import { GET_LIST, GET_ONE, showNotification, Title, withDataProvider } from 're
 import { Button, Typography } from '@material-ui/core'
 import CreateIcon from '@material-ui/icons/Create'
 import StatisticsIcon from '@material-ui/icons/BarChart'
-import InviteFirendsIcon from '@material-ui/icons/GroupAdd'
 
 import styled, { css } from 'styled-components'
 import compose from 'recompose/compose'
@@ -61,19 +60,19 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
         const resPlayer = await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() }).then(res => res.data)
         setPlayer(resPlayer)
 
-        const resTeams = await dataProvider(GET_LIST, constants.resources.teams, {filter: {} }).then(res => res.data)
+        const resTeams = await dataProvider(GET_LIST, constants.resources.teams, { filter: {} }).then(res => res.data)
 
         if (Array.isArray(resTeams) && resTeams.length > 0 && resPlayer) {
           const playersTeams = resTeams.filter(team => team[models.teams.fields.players].find(player => player === resPlayer._id))
           setTeams(playersTeams)
 
-          const resMatches = await dataProvider(GET_LIST, constants.resources.matches, {filter: {} }).then(res => res.data)
+          const resMatches = await dataProvider(GET_LIST, constants.resources.matches, { filter: {} }).then(res => res.data)
           const playersMatches = resMatches.filter(match =>
             playersTeams.map(team => match[models.matches.fields.teamA] === team._id || match[models.matches.fields.teamB] === team._id)
           )
           setMatches(playersMatches)
 
-          const resGoals = await dataProvider(GET_LIST, constants.resources.goals, {filter: {} }).then(res => res.data)
+          const resGoals = await dataProvider(GET_LIST, constants.resources.goals, { filter: {} }).then(res => res.data)
           const playersGoals = resGoals.filter(goal => resTeams.map(team => goal[models.goals.fields.team] === team._id))
           setGoals(playersGoals)
         }
@@ -136,17 +135,10 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
           </DashboardSection>
 
           <DashboardSection>
-            <FriendsSection />
             <Typography variant='h4' color='textPrimary' gutterBottom>
               Friends
             </Typography>
-            <Typography variant='body1' color='textPrimary' gutterBottom>
-              If you want invite friends, click button below
-            </Typography>
-            <Button color='primary' variant='contained' onClick={() => console.log('Invite friend btn clicked')}>
-              <InviteFirendsIcon />&nbsp;
-              Invite friend
-            </Button>
+            <FriendsSection />
           </DashboardSection>
         </DashboardFragment>
 

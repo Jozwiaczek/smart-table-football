@@ -19,7 +19,7 @@ export default () => {
   const locale = useLocale()
   const setLocale = useSetLocale()
   const classes = useStyles()
-  const dataProvider = useDataProvider();
+  const dataProvider = useDataProvider()
 
   const theme = useSelector((state) => state.theme)
 

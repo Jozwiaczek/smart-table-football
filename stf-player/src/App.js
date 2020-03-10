@@ -43,9 +43,9 @@ const authClientOptions = {
   redirectTo: '/login' // Redirect to this path if an AUTH_CHECK fails. Uses the react-admin default of '/login' if omitted.
 }
 
-const GetPlayer = (() => {
+const GetPlayer = () => {
   const setLocale = useSetLocale()
-  const dataProvider = useDataProvider();
+  const dataProvider = useDataProvider()
 
   React.useEffect(() => {
     const token = localStorage.getItem(constants.storageKey)
@@ -58,7 +58,7 @@ const GetPlayer = (() => {
     }
   }, [dataProvider, setLocale])
   return null
-})
+}
 
 const App = () => {
   const [theme, themeSetter] = React.useState(null)

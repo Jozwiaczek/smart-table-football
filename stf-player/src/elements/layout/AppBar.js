@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: '5px',
     marginRight: '0.75rem',
     lineHeight: 1
-  },
+  }
 }))
 
 const ConfigurationMenu = forwardRef((props, ref) => {
