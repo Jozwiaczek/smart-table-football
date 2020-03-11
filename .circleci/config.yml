@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Install dependency
-          command: yarn install || npm i
+          command: yarn install
       - run:
           name: Waiting for Mongo
           command: dockerize -wait tcp://localhost:27017 -timeout 1m
@@ -20,7 +20,7 @@ jobs:
           command: cd stf-player && yarn eslint && yarn build
       - run:
           name: Raspberry Pi
-          command: cd stf-rasp && yarn eslint
+          command: cd stf-rasp && yarn install && yarn eslint
       - run:
           name: Admin
           command: cd stf-admin && yarn eslint && yarn build
@@ -29,7 +29,7 @@ jobs:
           command: cd stf-core && yarn eslint
       - run:
           name: Admin-desktop
-          command: cd stf-admin-desktop && yarn eslint && yarn pack
+          command: cd stf-admin-desktop && yarn install && yarn eslint && yarn pack
 workflows:
   main:
     jobs:

@@ -1,40 +1,32 @@
 /* global localStorage */
 import React from 'react'
-import { Admin, Resource, withDataProvider, GET_ONE } from 'react-admin'
+import { Admin, GET_ONE, Resource, useDataProvider, useSetLocale } from 'react-admin'
+
 import { authClient } from 'ra-data-feathers'
-import englishMessages from 'ra-language-english'
-import polyglotI18nProvider from 'ra-i18n-polyglot'
 
 import Person from '@material-ui/icons/Person'
 import Group from '@material-ui/icons/Group'
 import Casino from '@material-ui/icons/Casino'
 import { MuiThemeProvider } from '@material-ui/core'
 
-import { constants } from 'stf-core'
+import { constants, models } from 'stf-core'
 
 import feathersRestClient from './client/feathersRestClient'
 import dataProvider from './dataProvider'
-import domainMessages from './i18n'
+import i18nProvider from './i18n/i18nProvider'
 import { themeProvider } from './themes'
 import { getPlayerId } from './utils/getPlayerId'
+import Layout from './elements/layout'
 
 import { PlayerEdit } from './models/players'
 
-import {
-  TeamsList,
-  TeamCreate,
-  TeamEdit
-} from './models/teams'
+import { TeamCreate, TeamEdit, TeamsList } from './models/teams'
 
-import {
-  MatchList,
-  MatchCreate,
-  MatchEdit
-} from './models/matches'
+import { MatchCreate, MatchEdit, MatchList } from './models/matches'
 
 import GoalShow from './models/goals'
 
-import Menu from './containers/Menu'
+import Menu from './elements/layout/Menu'
 import Dashboard from './routes/dashboard'
 import customRoutes from './customRoutes'
 import Login from './routes/auth/login/Login'
@@ -51,26 +43,22 @@ const authClientOptions = {
   redirectTo: '/login' // Redirect to this path if an AUTH_CHECK fails. Uses the react-admin default of '/login' if omitted.
 }
 
-// const realTimeSaga = createRealtimeSaga(dataProvider)
+const GetPlayer = () => {
+  const setLocale = useSetLocale()
+  const dataProvider = useDataProvider()
 
-const messages = {
-  en: {
-    ...englishMessages,
-    ...domainMessages.en
-  }
-}
-
-const i18nProvider = polyglotI18nProvider(locale => messages[locale], 'en')
-
-const GetPlayer = withDataProvider((props) => {
   React.useEffect(() => {
     const token = localStorage.getItem(constants.storageKey)
-    if (token) {
-      props.dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() })
+    const getter = async () => {
+      const resPlayer = await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() }).then(res => res.data)
+      setLocale(resPlayer[models.players.fields.locale])
     }
-  })
+    if (token) {
+      getter()
+    }
+  }, [dataProvider, setLocale])
   return null
-})
+}
 
 const App = () => {
   const [theme, themeSetter] = React.useState(null)
@@ -80,6 +68,7 @@ const App = () => {
     const call = async () => {
       try {
         const theme = await themeProvider()
+        // const theme = await themeProvider(true) // for dark theme
         await themeSetter(theme)
       } catch (e) {
         throw new Error(e)
@@ -131,6 +120,7 @@ const App = () => {
         menu={Menu}
         dashboard={Dashboard}
         loginPage={Login}
+        layout={Layout}
       >
         <Resource
           name={constants.resources.playerAuthManagement}

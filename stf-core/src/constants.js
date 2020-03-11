@@ -21,6 +21,11 @@ const authStrategies = {
   jwtPlayer: 'jwtPlayer'
 }
 
+const locales = {
+  en: 'en',
+  pl: 'pl'
+}
+
 const authorizationHeaders = {
   admin: 'authorization-admin',
   player: 'authorization-player'
@@ -63,5 +68,6 @@ module.exports = {
   statusEnum,
   cardStatusEnum,
   formNames,
-  statusMatch
+  statusMatch,
+  locales
 }

@@ -5,7 +5,6 @@ import { GET_LIST, GET_ONE, showNotification, Title, withDataProvider } from 're
 import { Button, Typography } from '@material-ui/core'
 import CreateIcon from '@material-ui/icons/Create'
 import StatisticsIcon from '@material-ui/icons/BarChart'
-import InviteFirendsIcon from '@material-ui/icons/GroupAdd'
 
 import styled, { css } from 'styled-components'
 import compose from 'recompose/compose'
@@ -14,6 +13,9 @@ import { constants, models } from 'stf-core'
 import Ball from '../../elements/Ball'
 import BackgroundGraphic from '../../elements/BackgroundGraphic'
 import { getPlayerId } from '../../utils/getPlayerId'
+import WinRatio from './statisticSection/WinRatio'
+import GoalsNumber from './statisticSection/GoalsNumber'
+import FriendsSection from './FriendsSection'
 
 const DashboardContainer = styled.div`
   padding-top: 1rem;
@@ -58,20 +60,19 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
         const resPlayer = await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() }).then(res => res.data)
         setPlayer(resPlayer)
 
-        const resTeams = await dataProvider(GET_LIST, constants.resources.teams, {}).then(res => res.data)
+        const resTeams = await dataProvider(GET_LIST, constants.resources.teams, { filter: {} }).then(res => res.data)
+
         if (Array.isArray(resTeams) && resTeams.length > 0 && resPlayer) {
           const playersTeams = resTeams.filter(team => team[models.teams.fields.players].find(player => player === resPlayer._id))
           setTeams(playersTeams)
 
-          const resMatches = await dataProvider(GET_LIST, constants.resources.matches, {}).then(res => res.data)
+          const resMatches = await dataProvider(GET_LIST, constants.resources.matches, { filter: {} }).then(res => res.data)
           const playersMatches = resMatches.filter(match =>
-            playersTeams.map(team =>
-              match[models.matches.fields.teamA] === team._id || match[models.matches.fields.teamB] === team._id
-            )
+            playersTeams.map(team => match[models.matches.fields.teamA] === team._id || match[models.matches.fields.teamB] === team._id)
           )
           setMatches(playersMatches)
 
-          const resGoals = await dataProvider(GET_LIST, constants.resources.goals, {}).then(res => res.data)
+          const resGoals = await dataProvider(GET_LIST, constants.resources.goals, { filter: {} }).then(res => res.data)
           const playersGoals = resGoals.filter(goal => resTeams.map(team => goal[models.goals.fields.team] === team._id))
           setGoals(playersGoals)
         }
@@ -137,13 +138,7 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
             <Typography variant='h4' color='textPrimary' gutterBottom>
               Friends
             </Typography>
-            <Typography variant='body1' color='textPrimary' gutterBottom>
-              If you want invite friends, click button below
-            </Typography>
-            <Button color='primary' variant='contained' onClick={() => console.log('Invite friend btn clicked')}>
-              <InviteFirendsIcon />&nbsp;
-              Invite friend
-            </Button>
+            <FriendsSection />
           </DashboardSection>
         </DashboardFragment>
 
@@ -152,12 +147,8 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
             <Typography variant='h4' color='textPrimary' gutterBottom>
               Statistic
             </Typography>
-            <Typography variant='body1' color='textPrimary' gutterBottom>
-              {goals ? `Total goals: ${goals.length}` : 'You dont have any goals'}
-            </Typography>
-            <Typography variant='body1' color='textPrimary'>
-              Win Ratio: {getPlayerWinRatio()}%
-            </Typography>
+            <GoalsNumber goals={goals} />
+            <WinRatio value={getPlayerWinRatio()} />
             {/* <Typography variant={'body1'} color={'textPrimary'}> */}
             {/*  Current Winning Streak: 2 */}
             {/* </Typography> */}
