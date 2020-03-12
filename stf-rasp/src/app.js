@@ -10,10 +10,10 @@ const Path = require('path')
 const exitHook = require('exit-hook')
 
 const googleDrive = require('./google-drive')
-const { API_URL } = require('../config/default.json')
+// const { API_URL } = require('../config/default.json')
 
 const app = express(feathers())
-const socket = io(API_URL)
+const socket = io(process.env.API_URL)
 
 const RED_LIGHT = new GPIO(21, 'out')
 const GREEN_LIGHT = new GPIO(13, 'out')
