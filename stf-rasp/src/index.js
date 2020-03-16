@@ -1,6 +1,6 @@
 const app = require('./app')
 const hostname = app.get('host')
-const port = process.env.PORT
+const port = app.get('port')
 const server = app.listen(port)
 
 process.on('unhandledRejection', (reason, p) =>

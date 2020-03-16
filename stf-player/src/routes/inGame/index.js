@@ -161,19 +161,14 @@ const InGame = ({ history, classes, dataProvider }) => {
     return () => clearInterval(interval)
   }, [isTimerRun, elapsedTimer])
 
-  // const checkTableStatus = () => {
-  //   socket.emit('checkTableStatus', matchId)
-  //   socket.on('notAvailable', () => {
-  //     console.log('not available')
-  //   })
-  // }
+  const checkTableStatus = () => {}
 
   const urlParams = new URLSearchParams(history.location.search)
   const matchId = urlParams.get('match')
   React.useEffect(() => {
     const call = async () => {
       try {
-        // checkTableStatus()
+        checkTableStatus()
         const theme = await themeProvider()
         await themeSetter(theme)
         const resMatch = await dataProvider(GET_ONE, constants.resources.matches, { id: matchId }).then(res => res.data)

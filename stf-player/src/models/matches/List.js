@@ -95,7 +95,6 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
         const res = await dataProvider(GET_MANY, constants.resources.teams, {
           pagination: { page: 1, perPage: 5 }
         })
-        console.log('res', res)
         setTeams(res)
       } catch (e) {
         console.log(e)
