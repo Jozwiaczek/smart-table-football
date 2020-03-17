@@ -27,9 +27,8 @@ if (!fs.existsSync(replayDir)) {
 app.configure(socketio(socket))
 app.configure(configuration())
 
-socket.on('isTableActive', () => {
-  console.log('L:31 | isTableActive')
-  socket.emit('tableActive')
+socket.on('isTableActiveRasp', () => {
+  socket.emit('tableActiveRasp')
 })
 
 let checker = 0
@@ -37,11 +36,6 @@ socket.on('startListening', async match => {
   GREEN_LIGHT.writeSync(1)
   const { replayTime, _id: matchId } = match
 
-  socket.on('checkTableStatus', matchIdToCheck => {
-    if (matchId !== matchIdToCheck) {
-      socket.emit('notAvailable')
-    }
-  })
   CameraService.startRecordVideo(replayTime, replayDir)
   GATE_A_SENSOR.watch(async (err, value) => {
     if (err) {

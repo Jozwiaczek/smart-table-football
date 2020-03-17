@@ -25,6 +25,8 @@ const mongoose = require('./mongoose')
 // googleDrive.listFiles()
 
 const app = express(feathers())
+global['isTableActive'] = false
+
 app.set('query parser', function (str) {
   return qs.parse(str, { arrayLimit: 1000 })
 })

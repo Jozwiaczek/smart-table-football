@@ -4,11 +4,16 @@ const {
 } = require('stf-core')
 
 module.exports = function (app, socket) {
-  socket.emit('isTableActive')
-
-  socket.on('tableActive', () => {
-    console.log('Table is active')
+  socket.on('isTableActivePlayer', () => {
+    socket.emit('isTableActivePlayer', global['isTableActive'])
   })
+
+  socket.on('tableActiveRasp', () => {
+    global['tableId'] = socket.id
+    global['isTableActive'] = true
+  })
+
+  socket.emit('isTableActiveRasp')
 
   socket.on('goal', async data => {
     const { team, replayId, matchId } = data
@@ -21,6 +26,9 @@ module.exports = function (app, socket) {
   })
 
   socket.on('disconnect', async () => {
+    if (socket.id === global['tableId']) {
+      global['isTableActive'] = false
+    }
     const activeMatches = await app.service(constants.resources.matches).find({
       query: {
         [models.matches.fields.status]: constants.statusMatch.active
