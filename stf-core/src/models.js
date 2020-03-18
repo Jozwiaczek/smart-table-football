@@ -43,6 +43,14 @@ const teams = {
   }
 }
 
+const table = {
+  name: 'table',
+  fields: {
+    id: 'id',
+    isActive: 'isActive'
+  }
+}
+
 const matches = {
   name: 'matches',
   fields: {
@@ -71,5 +79,6 @@ module.exports = {
   players,
   teams,
   matches,
-  goals
+  goals,
+  table
 }

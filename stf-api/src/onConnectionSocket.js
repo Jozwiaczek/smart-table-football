@@ -1,16 +1,20 @@
 const {
-  constants,
   models
 } = require('stf-core')
 
 module.exports = function (app, socket) {
-  socket.on('isTableActivePlayer', () => {
-    socket.emit('isTableActivePlayer', global['isTableActive'])
+  const tableService = app.service('table')
+  tableService.setup(app)
+
+  socket.on('isTableActivePlayer', async () => {
+    await tableService.emitIsActive()
   })
 
   socket.on('tableActiveRasp', () => {
-    global['tableId'] = socket.id
-    global['isTableActive'] = true
+    tableService.create({
+      [models.table.fields.id]: socket.id,
+      [models.table.fields.isActive]: true
+    })
   })
 
   socket.emit('isTableActiveRasp')
@@ -26,17 +30,9 @@ module.exports = function (app, socket) {
   })
 
   socket.on('disconnect', async () => {
-    if (socket.id === global['tableId']) {
-      global['isTableActive'] = false
+    const table = await tableService.getTable()
+    if (table && (socket.id === table[models.table.fields.id])) {
+      tableService.remove(socket.id)
     }
-    const activeMatches = await app.service(constants.resources.matches).find({
-      query: {
-        [models.matches.fields.status]: constants.statusMatch.active
-      }
-    })
-
-    activeMatches.data.map(async activeMatch => app.service(constants.resources.matches).patch(activeMatch._id, {
-      [models.matches.fields.status]: constants.statusMatch.paused
-    }))
   })
 }

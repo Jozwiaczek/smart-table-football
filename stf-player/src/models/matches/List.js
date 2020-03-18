@@ -25,6 +25,7 @@ import { constants, models } from 'stf-core'
 
 import DateFilters from '../../elements/DateFilters'
 import { getTimerUnit } from '../../utils/getTimerUnits'
+import { socket } from '../../client/feathersSocketClient'
 
 const styles = {
   buttonIcon: {
@@ -53,10 +54,10 @@ const ShowStatistic = ({ classes, record, history, mobile }) => {
   )
 }
 
-const ContinueButton = ({ classes, record, history, mobile }) => {
+const ContinueButton = ({ classes, record, history, mobile, disabled }) => {
   if (record[models.matches.fields.status] === constants.statusMatch.paused) {
     return (
-      <Button color='primary' onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}>
+      <Button color='primary' disabled={disabled} onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}>
         <SlowMotionVideoIcon className={classes.buttonIcon} />
         {mobile ? null : 'Continue'}
       </Button>
@@ -88,9 +89,12 @@ const WinnerMobileField = ({ teams, record }) => {
 
 const MatchList = ({ classes, dataProvider, ...rest }) => {
   const [teams, setTeams] = React.useState(null)
+  const [tableStatus, setTableStatus] = React.useState(false)
 
   React.useEffect(() => {
     const call = async () => {
+      socket.emit('isTableActivePlayer')
+      socket.on('isTableActivePlayer', isActive => setTableStatus(isActive))
       try {
         const res = await dataProvider(GET_MANY, constants.resources.teams, {
           pagination: { page: 1, perPage: 5 }
@@ -161,7 +165,7 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
               }}
             />
             <DateField source='createdAt' showTime />
-            <ContinueButton classes={classes} {...rest} />
+            <ContinueButton classes={classes} disabled={!tableStatus} {...rest} />
             <ShowStatistic classes={classes} {...rest} />
           </CustomizableDatagrid>
         }

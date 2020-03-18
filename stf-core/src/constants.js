@@ -6,7 +6,8 @@ const resources = {
   teams: 'teams',
   matches: 'matches',
   goals: 'goals',
-  mailer: 'mailer'
+  mailer: 'mailer',
+  table: 'table'
 }
 
 const storageKey = 'feathers-jwt'

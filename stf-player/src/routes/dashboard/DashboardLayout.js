@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { GET_LIST, GET_ONE, showNotification, Title, withDataProvider } from 'react-admin'
-import { socket } from '../../client/feathersSocketClient'
 
 import { Button, Typography } from '@material-ui/core'
 import CreateIcon from '@material-ui/icons/Create'
@@ -55,15 +54,9 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
   const [matches, setMatches] = React.useState(null)
   const [goals, setGoals] = React.useState(null)
 
-  const [tableStatus, setTableStatus] = React.useState(false)
-
   React.useEffect(() => {
     const call = async () => {
       try {
-        socket.emit('isTableActivePlayer')
-        socket.on('isTableActivePlayer', isActive => {
-          setTableStatus(isActive)
-        })
         const resPlayer = await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() }).then(res => res.data)
         setPlayer(resPlayer)
 
@@ -88,7 +81,7 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
       }
     }
     call()
-  }, [dataProvider, socket])
+  }, [dataProvider])
 
   if (!player) {
     return null
@@ -139,9 +132,6 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
               <CreateIcon />
               Prepare match
             </Button>
-            <Typography variant='h3'>
-              {tableStatus ? 'Table is active 🟢' : 'Table not active 🔴'}
-            </Typography>
           </DashboardSection>
 
           <DashboardSection>
