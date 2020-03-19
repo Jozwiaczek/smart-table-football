@@ -39,7 +39,7 @@ import TeamCard from './TeamCard'
 import NewGoalModal from './GoalDetailsModal'
 import Timer from './Timer'
 import { useSelector } from 'react-redux'
-import Modal from './Modal'
+import Modal from '../../elements/Modal'
 
 const styles = () => ({
   main: {
@@ -336,9 +336,9 @@ const InGame = ({ history, classes, dataProvider }) => {
           goal={newGoal}
           getTeamName={getTeamName}
           removeGoal={removeGoal}
-          isAlertOpen={isGoalModalOpen}
+          isOpen={isGoalModalOpen}
           completedCountdown={completedCountdown}
-          closeAlertNewGoal={closeModalNewGoal}
+          onClose={closeModalNewGoal}
         />
 
         <Modal onClose={onCloseTableDisconnectedModal} isOpen={isTableDisconnectedModal}>
