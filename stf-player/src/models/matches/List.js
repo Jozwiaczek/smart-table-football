@@ -25,7 +25,7 @@ import { constants, models } from 'stf-core'
 
 import DateFilters from '../../elements/DateFilters'
 import { getTimerUnit } from '../../utils/getTimerUnits'
-import { socket } from '../../client/feathersSocketClient'
+import { useSelector } from 'react-redux'
 
 const styles = {
   buttonIcon: {
@@ -89,12 +89,11 @@ const WinnerMobileField = ({ teams, record }) => {
 
 const MatchList = ({ classes, dataProvider, ...rest }) => {
   const [teams, setTeams] = React.useState(null)
-  const [tableStatus, setTableStatus] = React.useState(false)
+
+  const tableStatus = useSelector(state => state.table.isActive)
 
   React.useEffect(() => {
     const call = async () => {
-      socket.emit('isTableActivePlayer')
-      socket.on('isTableActivePlayer', isActive => setTableStatus(isActive))
       try {
         const res = await dataProvider(GET_MANY, constants.resources.teams, {
           pagination: { page: 1, perPage: 5 }

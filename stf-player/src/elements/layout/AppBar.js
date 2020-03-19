@@ -1,12 +1,12 @@
 import React, { forwardRef } from 'react'
+import { useSelector } from 'react-redux'
 import { AppBar, MenuItemLink, UserMenu, useTranslate } from 'react-admin'
-import Typography from '@material-ui/core/Typography'
 import SettingsIcon from '@material-ui/icons/Settings'
 import SignalIcon from '@material-ui/icons/Wifi'
 import NoSignalIcon from '@material-ui/icons/WifiOff'
 import { makeStyles } from '@material-ui/core/styles'
-import { socket } from '../../client/feathersSocketClient'
-import { useMediaQuery } from '@material-ui/core'
+import { Typography, useMediaQuery } from '@material-ui/core'
+import Tooltip from '@material-ui/core/Tooltip/Tooltip'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -53,26 +53,18 @@ const ConfigurationMenu = forwardRef((props, ref) => {
   )
 })
 
-const CustomUserMenu = (props) => (
+const CustomUserMenu = (props) =>
   <UserMenu {...props}>
     <ConfigurationMenu />
   </UserMenu>
-)
 
 export default (props) => {
-  const [tableStatus, setTableStatus] = React.useState(false)
+  const tableStatus = useSelector(state => state.table.isActive)
 
   const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
-  React.useEffect(() => {
-    const call = async () => {
-      socket.emit('isTableActivePlayer')
-      socket.on('isTableActivePlayer', isActive => setTableStatus(isActive))
-    }
-    call()
-  }, [])
-
   const classes = useStyles()
+
   return (
     <AppBar {...props} userMenu={<CustomUserMenu />}>
       {
@@ -95,17 +87,22 @@ export default (props) => {
           beta
         </Typography>
       }
+
       <div className={classes.strengthSignalIcon}>
-        {tableStatus ? <SignalIcon />
-          : <div className={classes.noSignalContainer}>
-            <NoSignalIcon />
-            {
-              !isSmall &&
-              <Typography className={classes.disconnectText}>
-                Table is disconnected
-              </Typography>
-            }
-          </div>
+        {
+          tableStatus
+            ? <Tooltip title='Table is connected'>
+              <SignalIcon />
+            </Tooltip>
+            : <div className={classes.noSignalContainer} {...props}>
+              <NoSignalIcon />
+              {
+                !isSmall &&
+                <Typography className={classes.disconnectText}>
+              Table is disconnected
+                </Typography>
+              }
+            </div>
         }
       </div>
     </AppBar>

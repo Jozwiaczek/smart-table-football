@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import compose from 'recompose/compose'
+import { useHistory } from 'react-router-dom'
 
 import { socket } from '../../client/feathersSocketClient'
 
@@ -37,6 +38,8 @@ import GoalsList from './GoalsList'
 import TeamCard from './TeamCard'
 import NewGoalModal from './GoalDetailsModal'
 import Timer from './Timer'
+import { useSelector } from 'react-redux'
+import Modal from './Modal'
 
 const styles = () => ({
   main: {
@@ -68,6 +71,17 @@ const styles = () => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '1em'
+  },
+  tableIsDisconnectedModal: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column'
+  },
+  tableIsDisconnectedModalTitle: {
+    marginBottom: '0.5em'
+  },
+  tableIsDisconnectedModalSubtitle: {
+    marginBottom: '2em'
   }
 })
 
@@ -120,6 +134,11 @@ const InGame = ({ history, classes, dataProvider }) => {
   const [isGoalModalOpen, setGoalModalOpen] = React.useState(false)
   const [completedCountdown, setCompletedCountdown] = React.useState(0)
   const [isFullScreen, setFullScreen] = React.useState(false)
+  const [isTableDisconnectedModal, setTableDisconnectedModal] = React.useState(false)
+
+  const tableStatus = useSelector(state => state.table.isActive)
+  const historyHook = useHistory()
+
   const countDownInterval = useRef()
 
   const openModalNewGoal = (instant) => {
@@ -149,6 +168,20 @@ const InGame = ({ history, classes, dataProvider }) => {
   }
 
   React.useEffect(() => {
+    window.onbeforeunload = async () => {
+      if (status === constants.statusMatch.active) {
+        const elapsedTime = stopTimer()
+        await dataProvider(UPDATE, constants.resources.matches, {
+          id: match.id,
+          data: {
+            [models.matches.fields.elapsedTime]: elapsedTime
+          }
+        })
+      }
+    }
+  }, [])
+
+  React.useEffect(() => {
     let interval = null
     if (isTimerRun) {
       const start = Date.now() - elapsedTimer
@@ -161,46 +194,71 @@ const InGame = ({ history, classes, dataProvider }) => {
     return () => clearInterval(interval)
   }, [isTimerRun, elapsedTimer])
 
-  const checkTableStatus = () => {}
+  const onCloseTableDisconnectedModal = async () => {
+    setTableDisconnectedModal(false)
+    if (status === constants.statusMatch.active) {
+      const elapsedTime = stopTimer()
+      await dataProvider(UPDATE, constants.resources.matches, {
+        id: match.id,
+        data: {
+          [models.matches.fields.status]: constants.statusMatch.paused,
+          [models.matches.fields.elapsedTime]: elapsedTime
+        }
+      })
+    }
+    historyHook.push('/')
+  }
 
-  const urlParams = new URLSearchParams(history.location.search)
-  const matchId = urlParams.get('match')
+  const checkTableStatus = () => {
+    if (!tableStatus) {
+      setTableDisconnectedModal(true)
+    }
+  }
+
+  let matchId
+  if (!isTableDisconnectedModal) {
+    const urlParams = new URLSearchParams(history.location.search)
+    matchId = urlParams.get('match')
+  }
+
   React.useEffect(() => {
     const call = async () => {
       try {
         checkTableStatus()
-        const theme = await themeProvider()
-        await themeSetter(theme)
-        const resMatch = await dataProvider(GET_ONE, constants.resources.matches, { id: matchId }).then(res => res.data)
-        setMatch(resMatch)
-        setElapsedTimer(resMatch[models.matches.fields.elapsedTime])
-        setStatus(resMatch[models.matches.fields.status])
-        const resTeamA = await dataProvider(GET_ONE, constants.resources.teams, { id: resMatch[models.matches.fields.teamA] }).then(res => res.data)
-        setTeamA(resTeamA)
-        const resTeamAGoals = await dataProvider(GET_LIST, constants.resources.goals, {
-          filter: {
-            [models.goals.fields.team]: resTeamA._id,
-            [models.goals.fields.match]: resMatch._id
-          }
-        }).then(res => res.data)
-        setTeamAGoals(resTeamAGoals)
+        if (!isTableDisconnectedModal && matchId) {
+          const theme = await themeProvider()
+          await themeSetter(theme)
+          const resMatch = await dataProvider(GET_ONE, constants.resources.matches, { id: matchId }).then(res => res.data)
+          setMatch(resMatch)
+          setElapsedTimer(resMatch[models.matches.fields.elapsedTime])
+          setStatus(resMatch[models.matches.fields.status])
+          const resTeamA = await dataProvider(GET_ONE, constants.resources.teams, { id: resMatch[models.matches.fields.teamA] }).then(res => res.data)
+          setTeamA(resTeamA)
+          const resTeamAGoals = await dataProvider(GET_LIST, constants.resources.goals, {
+            filter: {
+              [models.goals.fields.team]: resTeamA._id,
+              [models.goals.fields.match]: resMatch._id
+            }
+          }).then(res => res.data)
+          setTeamAGoals(resTeamAGoals)
 
-        setTeamB(await dataProvider(GET_ONE, constants.resources.teams, { id: resMatch[models.matches.fields.teamB] }).then(res => res.data))
-        socket.on('createdGoal', goal => {
-          setNewGoal(goal)
-          setTeamAGoals(teamAGoals => {
-            teamAGoals[teamAGoals.length] = goal
-            return teamAGoals
+          setTeamB(await dataProvider(GET_ONE, constants.resources.teams, { id: resMatch[models.matches.fields.teamB] }).then(res => res.data))
+          socket.on('createdGoal', goal => {
+            setNewGoal(goal)
+            setTeamAGoals(teamAGoals => {
+              teamAGoals[teamAGoals.length] = goal
+              return teamAGoals
+            })
+            openModalNewGoal()
+            setTimeout(() => { closeModalNewGoal() }, 6000)
           })
-          openModalNewGoal()
-          setTimeout(() => { closeModalNewGoal() }, 6000)
-        })
+        }
       } catch (e) {
         throw new Error(e)
       }
     }
     call()
-  }, [dataProvider, matchId])
+  }, [dataProvider, matchId, tableStatus])
 
   if (!theme || !teamA || !teamB) {
     return null
@@ -286,6 +344,20 @@ const InGame = ({ history, classes, dataProvider }) => {
           completedCountdown={completedCountdown}
           closeAlertNewGoal={closeModalNewGoal}
         />
+
+        <Modal onClose={onCloseTableDisconnectedModal} isOpen={isTableDisconnectedModal}>
+          <div className={classes.tableIsDisconnectedModal}>
+            <Typography variant='h3' align='center' className={classes.tableIsDisconnectedModalTitle}>
+              Table was disconnected
+            </Typography>
+            <Typography variant='h5' align='center' className={classes.tableIsDisconnectedModalSubtitle}>
+              Stay calm, your match was paused
+            </Typography>
+            <Button onClick={() => onCloseTableDisconnectedModal()} variant='contained' color='primary'>
+              Return to dashboard
+            </Button>
+          </div>
+        </Modal>
       </MuiThemeProvider>
     </FullScreen>
   )

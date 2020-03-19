@@ -1,6 +1,7 @@
 /* global localStorage */
 import React from 'react'
 import { Admin, GET_ONE, Resource, useDataProvider, useSetLocale } from 'react-admin'
+import { useDispatch } from 'react-redux'
 
 import { authClient } from 'ra-data-feathers'
 
@@ -12,6 +13,7 @@ import { MuiThemeProvider } from '@material-ui/core'
 import { constants, models } from 'stf-core'
 
 import feathersRestClient from './client/feathersRestClient'
+import customReducers from './redux/reducers'
 import dataProvider from './dataProvider'
 import i18nProvider from './i18n/i18nProvider'
 import { themeProvider } from './themes'
@@ -30,6 +32,8 @@ import Menu from './elements/layout/Menu'
 import Dashboard from './routes/dashboard'
 import customRoutes from './customRoutes'
 import Login from './routes/auth/login/Login'
+import { socket } from './client/feathersSocketClient'
+import { setTableStatus } from './redux/actions/table'
 
 const authClientOptions = {
   storageKey: constants.storageKey, // The key in localStorage used to store the authentication token
@@ -46,12 +50,15 @@ const authClientOptions = {
 const GetPlayer = () => {
   const setLocale = useSetLocale()
   const dataProvider = useDataProvider()
+  const dispatch = useDispatch()
 
   React.useEffect(() => {
     const token = localStorage.getItem(constants.storageKey)
     const getter = async () => {
       const resPlayer = await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() }).then(res => res.data)
       setLocale(resPlayer[models.players.fields.locale])
+      socket.emit('isTableActivePlayer')
+      socket.on('isTableActivePlayer', isActive => dispatch(setTableStatus(isActive)))
     }
     if (token) {
       getter()
@@ -114,6 +121,8 @@ const App = () => {
         title='STF Player Panel'
         dataProvider={dataProvider}
         authProvider={authClient(feathersRestClient, authClientOptions)}
+        // customSagas={[tableSaga]}
+        customReducers={customReducers}
         i18nProvider={i18nProvider}
         customRoutes={customRoutes}
         theme={theme}
