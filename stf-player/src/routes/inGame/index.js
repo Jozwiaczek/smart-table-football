@@ -162,24 +162,10 @@ const InGame = ({ history, classes, dataProvider }) => {
     setIsTimerRun(true)
   }
 
-  const stopTimer = () => {
+  const stopTimer = React.useCallback(() => {
     setIsTimerRun(false)
     return elapsedTimer
-  }
-
-  React.useEffect(() => {
-    window.onbeforeunload = async () => {
-      if (status === constants.statusMatch.active) {
-        const elapsedTime = stopTimer()
-        await dataProvider(UPDATE, constants.resources.matches, {
-          id: match.id,
-          data: {
-            [models.matches.fields.elapsedTime]: elapsedTime
-          }
-        })
-      }
-    }
-  }, [])
+  }, [elapsedTimer])
 
   React.useEffect(() => {
     let interval = null
@@ -209,12 +195,6 @@ const InGame = ({ history, classes, dataProvider }) => {
     historyHook.push('/')
   }
 
-  const checkTableStatus = () => {
-    if (!tableStatus) {
-      setTableDisconnectedModal(true)
-    }
-  }
-
   let matchId
   if (!isTableDisconnectedModal) {
     const urlParams = new URLSearchParams(history.location.search)
@@ -224,7 +204,9 @@ const InGame = ({ history, classes, dataProvider }) => {
   React.useEffect(() => {
     const call = async () => {
       try {
-        checkTableStatus()
+        if (!tableStatus) {
+          setTableDisconnectedModal(true)
+        }
         if (!isTableDisconnectedModal && matchId) {
           const theme = await themeProvider()
           await themeSetter(theme)
@@ -258,7 +240,21 @@ const InGame = ({ history, classes, dataProvider }) => {
       }
     }
     call()
-  }, [dataProvider, matchId, tableStatus])
+  }, [dataProvider, matchId, tableStatus, isTableDisconnectedModal])
+
+  React.useEffect(() => {
+    window.onbeforeunload = async () => {
+      if (status === constants.statusMatch.active) {
+        const elapsedTime = stopTimer()
+        await dataProvider(UPDATE, constants.resources.matches, {
+          id: match.id,
+          data: {
+            [models.matches.fields.elapsedTime]: elapsedTime
+          }
+        })
+      }
+    }
+  }, [dataProvider, status, stopTimer, match])
 
   if (!theme || !teamA || !teamB) {
     return null

@@ -63,7 +63,7 @@ const GetPlayer = () => {
     if (token) {
       getter()
     }
-  }, [dataProvider, setLocale])
+  }, [dataProvider, setLocale, dispatch])
   return null
 }
 

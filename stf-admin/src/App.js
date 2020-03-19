@@ -10,6 +10,8 @@ import PersonOutline from '@material-ui/icons/PersonOutline'
 import Group from '@material-ui/icons/Group'
 import Casino from '@material-ui/icons/Casino'
 import SportsSoccer from '@material-ui/icons/SportsSoccer'
+import TableSignal from '@material-ui/icons/SettingsInputAntenna'
+import EmailIcon from '@material-ui/icons/Email'
 
 import { constants } from 'stf-core'
 
@@ -25,6 +27,7 @@ import { TeamCreate, TeamEdit, TeamsList } from './models/teams'
 import { MatchCreate, MatchEdit, MatchList } from './models/matches'
 import { GoalShow, GoalsList } from './models/goals'
 import { MailerCreate } from './models/mailer'
+import { TableList } from './models/table'
 
 const authClientOptions = {
   storageKey: constants.storageKey, // The key in localStorage used to store the authentication token
@@ -101,9 +104,14 @@ const App = () => (
       list={GoalsList}
       show={GoalShow}
     />
-    {/* TODO: Add possibility to create mail */}
+    <Resource
+      name={constants.resources.table}
+      icon={TableSignal}
+      list={TableList}
+    />
     <Resource
       name={constants.resources.mailer}
+      icon={EmailIcon}
       create={MailerCreate}
     />
     <GetAdmin />
