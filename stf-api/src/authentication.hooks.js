@@ -1,4 +1,5 @@
 // Application hooks that run for every service
+const { constants } = require('stf-core')
 
 const authentication = require('@feathersjs/authentication')
 
@@ -8,7 +9,7 @@ module.exports = (app) => ({
     find: [],
     get: [],
     create: [
-      authentication.hooks.authenticate(app.get('authentication').strategies)
+      authentication.hooks.authenticate(app.get(constants.resources.authentication).strategies)
     ],
     update: [],
     patch: [],

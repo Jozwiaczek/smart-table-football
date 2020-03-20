@@ -225,7 +225,7 @@ const InGame = ({ history, classes, dataProvider }) => {
           setTeamAGoals(resTeamAGoals)
 
           setTeamB(await dataProvider(GET_ONE, constants.resources.teams, { id: resMatch[models.matches.fields.teamB] }).then(res => res.data))
-          socket.on('createdGoal', goal => {
+          socket.on(constants.socketEvents.createdGoal, goal => {
             setNewGoal(goal)
             setTeamAGoals(teamAGoals => {
               teamAGoals[teamAGoals.length] = goal

@@ -12,6 +12,8 @@ const exitHook = require('exit-hook')
 const CameraService = require('./services/CameraService')
 const { API_URL } = require('../config/default.json')
 
+const { constants } = require('stf-core')
+
 const app = express(feathers())
 const socket = io(API_URL)
 
@@ -27,12 +29,12 @@ if (!fs.existsSync(replayDir)) {
 app.configure(socketio(socket))
 app.configure(configuration())
 
-socket.on('isTableActiveRasp', () => {
-  socket.emit('tableActiveRasp')
+socket.on(constants.socketEvents.tableActiveRasp, () => {
+  socket.emit(constants.socketEvents.tableActiveRasp)
 })
 
 let checker = 0
-socket.on('startListening', async match => {
+socket.on(constants.socketEvents.startListening, async match => {
   GREEN_LIGHT.writeSync(1)
   const { replayTime, _id: matchId } = match
 
@@ -46,7 +48,7 @@ socket.on('startListening', async match => {
       checker = 1
       RED_LIGHT.writeSync(1)
       const replayId = await CameraService.saveVideo(replayDir)
-      socket.emit('goal', { team: match.teamA, replayId: replayId, matchId })
+      socket.emit(constants.socketEvents.goal, { team: match.teamA, replayId: replayId, matchId })
 
       await setTimeout(() => {
         CameraService.startRecordVideo(replayTime, replayDir)
@@ -57,7 +59,7 @@ socket.on('startListening', async match => {
   })
 })
 
-socket.on('stopListening', () => {
+socket.on(constants.socketEvents.stopListening, () => {
   CameraService.stopAndRemoveVideo(replayDir)
   GREEN_LIGHT.writeSync(0)
   GATE_A_SENSOR.unwatch()

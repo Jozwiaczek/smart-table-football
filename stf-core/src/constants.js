@@ -59,6 +59,18 @@ const formNames = {
   registrationForm: 'registrationForm'
 }
 
+const socketEvents = {
+  disconnect: 'disconnect',
+  connection: 'connection',
+  isTableActiveRasp: 'isTableActiveRasp',
+  tableActiveRasp: 'tableActiveRasp',
+  isTableActivePlayer: 'isTableActivePlayer',
+  startListening: 'startListening',
+  stopListening: 'stopListening',
+  createdGoal: 'createdGoal',
+  goal: 'goal'
+}
+
 module.exports = {
   resources,
   userEntities,
@@ -70,5 +82,6 @@ module.exports = {
   cardStatusEnum,
   formNames,
   statusMatch,
-  locales
+  locales,
+  socketEvents
 }

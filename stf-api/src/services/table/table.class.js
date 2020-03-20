@@ -1,6 +1,6 @@
 const { Service } = require('feathers-memory')
 
-const { models } = require('stf-core')
+const { models, constants } = require('stf-core')
 
 exports.Table = class Table extends Service {
   setup (app) {
@@ -24,7 +24,7 @@ exports.Table = class Table extends Service {
   }
 
   async emitIsActive () {
-    const isAct = await this.isActive()
-    this.app.io.emit('isTableActivePlayer', isAct)
+    const isActive = await this.isActive()
+    this.app.io.emit(constants.socketEvents.isTableActivePlayer, isActive)
   }
 }

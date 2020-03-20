@@ -57,8 +57,8 @@ const GetPlayer = () => {
     const getter = async () => {
       const resPlayer = await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() }).then(res => res.data)
       setLocale(resPlayer[models.players.fields.locale])
-      socket.emit('isTableActivePlayer')
-      socket.on('isTableActivePlayer', isActive => dispatch(setTableStatus(isActive)))
+      socket.emit(constants.socketEvents.isTableActivePlayer)
+      socket.on(constants.socketEvents.isTableActivePlayer, isActive => dispatch(setTableStatus(isActive)))
     }
     if (token) {
       getter()
