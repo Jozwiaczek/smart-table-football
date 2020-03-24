@@ -245,13 +245,7 @@ const InGame = ({ history, classes, dataProvider }) => {
   React.useEffect(() => {
     window.onbeforeunload = async () => {
       if (status === constants.statusMatch.active) {
-        const elapsedTime = stopTimer()
-        await dataProvider(UPDATE, constants.resources.matches, {
-          id: match.id,
-          data: {
-            [models.matches.fields.elapsedTime]: elapsedTime
-          }
-        })
+        await changeStatus(match, dataProvider, status, setStatus, startTimer, stopTimer)
       }
     }
   }, [dataProvider, status, stopTimer, match])

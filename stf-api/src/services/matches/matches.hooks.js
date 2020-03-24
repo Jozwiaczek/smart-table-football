@@ -7,14 +7,16 @@ const startStopMatchEmitter = require('./hooks/start-stop-match-emitter')
 
 const stopMatchEmitter = require('./hooks/stop-match-emitter')
 
+const checkTableStatus = require('./hooks/check-table-status')
+
 module.exports = {
   before: {
     all: [authenticate('jwt')],
     find: [],
     get: [],
-    create: [validateTeams()],
-    update: [],
-    patch: [],
+    create: [validateTeams(), checkTableStatus()],
+    update: [checkTableStatus()],
+    patch: [checkTableStatus()],
     remove: [cascadeRemove()]
   },
 
