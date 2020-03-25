@@ -225,7 +225,7 @@ export default ({ history }) => {
   return (
     <LayoutWrapper finishMatch={finishMatch}>
       <div className={classes.main}>
-        <Typography variant='h1' align='center' className={classes.title}>
+        <Typography variant='h1' align='center' color={'textSecondary'} className={classes.title}>
           Match
         </Typography>
 

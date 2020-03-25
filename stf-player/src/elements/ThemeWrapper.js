@@ -8,7 +8,6 @@ import { setTheme } from '../redux/actions/theme'
 const ThemeWrapper = ({ children }) => {
   const theme = useSelector(state => state.theme.currentTheme)
   const dispatch = useDispatch()
-  console.log('L:11 | theme: ', theme)
 
   useEffect(() => {
     let themeMode = localStorage.getItem('themeMode')

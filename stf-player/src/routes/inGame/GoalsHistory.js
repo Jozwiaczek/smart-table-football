@@ -15,7 +15,7 @@ const GoalsHistory = ({ getTeamName, teamAGoals, teamBGoals, removeGoal, showGoa
 
   return (
     <>
-      <Typography align='center' variant='h3'>Goals history</Typography>
+      <Typography align='center' variant='h3' color={'textSecondary'}>Goals history</Typography>
       <div className={classes.goalsList}>
         <GoalsList title='Team A' getTeamName={getTeamName} goals={teamAGoals} removeGoal={removeGoal} onItemClick={showGoalDetailsModal} />
         <GoalsList title='Team B' getTeamName={getTeamName} goals={teamBGoals} removeGoal={removeGoal} onItemClick={showGoalDetailsModal} />
