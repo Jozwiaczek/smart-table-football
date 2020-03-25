@@ -2,6 +2,7 @@
 import React, { cloneElement } from 'react'
 import { Responsive } from 'react-admin'
 import { makeStyles } from '@material-ui/core'
+import { constants } from 'stf-core'
 import Ball from './Ball'
 
 const useStyles = makeStyles(theme => ({
@@ -24,8 +25,8 @@ const useStyles = makeStyles(theme => ({
 
 const BackgroundGraphic = ({ children, className, ref }) => {
   const classes = useStyles()
-  const themeMode = localStorage.getItem('themeMode')
-  const fillColor = themeMode === 'dark' ? '#FFF' : null
+  const themeMode = localStorage.getItem(constants.themeMode.name)
+  const fillColor = themeMode === constants.themeMode.type.dark ? '#FFF' : null
 
   return (
     <div className={classes.background}>

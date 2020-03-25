@@ -4,16 +4,17 @@ import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { MuiThemeProvider } from '@material-ui/core'
 import { setTheme } from '../redux/actions/theme'
+import { constants } from 'stf-core'
 
 const ThemeWrapper = ({ children }) => {
   const theme = useSelector(state => state.theme.currentTheme)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    let themeMode = localStorage.getItem('themeMode')
+    let themeMode = localStorage.getItem(constants.themeMode.name)
     if (!themeMode) {
-      localStorage.setItem('themeMode', 'light')
-      themeMode = 'light'
+      themeMode = constants.themeMode.type.light
+      localStorage.setItem(constants.themeMode.name, themeMode)
     }
     dispatch(setTheme(themeMode))
   }, [dispatch])

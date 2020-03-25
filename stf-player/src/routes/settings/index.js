@@ -25,14 +25,14 @@ export default () => {
   const dispatch = useDispatch()
 
   const theme = useSelector(state => state.theme.currentTheme)
-  const [isDarkTheme, setIsDarkTheme] = useState(theme.palette.type === 'dark')
+  const [isDarkTheme, setIsDarkTheme] = useState(theme.palette.type === constants.themeMode.type.dark)
 
   useEffect(() => {
-    setIsDarkTheme(theme.palette.type === 'dark')
+    setIsDarkTheme(theme.palette.type === constants.themeMode.type.dark)
   }, [theme])
 
   const setThemeMode = async themeMode => {
-    localStorage.setItem('themeMode', themeMode)
+    localStorage.setItem(constants.themeMode.name, themeMode)
     dispatch(setTheme(themeMode))
   }
 
@@ -47,7 +47,7 @@ export default () => {
           variant='contained'
           className={classes.button}
           color={isDarkTheme ? 'default' : 'primary'}
-          onClick={() => setThemeMode('light')}
+          onClick={() => setThemeMode(constants.themeMode.type.light)}
         >
           {translate('pos.theme.light')}
         </Button>
@@ -55,7 +55,7 @@ export default () => {
           variant='contained'
           className={classes.button}
           color={isDarkTheme ? 'primary' : 'default'}
-          onClick={() => setThemeMode('dark')}
+          onClick={() => setThemeMode(constants.themeMode.type.dark)}
         >
           {translate('pos.theme.dark')}
         </Button>

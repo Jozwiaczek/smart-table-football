@@ -50,10 +50,10 @@ const GetPlayer = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    let themeMode = localStorage.getItem('themeMode')
+    let themeMode = localStorage.getItem(constants.themeMode.name)
     if (!themeMode) {
-      localStorage.setItem('themeMode', 'light')
-      themeMode = 'light'
+      themeMode = constants.themeMode.type.light
+      localStorage.setItem(constants.themeMode.name, themeMode)
     }
     dispatch(setTheme(themeMode))
 

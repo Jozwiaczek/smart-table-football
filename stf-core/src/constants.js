@@ -12,6 +12,14 @@ const resources = {
 
 const storageKey = 'feathers-jwt'
 
+const themeMode = {
+  name: 'themeMode',
+  type: {
+    light: 'light',
+    dark: 'dark'
+  }
+}
+
 const userEntities = {
   admin: 'admin',
   player: 'player'
@@ -83,5 +91,6 @@ module.exports = {
   formNames,
   statusMatch,
   locales,
-  socketEvents
+  socketEvents,
+  themeMode
 }
