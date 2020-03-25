@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { withRouter } from 'react-router'
 import { Field, Form } from 'react-final-form'
 import compose from 'recompose/compose'
@@ -6,7 +6,7 @@ import FormTextField from '../../../elements/FormTextField'
 
 import { Button, Card, CardContent, CircularProgress, Typography } from '@material-ui/core'
 
-import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 import red from '@material-ui/core/colors/red'
 
@@ -14,12 +14,11 @@ import dataProvider from '../../../dataProvider'
 
 import { constants, models } from 'stf-core'
 import PropTypes from 'prop-types'
-import { themeProvider } from '../../../themes'
-import Ball from '../../../elements/Ball'
 import BackgroundGraphic from '../../../elements/BackgroundGraphic'
 import { Notification, useNotify, useTranslate } from 'react-admin'
 import Logo from '../../../elements/Logo'
 import { validatePasswordRecovery } from '../validate'
+import ThemeWrapper from '../../../elements/ThemeWrapper'
 
 const useStyles = makeStyles(() => ({
   main: {
@@ -73,19 +72,11 @@ const useStyles = makeStyles(() => ({
 }))
 
 const PasswordRecovery = ({ location, history }) => {
-  const [theme, setTheme] = React.useState(null)
-  const [processing, setProcessing] = React.useState(false)
+  const [processing, setProcessing] = useState(false)
 
   const classes = useStyles()
   const notify = useNotify()
   const translate = useTranslate()
-
-  useEffect(() => {
-    const setThemeProvider = async () => {
-      setTheme(await themeProvider())
-    }
-    setThemeProvider()
-  }, [])
 
   const changePassword = async formData => {
     try {
@@ -109,13 +100,9 @@ const PasswordRecovery = ({ location, history }) => {
     }
   }
 
-  if (!theme) {
-    return null
-  }
-
   return (
-    <BackgroundGraphic graphic={<Ball />} className={classes.main}>
-      <MuiThemeProvider theme={theme}>
+    <ThemeWrapper>
+      <BackgroundGraphic className={classes.main}>
         <Card className={classes.card}>
           <CardContent>
             <Logo className={classes.logo} linkTo='/login' />
@@ -166,8 +153,8 @@ const PasswordRecovery = ({ location, history }) => {
           </CardContent>
         </Card>
         <Notification />
-      </MuiThemeProvider>
-    </BackgroundGraphic>
+      </BackgroundGraphic>
+    </ThemeWrapper>
   )
 }
 

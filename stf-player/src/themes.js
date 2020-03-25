@@ -1,12 +1,8 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 import { grey, green, orange } from '@material-ui/core/colors'
 
-export const themeProvider = async (darkTheme) => {
-  let darkMode = false
-
-  if (darkTheme !== null) {
-    darkMode = darkTheme
-  }
+export const themeProvider = mode => {
+  let darkMode = mode === 'dark' && true
 
   return createMuiTheme({
     props: {

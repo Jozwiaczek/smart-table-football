@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import compose from 'recompose/compose'
 
 import {
@@ -88,11 +88,11 @@ const WinnerMobileField = ({ teams, record }) => {
 }
 
 const MatchList = ({ classes, dataProvider, ...rest }) => {
-  const [teams, setTeams] = React.useState(null)
+  const [teams, setTeams] = useState(null)
 
   const tableStatus = useSelector(state => state.table.isActive)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const call = async () => {
       try {
         const res = await dataProvider(GET_MANY, constants.resources.teams, {

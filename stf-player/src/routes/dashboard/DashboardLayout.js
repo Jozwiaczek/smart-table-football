@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { GET_LIST, GET_ONE, showNotification, Title, withDataProvider } from 'react-admin'
 
@@ -10,7 +10,6 @@ import styled, { css } from 'styled-components'
 import compose from 'recompose/compose'
 
 import { constants, models } from 'stf-core'
-import Ball from '../../elements/Ball'
 import BackgroundGraphic from '../../elements/BackgroundGraphic'
 import { getPlayerId } from '../../utils/getPlayerId'
 import WinRatio from './statisticSection/WinRatio'
@@ -49,12 +48,12 @@ const DashboardFragment = styled.div`
 `
 
 const DashboardLayout = ({ small, history, dataProvider }) => {
-  const [player, setPlayer] = React.useState(null)
-  const [teams, setTeams] = React.useState(null)
-  const [matches, setMatches] = React.useState(null)
-  const [goals, setGoals] = React.useState(null)
+  const [player, setPlayer] = useState(null)
+  const [teams, setTeams] = useState(null)
+  const [matches, setMatches] = useState(null)
+  const [goals, setGoals] = useState(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const call = async () => {
       try {
         const resPlayer = await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() }).then(res => res.data)
@@ -110,9 +109,7 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
   }
 
   return (
-    <BackgroundGraphic
-      graphic={<Ball />}
-    >
+    <BackgroundGraphic>
       <DashboardContainer small={small}>
 
         <Title title='Dashboard' />

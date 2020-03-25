@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import compose from 'recompose/compose'
 
 import {
@@ -65,11 +65,11 @@ const Teams = ({ teamA, teamB, classes }) => {
 }
 
 const MatchEdit = ({ dataProvider, ...props }) => {
-  const [teamA, setTeamA] = React.useState(null)
-  const [teamB, setTeamB] = React.useState(null)
-  const [match, setMatch] = React.useState(null)
+  const [teamA, setTeamA] = useState(null)
+  const [teamB, setTeamB] = useState(null)
+  const [match, setMatch] = useState(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const getTeams = async () => {
       if (match) {
         setTeamA(await dataProvider(GET_ONE, constants.resources.teams, { id: match[models.matches.fields.teamA] })

@@ -8,8 +8,8 @@ import { createStyles, withStyles } from '@material-ui/core/styles'
 
 import DefaultLoginForm from './RegistrationForm'
 import BackgroundGraphic from '../../../elements/BackgroundGraphic'
-import Ball from '../../../elements/Ball'
 import Logo from '../../../elements/Logo'
+import ThemeWrapper from '../../../elements/ThemeWrapper'
 
 const styles = () => createStyles({
   main: {
@@ -36,15 +36,17 @@ const styles = () => createStyles({
 })
 
 const Registration = ({ classes, className, loginForm }) => (
-  <BackgroundGraphic graphic={<Ball />}>
-    <div className={classnames(classes.main, className)}>
-      <Card className={classes.card}>
-        <Logo linkTo='/login' className={classes.logo} />
-        {loginForm}
-      </Card>
-      <Notification />
-    </div>
-  </BackgroundGraphic>
+  <ThemeWrapper>
+    <BackgroundGraphic>
+      <div className={classnames(classes.main, className)}>
+        <Card className={classes.card}>
+          <Logo linkTo='/login' className={classes.logo} />
+          {loginForm}
+        </Card>
+        <Notification />
+      </div>
+    </BackgroundGraphic>
+  </ThemeWrapper>
 )
 
 Registration.propTypes = {

@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link, Notification } from 'react-admin'
 
-import { Button, Card, CardContent, MuiThemeProvider, Typography } from '@material-ui/core'
+import { Button, Card, CardContent, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { themeProvider } from '../../../themes'
-import Ball from '../../../elements/Ball'
 import BackgroundGraphic from '../../../elements/BackgroundGraphic'
 import Logo from '../../../elements/Logo'
+import ThemeWrapper from '../../../elements/ThemeWrapper'
 
 const useStyles = makeStyles(() => ({
   main: {
@@ -38,24 +37,11 @@ const useStyles = makeStyles(() => ({
 }))
 
 const PasswordEmailSend = () => {
-  const [theme, setTheme] = React.useState(null)
-
   const classes = useStyles()
 
-  useEffect(() => {
-    const setThemeProvider = async () => {
-      setTheme(await themeProvider())
-    }
-    setThemeProvider()
-  }, [])
-
-  if (!theme) {
-    return null
-  }
-
   return (
-    <BackgroundGraphic graphic={<Ball />} className={classes.main}>
-      <MuiThemeProvider theme={theme}>
+    <ThemeWrapper>
+      <BackgroundGraphic className={classes.main}>
         <Card className={classes.card}>
           <CardContent>
             <Logo linkTo='/login' className={classes.logo} />
@@ -76,8 +62,8 @@ const PasswordEmailSend = () => {
           </CardContent>
         </Card>
         <Notification />
-      </MuiThemeProvider>
-    </BackgroundGraphic>
+      </BackgroundGraphic>
+    </ThemeWrapper>
   )
 }
 

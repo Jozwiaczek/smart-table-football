@@ -58,7 +58,7 @@ const Test = ({ choices, input, ...rest }) => {
 const FullNameField = ({ record }) => record.name === 'single' ? <PersonIcon /> : <PeopleAltIcon />
 
 // const TeamCreate = ({ classes, ...rest }) => {
-//   const [loading, setLoading] = React.useState(false)
+//   const [loading, setLoading] = useState(false)
 //
 //   const validate = (values) => {
 //     const errors = { username: undefined, password: undefined }

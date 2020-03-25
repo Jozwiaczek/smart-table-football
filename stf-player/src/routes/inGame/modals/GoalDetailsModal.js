@@ -5,7 +5,7 @@ import { Button, CircularProgress, LinearProgress, Typography, withStyles } from
 import CancelIcon from '@material-ui/icons/Cancel'
 
 import { models } from 'stf-core'
-import Modal from '../../elements/Modal'
+import Modal from '../../../elements/Modal'
 
 const styles = () => ({
   button: {

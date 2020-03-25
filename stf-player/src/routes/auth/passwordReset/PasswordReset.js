@@ -1,19 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Form } from 'react-final-form'
 import { Link, Notification, useNotify } from 'react-admin'
 import { translate } from 'ra-core'
-import { Button, Card, CardContent, CircularProgress, MuiThemeProvider, Typography } from '@material-ui/core'
+import { Button, Card, CardContent, CircularProgress, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { constants, models } from 'stf-core'
 import red from '@material-ui/core/colors/red'
-import { themeProvider } from '../../../themes'
 import dataProvider from '../../../dataProvider'
-import Ball from '../../../elements/Ball'
 import BackgroundGraphic from '../../../elements/BackgroundGraphic'
 import Logo from '../../../elements/Logo'
 import FormTextField from '../../../elements/FormTextField'
 import { validatePasswordReset } from '../validate'
+import ThemeWrapper from '../../../elements/ThemeWrapper'
 
 const useStyles = makeStyles(() => ({
   main: {
@@ -60,18 +59,10 @@ const useStyles = makeStyles(() => ({
 }))
 
 const PasswordReset = ({ history }) => {
-  const [theme, setTheme] = React.useState(null)
-  const [processing, setProcessing] = React.useState(false)
+  const [processing, setProcessing] = useState(false)
 
   const classes = useStyles()
   const notify = useNotify()
-
-  useEffect(() => {
-    const setThemeProvider = async () => {
-      setTheme(await themeProvider())
-    }
-    setThemeProvider()
-  }, [])
 
   const sendEmail = async userData => {
     try {
@@ -89,13 +80,9 @@ const PasswordReset = ({ history }) => {
     }
   }
 
-  if (!theme) {
-    return null
-  }
-
   return (
-    <BackgroundGraphic graphic={<Ball />} className={classes.main}>
-      <MuiThemeProvider theme={theme}>
+    <ThemeWrapper>
+      <BackgroundGraphic className={classes.main}>
         <Card className={classes.card}>
           <CardContent>
             <Logo linkTo='/login' className={classes.logo} />
@@ -143,8 +130,8 @@ const PasswordReset = ({ history }) => {
           </CardContent>
         </Card>
         <Notification />
-      </MuiThemeProvider>
-    </BackgroundGraphic>
+      </BackgroundGraphic>
+    </ThemeWrapper>
   )
 }
 

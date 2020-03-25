@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   List,
@@ -64,9 +64,9 @@ const GoalsList = ({
   dataProvider,
   ...rest
 }) => {
-  const [teams, setTeams] = React.useState([])
+  const [teams, setTeams] = useState([])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const getTeams = async () => {
       setTeams(await dataProvider('GET_LIST', constants.resources.teams, {})
         .then(result => result.data))

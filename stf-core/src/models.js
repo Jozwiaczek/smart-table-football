@@ -28,7 +28,6 @@ const players = {
     ...authManagementSchema,
     firstName: 'firstName',
     lastName: 'lastName',
-    useDarkTheme: 'useDarkTheme',
     locale: 'locale',
     googleId: 'googleId',
     facebookId: 'facebookId'

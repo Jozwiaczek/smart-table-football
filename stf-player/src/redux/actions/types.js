@@ -1,1 +1,3 @@
 export const SET_TABLE_STATUS = 'SET_TABLE_STATUS'
+
+export const SET_THEME = 'SET_THEME_MODE'

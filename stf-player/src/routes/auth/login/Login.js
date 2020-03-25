@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createRef } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
@@ -8,8 +8,8 @@ import { createStyles, withStyles } from '@material-ui/core/styles'
 
 import DefaultLoginForm from './LoginForm'
 import BackgroundGraphic from '../../../elements/BackgroundGraphic'
-import Ball from '../../../elements/Ball'
 import Logo from '../../../elements/Logo'
+import ThemeWrapper from '../../../elements/ThemeWrapper'
 
 const styles = () => createStyles({
   main: {
@@ -36,17 +36,19 @@ const styles = () => createStyles({
 })
 
 const Login = ({ classes, className, loginForm }) => {
-  const containerRef = React.createRef()
+  const containerRef = createRef()
   return (
-    <BackgroundGraphic graphic={<Ball />}>
-      <div className={classnames(classes.main, className)} ref={containerRef}>
-        <Card className={classes.card}>
-          <Logo className={classes.logo} />
-          {loginForm}
-        </Card>
-        <Notification />
-      </div>
-    </BackgroundGraphic>
+    <ThemeWrapper>
+      <BackgroundGraphic>
+        <div className={classnames(classes.main, className)} ref={containerRef}>
+          <Card className={classes.card}>
+            <Logo className={classes.logo} />
+            {loginForm}
+          </Card>
+          <Notification />
+        </div>
+      </BackgroundGraphic>
+    </ThemeWrapper>
   )
 }
 

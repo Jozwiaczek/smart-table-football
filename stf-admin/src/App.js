@@ -1,5 +1,5 @@
 /* global localStorage */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Admin, GET_ONE, Resource, withDataProvider } from 'react-admin'
 import { authClient } from 'ra-data-feathers'
 import englishMessages from 'ra-language-english'
@@ -53,7 +53,7 @@ const messages = {
 const i18nProvider = polyglotI18nProvider(locale => messages[locale], 'en')
 
 const GetAdmin = withDataProvider((props) => {
-  React.useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem(constants.storageKey)
     if (token) {
       props.dataProvider(GET_ONE, constants.resources.admins, { id: getAdminId() })

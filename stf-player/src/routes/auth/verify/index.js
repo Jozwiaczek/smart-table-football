@@ -1,27 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Button, Card, Typography } from '@material-ui/core'
 
 import { CREATE, Link } from 'react-admin'
 
-import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 import PropTypes from 'prop-types'
-import { themeProvider } from '../../../themes'
 
 import dataProvider from '../../../dataProvider'
 
 import { constants } from 'stf-core'
 import Logo from '../../../elements/Logo'
+import ThemeWrapper from '../../../elements/ThemeWrapper'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   main: {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
     alignItems: 'center',
     justifyContent: 'center',
-    overflow: 'auto'
+    overflow: 'auto',
+    backgroundColor: theme.palette.background.default
   },
   card: {
     padding: '1rem',
@@ -48,17 +49,12 @@ const useStyles = makeStyles(() => ({
 }))
 
 const Verify = ({ location }) => {
-  const [theme, setTheme] = React.useState(null)
-  const [verifying, setVerifying] = React.useState(true)
-  const [success, setSuccess] = React.useState(false)
+  const [verifying, setVerifying] = useState(true)
+  const [success, setSuccess] = useState(false)
 
   const classes = useStyles()
 
   useEffect(() => {
-    const setThemeProvider = async () => {
-      setTheme(await themeProvider())
-    }
-
     const extracted = async () => {
       const params = new URLSearchParams(location.search)
       const token = params.get('token')
@@ -81,12 +77,7 @@ const Verify = ({ location }) => {
     }
 
     extracted()
-    setThemeProvider()
   }, [location])
-
-  if (!theme) {
-    return null
-  }
 
   const renderMessage = () => {
     if (verifying) {
@@ -99,8 +90,8 @@ const Verify = ({ location }) => {
   }
 
   return (
-    <MuiThemeProvider theme={theme}>
-      <div className={classes.main} style={{ backgroundColor: theme.palette.background.default }}>
+    <ThemeWrapper>
+      <div className={classes.main}>
         <Card className={classes.card}>
           <Logo linkTo='/login' className={classes.logo} />
           {renderMessage()}
@@ -115,7 +106,7 @@ const Verify = ({ location }) => {
           </Button>
         </Card>
       </div>
-    </MuiThemeProvider>
+    </ThemeWrapper>
   )
 }
 

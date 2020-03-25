@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { Backdrop, Dialog, Fade, Slide, makeStyles } from '@material-ui/core'
+import classnames from 'classnames'
 
 const useStyles = makeStyles({
   modal: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Transition = React.forwardRef(function Transition (props, ref) {
+const Transition = forwardRef(function Transition (props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
 })
 
@@ -23,6 +24,7 @@ const Modal = ({
   isOpen,
   onClose,
   children,
+  className,
   ...rest
 }) => {
   const classes = useStyles()
@@ -40,7 +42,7 @@ const Modal = ({
       {...rest}
     >
       <Fade in={isOpen}>
-        <div className={classes.paper}>
+        <div className={classnames(classes.paper, className)}>
           {children}
         </div>
       </Fade>
@@ -51,7 +53,8 @@ const Modal = ({
 Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  children: PropTypes.array.isRequired
+  children: PropTypes.array.isRequired,
+  classname: PropTypes.object
 }
 
 export default Modal
