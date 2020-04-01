@@ -2,13 +2,13 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import {
+  Avatar,
+  IconButton,
   List,
   ListItem,
-  IconButton,
-  ListItemText,
   ListItemAvatar,
-  Avatar,
   ListItemSecondaryAction,
+  ListItemText,
   Typography,
   withStyles
 } from '@material-ui/core'
@@ -34,7 +34,7 @@ const getTime = time => {
 const GoalsList = ({ title, goals, classes, removeGoal, getTeamName, onItemClick }) => {
   return (
     <div className={classes.listContainer}>
-      <Typography variant='h4' align='center'>
+      <Typography variant='h4' align='center' color={'textSecondary'}>
         {title}
       </Typography>
       <List> {/* TODO add possibility for mark GREAT GOALS || Add button show all goals */}
@@ -47,11 +47,12 @@ const GoalsList = ({ title, goals, classes, removeGoal, getTeamName, onItemClick
             >
               <ListItemAvatar>
                 <Avatar>
-                  <SportsSoccerIcon />
+                  <SportsSoccerIcon color={'action'} />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
                 primary={getTeamName(goal[models.goals.fields.team])}
+                primaryTypographyProps={{ color: 'textPrimary' }}
                 secondary={getTime(goal.createdAt)}
               />
               <ListItemSecondaryAction className={classes.listItemSecondaryAction}>

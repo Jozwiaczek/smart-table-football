@@ -1,12 +1,9 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import { grey, green, orange } from '@material-ui/core/colors'
+import { green, grey, orange } from '@material-ui/core/colors'
+import { constants } from 'stf-core'
 
-export const themeProvider = async (darkTheme) => {
-  let darkMode = false
-
-  if (darkTheme !== null) {
-    darkMode = darkTheme
-  }
+export const themeProvider = mode => {
+  let darkMode = mode === constants.themeMode.type.dark && true
 
   return createMuiTheme({
     props: {
@@ -23,9 +20,9 @@ export const themeProvider = async (darkTheme) => {
       }
     },
     palette: {
-      type: darkMode ? 'dark' : 'light',
+      type: darkMode ? constants.themeMode.type.dark : constants.themeMode.type.light,
       primary: orange,
-      secondary: orange,
+      secondary: grey,
       background: {
         default: darkMode ? '#363636' : '#fafafa'
       },

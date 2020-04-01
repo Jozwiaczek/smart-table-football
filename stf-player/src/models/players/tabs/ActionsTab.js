@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 
@@ -22,7 +22,7 @@ import SectionTitle from '../../../elements/SectionTitle'
 import ValidateEmailButton from './../components/ValidateEmailButton'
 
 const changePasswordRender = ({ dataProvider, classes, showNotification, loading }) => ({ formData, record }) => {
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const changePassword = async () => {
     try {

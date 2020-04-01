@@ -1,5 +1,5 @@
 /* global localStorage */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Admin, GET_ONE, Resource, withDataProvider } from 'react-admin'
 import { authClient } from 'ra-data-feathers'
 import englishMessages from 'ra-language-english'
@@ -10,6 +10,8 @@ import PersonOutline from '@material-ui/icons/PersonOutline'
 import Group from '@material-ui/icons/Group'
 import Casino from '@material-ui/icons/Casino'
 import SportsSoccer from '@material-ui/icons/SportsSoccer'
+import TableSignal from '@material-ui/icons/SettingsInputAntenna'
+import EmailIcon from '@material-ui/icons/Email'
 
 import { constants } from 'stf-core'
 
@@ -25,6 +27,7 @@ import { TeamCreate, TeamEdit, TeamsList } from './models/teams'
 import { MatchCreate, MatchEdit, MatchList } from './models/matches'
 import { GoalShow, GoalsList } from './models/goals'
 import { MailerCreate } from './models/mailer'
+import { TableList } from './models/table'
 
 const authClientOptions = {
   storageKey: constants.storageKey, // The key in localStorage used to store the authentication token
@@ -50,7 +53,7 @@ const messages = {
 const i18nProvider = polyglotI18nProvider(locale => messages[locale], 'en')
 
 const GetAdmin = withDataProvider((props) => {
-  React.useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem(constants.storageKey)
     if (token) {
       props.dataProvider(GET_ONE, constants.resources.admins, { id: getAdminId() })
@@ -101,9 +104,14 @@ const App = () => (
       list={GoalsList}
       show={GoalShow}
     />
-    {/* TODO: Add possibility to create mail */}
+    <Resource
+      name={constants.resources.table}
+      icon={TableSignal}
+      list={TableList}
+    />
     <Resource
       name={constants.resources.mailer}
+      icon={EmailIcon}
       create={MailerCreate}
     />
     <GetAdmin />

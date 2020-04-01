@@ -21,10 +21,13 @@ const authentication = require('./authentication')
 
 const mongoose = require('./mongoose')
 
+const { constants } = require('stf-core')
+
 // const googleDrive = require('./integrations/googleDrive')
 // googleDrive.listFiles()
 
 const app = express(feathers())
+
 app.set('query parser', function (str) {
   return qs.parse(str, { arrayLimit: 1000 })
 })
@@ -49,7 +52,7 @@ app.use('/', express.static('./public/'))
 // Set up Plugins and providers
 app.configure(express.rest())
 app.configure(socketio(io => {
-  io.on('connection', socket => {
+  io.on(constants.socketEvents.connection, socket => {
     onConnectionSocket(app, socket)
   })
 }))

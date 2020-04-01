@@ -1,5 +1,5 @@
+import React, { useState } from 'react'
 import { constants, models } from 'stf-core'
-import React from 'react'
 import { Button, CircularProgress } from '@material-ui/core'
 import Send from '@material-ui/icons/Send'
 import SectionTitle from '../../../elements/SectionTitle'
@@ -26,7 +26,7 @@ const _sendVerificationEmail = async (dataProvider, player, showNotification, se
 }
 
 const ValidateEmailButton = ({ dataProvider, player, classes, showNotification }) => {
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   if (player[models.authManagementSchema.isVerified]) {
     return null

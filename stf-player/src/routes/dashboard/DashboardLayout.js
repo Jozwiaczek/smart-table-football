@@ -1,16 +1,16 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { connect, useSelector } from 'react-redux'
 import { GET_LIST, GET_ONE, showNotification, Title, withDataProvider } from 'react-admin'
 
 import { Button, Typography } from '@material-ui/core'
 import CreateIcon from '@material-ui/icons/Create'
 import StatisticsIcon from '@material-ui/icons/BarChart'
+import TabeAvailableIcon from '@material-ui/icons/DoubleArrow'
 
 import styled, { css } from 'styled-components'
 import compose from 'recompose/compose'
 
 import { constants, models } from 'stf-core'
-import Ball from '../../elements/Ball'
 import BackgroundGraphic from '../../elements/BackgroundGraphic'
 import { getPlayerId } from '../../utils/getPlayerId'
 import WinRatio from './statisticSection/WinRatio'
@@ -49,12 +49,14 @@ const DashboardFragment = styled.div`
 `
 
 const DashboardLayout = ({ small, history, dataProvider }) => {
-  const [player, setPlayer] = React.useState(null)
-  const [teams, setTeams] = React.useState(null)
-  const [matches, setMatches] = React.useState(null)
-  const [goals, setGoals] = React.useState(null)
+  const [player, setPlayer] = useState(null)
+  const [teams, setTeams] = useState(null)
+  const [matches, setMatches] = useState(null)
+  const [goals, setGoals] = useState(null)
 
-  React.useEffect(() => {
+  const isTableInGame = useSelector(state => state.table.isInGame)
+
+  useEffect(() => {
     const call = async () => {
       try {
         const resPlayer = await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() }).then(res => res.data)
@@ -110,9 +112,7 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
   }
 
   return (
-    <BackgroundGraphic
-      graphic={<Ball />}
-    >
+    <BackgroundGraphic>
       <DashboardContainer small={small}>
 
         <Title title='Dashboard' />
@@ -125,13 +125,24 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
           </DashboardSection>
 
           <DashboardSection>
-            <Typography variant='h5' align='center' color='textPrimary' gutterBottom>
-              If you want to play a game, click button below
+            {!isTableInGame &&
+            <Typography color='textPrimary'>
+              <TabeAvailableIcon color='primary' />&nbsp;Table is ready to play now!
             </Typography>
-            <Button color='primary' variant='contained' onClick={() => history.push(`/${constants.resources.matches}/create`)}>
-              <CreateIcon />
+            }
+            {
+              !isTableInGame &&
+              <>
+                <br />
+                <Typography variant='h5' align='center' color='textPrimary' gutterBottom>
+              If you want to play a game, click button below
+                </Typography>
+                <Button color='primary' variant='contained' onClick={() => history.push(`/${constants.resources.matches}/create`)}>
+                  <CreateIcon />
               Prepare match
-            </Button>
+                </Button>
+              </>
+            }
           </DashboardSection>
 
           <DashboardSection>

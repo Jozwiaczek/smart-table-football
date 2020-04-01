@@ -4,6 +4,8 @@ const checkNumberOfGoals = require('./hooks/check-number-of-goals')
 const checkMatchStatus = require('./hooks/check-match-status')
 const removeReplay = require('./hooks/remove-replay')
 
+const createdGoalEmitter = require('./hooks/created-goal-emitter')
+
 module.exports = {
   before: {
     all: [authenticate('jwt')],
@@ -19,7 +21,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [checkNumberOfGoals()],
+    create: [checkNumberOfGoals(), createdGoalEmitter()],
     update: [checkNumberOfGoals()],
     patch: [checkNumberOfGoals()],
     remove: []

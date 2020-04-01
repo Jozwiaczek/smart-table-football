@@ -28,7 +28,6 @@ const players = {
     ...authManagementSchema,
     firstName: 'firstName',
     lastName: 'lastName',
-    useDarkTheme: 'useDarkTheme',
     locale: 'locale',
     googleId: 'googleId',
     facebookId: 'facebookId'
@@ -40,6 +39,15 @@ const teams = {
   fields: {
     name: 'name',
     players: 'players'
+  }
+}
+
+const table = {
+  name: 'table',
+  fields: {
+    id: 'id',
+    isActive: 'isActive',
+    inGame: 'inGame'
   }
 }
 
@@ -71,5 +79,6 @@ module.exports = {
   players,
   teams,
   matches,
-  goals
+  goals,
+  table
 }

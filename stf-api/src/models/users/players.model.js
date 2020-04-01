@@ -26,10 +26,6 @@ module.exports = function (app) {
       type: String,
       required: true
     },
-    [models.players.fields.useDarkTheme]: {
-      type: mongoose.SchemaTypes.Boolean,
-      default: false
-    },
     [models.players.fields.locale]: {
       type: mongoose.SchemaTypes.String,
       default: constants.locales.en

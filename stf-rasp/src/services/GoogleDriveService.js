@@ -3,7 +3,7 @@ const fs = require('fs')
 const {
   GOOGLE_DRIVE_MAIL,
   GOOGLE_DRIVE_KEY
-} = require('../config/default.json')
+} = require('../../config/default.json')
 
 const SCOPES = ['https://www.googleapis.com/auth/drive']
 

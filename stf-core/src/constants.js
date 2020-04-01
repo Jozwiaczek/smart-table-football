@@ -6,10 +6,19 @@ const resources = {
   teams: 'teams',
   matches: 'matches',
   goals: 'goals',
-  mailer: 'mailer'
+  mailer: 'mailer',
+  table: 'table'
 }
 
 const storageKey = 'feathers-jwt'
+
+const themeMode = {
+  name: 'themeMode',
+  type: {
+    light: 'light',
+    dark: 'dark'
+  }
+}
 
 const userEntities = {
   admin: 'admin',
@@ -58,6 +67,19 @@ const formNames = {
   registrationForm: 'registrationForm'
 }
 
+const socketEvents = {
+  disconnect: 'disconnect',
+  connection: 'connection',
+  isTableActiveRasp: 'isTableActiveRasp',
+  tableActiveRasp: 'tableActiveRasp',
+  isTableActivePlayer: 'isTableActivePlayer',
+  startListening: 'startListening',
+  stopListening: 'stopListening',
+  createdGoal: 'createdGoal',
+  goal: 'goal',
+  isTableInGame: 'isTableInGame'
+}
+
 module.exports = {
   resources,
   userEntities,
@@ -69,5 +91,7 @@ module.exports = {
   cardStatusEnum,
   formNames,
   statusMatch,
-  locales
+  locales,
+  socketEvents,
+  themeMode
 }

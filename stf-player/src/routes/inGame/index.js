@@ -1,87 +1,97 @@
-import React, { useRef } from 'react'
-import compose from 'recompose/compose'
-
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { socket } from '../../client/feathersSocketClient'
-
-import {
-  withDataProvider,
-  GET_ONE,
-  GET_LIST,
-  UPDATE,
-  DELETE
-} from 'react-admin'
-
-import {
-  Button,
-  MuiThemeProvider,
-  withStyles,
-  Typography
-} from '@material-ui/core'
-import PlayArrowIcon from '@material-ui/icons/PlayArrow'
-import PauseIcon from '@material-ui/icons/Pause'
-import FullScreen from '../../elements/FullScreen'
-import FullscreenIcon from '@material-ui/icons/Fullscreen'
-import FullscreenExitIcon from '@material-ui/icons/FullscreenExit'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-
-import { themeProvider } from '../../themes'
-
-import {
-  constants,
-  models
-} from 'stf-core'
-
-import Ball from '../../elements/Ball'
-import BackgroundGraphic from '../../elements/BackgroundGraphic'
-import GoalsList from './GoalsList'
+import { DELETE, GET_LIST, GET_ONE, UPDATE, useDataProvider } from 'react-admin'
+import { makeStyles, Typography } from '@material-ui/core'
+import { constants, models } from 'stf-core'
 import TeamCard from './TeamCard'
-import NewGoalModal from './GoalDetailsModal'
-import Timer from './Timer'
+import NewGoalModal from './modals/GoalDetailsModal'
+import { useDispatch, useSelector } from 'react-redux'
+import WarningModal from './modals/WarningModal'
+import GoalsHistory from './GoalsHistory'
+import GameControls from './GameControls'
+import LayoutWrapper from './LayoutWrapper'
 
-const styles = () => ({
+const useStyles = makeStyles(() => ({
   main: {
     minHeight: '100vh',
     overflow: 'auto'
-  },
-  controlsSection: {
-    display: 'flex',
-    flexDirection: 'column'
   },
   button: {
     margin: '2rem 0 0.5rem 0',
     width: '100%'
   },
-  goalsList: {
-    display: 'flex',
-    justifyContent: 'space-around'
-  },
   title: {
     marginTop: '5vh'
   },
-  gameControls: {
+  game: {
     marginTop: '10em',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly'
-  },
-  navBar: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '1em'
   }
-})
+}))
 
-const changeStatus = async (match, dataProvider, status, setStatus, startTimer, stopTimer) => {
-  if (status !== constants.statusMatch.active) {
-    startTimer()
-    await dataProvider(UPDATE, constants.resources.matches, {
-      id: match.id,
-      data: {
-        [models.matches.fields.status]: constants.statusMatch.active
-      }
-    })
-    setStatus(constants.statusMatch.active)
-  } else {
+export default ({ history }) => {
+  const [match, setMatch] = useState(null)
+  const [status, setStatus] = useState(null)
+  const [teamA, setTeamA] = useState(null)
+  const [teamB, setTeamB] = useState(null)
+  const [teamAGoals, setTeamAGoals] = useState([])
+  const [teamBGoals, setTeamBGoals] = useState([])
+  const [newGoal, setNewGoal] = useState(null)
+  const [elapsedTimer, setElapsedTimer] = useState(0)
+  const [isTimerRun, setIsTimerRun] = useState(false)
+  const [isGoalModalOpen, setGoalModalOpen] = useState(false)
+  const [completedCountdown, setCompletedCountdown] = useState(0)
+  const [isTableDisconnectedModal, setTableDisconnectedModal] = useState(false)
+  const [isOtherMatchStartedModalVisible, setOtherMatchStartedModalVisible] = useState(false)
+
+  const classes = useStyles()
+  const dataProvider = useDataProvider()
+
+  const isTableActive = useSelector(state => state.table.isActive)
+  const isTableInGame = useSelector(state => state.table.isInGame)
+
+  const dispatch = useDispatch()
+  const historyHook = useHistory()
+
+  const countDownInterval = useRef()
+
+  const startTimer = () => {
+    setIsTimerRun(true)
+  }
+
+  const stopTimer = useCallback(() => {
+    setIsTimerRun(false)
+    return elapsedTimer
+  }, [elapsedTimer])
+
+  const changeStatus = useCallback(async () => {
+    if (status !== constants.statusMatch.active) {
+      startTimer()
+      await dataProvider(UPDATE, constants.resources.matches, {
+        id: match.id,
+        data: {
+          [models.matches.fields.status]: constants.statusMatch.active
+        }
+      })
+      setStatus(constants.statusMatch.active)
+    } else {
+      const elapsedTime = stopTimer()
+      await dataProvider(UPDATE, constants.resources.matches, {
+        id: match.id,
+        data: {
+          [models.matches.fields.status]: constants.statusMatch.paused,
+          [models.matches.fields.elapsedTime]: elapsedTime
+        }
+      })
+      setStatus(constants.statusMatch.paused)
+    }
+    socket.emit(constants.socketEvents.isTableInGame)
+  }, [dataProvider, match, status, stopTimer])
+
+  const finishMatch = async () => {
     const elapsedTime = stopTimer()
     await dataProvider(UPDATE, constants.resources.matches, {
       id: match.id,
@@ -90,37 +100,9 @@ const changeStatus = async (match, dataProvider, status, setStatus, startTimer, 
         [models.matches.fields.elapsedTime]: elapsedTime
       }
     })
-    setStatus(constants.statusMatch.paused)
+    socket.emit(constants.socketEvents.isTableInGame)
+    history.push(`/${constants.resources.matches}`)
   }
-}
-
-const finishMatch = async (match, history, dataProvider, stopTimer) => {
-  const elapsedTime = stopTimer()
-  await dataProvider(UPDATE, constants.resources.matches, {
-    id: match.id,
-    data: {
-      [models.matches.fields.status]: constants.statusMatch.paused,
-      [models.matches.fields.elapsedTime]: elapsedTime
-    }
-  })
-  history.push(`/${constants.resources.matches}`)
-}
-
-const InGame = ({ history, classes, dataProvider }) => {
-  const [theme, themeSetter] = React.useState(null)
-  const [match, setMatch] = React.useState(null)
-  const [status, setStatus] = React.useState(null)
-  const [teamA, setTeamA] = React.useState(null)
-  const [teamB, setTeamB] = React.useState(null)
-  const [teamAGoals, setTeamAGoals] = React.useState([])
-  const [teamBGoals, setTeamBGoals] = React.useState([])
-  const [newGoal, setNewGoal] = React.useState(null)
-  const [elapsedTimer, setElapsedTimer] = React.useState(0)
-  const [isTimerRun, setIsTimerRun] = React.useState(false)
-  const [isGoalModalOpen, setGoalModalOpen] = React.useState(false)
-  const [completedCountdown, setCompletedCountdown] = React.useState(0)
-  const [isFullScreen, setFullScreen] = React.useState(false)
-  const countDownInterval = useRef()
 
   const openModalNewGoal = (instant) => {
     setGoalModalOpen(true)
@@ -139,16 +121,7 @@ const InGame = ({ history, classes, dataProvider }) => {
     setCompletedCountdown(0)
   }
 
-  const startTimer = () => {
-    setIsTimerRun(true)
-  }
-
-  const stopTimer = () => {
-    setIsTimerRun(false)
-    return elapsedTimer
-  }
-
-  React.useEffect(() => {
+  useEffect(() => {
     let interval = null
     if (isTimerRun) {
       const start = Date.now() - elapsedTimer
@@ -161,55 +134,83 @@ const InGame = ({ history, classes, dataProvider }) => {
     return () => clearInterval(interval)
   }, [isTimerRun, elapsedTimer])
 
-  // const checkTableStatus = () => {
-  //   socket.emit('checkTableStatus', matchId)
-  //   socket.on('notAvailable', () => {
-  //     console.log('not available')
-  //   })
-  // }
+  const onCloseOtherMatchStartedModal = () => {
+    setOtherMatchStartedModalVisible(false)
+    historyHook.push('/')
+  }
 
-  const urlParams = new URLSearchParams(history.location.search)
-  const matchId = urlParams.get('match')
-  React.useEffect(() => {
+  const onCloseTableDisconnectedModal = async () => {
+    setTableDisconnectedModal(false)
+    if (status === constants.statusMatch.active) {
+      const elapsedTime = stopTimer()
+      await dataProvider(UPDATE, constants.resources.matches, {
+        id: match.id,
+        data: {
+          [models.matches.fields.status]: constants.statusMatch.paused,
+          [models.matches.fields.elapsedTime]: elapsedTime
+        }
+      })
+    }
+    historyHook.push('/')
+  }
+
+  let matchId
+  if (!isTableDisconnectedModal) {
+    const urlParams = new URLSearchParams(history.location.search)
+    matchId = urlParams.get('match')
+  }
+
+  useEffect(() => {
     const call = async () => {
       try {
-        // checkTableStatus()
-        const theme = await themeProvider()
-        await themeSetter(theme)
-        const resMatch = await dataProvider(GET_ONE, constants.resources.matches, { id: matchId }).then(res => res.data)
-        setMatch(resMatch)
-        setElapsedTimer(resMatch[models.matches.fields.elapsedTime])
-        setStatus(resMatch[models.matches.fields.status])
-        const resTeamA = await dataProvider(GET_ONE, constants.resources.teams, { id: resMatch[models.matches.fields.teamA] }).then(res => res.data)
-        setTeamA(resTeamA)
-        const resTeamAGoals = await dataProvider(GET_LIST, constants.resources.goals, {
-          filter: {
-            [models.goals.fields.team]: resTeamA._id,
-            [models.goals.fields.match]: resMatch._id
-          }
-        }).then(res => res.data)
-        setTeamAGoals(resTeamAGoals)
+        if (!isTableActive) {
+          setTableDisconnectedModal(true)
+        }
+        if (isTableInGame && isTableInGame !== matchId) {
+          setOtherMatchStartedModalVisible(true)
+        }
+        if (!isTableDisconnectedModal && matchId) {
+          socket.emit(constants.socketEvents.isTableInGame)
 
-        setTeamB(await dataProvider(GET_ONE, constants.resources.teams, { id: resMatch[models.matches.fields.teamB] }).then(res => res.data))
-        socket.on('createdGoal', goal => {
-          setNewGoal(goal)
-          setTeamAGoals(teamAGoals => {
-            teamAGoals[teamAGoals.length] = goal
-            return teamAGoals
+          const resMatch = await dataProvider(GET_ONE, constants.resources.matches, { id: matchId }).then(res => res.data)
+          setMatch(resMatch)
+          setElapsedTimer(resMatch[models.matches.fields.elapsedTime])
+          setStatus(resMatch[models.matches.fields.status])
+          const resTeamA = await dataProvider(GET_ONE, constants.resources.teams, { id: resMatch[models.matches.fields.teamA] }).then(res => res.data)
+          setTeamA(resTeamA)
+          const resTeamAGoals = await dataProvider(GET_LIST, constants.resources.goals, {
+            filter: {
+              [models.goals.fields.team]: resTeamA._id,
+              [models.goals.fields.match]: resMatch._id
+            }
+          }).then(res => res.data)
+          setTeamAGoals(resTeamAGoals)
+
+          setTeamB(await dataProvider(GET_ONE, constants.resources.teams, { id: resMatch[models.matches.fields.teamB] }).then(res => res.data))
+          socket.on(constants.socketEvents.createdGoal, goal => {
+            setNewGoal(goal)
+            setTeamAGoals(teamAGoals => {
+              teamAGoals[teamAGoals.length] = goal
+              return teamAGoals
+            })
+            openModalNewGoal()
+            setTimeout(() => { closeModalNewGoal() }, 6000)
           })
-          openModalNewGoal()
-          setTimeout(() => { closeModalNewGoal() }, 6000)
-        })
+        }
       } catch (e) {
         throw new Error(e)
       }
     }
     call()
-  }, [dataProvider, matchId])
+  }, [dataProvider, matchId, isTableActive, isTableDisconnectedModal, dispatch, isTableInGame])
 
-  if (!theme || !teamA || !teamB) {
-    return null
-  }
+  useEffect(() => {
+    window.onbeforeunload = async () => {
+      if (status === constants.statusMatch.active) {
+        await changeStatus()
+      }
+    }
+  }, [dataProvider, status, stopTimer, match, changeStatus])
 
   const getTeamName = teamId => {
     if (teamId === teamA._id) {
@@ -233,72 +234,59 @@ const InGame = ({ history, classes, dataProvider }) => {
     openModalNewGoal(true)
   }
 
+  if (!teamA || !teamB) {
+    return null
+  }
+
   return (
-    <FullScreen
-      enabled={isFullScreen}
-      onChange={isFull => setFullScreen(isFull)}
-    >
-      <MuiThemeProvider theme={theme}>
-        <div style={{ backgroundColor: theme.palette.background.default }}>
-          <BackgroundGraphic
-            graphic={<Ball />}
-          >
-            <div className={classes.navBar}>
-              <Button color='secondary' onClick={() => finishMatch(match, history, dataProvider, stopTimer)}>
-                <ArrowBackIcon style={{ fontSize: 60 }} />
-              </Button>
+    <LayoutWrapper finishMatch={finishMatch}>
+      <div className={classes.main}>
+        <Typography variant='h1' align='center' color={'textSecondary'} className={classes.title}>
+          Match
+        </Typography>
 
-              <Button color='secondary' onClick={() => setFullScreen(prevState => !prevState)}>
-                {isFullScreen ? <FullscreenExitIcon style={{ fontSize: 60 }} /> : <FullscreenIcon style={{ fontSize: 60 }} />}
-              </Button>
-            </div>
-
-            <div className={classes.main}>
-              <Typography variant='h1' align='center' className={classes.title}>
-                Match
-              </Typography>
-
-              <div className={classes.gameControls}>
-                <TeamCard team={teamA} teamGoals={teamAGoals} theme={theme} />
-
-                <div className={classes.controlsSection}>
-                  <Timer time={elapsedTimer} />
-                  <Button variant='outlined' color='secondary' onClick={() => changeStatus(match, dataProvider, status, setStatus, startTimer, stopTimer)}>
-                    {status !== constants.statusMatch.active ? <><PlayArrowIcon />&nbsp;Start match</> : <><PauseIcon />&nbsp;Pause match</>}
-                  </Button>
-                  <Button variant='contained' color='secondary' onClick={() => finishMatch(match, history, dataProvider, stopTimer)}>
-                    Finish match
-                  </Button>
-                </div>
-
-                <TeamCard team={teamB} teamGoals={teamBGoals} theme={theme} />
-              </div>
-            </div>
-
-            <Typography align='center' variant='h3'>Goals history</Typography>
-            <div className={classes.goalsList}>
-              <GoalsList title='Team A' getTeamName={getTeamName} goals={teamAGoals} removeGoal={removeGoal} onItemClick={showGoalDetailsModal} />
-              <GoalsList title='Team B' getTeamName={getTeamName} goals={teamBGoals} removeGoal={removeGoal} onItemClick={showGoalDetailsModal} />
-            </div>
-          </BackgroundGraphic>
+        <div className={classes.game}>
+          <TeamCard team={teamA} teamGoals={teamAGoals} />
+          <GameControls
+            changeStatus={changeStatus}
+            elapsedTimer={elapsedTimer}
+            finishMatch={finishMatch}
+            status={status}
+            startButtonDisabled={(isTableInGame && isTableInGame !== matchId) || !isTableActive}
+          />
+          <TeamCard team={teamB} teamGoals={teamBGoals} />
         </div>
+      </div>
 
-        <NewGoalModal
-          goal={newGoal}
-          getTeamName={getTeamName}
-          removeGoal={removeGoal}
-          isAlertOpen={isGoalModalOpen}
-          completedCountdown={completedCountdown}
-          closeAlertNewGoal={closeModalNewGoal}
-        />
-      </MuiThemeProvider>
-    </FullScreen>
+      <GoalsHistory
+        getTeamName={getTeamName}
+        teamBGoals={teamBGoals}
+        showGoalDetailsModal={showGoalDetailsModal}
+        teamAGoals={teamAGoals}
+        removeGoal={removeGoal}
+      />
+      <NewGoalModal
+        goal={newGoal}
+        getTeamName={getTeamName}
+        removeGoal={removeGoal}
+        isOpen={isGoalModalOpen}
+        completedCountdown={completedCountdown}
+        onClose={closeModalNewGoal}
+      />
+      <WarningModal
+        onClose={onCloseTableDisconnectedModal}
+        isOpen={isTableDisconnectedModal}
+        title='Table was disconnected'
+        body='Stay calm, your match was paused'
+        confirmButtonText='Return to dashboard'
+      />
+      <WarningModal
+        onClose={onCloseOtherMatchStartedModal}
+        isOpen={isOtherMatchStartedModalVisible}
+        title='Another match was started'
+        body='Stay calm, your match was paused'
+        confirmButtonText='Return to dashboard'
+      />
+    </LayoutWrapper>
   )
 }
-
-const enhance = compose(
-  withStyles(styles),
-  withDataProvider
-)
-
-export default enhance(InGame)

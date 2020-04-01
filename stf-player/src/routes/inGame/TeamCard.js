@@ -3,13 +3,9 @@ import PropTypes from 'prop-types'
 
 import { models } from 'stf-core'
 
-import {
-  Typography,
-  Card,
-  withStyles
-} from '@material-ui/core'
+import { Card, Typography, makeStyles } from '@material-ui/core'
 
-const styles = () => ({
+const useStyles = makeStyles(theme => ({
   teamCard: {
     padding: '1rem',
     width: '12em',
@@ -17,13 +13,15 @@ const styles = () => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    backgroundColor: theme.palette.primary.main
   }
-})
+}))
 
-const TeamCard = ({ theme, classes, team, teamGoals }) => {
+const TeamCard = ({ team, teamGoals }) => {
+  const classes = useStyles()
   return (
-    <Card className={classes.teamCard} style={{ backgroundColor: theme.palette.primary.main }}>
+    <Card className={classes.teamCard} >
       <Typography variant='h4' align='center'>
         {team[models.teams.fields.name]}
       </Typography>
@@ -35,10 +33,8 @@ const TeamCard = ({ theme, classes, team, teamGoals }) => {
 }
 
 TeamCard.propTypes = {
-  classes: PropTypes.object,
   team: PropTypes.object.isRequired,
-  teamGoals: PropTypes.array.isRequired,
-  theme: PropTypes.object.isRequired
+  teamGoals: PropTypes.array.isRequired
 }
 
-export default withStyles(styles)(TeamCard)
+export default TeamCard

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import {
@@ -21,7 +21,7 @@ const PasswordInput = ({
   classes,
   ...rest
 }) => {
-  const [passwordIsMasked, setPasswordIsMasked] = React.useState(true)
+  const [passwordIsMasked, setPasswordIsMasked] = useState(true)
 
   const togglePasswordMask = () => {
     setPasswordIsMasked(!passwordIsMasked)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import compose from 'recompose/compose'
 
 import {
@@ -124,9 +124,9 @@ const GoalShow = ({
   history,
   ...rest
 }) => {
-  const [teams, setTeams] = React.useState([])
+  const [teams, setTeams] = useState([])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const getTeams = async () => {
       try {
         let res = await dataProvider(GET_LIST, constants.resources.teams, {}).then(res => res.data)
