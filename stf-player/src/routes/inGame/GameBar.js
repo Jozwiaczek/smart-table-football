@@ -25,11 +25,11 @@ const GameBar = ({
 
   return (
     <div className={classes.navBar}>
-      <Button color='secondary' onClick={() => finishMatch()}>
+      <Button color='primary' onClick={() => finishMatch()}>
         <ArrowBackIcon className={classes.icon} />
       </Button>
 
-      <Button color='secondary' onClick={() => setFullScreen(prevState => !prevState)}>
+      <Button color='primary' onClick={() => setFullScreen(prevState => !prevState)}>
         {isFullScreen ? <FullscreenExitIcon className={classes.icon} /> : <FullscreenIcon className={classes.icon} />}
       </Button>
     </div>

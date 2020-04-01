@@ -8,6 +8,10 @@ module.exports = function (app, socket) {
     await tableService.emitIsActive()
   })
 
+  socket.on(constants.socketEvents.isTableInGame, async () => {
+    await tableService.emitIsInGame()
+  })
+
   socket.on(constants.socketEvents.tableActiveRasp, () => {
     tableService.create({
       [models.table.fields.id]: socket.id,

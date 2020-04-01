@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { cloneElement, useEffect, useState } from 'react'
 import compose from 'recompose/compose'
 
 import {
+  CreateButton,
   DateField,
   Filter,
   FunctionField,
-  GET_MANY,
+  GET_LIST,
   List,
   ReferenceField,
   Responsive,
+  sanitizeListRestProps,
   SearchInput,
   SimpleList,
   TextField,
+  TopToolbar,
   withDataProvider
 } from 'react-admin'
 import CustomizableDatagrid from 'ra-customizable-datagrid'
@@ -20,12 +23,14 @@ import { Button, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import AssessmentIcon from '@material-ui/icons/Assessment'
 import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo'
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'
 
 import { constants, models } from 'stf-core'
 
 import DateFilters from '../../elements/DateFilters'
 import { getTimerUnit } from '../../utils/getTimerUnits'
 import { useSelector } from 'react-redux'
+import { getPlayerId } from '../../utils/getPlayerId'
 
 const styles = {
   buttonIcon: {
@@ -54,12 +59,21 @@ const ShowStatistic = ({ classes, record, history, mobile }) => {
   )
 }
 
-const ContinueButton = ({ classes, record, history, mobile, disabled }) => {
+const ContinueButton = ({ classes, record, history, mobile, disabled, isInGame }) => {
+  if (isInGame === record.id) {
+    return (
+      <Button color='action' disabled={disabled} onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}>
+        <EmojiPeopleIcon className={classes.buttonIcon} color='action' />
+        {mobile ? null : 'Join'}
+      </Button>
+    )
+  }
+
   if (record[models.matches.fields.status] === constants.statusMatch.paused) {
     return (
-      <Button color='primary' disabled={disabled} onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}>
+      <Button color='primary' disabled={disabled || isInGame} onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}>
         <SlowMotionVideoIcon className={classes.buttonIcon} />
-        {mobile ? null : 'Continue'}
+        {mobile ? null : 'Resume'}
       </Button>
     )
   }
@@ -88,30 +102,69 @@ const WinnerMobileField = ({ teams, record }) => {
 }
 
 const MatchList = ({ classes, dataProvider, ...rest }) => {
-  const [teams, setTeams] = useState(null)
+  const [teams, setTeams] = useState([])
+  const [playerTeamsIds, setPlayerTeamsIds] = useState([])
 
   const tableStatus = useSelector(state => state.table.isActive)
+  const isInGame = useSelector(state => state.table.isInGame)
 
   useEffect(() => {
     const call = async () => {
       try {
-        const res = await dataProvider(GET_MANY, constants.resources.teams, {
-          pagination: { page: 1, perPage: 5 }
-        })
-        setTeams(res)
+        const teamsRes = await dataProvider(GET_LIST, constants.resources.teams, { filter: {} }).then(res => res.data)
+        setTeams(teamsRes)
+        const playerTeamsRes = teamsRes.filter(team => team[models.teams.fields.players].includes(getPlayerId()))
+        setPlayerTeamsIds(playerTeamsRes.map(team => team.id))
       } catch (e) {
-        console.log(e)
-        throw new Error(e)
+        console.error(e)
       }
     }
     call()
-  }, [dataProvider])
+  }, [dataProvider, isInGame])
+
+  const ListActions = ({
+    className,
+    resource,
+    filters,
+    displayedFilters,
+    filterValues,
+    basePath,
+    showFilter,
+    ...rest
+  }) => (
+    <TopToolbar className={className} {...sanitizeListRestProps(rest)}>
+      {filters && cloneElement(filters, {
+        resource,
+        showFilter,
+        displayedFilters,
+        filterValues,
+        context: 'button'
+      })}
+      <CreateButton basePath={basePath} disabled={isInGame} />
+    </TopToolbar>
+  )
+
+  if (!playerTeamsIds || playerTeamsIds.length === 0) {
+    return null
+  }
 
   return (
     <List
       {...rest}
       filters={<Filters />}
-      exporter={false}
+      actions={<ListActions />}
+      filter={{
+        $or: [
+          { [models.matches.fields.teamA]: {
+            $in: playerTeamsIds
+          } },
+          {
+            [models.matches.fields.teamB]: {
+              $in: playerTeamsIds
+            }
+          }
+        ]
+      }}
     >
       <Responsive
         small={
@@ -164,7 +217,7 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
               }}
             />
             <DateField source='createdAt' showTime />
-            <ContinueButton classes={classes} disabled={!tableStatus} {...rest} />
+            <ContinueButton classes={classes} disabled={!tableStatus} isInGame={isInGame} {...rest} />
             <ShowStatistic classes={classes} {...rest} />
           </CustomizableDatagrid>
         }

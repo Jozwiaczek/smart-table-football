@@ -13,7 +13,7 @@ const styles = () => ({
 
 const Timer = ({ time, classes }) => {
   return (
-    <Typography className={classes.title} variant='h3' color='secondary' align='center'>
+    <Typography className={classes.title} variant='h3' color='primary' align='center'>
       {
         getTimerUnit(time).min === '00' ? `${getTimerUnit(time).sec} seconds`
           : `${getTimerUnit(time).min}min : ${getTimerUnit(time).sec}sec`

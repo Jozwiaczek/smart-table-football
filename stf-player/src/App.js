@@ -29,7 +29,7 @@ import Dashboard from './routes/dashboard'
 import customRoutes from './customRoutes'
 import Login from './routes/auth/login/Login'
 import { socket } from './client/feathersSocketClient'
-import { setTableStatus } from './redux/actions/table'
+import { setTableAvailability, setTableStatus } from './redux/actions/table'
 import { setTheme } from './redux/actions/theme'
 
 const authClientOptions = {
@@ -61,8 +61,12 @@ const GetPlayer = () => {
     const getter = async () => {
       const resPlayer = await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() }).then(res => res.data)
       setLocale(resPlayer[models.players.fields.locale])
+
       socket.emit(constants.socketEvents.isTableActivePlayer)
       socket.on(constants.socketEvents.isTableActivePlayer, isActive => dispatch(setTableStatus(isActive)))
+
+      socket.emit(constants.socketEvents.isTableInGame)
+      socket.on(constants.socketEvents.isTableInGame, isInGame => dispatch(setTableAvailability(isInGame)))
     }
     if (token) {
       getter()

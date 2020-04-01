@@ -1,5 +1,4 @@
 const { Service } = require('feathers-memory')
-
 const { models, constants } = require('stf-core')
 
 exports.Table = class Table extends Service {
@@ -23,8 +22,22 @@ exports.Table = class Table extends Service {
     }
   }
 
+  async isInGame () {
+    const table = await this.getTable()
+    if (table && this.isActive()) {
+      return table[models.table.fields.inGame]
+    } else {
+      return false
+    }
+  }
+
   async emitIsActive () {
     const isActive = await this.isActive()
     this.app.io.emit(constants.socketEvents.isTableActivePlayer, isActive)
+  }
+
+  async emitIsInGame () {
+    const isInGame = await this.isInGame()
+    this.app.io.emit(constants.socketEvents.isTableInGame, isInGame)
   }
 }

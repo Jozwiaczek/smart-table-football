@@ -19,17 +19,18 @@ const GameControls = ({
   elapsedTimer,
   status,
   changeStatus,
-  finishMatch
+  finishMatch,
+  startButtonDisabled
 }) => {
   const classes = useStyles()
 
   return (
     <div className={classes.controlsSection}>
       <Timer time={elapsedTimer} />
-      <Button variant='outlined' color='secondary' onClick={() => changeStatus()}>
+      <Button variant='outlined' color='primary' onClick={() => changeStatus()} disabled={startButtonDisabled}>
         {status !== constants.statusMatch.active ? <><PlayArrowIcon />&nbsp;Start match</> : <><PauseIcon />&nbsp;Pause match</>}
       </Button>
-      <Button variant='contained' color='secondary' onClick={() => finishMatch()}>
+      <Button variant='contained' color='primary' onClick={() => finishMatch()}>
         Finish match
       </Button>
     </div>
@@ -40,7 +41,8 @@ GameControls.propTypes = {
   changeStatus: PropTypes.func.isRequired,
   elapsedTimer: PropTypes.number.isRequired,
   finishMatch: PropTypes.func.isRequired,
-  status: PropTypes.string.isRequired
+  status: PropTypes.string.isRequired,
+  startButtonDisabled: PropTypes.bool
 }
 
 export default GameControls

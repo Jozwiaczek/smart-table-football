@@ -76,7 +76,8 @@ const socketEvents = {
   startListening: 'startListening',
   stopListening: 'stopListening',
   createdGoal: 'createdGoal',
-  goal: 'goal'
+  goal: 'goal',
+  isTableInGame: 'isTableInGame'
 }
 
 module.exports = {

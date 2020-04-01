@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import { GET_LIST, GET_ONE, showNotification, Title, withDataProvider } from 'react-admin'
 
 import { Button, Typography } from '@material-ui/core'
 import CreateIcon from '@material-ui/icons/Create'
 import StatisticsIcon from '@material-ui/icons/BarChart'
+import TabeAvailableIcon from '@material-ui/icons/DoubleArrow'
 
 import styled, { css } from 'styled-components'
 import compose from 'recompose/compose'
@@ -52,6 +53,8 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
   const [teams, setTeams] = useState(null)
   const [matches, setMatches] = useState(null)
   const [goals, setGoals] = useState(null)
+
+  const isTableInGame = useSelector(state => state.table.isInGame)
 
   useEffect(() => {
     const call = async () => {
@@ -122,13 +125,24 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
           </DashboardSection>
 
           <DashboardSection>
-            <Typography variant='h5' align='center' color='textPrimary' gutterBottom>
-              If you want to play a game, click button below
+            {!isTableInGame &&
+            <Typography color='textPrimary'>
+              <TabeAvailableIcon color='primary' />&nbsp;Table is ready to play now!
             </Typography>
-            <Button color='primary' variant='contained' onClick={() => history.push(`/${constants.resources.matches}/create`)}>
-              <CreateIcon />
+            }
+            {
+              !isTableInGame &&
+              <>
+                <br />
+                <Typography variant='h5' align='center' color='textPrimary' gutterBottom>
+              If you want to play a game, click button below
+                </Typography>
+                <Button color='primary' variant='contained' onClick={() => history.push(`/${constants.resources.matches}/create`)}>
+                  <CreateIcon />
               Prepare match
-            </Button>
+                </Button>
+              </>
+            }
           </DashboardSection>
 
           <DashboardSection>

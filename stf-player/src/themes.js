@@ -22,7 +22,7 @@ export const themeProvider = mode => {
     palette: {
       type: darkMode ? constants.themeMode.type.dark : constants.themeMode.type.light,
       primary: orange,
-      secondary: orange,
+      secondary: grey,
       background: {
         default: darkMode ? '#363636' : '#fafafa'
       },

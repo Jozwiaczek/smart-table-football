@@ -46,7 +46,8 @@ const table = {
   name: 'table',
   fields: {
     id: 'id',
-    isActive: 'isActive'
+    isActive: 'isActive',
+    inGame: 'inGame'
   }
 }
 

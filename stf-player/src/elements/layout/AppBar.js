@@ -1,12 +1,18 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { AppBar, MenuItemLink, UserMenu, useTranslate } from 'react-admin'
+import { useHistory } from 'react-router-dom'
+import { AppBar, GET_ONE, MenuItemLink, useDataProvider, UserMenu, useTranslate } from 'react-admin'
 import SettingsIcon from '@material-ui/icons/Settings'
-import SignalIcon from '@material-ui/icons/Wifi'
-import NoSignalIcon from '@material-ui/icons/WifiOff'
+import SignalIcon from '@material-ui/icons/Power'
+import NoSignalIcon from '@material-ui/icons/PowerOff'
+import TabeAvailableIcon from '@material-ui/icons/DoubleArrow'
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'
+import TableBusyIcon from '@material-ui/icons/CancelScheduleSend'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, useMediaQuery } from '@material-ui/core'
+import { Button, Typography, useMediaQuery } from '@material-ui/core'
 import Tooltip from '@material-ui/core/Tooltip/Tooltip'
+import { constants, models } from 'stf-core'
+import { getPlayerId } from '../../utils/getPlayerId'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -37,6 +43,11 @@ const useStyles = makeStyles(theme => ({
   disconnectText: {
     marginLeft: '0.75rem',
     paddingTop: '0.2rem'
+  },
+  iconDivider: {
+    marginLeft: '1rem',
+    fontSize: 32,
+    fontWeight: 300
   }
 }))
 
@@ -59,14 +70,85 @@ const CustomUserMenu = (props) =>
   </UserMenu>
 
 export default (props) => {
-  const tableStatus = useSelector(state => state.table.isActive)
-
+  const isTableActive = useSelector(state => state.table.isActive)
+  const isTableInGame = useSelector(state => state.table.isInGame)
+  const [isPlayerInGame, setPlayerInGame] = React.useState(false)
   const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'))
-
   const classes = useStyles()
+  const dataProvider = useDataProvider()
+
+  useEffect(() => {
+    const save = async () => {
+      if (isTableInGame) {
+        // new approach
+        const matchInGame = await dataProvider(GET_ONE, constants.resources.matches, {
+          id: isTableInGame
+        }).then(res => res.data)
+
+        const isPlayerInTeamA = await dataProvider(GET_ONE, constants.resources.teams, {
+          id: matchInGame[models.matches.fields.teamA]
+        }).then(res => res.data)
+
+        const isPlayerInTeamB = await dataProvider(GET_ONE, constants.resources.teams, {
+          id: matchInGame[models.matches.fields.teamB]
+        }).then(res => res.data)
+
+        setPlayerInGame(isPlayerInTeamA[models.teams.fields.players].includes(getPlayerId()) ||
+          isPlayerInTeamB[models.teams.fields.players].includes(getPlayerId()))
+
+        // Old approach
+        // const teamsRes = await dataProvider(GET_LIST, constants.resources.teams, { filter: {
+        //   $where: () => this[models.teams.fields.players].includes(getPlayerId())
+        // } }).then(res => res.data)
+        // const teamsIds = teamsRes.map(team => team.id)
+        // const matchRes = await dataProvider(GET_LIST, constants.resources.matches, { filter: {
+        //   $or: [
+        //     { [models.matches.fields.teamA]: {
+        //       $in: teamsIds
+        //     } },
+        //     {
+        //       [models.matches.fields.teamB]: {
+        //         $in: teamsIds
+        //       }
+        //     }
+        //   ],
+        //   [models.matches.fields.status]: constants.statusMatch.active
+        // } }).then(res => res.data[0])
+      }
+    }
+    save()
+  }, [isTableInGame, dataProvider])
+
+  const TableInGameSection = () => {
+    const history = useHistory()
+
+    if (!isTableActive) return null
+    if (isTableInGame) {
+      if (isPlayerInGame) {
+        return (
+          <Tooltip title='Click to join your current match'>
+            <Button color='action' onClick={() => history.push({ pathname: '/inGame', search: `?match=${isTableInGame}` })}>
+              <EmojiPeopleIcon className={classes.buttonIcon} color='action' />
+              Join
+            </Button>
+          </Tooltip>
+        )
+      }
+      return (
+        <Tooltip title='There is an active match'>
+          <TableBusyIcon />
+        </Tooltip>
+      )
+    }
+    return (
+      <Tooltip title='Ready to play!'>
+        <TabeAvailableIcon />
+      </Tooltip>
+    )
+  }
 
   return (
-    <AppBar {...props} userMenu={<CustomUserMenu />}>
+    <AppBar {...props} color='primary' userMenu={<CustomUserMenu />}>
       {
         !isSmall &&
         <Typography
@@ -79,18 +161,18 @@ export default (props) => {
 
       <span className={classes.spacer} />
 
-      {
-        !isSmall &&
-        <Typography
-          className={classes.betaTag}
-          variant={'button'}>
-          beta
-        </Typography>
-      }
+      {/* { */}
+      {/*  !isSmall && */}
+      {/*  <Typography */}
+      {/*    className={classes.betaTag} */}
+      {/*    variant={'button'}> */}
+      {/*    beta */}
+      {/*  </Typography> */}
+      {/* } */}
 
       <div className={classes.strengthSignalIcon}>
         {
-          tableStatus
+          isTableActive
             ? <Tooltip title='Table is connected'>
               <SignalIcon />
             </Tooltip>
@@ -99,12 +181,16 @@ export default (props) => {
               {
                 !isSmall &&
                 <Typography className={classes.disconnectText}>
-              Table is disconnected
+                  Table is disconnected
                 </Typography>
               }
             </div>
         }
       </div>
+      <TableInGameSection {...props} />
+      <Typography className={classes.iconDivider}>
+        |
+      </Typography>
     </AppBar>
   )
 }
