@@ -2,9 +2,6 @@
   "name": "smart-table-football",
   "private": true,
   "version": "1.0.0",
-  "engines": {
-    "node": "10.15.0"
-  },
   "repository": "git@github.com:Jozwiaczek/smart-table-football.git",
   "author": "jozwiak <kubencki@gmail.com>",
   "license": "MIT",

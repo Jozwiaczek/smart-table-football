@@ -10,7 +10,7 @@ function createWindow () {
     height: 600
   })
 
-  mainWindow.loadURL('http://localhost:8080')
+  mainWindow.loadURL('http://localhost:8081')
 
   mainWindow.on('closed', function () {
     mainWindow = null
