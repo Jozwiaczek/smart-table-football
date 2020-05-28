@@ -29,7 +29,7 @@ if (!fs.existsSync(replayDir)) {
 app.configure(socketio(socket))
 app.configure(configuration())
 
-socket.on(constants.socketEvents.tableActiveRasp, () => {
+socket.on(constants.socketEvents.isTableActiveRasp, () => {
   socket.emit(constants.socketEvents.tableActiveRasp)
 })
 

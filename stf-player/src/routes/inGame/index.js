@@ -126,7 +126,9 @@ export default ({ history }) => {
     if (isTimerRun) {
       const start = Date.now() - elapsedTimer
       interval = setInterval(() => {
-        setElapsedTimer(Date.now() - start)
+        const currentStepTime = Date.now() - start
+        // setElapsedTimer(currentStepTime)
+        socket.emit('currentStepTime', currentStepTime)
       }, 100)
     } else if (!isTimerRun && elapsedTimer !== 0) {
       clearInterval(interval)
@@ -171,6 +173,9 @@ export default ({ history }) => {
         }
         if (!isTableDisconnectedModal && matchId) {
           socket.emit(constants.socketEvents.isTableInGame)
+          socket.on('currentStepTime', currentStepTime => {
+            setElapsedTimer(currentStepTime)
+          })
 
           const resMatch = await dataProvider(GET_ONE, constants.resources.matches, { id: matchId }).then(res => res.data)
           setMatch(resMatch)

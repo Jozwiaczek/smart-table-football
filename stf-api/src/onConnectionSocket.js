@@ -1,8 +1,12 @@
 const { models, constants } = require('stf-core')
 
-module.exports = function (app, socket) {
+module.exports = function (app, socket, io) {
   const tableService = app.service(constants.resources.table)
   tableService.setup(app)
+
+  socket.on('currentStepTime', currentStepTime => {
+    io.emit('currentStepTime', currentStepTime)
+  })
 
   socket.on(constants.socketEvents.isTableActivePlayer, async () => {
     await tableService.emitIsActive()
@@ -18,8 +22,6 @@ module.exports = function (app, socket) {
       [models.table.fields.isActive]: true
     })
   })
-
-  socket.emit(constants.socketEvents.isTableActiveRasp)
 
   socket.on(constants.socketEvents.goal, async data => {
     const { team, replayId, matchId } = data
@@ -37,4 +39,6 @@ module.exports = function (app, socket) {
       tableService.remove(socket.id)
     }
   })
+
+  socket.emit(constants.socketEvents.isTableActiveRasp)
 }

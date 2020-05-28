@@ -53,7 +53,7 @@ app.use('/', express.static('./public/'))
 app.configure(express.rest())
 app.configure(socketio(io => {
   io.on(constants.socketEvents.connection, socket => {
-    onConnectionSocket(app, socket)
+    onConnectionSocket(app, socket, io)
   })
 }))
 
