@@ -11,3 +11,15 @@ jobs:
           node-version: '14'
       - name: Install dependency
         run: yarn install
+      - name: Api
+          run: cd stf-api && yarn test
+      - name: Player
+          run: cd stf-player && yarn eslint && yarn build
+      - name: Raspberry Pi
+          run: cd stf-rasp && yarn install && yarn eslint
+      - name: Admin
+          run: cd stf-admin && yarn eslint && yarn build
+      - name: Core
+          run: cd stf-core && yarn eslint
+      - name: Admin-desktop
+          run: cd stf-admin-desktop && yarn install && yarn eslint && yarn pack
