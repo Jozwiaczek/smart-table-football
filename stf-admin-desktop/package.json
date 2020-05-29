@@ -1,29 +1,38 @@
 {
   "name": "stf-admin-desktop",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "description": "Desktop application for administrators of stf platform",
+  "author": "Jakub Jóźwiak",
   "license": "ISC",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "eslint": "standard",
-    "eslint-fix": "standard --fix",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "postinstall": "electron-builder install-app-deps"
-  },
+  "main": "src/main.js",
   "build": {
-    "appId": "yourappid",
-    "mac": {
-      "category": "your.app.category.type"
+    "productName": "Smart Table Football Admin",
+    "artifactName": "STF-Admin-${version}.${ext}",
+    "appId": "com.stf.admin-app",
+    "files": [
+      "**/*"
+    ],
+    "directories": {
+      "buildResources": "./assets",
+      "output": "./release"
     }
   },
-  "dependencies": {
-    "electron": "latest"
+  "scripts": {
+    "start": "concurrently 'cd ../stf-admin && yarn start' 'NODE_ENV=development electron .'",
+    "build:renderer": "yarn clean:build && cd ../stf-admin && yarn build && mv ./build ../stf-admin-desktop",
+    "eslint": "standard",
+    "eslint-fix": "standard --fix",
+    "clean:release": "rimraf ./release",
+    "clean:build": "rimraf ./build",
+    "postinstall": "electron-builder install-app-deps",
+    "pack:test": "electron-builder --dir",
+    "pack:mac": "yarn build:renderer && yarn clean:release && yarn postinstall && electron-builder --mac && yarn clean:build"
   },
   "devDependencies": {
+    "electron": "latest",
     "standard": "^12.0.1",
-    "electron-builder": "latest"
+    "electron-builder": "latest",
+    "rimraf": "latest",
+    "concurrently": "latest"
   }
 }
