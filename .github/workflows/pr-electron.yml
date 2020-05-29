@@ -1,0 +1,15 @@
+name: PR Electron
+on: [pull_request]
+
+jobs:
+  Pull-Request:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - name: Install dependency
+        run: yarn install
+      - name: Admin-desktop
+        run: cd stf-admin-desktop && yarn install && yarn eslint && yarn pack
