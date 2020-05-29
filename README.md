@@ -1,3 +1,12 @@
 # Smart Table Football
 
-[![CircleCI](https://circleci.com/gh/Jozwiaczek/smart-table-football/tree/master.svg?style=svg&circle-token=727243a57da8fee771cc1e7519d764a757ed6e15)](https://circleci.com/gh/Jozwiaczek/smart-table-football/tree/master)
+https://github.com/{github_id}/{repository}/workflows/{workflow_name}/badge.svg
+
+https://github.com/jonasbn/til/workflows/Markdownlint%20Workflow/badge.svg
+
+?branch=master&event=push
+![CI](https://github.com/Jozwiaczek/smart-table-football/workflows/Continuous%20Integration/badge.svg?branch=master&event=push)
+
+Działające
+![CI](https://github.com/Jozwiaczek/smart-table-football/workflows/Continuous%20Integration/badge.svg)
+
