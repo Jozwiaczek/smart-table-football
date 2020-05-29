@@ -18,11 +18,3 @@ jobs:
           mongodb-replica-set: test-stf-db
       - name: Install dependency
         run: yarn install
-      - name: Api
-        run: cd stf-api && yarn test
-      - name: Player
-        run: cd stf-player && yarn eslint && yarn build
-      - name: Admin
-        run: cd stf-admin && yarn eslint && yarn build
-      - name: Core
-        run: cd stf-core && yarn eslint
