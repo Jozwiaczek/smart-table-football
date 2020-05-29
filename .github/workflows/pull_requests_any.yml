@@ -3,7 +3,7 @@ on: [pull_request]
 
 jobs:
   Web:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Git checkout
         uses: actions/checkout@v1
@@ -11,4 +11,46 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.3.0
+        with:
+          mongodb-version: 4.2
+          mongodb-replica-set: test-stf-db
+      - name: Install dependency
+        run: yarn install
+      - name: Api
+        run: cd stf-api && yarn test
+      - name: Player
+        run: cd stf-player && yarn eslint && yarn build
+      - name: Admin
+        run: cd stf-admin && yarn eslint && yarn build
+      - name: Core
+        run: cd stf-core && yarn eslint
 
+  Raspberry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install dependency
+        run: cd stf-rasp && yarn install
+      - name: Raspberry Pi
+        run: cd stf-rasp && yarn eslint
+
+  Electron:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install dependency
+        run: cd stf-admin-desktop && yarn install
+      - name: Admin-desktop
+        run: cd stf-admin-desktop && yarn eslint && yarn pack
