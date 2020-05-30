@@ -53,4 +53,4 @@ jobs:
       - name: Install dependency
         run: cd stf-admin-desktop && yarn install
       - name: Admin-desktop
-        run: cd stf-admin-desktop && yarn eslint && yarn pack
+        run: cd stf-admin-desktop && yarn eslint && yarn pack:all
