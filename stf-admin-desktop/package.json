@@ -45,7 +45,8 @@
   },
   "dependencies": {
     "electron-log": "^4.2.0",
-    "electron-updater": "^4.0.0"
+    "electron-updater": "^4.0.0",
+    "react-scripts": "3.4.0"
   },
   "devDependencies": {
     "concurrently": "latest",
