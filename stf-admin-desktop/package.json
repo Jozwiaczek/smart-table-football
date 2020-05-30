@@ -10,49 +10,17 @@
   "license": "ISC",
   "private": true,
   "main": "src/main.js",
-  "build": {
-    "productName": "Smart Table Football Admin",
-    "artifactName": "STF-Admin-${version}.${ext}",
-    "appId": "com.stf.admin-app",
-    "files": [
-      "**/*"
-    ],
-    "directories": {
-      "buildResources": "./assets",
-      "output": "./release"
-    },
-    "mac": {
-      "category": "public.app-category.games",
-      "target": "dmg"
-    },
-    "linux": {
-      "publish": "github"
-    }
-  },
   "scripts": {
     "start": "concurrently 'cd ../stf-admin && yarn start' 'NODE_ENV=development electron .'",
-    "build:renderer": "yarn clean:build && cd ../stf-admin && yarn build && mv ./build ../stf-admin-desktop",
     "eslint": "standard",
-    "eslint-fix": "standard --fix",
-    "clean:release": "rimraf ./release",
-    "clean:build": "rimraf ./build",
-    "postinstall": "electron-builder install-app-deps",
-    "prepack": "yarn build:renderer && yarn postinstall",
-    "pack:mac": "yarn prepack && electron-builder --mac && yarn clean:build",
-    "pack:win": "yarn prepack && electron-builder --win && yarn clean:build",
-    "pack:linux": "yarn prepack && electron-builder --linux && yarn clean:build",
-    "pack:all": "yarn clean:release && yarn prepack && electron-builder build -mwl && yarn clean:build"
+    "eslint-fix": "standard --fix"
   },
   "dependencies": {
     "electron-log": "^4.2.0",
-    "electron-updater": "^4.0.0",
-    "react-scripts": "3.4.0"
+    "electron-updater": "^4.0.0"
   },
   "devDependencies": {
     "concurrently": "latest",
-    "electron": "latest",
-    "electron-builder": "latest",
-    "rimraf": "latest",
     "standard": "^12.0.1"
   }
 }

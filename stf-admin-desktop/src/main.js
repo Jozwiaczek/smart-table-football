@@ -1,6 +1,5 @@
 const { BrowserWindow, app, screen, dialog } = require('electron')
 const { autoUpdater } = require('electron-updater')
-const log = require('electron-log')
 
 const environment = process.env.NODE_ENV || 'production'
 
@@ -20,15 +19,13 @@ function createWindow () {
     mainWindow.webContents.openDevTools()
     mainWindow.loadURL('http://localhost:8082')
   } else {
-    mainWindow.loadFile('./build/index.html')
+    mainWindow.loadFile(app.getAppPath() + '/stf-admin-desktop/build/index.html')
   }
   return mainWindow
 }
 
 const main = async () => {
   createWindow()
-  log.transports.file.level = 'debug'
-  autoUpdater.logger = log
   await autoUpdater.checkForUpdatesAndNotify().catch(console.error)
 }
 
