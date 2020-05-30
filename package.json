@@ -25,7 +25,7 @@
     "electron:pack:mac": "yarn electron:prepack && electron-builder --mac && yarn electron:clean:build",
     "electron:pack:win": "yarn electron:prepack && electron-builder --win && yarn electron:clean:build",
     "electron:pack:linux": "yarn electron:prepack && electron-builder --linux && yarn electron:clean:build",
-    "electron:pack:all": "yarn electron:prepack && electron-builder build -mwl && yarn electron:clean:build"
+    "electron:pack:all": "yarn electron:prepack && electron-builder -mwl && yarn electron:clean:build"
   },
   "dependencies": {
     "electron-updater": "^4.0.0"
