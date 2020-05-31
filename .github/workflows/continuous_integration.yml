@@ -41,7 +41,7 @@ jobs:
         run: cd stf-rasp && yarn eslint
 
   Electron:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -52,7 +52,7 @@ jobs:
       - name: ESLint
         run: cd stf-admin-desktop && yarn eslint
       - name: Pack All
-        run: yarn electron:pack:all
+        run: yarn electron:pack:mac
 
 #  Electron:
 #    strategy:
