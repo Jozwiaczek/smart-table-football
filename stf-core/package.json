@@ -12,6 +12,6 @@
   "author": "Jakub Jóźwiak",
   "license": "ISC",
   "devDependencies": {
-    "standard": "^12.0.1"
+    "standard": "^14.3.4"
   }
 }
