@@ -127,7 +127,6 @@ export default ({ history }) => {
       const start = Date.now() - elapsedTimer
       interval = setInterval(() => {
         const currentStepTime = Date.now() - start
-        // setElapsedTimer(currentStepTime)
         socket.emit('currentStepTime', currentStepTime)
       }, 100)
     } else if (!isTimerRun && elapsedTimer !== 0) {

@@ -10,7 +10,7 @@ import red from '@material-ui/core/colors/red'
 import dataProvider from '../../../dataProvider'
 import BackgroundGraphic from '../../../elements/BackgroundGraphic'
 import Logo from '../../../elements/Logo'
-import FormTextField from '../../../elements/FormTextField'
+import FormTextField from '../../../elements/forms/FormTextField'
 import { validatePasswordReset } from '../validate'
 import ThemeWrapper from '../../../elements/ThemeWrapper'
 

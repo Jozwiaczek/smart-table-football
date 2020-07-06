@@ -1,47 +1,56 @@
-import React from 'react'
-import compose from 'recompose/compose'
-
-import {
-  Create,
-  ListButton,
-  RadioButtonGroupInput,
-  ReferenceArrayInput,
-  required,
-  SelectArrayInput,
-  SimpleForm,
-  TextInput,
-  TopToolbar
-} from 'react-admin'
-import { withStyles } from '@material-ui/core/styles'
-import PersonIcon from '@material-ui/icons/Person'
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
+import React, { useEffect, useState } from 'react'
+import { Field, Form } from 'react-final-form'
+import { Button, CardActions, CardContent, CircularProgress, MenuItem } from '@material-ui/core'
+import { Create, CREATE, GET_LIST, GET_ONE, ListButton, TopToolbar, useDataProvider, useNotify } from 'react-admin'
+import { makeStyles } from '@material-ui/core/styles'
+import { useHistory } from 'react-router-dom'
 
 import { constants, models } from 'stf-core'
+import FormTextField from '../../elements/forms/FormTextField'
+import { getPlayerId } from '../../utils/getPlayerId'
 
-const styles = {
-  form: {
-    padding: '1rem 0',
+const useStyles = makeStyles({
+  cardContent: {
+    padding: '3rem 5rem',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space',
     flexDirection: 'column'
   },
-  input: {
-    marginTop: '1em',
-    width: '100%',
+  cardActions: {
+    display: 'flex',
+    justifyContent: 'start'
+  },
+  halfInputContainerV: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: '3em',
+    height: '4em'
+  },
+  halfInput: {
+    marginBottom: '1.5em',
+    height: '4em',
+    width: '40%'
+  },
+  lastInput: {
     height: '4em'
   },
   button: {
-    width: '100%',
-    margin: 2
+    margin: '1rem 5rem'
   },
   loadingBar: {
     marginRight: 8
   },
-  resetLink: {
-    marginTop: '0.5rem',
-    marginBottom: '0.5rem'
+  linkToLog: {
+    marginTop: 6
+  },
+  rootLoading: {
+    width: '100%',
+    height: '80vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
-}
+})
 
 const CreateActions = ({ basePath }) => (
   <TopToolbar>
@@ -49,107 +58,134 @@ const CreateActions = ({ basePath }) => (
   </TopToolbar>
 )
 
-const Test = ({ choices, input, ...rest }) => {
-  return (
-    <SelectArrayInput optionText={models.players.fields.email} choices={choices} {...rest} />
-  )
+const validateForm = (values) => {
+  const errors = {}
+
+  if (!values[models.teams.fields.name]) {
+    errors[models.teams.fields.name] = 'Required'
+  }
+  if (!values[models.teams.fields.players]) {
+    errors[models.teams.fields.players] = 'Required'
+  }
+
+  return errors
 }
 
-const FullNameField = ({ record }) => record.name === 'single' ? <PersonIcon /> : <PeopleAltIcon />
+const getPlayersMenuItems = (values, players) =>
+  players.map((player, key) =>
+    <MenuItem key={key} value={player._id}>
+      {player[models.players.fields.email]}
+    </MenuItem>
+  )
 
-// const TeamCreate = ({ classes, ...rest }) => {
-//   const [loading, setLoading] = useState(false)
-//
-//   const validate = (values) => {
-//     const errors = { username: undefined, password: undefined }
-//
-//     if (!values.username) {
-//       errors.username = 'Required'
-//     }
-//     return errors
-//   }
-//
-//   const submit = values => {
-//     setLoading(true)
-//     console.log(values)
-//     setLoading(false)
-//   }
-//
-//   return (
-//     <Form
-//       onSubmit={submit}
-//       validate={validate}
-//       render={({ handleSubmit }) => (
-//         <form onSubmit={handleSubmit} noValidate>
-//           <Field
-//             autoFocus
-//             id='username'
-//             name='username'
-//             component={Input}
-//             label={'Email'}
-//             disabled={loading}
-//           />
-//           <Button
-//             variant='contained'
-//             type='submit'
-//             color='primary'
-//             disabled={loading}
-//             className={classes.button}
-//           >
-//             {
-//               loading &&
-//               <div className={classes.loadingBar} >
-//                 <CircularProgress size={15} thickness={2} />
-//               </div>
-//             }
-//             Create
-//           </Button>
-//         </form>
-//       )}
-//     />
-//   )
-// }
+const TeamCreate = props => {
+  const [loading, setLoading] = useState(false)
+  const classes = useStyles()
+  const dataProvider = useDataProvider()
+  const [players, setPlayers] = React.useState([])
+  const [currPlayer, setCurrPlayer] = React.useState([])
+  const notify = useNotify()
+  const history = useHistory()
 
-const TeamCreate = (props) => {
+  useEffect(() => {
+    const req = async () => {
+      const currPlayer = (await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() })).data
+      setCurrPlayer(currPlayer)
+      const resPlayers = (await dataProvider(GET_LIST, constants.resources.players, { filter: {} })).data
+      setPlayers(resPlayers.filter(player => player[models.players.fields.email] !== currPlayer[models.players.fields.email]))
+    }
+    req()
+  }, [])
+
+  const createTeam = async values => {
+    setLoading(true)
+    values.players = [values.players, currPlayer._id]
+    try {
+      const createdTeam = await dataProvider(CREATE, constants.resources.teams, { data: values })
+      history.push(`/teams/${createdTeam.data.id}`)
+    } catch (error) {
+      notify(
+        typeof error === 'string'
+          ? error
+          : typeof error === 'undefined' || !error.message
+            ? 'Error with creating team'
+            : error.message,
+        'warning'
+      )
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (!Array.isArray(players)) {
+    return (
+      <div className={classes.rootLoading}>
+        <CircularProgress size={60} />
+      </div>
+    )
+  }
+
   return (
     <Create
       {...props}
       actions={<CreateActions />}
       title='Team Create'
     >
-      <SimpleForm>
-        <RadioButtonGroupInput
-          source='type'
-          optionText={<FullNameField />}
-          choices={[
-            { id: 'single', name: 'single' },
-            { id: 'pair', name: 'pair' }
-          ]}
-        />
-        <TextInput
-          source={models.teams.fields.name}
-          validate={required()}
-        />
-        <ReferenceArrayInput
-          source={models.teams.fields.players}
-          reference={constants.resources.players}
-          validate={required()}
-          label='Team mate'
-          sort={{
-            field: models.players.fields.email,
-            order: 'ASC'
-          }}
-          filterToQuery={searchText => ({ [`${models.players.fields.email}.$regex`]: searchText })}
-        >
-          <Test />
-        </ReferenceArrayInput>
-      </SimpleForm>
+      <Form
+        onSubmit={createTeam}
+        validate={validateForm}
+        render={({ handleSubmit, values }) => (
+          <form onSubmit={handleSubmit} noValidate>
+            <CardContent className={classes.cardContent}>
+              <div className={classes.halfInputContainerV}>
+                <Field
+                  autoFocus
+                  id={models.teams.fields.name}
+                  name={models.teams.fields.name}
+                  component={FormTextField}
+                  label={'Team name'}
+                  className={classes.halfInput}
+                  disabled={loading}
+                  required
+                />
+
+                <Field
+                  id={models.teams.fields.players}
+                  name={models.teams.fields.players}
+                  select
+                  required
+                  component={FormTextField}
+                  label='Team Mate'
+                  disabled={loading}
+                  className={classes.halfInput}
+                >
+                  {getPlayersMenuItems(values, players)}
+                </Field>
+              </div>
+            </CardContent>
+
+            <CardActions className={classes.cardActions}>
+              <Button
+                variant='contained'
+                type='submit'
+                color='primary'
+                disabled={loading}
+                className={classes.button}
+              >
+                {
+                  loading &&
+                  <div className={classes.loadingBar} >
+                    <CircularProgress size={15} thickness={2} />
+                  </div>
+                }
+                Create Team
+              </Button>
+            </CardActions>
+          </form>
+        )}
+      />
     </Create>
   )
 }
 
-const enhance = compose(
-  withStyles(styles)
-)
-
-export default enhance(TeamCreate)
+export default TeamCreate

@@ -7,7 +7,7 @@ import { createStyles, withStyles } from '@material-ui/core/styles'
 import { useLogin, useNotify, useSafeSetState, useTranslate } from 'ra-core'
 import { Link } from 'react-admin'
 import PasswordInput from '../../../elements/PasswordInput'
-import FormTextField from '../../../elements/FormTextField'
+import FormTextField from '../../../elements/forms/FormTextField'
 import { models } from 'stf-core'
 import { validateLogin } from '../validate'
 

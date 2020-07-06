@@ -15,6 +15,7 @@ import {
   SimpleList,
   TextField,
   TopToolbar,
+  useRefresh,
   withDataProvider
 } from 'react-admin'
 import CustomizableDatagrid from 'ra-customizable-datagrid'
@@ -31,6 +32,7 @@ import DateFilters from '../../elements/DateFilters'
 import { getTimerUnit } from '../../utils/getTimerUnits'
 import { useSelector } from 'react-redux'
 import { getPlayerId } from '../../utils/getPlayerId'
+import { socket } from '../../client/feathersSocketClient'
 
 const styles = {
   buttonIcon: {
@@ -101,9 +103,48 @@ const WinnerMobileField = ({ teams, record }) => {
   )
 }
 
+const Timer = ({ record, globalElapsedTimer, isInGame, ...rest }) => {
+  if (isInGame === record.id) {
+    return (
+      <FunctionField
+        {...rest}
+        record={record}
+        source={models.matches.fields.elapsedTime}
+        render={record => {
+          return (
+            `${getTimerUnit(globalElapsedTimer).min}:${getTimerUnit(globalElapsedTimer).sec}`
+          )
+        }}
+      />
+    )
+  }
+  return (
+    <FunctionField
+      {...rest}
+      record={record}
+      source={models.matches.fields.elapsedTime}
+      render={record => {
+        const elapsedTime = record[models.matches.fields.elapsedTime]
+        return (
+          `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
+        )
+      }}
+    />
+  )
+}
+
+const rowStyle = (record = {}, isInGame) => {
+  if (isInGame === record.id) {
+    return { backgroundColor: 'rgba(255,152,0,0.10)' }
+  }
+  return {}
+}
+
 const MatchList = ({ classes, dataProvider, ...rest }) => {
   const [teams, setTeams] = useState([])
   const [playerTeamsIds, setPlayerTeamsIds] = useState([])
+  const [globalElapsedTimer, setGlobalElapsedTimer] = useState(0)
+  const refresh = useRefresh()
 
   const tableStatus = useSelector(state => state.table.isActive)
   const isInGame = useSelector(state => state.table.isInGame)
@@ -121,6 +162,24 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
     }
     call()
   }, [dataProvider, isInGame])
+
+  useEffect(() => {
+    const req = () => {
+      socket.on('currentStepTime', currentStepTime => {
+        setGlobalElapsedTimer(currentStepTime)
+      })
+    }
+    req()
+  }, [isInGame, setGlobalElapsedTimer])
+
+  useEffect(() => {
+    const req = () => {
+      if (!isInGame) {
+        refresh()
+      }
+    }
+    req()
+  }, [isInGame])
 
   const ListActions = ({
     className,
@@ -182,9 +241,12 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
         }
         medium={
           <CustomizableDatagrid
+            rowStyle={record => rowStyle(record, isInGame)}
             defaultColumns={[
               models.matches.fields.status,
-              models.matches.fields.winner
+              models.matches.fields.winner,
+              models.matches.fields.teamA,
+              models.matches.fields.teamB
             ]}
           >
             <ReferenceField
@@ -208,6 +270,14 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
               <TextField source={models.teams.fields.name} />
             </ReferenceField>
             <TextField source={models.matches.fields.status} />
+            <Timer
+              globalElapsedTimer={globalElapsedTimer}
+              classes={classes}
+              disabled={!tableStatus}
+              isInGame={isInGame}
+              label='Time NEW'
+              {...rest}
+            />
             <FunctionField
               source={models.matches.fields.elapsedTime} label='Time' render={record => {
                 const elapsedTime = record[models.matches.fields.elapsedTime]
@@ -216,9 +286,9 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
                 )
               }}
             />
-            <DateField source='createdAt' showTime />
             <ContinueButton classes={classes} disabled={!tableStatus} isInGame={isInGame} {...rest} />
             <ShowStatistic classes={classes} {...rest} />
+            <DateField source='createdAt' showTime />
           </CustomizableDatagrid>
         }
       />
