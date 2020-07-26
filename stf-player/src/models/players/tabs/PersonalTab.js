@@ -14,7 +14,7 @@ const PersonalTab = ({
   basePath,
   ...rest
 }) => (
-  <FormTab label={'Personal details'} {...rest} >
+  <FormTab label='Personal details' {...rest}>
     <TextInput
       source={models.players.fields.firstName}
       validate={required()}

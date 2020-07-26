@@ -114,6 +114,9 @@ const App = () => (
       name={constants.resources.goals}
       show={GoalShow}
     />
+    <Resource
+      name={constants.resources.notifications}
+    />
     <GetPlayer />
   </Admin>
 )

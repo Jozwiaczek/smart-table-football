@@ -7,7 +7,14 @@ const resources = {
   matches: 'matches',
   goals: 'goals',
   mailer: 'mailer',
-  table: 'table'
+  table: 'table',
+  notifications: 'notifications'
+}
+
+const notificationType = {
+  general: 'general',
+  invitation: 'invitation',
+  update: 'update'
 }
 
 const storageKey = 'feathers-jwt'
@@ -93,5 +100,6 @@ module.exports = {
   statusMatch,
   locales,
   socketEvents,
-  themeMode
+  themeMode,
+  notificationType
 }

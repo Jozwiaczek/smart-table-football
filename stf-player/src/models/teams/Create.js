@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Field, Form } from 'react-final-form'
-import { Button, CardActions, CardContent, CircularProgress, MenuItem } from '@material-ui/core'
-import { Create, CREATE, GET_LIST, GET_ONE, ListButton, TopToolbar, useDataProvider, useNotify } from 'react-admin'
+import { Button, CardActions, CardContent, CircularProgress } from '@material-ui/core'
+import { Create, CREATE, GET_LIST, ListButton, TopToolbar, useDataProvider, useNotify } from 'react-admin'
 import { makeStyles } from '@material-ui/core/styles'
 import { useHistory } from 'react-router-dom'
 
 import { constants, models } from 'stf-core'
 import FormTextField from '../../elements/forms/FormTextField'
 import { getPlayerId } from '../../utils/getPlayerId'
+import TeamMateCreateField from './elements/TeamMateCreateField'
 
 const useStyles = makeStyles({
   cardContent: {
@@ -58,25 +59,21 @@ const CreateActions = ({ basePath }) => (
   </TopToolbar>
 )
 
-const validateForm = (values) => {
+const validateForm = (values, players) => {
   const errors = {}
 
   if (!values[models.teams.fields.name]) {
     errors[models.teams.fields.name] = 'Required'
   }
-  if (!values[models.teams.fields.players]) {
-    errors[models.teams.fields.players] = 'Required'
+  if (!values[models.teams.fields.invited]) {
+    errors[models.teams.fields.invited] = 'Required'
+  } else if (!players.find(player => player[models.players.fields.email] === values[models.teams.fields.invited])) {
+    errors.providedInvited = 1
+    errors[models.teams.fields.invited] = 'Provided player doesnt have account in stf'
   }
 
   return errors
 }
-
-const getPlayersMenuItems = (values, players) =>
-  players.map((player, key) =>
-    <MenuItem key={key} value={player._id}>
-      {player[models.players.fields.email]}
-    </MenuItem>
-  )
 
 const TeamCreate = props => {
   const [loading, setLoading] = useState(false)
@@ -89,9 +86,8 @@ const TeamCreate = props => {
 
   useEffect(() => {
     const req = async () => {
-      const currPlayer = (await dataProvider(GET_ONE, constants.resources.players, { id: getPlayerId() })).data
-      setCurrPlayer(currPlayer)
       const resPlayers = (await dataProvider(GET_LIST, constants.resources.players, { filter: {} })).data
+      setCurrPlayer(resPlayers.find(player => player.id === getPlayerId()))
       setPlayers(resPlayers.filter(player => player[models.players.fields.email] !== currPlayer[models.players.fields.email]))
     }
     req()
@@ -99,9 +95,9 @@ const TeamCreate = props => {
 
   const createTeam = async values => {
     setLoading(true)
-    values.players = [values.players, currPlayer._id]
+    const invited = players.find(player => player[models.players.fields.email] === values[models.teams.fields.invited])._id
     try {
-      const createdTeam = await dataProvider(CREATE, constants.resources.teams, { data: values })
+      const createdTeam = await dataProvider(CREATE, constants.resources.teams, { data: { ...values, invited, players: [currPlayer._id] } })
       history.push(`/teams/${createdTeam.data.id}`)
     } catch (error) {
       notify(
@@ -133,8 +129,8 @@ const TeamCreate = props => {
     >
       <Form
         onSubmit={createTeam}
-        validate={validateForm}
-        render={({ handleSubmit, values }) => (
+        validate={values => validateForm(values, players)}
+        render={({ handleSubmit, values, ...rest }) => (
           <form onSubmit={handleSubmit} noValidate>
             <CardContent className={classes.cardContent}>
               <div className={classes.halfInputContainerV}>
@@ -143,24 +139,18 @@ const TeamCreate = props => {
                   id={models.teams.fields.name}
                   name={models.teams.fields.name}
                   component={FormTextField}
-                  label={'Team name'}
+                  label='Team name'
                   className={classes.halfInput}
                   disabled={loading}
                   required
                 />
 
-                <Field
-                  id={models.teams.fields.players}
-                  name={models.teams.fields.players}
-                  select
-                  required
-                  component={FormTextField}
-                  label='Team Mate'
-                  disabled={loading}
-                  className={classes.halfInput}
-                >
-                  {getPlayersMenuItems(values, players)}
-                </Field>
+                <TeamMateCreateField
+                  loading={loading}
+                  currentValue={values[models.teams.fields.invited]}
+                  players={players}
+                  {...rest}
+                />
               </div>
             </CardContent>
 
@@ -174,9 +164,9 @@ const TeamCreate = props => {
               >
                 {
                   loading &&
-                  <div className={classes.loadingBar} >
-                    <CircularProgress size={15} thickness={2} />
-                  </div>
+                    <div className={classes.loadingBar}>
+                      <CircularProgress size={15} thickness={2} />
+                    </div>
                 }
                 Create Team
               </Button>

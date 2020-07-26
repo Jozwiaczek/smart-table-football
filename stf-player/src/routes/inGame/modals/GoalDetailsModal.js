@@ -30,6 +30,32 @@ const styles = () => ({
   }
 })
 
+const Progress = ({ completedCountdown, removeGoal, goal, onClose }) => {
+  if (completedCountdown === 0) {
+    return (
+      <>
+        <Button
+          variant='contained'
+          color='secondary'
+          onClick={async () => {
+            await removeGoal(goal)
+            onClose()
+          }}
+        >
+          <CancelIcon />&nbsp;
+          Cancel goal
+        </Button>
+        <LinearProgress
+          style={{ width: '100%', marginTop: '1em' }}
+          variant='determinate'
+          value={completedCountdown}
+        />
+      </>
+    )
+  }
+  return null
+}
+
 const GoalDetailsModal = ({
   classes,
   goal,
@@ -55,48 +81,32 @@ const GoalDetailsModal = ({
         </Typography>
         {
           replayId &&
-          <div>
-            <video
-              height='240' // 480
-              width='320' // 640
-              autoPlay
-              loop
-              className={isReplayLoading ? classes.hide : null}
-              onLoadStart={() => setReplayLoading(true)}
-              onLoadedData={() => setReplayLoading(false)}
-            >
-              <source src={`https://drive.google.com/uc?id=${replayId}&export=download`} type='video/mp4' />
-            </video>
-            {
-              isReplayLoading &&
-              <div className={classes.loadingAnimation}>
-                <CircularProgress size={100} />
-              </div>
-            }
-          </div>
+            <div>
+              <video
+                height='240' // 480
+                width='320' // 640
+                autoPlay
+                loop
+                className={isReplayLoading ? classes.hide : null}
+                onLoadStart={() => setReplayLoading(true)}
+                onLoadedData={() => setReplayLoading(false)}
+              >
+                <source src={`https://drive.google.com/uc?id=${replayId}&export=download`} type='video/mp4' />
+              </video>
+              {
+                isReplayLoading &&
+                  <div className={classes.loadingAnimation}>
+                    <CircularProgress size={100} />
+                  </div>
+              }
+            </div>
         }
-        {
-          completedCountdown === 0 ? null
-            : <Button
-              variant='contained'
-              color='secondary'
-              onClick={async () => {
-                await removeGoal(goal)
-                onClose()
-              }}
-            >
-              <CancelIcon />&nbsp;
-                Cancel goal
-            </Button>
-        }
-        {
-          completedCountdown === 0 ? null
-            : <LinearProgress
-              style={{ width: '100%', marginTop: '1em' }}
-              variant='determinate'
-              value={completedCountdown}
-            />
-        }
+        <Progress
+          goal={goal}
+          onClose={onClose}
+          removeGoal={removeGoal}
+          completedCountdown={completedCountdown}
+        />
       </div>
     </Modal>
   )

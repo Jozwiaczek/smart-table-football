@@ -110,9 +110,9 @@ const PasswordReset = ({ history }) => {
                   >
                     {
                       processing &&
-                      <div className={classes.loadingBar}>
-                        <CircularProgress size={17} thickness={2} />
-                      </div>
+                        <div className={classes.loadingBar}>
+                          <CircularProgress size={17} thickness={2} />
+                        </div>
                     }
                     Send password reset link
                   </Button>

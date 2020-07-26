@@ -1,5 +1,5 @@
 import TeamCreate from './Create'
-import TeamsList from './List'
+import TeamsList from './list'
 import TeamEdit from './Edit'
 
 export {

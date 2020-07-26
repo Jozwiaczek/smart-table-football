@@ -65,75 +65,76 @@ const LoginForm = ({ classes, redirectTo }) => {
     <Form
       onSubmit={submit}
       validate={values => validateLogin(values, translate)}
-      render={({ handleSubmit }) => <form onSubmit={handleSubmit} noValidate>
-        <CardContent>
-          <div className={classes.form}>
-            <div className={classes.input}>
-              <Field
-                id='username'
-                name='username'
-                component={FormTextField}
-                label='Email'
-                disabled={loading}
-              />
-            </div>
-
-            <div className={classes.input}>
-              <Field
-                id={models.players.fields.password}
-                name={models.players.fields.password}
-                component={PasswordInput}
-                label={translate('ra.auth.password')}
-                disabled={loading}
-                autoComplete='current-password'
-              />
-            </div>
-          </div>
-        </CardContent>
-
-        <CardActions style={{ flexDirection: 'column' }}>
-          <Button
-            variant='contained'
-            type='submit'
-            color='primary'
-            disabled={loading}
-            className={classes.button}
-          >
-            {
-              loading &&
-              <div className={classes.loadingBar}>
-                <CircularProgress size={15} thickness={2} />
+      render={({ handleSubmit }) =>
+        <form onSubmit={handleSubmit} noValidate>
+          <CardContent>
+            <div className={classes.form}>
+              <div className={classes.input}>
+                <Field
+                  id='username'
+                  name='username'
+                  component={FormTextField}
+                  label='Email'
+                  disabled={loading}
+                />
               </div>
-            }
-            {translate('ra.auth.sign_in')}
-          </Button>
 
-          <Button
-            color='primary'
-            disabled={loading}
-            className={classes.button}
-            component={forwardRef(
-              (props, ref) => (
-                <Link to='/registration' {...props} />
-              )
-            )}
-          >
-            {translate('pos.auth.login.sign_up')}
-          </Button>
+              <div className={classes.input}>
+                <Field
+                  id={models.players.fields.password}
+                  name={models.players.fields.password}
+                  component={PasswordInput}
+                  label={translate('ra.auth.password')}
+                  disabled={loading}
+                  autoComplete='current-password'
+                />
+              </div>
+            </div>
+          </CardContent>
 
-          <Typography
-            className={classes.resetLink}
-            variant='caption'
-            component={forwardRef(
-              (props, ref) => (
-                <Link to='/passwordReset' {...props} />
-              )
-            )}
-          >
+          <CardActions style={{ flexDirection: 'column' }}>
+            <Button
+              variant='contained'
+              type='submit'
+              color='primary'
+              disabled={loading}
+              className={classes.button}
+            >
+              {
+                loading &&
+                  <div className={classes.loadingBar}>
+                    <CircularProgress size={15} thickness={2} />
+                  </div>
+              }
+              {translate('ra.auth.sign_in')}
+            </Button>
+
+            <Button
+              color='primary'
+              disabled={loading}
+              className={classes.button}
+              component={forwardRef(
+                (props) => (
+                  <Link to='/registration' {...props} />
+                )
+              )}
+            >
+              {translate('pos.auth.login.sign_up')}
+            </Button>
+
+            <Typography
+              className={classes.resetLink}
+              variant='caption'
+              component={forwardRef(
+                (props) => (
+                  <Link to='/passwordReset' {...props} />
+                )
+              )}
+            >
             I don't remember my password
-          </Typography>
-        </CardActions>
-      </form>}
+            </Typography>
+          </CardActions>
+        </form>}
     />
   )
 }

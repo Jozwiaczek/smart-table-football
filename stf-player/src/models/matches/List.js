@@ -3,7 +3,6 @@ import compose from 'recompose/compose'
 
 import {
   CreateButton,
-  DateField,
   Filter,
   FunctionField,
   GET_LIST,
@@ -18,7 +17,6 @@ import {
   useRefresh,
   withDataProvider
 } from 'react-admin'
-import CustomizableDatagrid from 'ra-customizable-datagrid'
 
 import { Button, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
@@ -33,6 +31,7 @@ import { getTimerUnit } from '../../utils/getTimerUnits'
 import { useSelector } from 'react-redux'
 import { getPlayerId } from '../../utils/getPlayerId'
 import { socket } from '../../client/feathersSocketClient'
+import { Datagrid } from 'ra-ui-materialui'
 
 const styles = {
   buttonIcon: {
@@ -110,7 +109,7 @@ const Timer = ({ record, globalElapsedTimer, isInGame, ...rest }) => {
         {...rest}
         record={record}
         source={models.matches.fields.elapsedTime}
-        render={record => {
+        render={() => {
           return (
             `${getTimerUnit(globalElapsedTimer).min}:${getTimerUnit(globalElapsedTimer).sec}`
           )
@@ -214,9 +213,11 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
       actions={<ListActions />}
       filter={{
         $or: [
-          { [models.matches.fields.teamA]: {
-            $in: playerTeamsIds
-          } },
+          {
+            [models.matches.fields.teamA]: {
+              $in: playerTeamsIds
+            }
+          },
           {
             [models.matches.fields.teamB]: {
               $in: playerTeamsIds
@@ -240,14 +241,8 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
           />
         }
         medium={
-          <CustomizableDatagrid
+          <Datagrid
             rowStyle={record => rowStyle(record, isInGame)}
-            defaultColumns={[
-              models.matches.fields.status,
-              models.matches.fields.winner,
-              models.matches.fields.teamA,
-              models.matches.fields.teamB
-            ]}
           >
             <ReferenceField
               source={models.matches.fields.teamA}
@@ -288,8 +283,7 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
             />
             <ContinueButton classes={classes} disabled={!tableStatus} isInGame={isInGame} {...rest} />
             <ShowStatistic classes={classes} {...rest} />
-            <DateField source='createdAt' showTime />
-          </CustomizableDatagrid>
+          </Datagrid>
         }
       />
     </List>

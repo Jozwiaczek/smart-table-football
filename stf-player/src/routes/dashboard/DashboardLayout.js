@@ -111,6 +111,29 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
     return matches.reduce((m, v, i) => (v.createdAt > m.createdAt) && i ? v : m)
   }
 
+  const LastMatchField = () => {
+    const lastMatch = getLastMatch()
+    if (lastMatch) {
+      return (
+        <>
+          <Typography variant='body1' align='center' color='textPrimary' gutterBottom>
+            Click button below to show<br />
+            statistic of your last match
+          </Typography>
+          <Button color='primary' variant='outlined' onClick={() => history.push(`/${constants.resources.matches}/${lastMatch._id}`)}>
+            <StatisticsIcon />
+            Show
+          </Button>
+        </>
+      )
+    }
+    return (
+      <Typography variant='body1' align='center' color='textPrimary' gutterBottom>
+        You dont have any matches
+      </Typography>
+    )
+  }
+
   return (
     <BackgroundGraphic>
       <DashboardContainer small={small}>
@@ -126,22 +149,21 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
 
           <DashboardSection>
             {!isTableInGame &&
-            <Typography color='textPrimary'>
-              <TabeAvailableIcon color='primary' />&nbsp;Table is ready to play now!
-            </Typography>
-            }
+              <Typography color='textPrimary'>
+                <TabeAvailableIcon color='primary' />&nbsp;Table is ready to play now!
+              </Typography>}
             {
               !isTableInGame &&
-              <>
-                <br />
-                <Typography variant='h5' align='center' color='textPrimary' gutterBottom>
+                <>
+                  <br />
+                  <Typography variant='h5' align='center' color='textPrimary' gutterBottom>
               If you want to play a game, click button below
-                </Typography>
-                <Button color='primary' variant='contained' onClick={() => history.push(`/${constants.resources.matches}/create`)}>
-                  <CreateIcon />
+                  </Typography>
+                  <Button color='primary' variant='contained' onClick={() => history.push(`/${constants.resources.matches}/create`)}>
+                    <CreateIcon />
               Prepare match
-                </Button>
-              </>
+                  </Button>
+                </>
             }
           </DashboardSection>
 
@@ -172,22 +194,7 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
             <Typography variant='h4' color='textPrimary' gutterBottom>
               Last Match
             </Typography>
-            {
-              getLastMatch()
-                ? <>
-                  <Typography variant='body1' align='center' color='textPrimary' gutterBottom>
-                Click button below to show<br />
-                statistic of your last match
-                  </Typography>
-                  <Button color='primary' variant='outlined' onClick={() => history.push(`/${constants.resources.matches}/${getLastMatch()._id}`)}>
-                    <StatisticsIcon />
-                    Show
-                  </Button>
-              </>
-                : <Typography variant='body1' align='center' color='textPrimary' gutterBottom>
-                  You dont have any matches
-                </Typography>
-            }
+            <LastMatchField />
           </DashboardSection>
         </DashboardFragment>
       </DashboardContainer>

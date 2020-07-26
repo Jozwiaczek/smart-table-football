@@ -1,7 +1,7 @@
 /* global localStorage */
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { MuiThemeProvider } from '@material-ui/core'
 import { setTheme } from '../redux/actions/theme'
 import { constants } from 'stf-core'
@@ -19,7 +19,7 @@ const ThemeWrapper = ({ children }) => {
     dispatch(setTheme(themeMode))
   }, [dispatch])
   return (
-    <MuiThemeProvider theme={theme} >
+    <MuiThemeProvider theme={theme}>
       {children}
     </MuiThemeProvider>
   )

@@ -16,7 +16,7 @@ import {
   withDataProvider
 } from 'react-admin'
 
-import { Typography, CircularProgress } from '@material-ui/core'
+import { CircularProgress, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
 
@@ -108,9 +108,9 @@ const ReplayField = ({ record, classes }) => {
           </video>
           {
             isReplayLoading &&
-            <div className={classes.loadingAnimation}>
-              <CircularProgress size={50} />
-            </div>
+              <div className={classes.loadingAnimation}>
+                <CircularProgress size={50} />
+              </div>
           }
         </div>
       </Typography>
@@ -129,7 +129,7 @@ const GoalShow = ({
   useEffect(() => {
     const getTeams = async () => {
       try {
-        let res = await dataProvider(GET_LIST, constants.resources.teams, {}).then(res => res.data)
+        const res = await dataProvider(GET_LIST, constants.resources.teams, {}).then(res => res.data)
         setTeams(res)
       } catch (e) {
         console.error(e)

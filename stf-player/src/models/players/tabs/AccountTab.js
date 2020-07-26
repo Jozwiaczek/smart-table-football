@@ -14,13 +14,13 @@ const AccountTab = ({
   basePath,
   ...rest
 }) => (
-  <FormTab label={'Account details'} {...rest} >
+  <FormTab label='Account details' {...rest}>
     <TextInput
       source={models.players.fields.email}
       type='email'
       validate={required()}
       disabled
-      helperText={`To change your email contact: support@stf.io`}
+      helperText='To change your email contact: support@stf.io'
     />
     <TextField
       source={models.players.fields.status}
