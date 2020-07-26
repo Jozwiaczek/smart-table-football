@@ -18,7 +18,7 @@ const SectionTitle = ({ children, loading, loadingColor }) => {
   }
   return (
     <Typography
-      variant={'subtitle1'}
+      variant='subtitle1'
       style={{
         marginBottom: '1rem',
         marginTop: '1rem'

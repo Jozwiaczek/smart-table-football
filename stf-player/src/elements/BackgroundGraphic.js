@@ -32,17 +32,17 @@ const BackgroundGraphic = ({ children, className, ref }) => {
     <div className={classes.background}>
       <Responsive
         small={
-        <>
-          {children}
-        </>
+          <>
+            {children}
+          </>
         }
         medium={
-        <>
-          {cloneElement(<Ball fill={fillColor} />, { className: classes.graphic, ref })}
-          <div className={classes.children && className}>
-            {children}
-          </div>
-        </>
+          <>
+            {cloneElement(<Ball fill={fillColor} />, { className: classes.graphic, ref })}
+            <div className={classes.children && className}>
+              {children}
+            </div>
+          </>
         }
       />
     </div>

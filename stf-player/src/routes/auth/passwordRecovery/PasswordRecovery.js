@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router'
 import { Field, Form } from 'react-final-form'
 import compose from 'recompose/compose'
-import FormTextField from '../../../elements/FormTextField'
+import FormTextField from '../../../elements/forms/FormTextField'
 
 import { Button, Card, CardContent, CircularProgress, Typography } from '@material-ui/core'
 

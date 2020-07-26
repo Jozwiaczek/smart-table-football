@@ -24,7 +24,7 @@ class ClientEditToolbar extends Component {
   saveChangesRender (props) {
     return (
       <Mutation
-        type={'UPDATE'}
+        type='UPDATE'
         resource={constants.resources.clients}
         payload={{
           id: props.record._id,
@@ -34,8 +34,8 @@ class ClientEditToolbar extends Component {
       >
         {(approve) => (
           <Button
-            variant={'contained'}
-            color={'primary'}
+            variant='contained'
+            color='primary'
             onClick={approve}
           >
             <ContentSave style={{ marginRight: '0.5rem' }} />

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { models } from 'stf-core'
 
-import { Card, Typography, makeStyles } from '@material-ui/core'
+import { Card, makeStyles, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   teamCard: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 const TeamCard = ({ team, teamGoals }) => {
   const classes = useStyles()
   return (
-    <Card className={classes.teamCard} >
+    <Card className={classes.teamCard}>
       <Typography variant='h4' align='center'>
         {team[models.teams.fields.name]}
       </Typography>

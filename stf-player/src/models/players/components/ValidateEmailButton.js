@@ -32,25 +32,35 @@ const ValidateEmailButton = ({ dataProvider, player, classes, showNotification }
     return null
   }
 
+  const getBtnContent = () => {
+    if (isLoading) {
+      return (
+        <div className={classes.loadingBar}>
+          <CircularProgress size={17} thickness={2} />
+        </div>
+      )
+    }
+    return (
+      <>
+        <Send style={{ marginRight: '0.5rem' }} />
+        send verification email
+      </>
+    )
+  }
+
   return (
     <>
-      <SectionTitle className={classes.sectionTitle} >
+      <SectionTitle className={classes.sectionTitle}>
         Validate your email
       </SectionTitle>
       <Button
         className={classes.buttonContained}
         onClick={() => _sendVerificationEmail(dataProvider, player, showNotification, setIsLoading)}
-        variant={'contained'}
-        color={'primary'}
+        variant='contained'
+        color='primary'
         disabled={isLoading}
       >
-        {isLoading
-          ? <div className={classes.loadingBar}>
-            <CircularProgress size={17} thickness={2} />
-          </div>
-          : <Send style={{ marginRight: '0.5rem' }} />
-        }
-        send verification email
+        {getBtnContent()}
       </Button>
     </>
   )

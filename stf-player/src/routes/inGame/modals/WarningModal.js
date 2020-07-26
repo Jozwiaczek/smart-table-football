@@ -28,10 +28,10 @@ const WarningModal = ({
 
   return (
     <Modal onClose={onClose} isOpen={isOpen} className={classes.tableIsDisconnectedModal}>
-      <Typography variant='h3' align='center' color={'secondary'} className={classes.tableIsDisconnectedModalTitle}>
+      <Typography variant='h3' align='center' color='secondary' className={classes.tableIsDisconnectedModalTitle}>
         {title}
       </Typography>
-      <Typography variant='h5' align='center' color={'secondary'} className={classes.tableIsDisconnectedModalSubtitle}>
+      <Typography variant='h5' align='center' color='secondary' className={classes.tableIsDisconnectedModalSubtitle}>
         {body}
       </Typography>
       <Button onClick={() => onClose()} variant='contained' color='primary'>

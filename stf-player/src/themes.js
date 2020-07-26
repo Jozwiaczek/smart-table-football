@@ -3,7 +3,7 @@ import { green, grey, orange } from '@material-ui/core/colors'
 import { constants } from 'stf-core'
 
 export const themeProvider = mode => {
-  let darkMode = mode === constants.themeMode.type.dark && true
+  const darkMode = mode === constants.themeMode.type.dark && true
 
   return createMuiTheme({
     props: {
