@@ -91,7 +91,7 @@ const TeamCreate = props => {
       setPlayers(resPlayers.filter(player => player[models.players.fields.email] !== currPlayer[models.players.fields.email]))
     }
     req()
-  }, [])
+  }, [currPlayer, dataProvider])
 
   const createTeam = async values => {
     setLoading(true)
