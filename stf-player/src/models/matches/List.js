@@ -178,7 +178,7 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
       }
     }
     req()
-  }, [isInGame])
+  }, [isInGame, refresh])
 
   const ListActions = ({
     className,

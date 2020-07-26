@@ -67,7 +67,7 @@ export default function NotificationsMenu () {
       )
     }
     req()
-  }, [open])
+  }, [open, dataProvider])
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
@@ -119,6 +119,7 @@ export default function NotificationsMenu () {
       if (!notification[models.notifications.fields.isOpen]) {
         return notification._id
       }
+      return null
     })
 
     dataProvider(UPDATE_MANY, constants.resources.notifications, {
