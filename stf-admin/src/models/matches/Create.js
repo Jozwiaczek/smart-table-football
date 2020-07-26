@@ -2,26 +2,21 @@ import React from 'react'
 
 import {
   Create,
-  SimpleForm,
-  TopToolbar,
   ListButton,
+  maxValue,
+  minValue,
+  number,
+  NumberInput,
+  ReferenceInput,
   required,
   SelectInput,
-  ReferenceInput,
-  NumberInput,
-  number,
-  minValue,
-  maxValue
+  SimpleForm,
+  TopToolbar
 } from 'react-admin'
 
-import {
-  InputAdornment
-} from '@material-ui/core'
+import { InputAdornment } from '@material-ui/core'
 
-import {
-  constants,
-  models
-} from 'stf-core'
+import { constants, models } from 'stf-core'
 
 import { getChoices } from '../../enum'
 
@@ -75,11 +70,7 @@ const MatchCreate = (props) => (
         validate={[required(), minValue(4), maxValue(10), number()]}
         default={7}
         options={{
-          InputProps: {
-            endAdornment: <InputAdornment position='start'>
-              seconds
-            </InputAdornment>
-          }
+          InputProps: { endAdornment: <InputAdornment position='start'>seconds</InputAdornment> }
         }}
       />
     </SimpleForm>
