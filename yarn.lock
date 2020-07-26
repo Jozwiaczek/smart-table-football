@@ -1129,6 +1129,11 @@
   resolved "https://registry.yarnpkg.com/@feathersjs/commons/-/commons-4.5.2.tgz#86321aa7b6294bddbab550ffcce79633039940be"
   integrity sha512-nlgDnM4wxjJdernzNjDMn592H6YKKOhnwFOAkM7rJvFU/qfagBJtbFh1Q4ylRhMd+zK0u/Dg2nV3D5GxJNyDBA==
 
+"@feathersjs/commons@^4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@feathersjs/commons/-/commons-4.5.7.tgz#2658e1acf13ab4bb5463b8a277dcb74bf5501355"
+  integrity sha512-qSN61eCOQbzk9zkzxNelCEo5x+p8rsa0kNvfe5JETAzNGf3xITstE66cs8s1XXPNFvlXEmqTefya27YKT1g/bw==
+
 "@feathersjs/configuration@^2.0.4":
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/@feathersjs/configuration/-/configuration-2.0.6.tgz#b53e0361eba80ac2ed5708e22db1e546397e8729"
@@ -1148,6 +1153,13 @@
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-4.5.2.tgz#b6573d8b27be7069867066157c4effbc2e78ceb5"
   integrity sha512-sfjmakwZSqbzeKxYYtuxZGTBCHANwASuqzvn6iJa83epPJFn0m2tkjpvpJujclSU6SNZoKAavG29ZKwPgxkYgA==
+  dependencies:
+    debug "^4.1.1"
+
+"@feathersjs/errors@^4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-4.5.7.tgz#c25104d3175cc3ea79ea048c56b17fed1da4e150"
+  integrity sha512-YCwcNmkXCHc8c8lJMoiBFzwda6W0o1sK7oSLk9rfaQWfacSvOos8zX+1v7bmeQYfHcgWmHhb6tLb2WsNqU+BVg==
   dependencies:
     debug "^4.1.1"
 
@@ -1224,12 +1236,13 @@
     lodash "^4.17.4"
     url-pattern "^1.0.3"
 
-"@feathersjs/socketio-client@1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@feathersjs/socketio-client/-/socketio-client-1.1.5.tgz#c77572dda0bd1a5fd7c01f8fa28dc6ce637eaca2"
-  integrity sha512-lvGSCPUGBegjbgNHGW8xJ/Z4zzogajww+UasCXUem5TW3x43x3Bk6XzRvv0GnSOiAUZ9YeF7zAX+isZtcEKnkA==
+"@feathersjs/socketio-client@4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@feathersjs/socketio-client/-/socketio-client-4.5.7.tgz#3c8aa5bba2d4c955fa775571c5d94708e86c0336"
+  integrity sha512-unSC5BwfrBzMUgIlPcZden5mifGRWZp/ZnOxjRo9omSXAW7U2SI0XQN7HWSWN3QZjIwIQdUVpmJwcAFsY8hG8A==
   dependencies:
-    "@feathersjs/transport-commons" "^4.1.6"
+    "@feathersjs/transport-commons" "^4.5.7"
+    "@types/socket.io-client" "^1.4.33"
 
 "@feathersjs/socketio@^3.2.7":
   version "3.2.9"
@@ -1241,15 +1254,15 @@
     socket.io "^2.1.0"
     uberproto "^2.0.1"
 
-"@feathersjs/transport-commons@^4.1.6", "@feathersjs/transport-commons@^4.2.1", "@feathersjs/transport-commons@^4.5.2":
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/@feathersjs/transport-commons/-/transport-commons-4.5.2.tgz#3acbaf56cdd5519a671dc36082edd8360ffd3aed"
-  integrity sha512-H+9RYXaO0Lgz8EN0v1iY4IOf5XPq1jXA+qaCE1Gw1/6iOha8cCLUOFc30fNbnZNmZ3JLBTna8Y8Z9Fx5nSRZrQ==
+"@feathersjs/transport-commons@^4.2.1", "@feathersjs/transport-commons@^4.5.2", "@feathersjs/transport-commons@^4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@feathersjs/transport-commons/-/transport-commons-4.5.7.tgz#fbef9e3227247a06c68d1d0c2b70f238f6403e78"
+  integrity sha512-ELaSiEqii/FPssZQUyLedLBhcgxUclZN8+4Hxl/Ww0QiVRDmjFunkE8znwbFL0QS1zFn+K1792CU+FB/kvUJMg==
   dependencies:
-    "@feathersjs/commons" "^4.5.2"
-    "@feathersjs/errors" "^4.5.2"
+    "@feathersjs/commons" "^4.5.7"
+    "@feathersjs/errors" "^4.5.7"
     debug "^4.1.1"
-    lodash "^4.17.15"
+    lodash "^4.17.19"
     radix-router "^3.0.1"
 
 "@hapi/address@2.x.x":
@@ -1871,6 +1884,11 @@
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
+
+"@types/socket.io-client@^1.4.33":
+  version "1.4.33"
+  resolved "https://registry.yarnpkg.com/@types/socket.io-client/-/socket.io-client-1.4.33.tgz#8e705b9b3f7fba6cb329d27cd2eda222812adbf1"
+  integrity sha512-m4LnxkljsI9fMsjwpW5QhRpMixo2BeeLpFmg0AE+sS4H1pzAd/cs/ftTiL60FLZgfFa8PFRPx5KsHu8O0bADKQ==
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
@@ -8638,6 +8656,11 @@ lodash.uniq@^4.5.0:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+
+lodash@^4.17.19:
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 log-symbols@2.2.0:
   version "2.2.0"
