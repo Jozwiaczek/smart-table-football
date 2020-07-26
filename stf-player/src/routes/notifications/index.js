@@ -37,7 +37,7 @@ export default () => {
       })).data)
     }
     req()
-  }, [])
+  }, [dataProvider])
 
   return (
     <Card className={classes.card}>
