@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -6,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import ThumbUp from '@material-ui/icons/ThumbUp'
 import ThumbDown from '@material-ui/icons/ThumbDown'
-import { startUndoable, crudUpdate } from 'ra-core'
+import { crudUpdate, startUndoable } from 'ra-core'
 
 const styles = {
   approved: {
