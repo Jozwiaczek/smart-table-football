@@ -1,37 +1,32 @@
 import React from 'react'
 
 import {
-  DateField,
-  TextField,
-  Edit,
-  TopToolbar,
-  ListButton,
   CloneButton,
-  TabbedForm,
-  FormTab,
-  required,
-  ReferenceInput,
-  SelectInput,
-  NumberInput,
-  number,
-  minValue,
-  maxValue,
   Datagrid,
-  ReferenceManyField,
+  DateField,
+  Edit,
+  FormTab,
+  FunctionField,
+  ListButton,
+  maxValue,
+  minValue,
+  number,
+  NumberInput,
   ReferenceField,
-  FunctionField
+  ReferenceInput,
+  ReferenceManyField,
+  required,
+  SelectInput,
+  TabbedForm,
+  TextField,
+  TopToolbar
 } from 'react-admin'
 
-import {
-  InputAdornment
-} from '@material-ui/core'
+import { InputAdornment } from '@material-ui/core'
 
 import { withStyles } from '@material-ui/core/styles'
 
-import {
-  constants,
-  models
-} from 'stf-core'
+import { constants, models } from 'stf-core'
 import { getChoices } from '../../enum'
 import { getTimerUnit } from '../../utils/getTimerUnits'
 
@@ -96,19 +91,14 @@ const MatchEdit = props => (
           validate={[required(), minValue(4), maxValue(10), number()]}
           default={7}
           options={{
-            InputProps: {
-              endAdornment: <InputAdornment position='start'>
-                  seconds
-              </InputAdornment>
-            }
+            InputProps: { endAdornment: <InputAdornment position='start'>seconds</InputAdornment> }
           }}
         />
         <FunctionField
-          label='Elapsed Time' render={record => {
+          label='Elapsed Time'
+          render={record => {
             const elapsedTime = record[models.matches.fields.elapsedTime]
-            return (
-              `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
-            )
+            return `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
           }}
         />
         <DateField source='createdAt' showTime />
