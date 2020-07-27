@@ -45,7 +45,7 @@
     "feathers-memory": "^4.1.0",
     "feathers-mongoose": "^6.3.0",
     "googleapis": "^45.0.0",
-    "helmet": "^3.21.2",
+    "helmet": "^3.23.3",
     "html-to-text": "^5.1.1",
     "mjml": "^4.5.1",
     "moment": "^2.24.0",
