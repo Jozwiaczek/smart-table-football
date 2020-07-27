@@ -14,7 +14,7 @@
     "prop-types": "15.7.2",
     "ra-customizable-datagrid": "1.1.0",
     "ra-data-feathers": "^2.0.7",
-    "ra-language-english": "3.2.0",
+    "ra-language-english": "3.7.1",
     "ra-language-polish": "^1.2.0",
     "react": "16.13.0",
     "react-admin": "3.2.2",
