@@ -24,7 +24,7 @@
     "socket.io-client": "2.3.0",
     "stf-core": "*",
     "styled-components": "5.1.1",
-    "validator": "12.2.0",
+    "validator": "13.1.1",
     "html-to-react": "^1.4.3",
     "http-server": "^0.12.3"
   },
