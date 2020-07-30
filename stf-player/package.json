@@ -5,7 +5,7 @@
   "dependencies": {
     "@feathersjs/authentication-client": "1.0.8",
     "@feathersjs/feathers": "^3.2.3",
-    "@feathersjs/rest-client": "1.4.5",
+    "@feathersjs/rest-client": "4.5.7",
     "@feathersjs/socketio-client": "1.1.5",
     "classnames": "2.2.6",
     "fscreen": "1.0.2",

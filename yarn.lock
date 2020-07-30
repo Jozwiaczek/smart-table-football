@@ -1419,14 +1419,14 @@
     events "^3.2.0"
     uberproto "^2.0.6"
 
-"@feathersjs/rest-client@1.4.5":
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/@feathersjs/rest-client/-/rest-client-1.4.5.tgz#e666de67089fdd8dbc3e583a606d1c9d22736dde"
-  integrity sha512-KPk8e+cZ+KpVemyxZxAl4GmK9Jlat8oNusazcC0bJDJoWbLFx2IQ41A+cd7xBJ2JArVp1LzXGNO7iqkAc8KDig==
+"@feathersjs/rest-client@4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@feathersjs/rest-client/-/rest-client-4.5.7.tgz#23f3d494080fd37262410f1eb97177f1557445d7"
+  integrity sha512-Z5l7LOFTqiVuJeOmCGu01modw7Qb2wjmrRCqD333dsCviRHZzWuA5AzklTDK1LoWV3KaBJ6iKOVU7IhKySIVAg==
   dependencies:
-    "@feathersjs/commons" "^3.0.1"
-    "@feathersjs/errors" "^3.3.4"
-    qs "^6.5.0"
+    "@feathersjs/commons" "^4.5.7"
+    "@feathersjs/errors" "^4.5.7"
+    qs "^6.9.4"
 
 "@feathersjs/socket-commons@^3.1.2":
   version "3.1.5"
@@ -12029,7 +12029,7 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-qs@^6.4.0, qs@^6.5.0, qs@^6.5.1, qs@^6.7.0, qs@^6.9.1, qs@latest:
+qs@^6.4.0, qs@^6.5.1, qs@^6.7.0, qs@^6.9.1, qs@^6.9.4, qs@latest:
   version "6.9.4"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
   integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
