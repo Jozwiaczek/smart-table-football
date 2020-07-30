@@ -3,7 +3,6 @@ import compose from 'recompose/compose'
 
 import {
   CreateButton,
-  DateField,
   Filter,
   FunctionField,
   GET_LIST,
@@ -11,13 +10,12 @@ import {
   ReferenceField,
   Responsive,
   sanitizeListRestProps,
-  SearchInput,
   SimpleList,
   TextField,
   TopToolbar,
+  useRefresh,
   withDataProvider
 } from 'react-admin'
-import CustomizableDatagrid from 'ra-customizable-datagrid'
 
 import { Button, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
@@ -31,6 +29,8 @@ import DateFilters from '../../elements/DateFilters'
 import { getTimerUnit } from '../../utils/getTimerUnits'
 import { useSelector } from 'react-redux'
 import { getPlayerId } from '../../utils/getPlayerId'
+import { socket } from '../../client/feathersSocketClient'
+import { Datagrid } from 'ra-ui-materialui'
 
 const styles = {
   buttonIcon: {
@@ -40,7 +40,7 @@ const styles = {
 
 export const Filters = (props) => (
   <Filter {...props}>
-    <SearchInput
+    <TextField
       label='Email'
       source={`${models.admins.fields.email}.$regex`}
       alwaysOn
@@ -51,6 +51,8 @@ export const Filters = (props) => (
 )
 
 const ShowStatistic = ({ classes, record, history, mobile }) => {
+  if (!record) return null
+
   return (
     <Button color='primary' onClick={() => history.push(`/${constants.resources.matches}/${record._id}`)}>
       <AssessmentIcon className={classes.buttonIcon} />
@@ -60,6 +62,8 @@ const ShowStatistic = ({ classes, record, history, mobile }) => {
 }
 
 const ContinueButton = ({ classes, record, history, mobile, disabled, isInGame }) => {
+  if (!record) return null
+
   if (isInGame === record.id) {
     return (
       <Button color='action' disabled={disabled} onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}>
@@ -81,7 +85,7 @@ const ContinueButton = ({ classes, record, history, mobile, disabled, isInGame }
 }
 
 const TeamsMobileField = ({ teams, record }) => {
-  if (!teams) return null
+  if (!teams || !record) return null
   const teamA = teams.find(team => team._id === record[models.matches.fields.teamA])
   const teamB = teams.find(team => team._id === record[models.matches.fields.teamB])
   return (
@@ -92,7 +96,7 @@ const TeamsMobileField = ({ teams, record }) => {
 }
 
 const WinnerMobileField = ({ teams, record }) => {
-  if (!teams || !record[models.matches.fields.winner]) return null
+  if (!teams || !record || !record[models.matches.fields.winner]) return null
   const winner = teams.find(team => team._id === record[models.matches.fields.winner])
   return (
     <Typography>
@@ -101,9 +105,48 @@ const WinnerMobileField = ({ teams, record }) => {
   )
 }
 
+const Timer = ({ record, globalElapsedTimer, isInGame, ...rest }) => {
+  if (isInGame === record.id) {
+    return (
+      <FunctionField
+        {...rest}
+        record={record}
+        source={models.matches.fields.elapsedTime}
+        render={() => {
+          return (
+            `${getTimerUnit(globalElapsedTimer).min}:${getTimerUnit(globalElapsedTimer).sec}`
+          )
+        }}
+      />
+    )
+  }
+  return (
+    <FunctionField
+      {...rest}
+      record={record}
+      source={models.matches.fields.elapsedTime}
+      render={record => {
+        const elapsedTime = record[models.matches.fields.elapsedTime]
+        return (
+          `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
+        )
+      }}
+    />
+  )
+}
+
+const rowStyle = (record = {}, isInGame) => {
+  if (isInGame === record.id) {
+    return { backgroundColor: 'rgba(255,152,0,0.10)' }
+  }
+  return {}
+}
+
 const MatchList = ({ classes, dataProvider, ...rest }) => {
   const [teams, setTeams] = useState([])
   const [playerTeamsIds, setPlayerTeamsIds] = useState([])
+  const [globalElapsedTimer, setGlobalElapsedTimer] = useState(0)
+  const refresh = useRefresh()
 
   const tableStatus = useSelector(state => state.table.isActive)
   const isInGame = useSelector(state => state.table.isInGame)
@@ -121,6 +164,24 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
     }
     call()
   }, [dataProvider, isInGame])
+
+  useEffect(() => {
+    const req = () => {
+      socket.on('currentStepTime', currentStepTime => {
+        setGlobalElapsedTimer(currentStepTime)
+      })
+    }
+    req()
+  }, [isInGame, setGlobalElapsedTimer])
+
+  useEffect(() => {
+    const req = () => {
+      if (!isInGame) {
+        refresh()
+      }
+    }
+    req()
+  }, [isInGame, refresh])
 
   const ListActions = ({
     className,
@@ -155,9 +216,11 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
       actions={<ListActions />}
       filter={{
         $or: [
-          { [models.matches.fields.teamA]: {
-            $in: playerTeamsIds
-          } },
+          {
+            [models.matches.fields.teamA]: {
+              $in: playerTeamsIds
+            }
+          },
           {
             [models.matches.fields.teamB]: {
               $in: playerTeamsIds
@@ -181,11 +244,8 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
           />
         }
         medium={
-          <CustomizableDatagrid
-            defaultColumns={[
-              models.matches.fields.status,
-              models.matches.fields.winner
-            ]}
+          <Datagrid
+            rowStyle={record => rowStyle(record, isInGame)}
           >
             <ReferenceField
               source={models.matches.fields.teamA}
@@ -208,6 +268,14 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
               <TextField source={models.teams.fields.name} />
             </ReferenceField>
             <TextField source={models.matches.fields.status} />
+            <Timer
+              globalElapsedTimer={globalElapsedTimer}
+              classes={classes}
+              disabled={!tableStatus}
+              isInGame={isInGame}
+              label='Time NEW'
+              {...rest}
+            />
             <FunctionField
               source={models.matches.fields.elapsedTime} label='Time' render={record => {
                 const elapsedTime = record[models.matches.fields.elapsedTime]
@@ -216,10 +284,9 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
                 )
               }}
             />
-            <DateField source='createdAt' showTime />
             <ContinueButton classes={classes} disabled={!tableStatus} isInGame={isInGame} {...rest} />
             <ShowStatistic classes={classes} {...rest} />
-          </CustomizableDatagrid>
+          </Datagrid>
         }
       />
     </List>

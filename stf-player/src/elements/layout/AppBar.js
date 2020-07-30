@@ -1,11 +1,10 @@
-import React, { forwardRef, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { AppBar, GET_ONE, MenuItemLink, useDataProvider, UserMenu, useTranslate } from 'react-admin'
-import SettingsIcon from '@material-ui/icons/Settings'
+import { AppBar, GET_ONE, useDataProvider } from 'react-admin'
 import SignalIcon from '@material-ui/icons/Power'
 import NoSignalIcon from '@material-ui/icons/PowerOff'
-import TabeAvailableIcon from '@material-ui/icons/DoubleArrow'
+import TableAvailableIcon from '@material-ui/icons/DoubleArrow'
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'
 import TableBusyIcon from '@material-ui/icons/CancelScheduleSend'
 import { makeStyles } from '@material-ui/core/styles'
@@ -13,6 +12,8 @@ import { Button, Typography, useMediaQuery } from '@material-ui/core'
 import Tooltip from '@material-ui/core/Tooltip/Tooltip'
 import { constants, models } from 'stf-core'
 import { getPlayerId } from '../../utils/getPlayerId'
+import NotificationsMenu from './notifications/NotficationsMenu'
+import UserMenu from './UserMenu'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -51,28 +52,34 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const ConfigurationMenu = forwardRef((props, ref) => {
-  const translate = useTranslate()
-  return (
-    <MenuItemLink
-      ref={ref}
-      to='/settings'
-      primaryText={translate('pos.settings')}
-      leftIcon={<SettingsIcon />}
-      onClick={props.onClick}
-    />
-  )
-})
+const TableStatusItem = ({ classes, isTableActive, isSmall }) => {
+  if (isTableActive) {
+    return (
+      <Tooltip title='Table is connected'>
+        <SignalIcon />
+      </Tooltip>
+    )
+  }
 
-const CustomUserMenu = (props) =>
-  <UserMenu {...props}>
-    <ConfigurationMenu />
-  </UserMenu>
+  return (
+    <div className={classes.strengthSignalIcon}>
+      <div className={classes.noSignalContainer}>
+        <NoSignalIcon />
+        {
+          !isSmall &&
+            <Typography className={classes.disconnectText}>
+                Table is disconnected
+            </Typography>
+        }
+      </div>
+    </div>
+  )
+}
 
 export default (props) => {
   const isTableActive = useSelector(state => state.table.isActive)
   const isTableInGame = useSelector(state => state.table.isInGame)
-  const [isPlayerInGame, setPlayerInGame] = React.useState(false)
+  const [isPlayerInGame, setPlayerInGame] = useState(false)
   const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'))
   const classes = useStyles()
   const dataProvider = useDataProvider()
@@ -142,55 +149,43 @@ export default (props) => {
     }
     return (
       <Tooltip title='Ready to play!'>
-        <TabeAvailableIcon />
+        <TableAvailableIcon />
       </Tooltip>
     )
   }
 
   return (
-    <AppBar {...props} color='primary' userMenu={<CustomUserMenu />}>
+    <AppBar {...props} color='primary' userMenu={<UserMenu />}>
       {
         !isSmall &&
-        <Typography
-          variant='h6'
-          color='inherit'
-          className={classes.title}
-          id='react-admin-title'
-        />
+          <Typography
+            variant='h6'
+            color='inherit'
+            className={classes.title}
+            id='react-admin-title'
+          />
       }
 
       <span className={classes.spacer} />
 
-      {/* { */}
-      {/*  !isSmall && */}
-      {/*  <Typography */}
-      {/*    className={classes.betaTag} */}
-      {/*    variant={'button'}> */}
-      {/*    beta */}
-      {/*  </Typography> */}
-      {/* } */}
+      {!isSmall &&
+        <Typography
+          className={classes.betaTag}
+          variant='button'
+        >
+          beta
+        </Typography>}
 
-      <div className={classes.strengthSignalIcon}>
-        {
-          isTableActive
-            ? <Tooltip title='Table is connected'>
-              <SignalIcon />
-            </Tooltip>
-            : <div className={classes.noSignalContainer} {...props}>
-              <NoSignalIcon />
-              {
-                !isSmall &&
-                <Typography className={classes.disconnectText}>
-                  Table is disconnected
-                </Typography>
-              }
-            </div>
-        }
-      </div>
+      <TableStatusItem
+        classes={classes}
+        isSmall={isSmall}
+        isTableActive={isTableActive}
+      />
       <TableInGameSection {...props} />
       <Typography className={classes.iconDivider}>
         |
       </Typography>
+      <NotificationsMenu />
     </AppBar>
   )
 }

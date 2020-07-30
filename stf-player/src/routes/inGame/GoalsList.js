@@ -34,7 +34,7 @@ const getTime = time => {
 const GoalsList = ({ title, goals, classes, removeGoal, getTeamName, onItemClick }) => {
   return (
     <div className={classes.listContainer}>
-      <Typography variant='h4' align='center' color={'textSecondary'}>
+      <Typography variant='h4' align='center' color='textSecondary'>
         {title}
       </Typography>
       <List> {/* TODO add possibility for mark GREAT GOALS || Add button show all goals */}
@@ -47,7 +47,7 @@ const GoalsList = ({ title, goals, classes, removeGoal, getTeamName, onItemClick
             >
               <ListItemAvatar>
                 <Avatar>
-                  <SportsSoccerIcon color={'action'} />
+                  <SportsSoccerIcon color='action' />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText

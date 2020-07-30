@@ -38,15 +38,15 @@ const validatePasswordChange = (values) => {
     errors[models.players.fields.password] = 'Required'
   } else if (values[models.players.fields.password].length < 6) {
     errors[models.players.fields.password] = 'Password must contain at least 6 characters'
-  } else if (values[models.players.fields.password] !== values['confirmPassword']) {
+  } else if (values[models.players.fields.password] !== values.confirmPassword) {
     errors['Confirm password'] = 'Password must be the same as above'
   }
 
-  if (!values['oldPassword']) {
-    errors['oldPassword'] = 'Required'
+  if (!values.oldPassword) {
+    errors.oldPassword = 'Required'
   }
 
-  if (!values['confirmPassword']) {
+  if (!values.confirmPassword) {
     errors['Confirm password'] = 'Required'
   }
 
@@ -80,17 +80,17 @@ const _PlayerEdit = ({
         }
       >
         <PersonalTab
-          path={'basic'}
+          path='basic'
           classes={classes}
           {...props}
         />
         <AccountTab
-          path={'account'}
+          path='account'
           classes={classes}
           {...props}
         />
         <ActionTab
-          path={'actions'}
+          path='actions'
           classes={classes}
           player={player}
           {...props}

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Typography, makeStyles } from '@material-ui/core'
+import { makeStyles, Typography } from '@material-ui/core'
 import GoalsList from './GoalsList'
 
 const useStyles = makeStyles(() => ({
@@ -15,7 +15,7 @@ const GoalsHistory = ({ getTeamName, teamAGoals, teamBGoals, removeGoal, showGoa
 
   return (
     <>
-      <Typography align='center' variant='h3' color={'textSecondary'}>Goals history</Typography>
+      <Typography align='center' variant='h3' color='textSecondary'>Goals history</Typography>
       <div className={classes.goalsList}>
         <GoalsList title='Team A' getTeamName={getTeamName} goals={teamAGoals} removeGoal={removeGoal} onItemClick={showGoalDetailsModal} />
         <GoalsList title='Team B' getTeamName={getTeamName} goals={teamBGoals} removeGoal={removeGoal} onItemClick={showGoalDetailsModal} />

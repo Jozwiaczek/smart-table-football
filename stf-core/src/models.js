@@ -34,11 +34,23 @@ const players = {
   }
 }
 
+const notifications = {
+  name: 'notifications',
+  fields: {
+    player: 'player',
+    message: 'message',
+    link: 'link',
+    type: 'type',
+    isOpen: 'isOpen'
+  }
+}
+
 const teams = {
   name: 'teams',
   fields: {
     name: 'name',
-    players: 'players'
+    players: 'players',
+    invited: 'invited'
   }
 }
 
@@ -80,5 +92,6 @@ module.exports = {
   teams,
   matches,
   goals,
-  table
+  table,
+  notifications
 }

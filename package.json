@@ -19,6 +19,7 @@
     "heroku-postbuild": "yarn install",
     "start": "if [ -n \"$START_API\" ]; then cd stf-api && echo api && yarn start; elif [ -n \"$START_ADMIN\" ]; then cd stf-admin && echo admin && yarn start; else cd stf-player && echo player && yarn start; fi",
     "lint": "yarn wsrun eslint",
+    "lint:fix": "yarn wsrun eslint-fix"
     "electron:clean:build": "cd ./stf-admin-desktop && rimraf ./build",
     "electron:clean:release": "cd ./stf-admin-desktop && rimraf ./release",
     "electron:clean": "yarn electron:clean:build && yarn electron:clean:release",
@@ -34,7 +35,7 @@
     "electron-updater": "^4.3.1"
   },
   "devDependencies": {
-    "standard": "^12.0.1",
+    "standard": "latest",
     "wsrun": "latest",
     "electron": "latest",
     "electron-builder": "latest",

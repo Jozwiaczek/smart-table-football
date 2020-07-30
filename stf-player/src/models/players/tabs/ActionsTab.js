@@ -46,21 +46,31 @@ const changePasswordRender = ({ dataProvider, classes, showNotification, loading
     }
   }
 
+  const getBtnContent = () => {
+    if (isLoading) {
+      return (
+        <div className={classes.loadingBar}>
+          <CircularProgress size={17} thickness={2} />
+        </div>
+      )
+    }
+    return (
+      <>
+        <Security className={classes.buttonIcon} style={{ marginRight: '0.5rem' }} />
+        Change Password
+      </>
+    )
+  }
+
   return (
     <Button
-      variant={'contained'}
-      color={'primary'}
+      variant='contained'
+      color='primary'
       onClick={changePassword}
       className={classes.buttonContained}
       disabled={loading || isLoading}
     >
-      {isLoading
-        ? <div className={classes.loadingBar}>
-          <CircularProgress size={17} thickness={2} />
-        </div>
-        : <Security className={classes.buttonIcon} style={{ marginRight: '0.5rem' }} />
-      }
-      Change Password
+      {getBtnContent()}
     </Button>
   )
 }
@@ -80,12 +90,12 @@ const ActionTab = ({
   basePath,
   ...rest
 }) => (
-  <FormTab label={'Actions'} {...rest}>
-    <SectionTitle className={classes.sectionTitle} >
+  <FormTab label='Actions' {...rest}>
+    <SectionTitle className={classes.sectionTitle}>
       Change password
     </SectionTitle>
     <TextInput
-      source={'oldPassword'}
+      source='oldPassword'
       type='password'
     />
     <TextInput
@@ -102,13 +112,13 @@ const ActionTab = ({
       {changePasswordRender({ dataProvider, classes, showNotification, loading })}
     </FormDataConsumer>
     <ValidateEmailButton dataProvider={dataProvider} player={player} classes={classes} showNotification={showNotification} />
-    <SectionTitle className={classes.sectionTitle} >
+    <SectionTitle className={classes.sectionTitle}>
       Delete account
     </SectionTitle>
     <ConfirmDeleteButton
       {...rest}
-      label={'Delete account'}
-      variant={'contained'}
+      label='Delete account'
+      variant='contained'
       className={classes.buttonContained && classes.deleteAccountBtn}
       onConfirm={async record => {
         await dataProvider(DELETE, constants.resources.players, {

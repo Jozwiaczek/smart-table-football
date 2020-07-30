@@ -1,21 +1,9 @@
 import React from 'react'
 
-import {
-  List,
-  DateField,
-  EmailField,
-  Filter,
-  SearchInput,
-  TextField,
-  Responsive,
-  SimpleList,
-  EditButton
-} from 'react-admin'
+import { DateField, EditButton, EmailField, Filter, List, Responsive, SimpleList, TextField } from 'react-admin'
 import CustomizableDatagrid from 'ra-customizable-datagrid'
 
-import {
-  models
-} from 'stf-core'
+import { models } from 'stf-core'
 
 import DateFilters from '../../../elements/DateFilters'
 import ApproveButton from '../../../elements/status/ApproveButton'
@@ -23,7 +11,7 @@ import rowStyle from '../../../elements/rowStyle'
 
 export const Filters = (props) => (
   <Filter {...props}>
-    <SearchInput
+    <TextField
       label='Email'
       source={`${models.admins.fields.email}.$regex`}
       alwaysOn

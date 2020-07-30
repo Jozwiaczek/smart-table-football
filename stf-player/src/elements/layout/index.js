@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Sidebar } from 'react-admin'
 import AppBar from './AppBar'
 import { useSelector } from 'react-redux'
-import Menu from './Menu'
+import Menu from './Sidebar'
 
 const CustomSidebar = (props) => <Sidebar {...props} size={200} />
 

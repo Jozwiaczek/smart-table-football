@@ -5,10 +5,6 @@ import { useDispatch } from 'react-redux'
 
 import { authClient } from 'ra-data-feathers'
 
-import Person from '@material-ui/icons/Person'
-import Group from '@material-ui/icons/Group'
-import Casino from '@material-ui/icons/Casino'
-
 import { constants, models } from 'stf-core'
 
 import feathersRestClient from './client/feathersRestClient'
@@ -20,7 +16,7 @@ import Layout from './elements/layout'
 
 import { PlayerEdit } from './models/players'
 
-import { TeamCreate, TeamEdit, TeamsList } from './models/teams'
+import { TeamCreate, TeamEdit, TeamShow, TeamsList } from './models/teams'
 
 import { MatchCreate, MatchEdit, MatchList } from './models/matches'
 
@@ -31,6 +27,7 @@ import Login from './routes/auth/login/Login'
 import { socket } from './client/feathersSocketClient'
 import { setTableAvailability, setTableStatus } from './redux/actions/table'
 import { setTheme } from './redux/actions/theme'
+import { NotificationsList } from './models/notifications'
 
 const authClientOptions = {
   storageKey: constants.storageKey, // The key in localStorage used to store the authentication token
@@ -93,19 +90,17 @@ const App = () => (
     />
     <Resource
       name={constants.resources.players}
-      icon={Person}
       edit={PlayerEdit}
     />
     <Resource
       name={constants.resources.teams}
-      icon={Group}
       list={TeamsList}
       create={TeamCreate}
       edit={TeamEdit}
+      show={TeamShow}
     />
     <Resource
       name={constants.resources.matches}
-      icon={Casino}
       list={MatchList}
       create={MatchCreate}
       edit={MatchEdit}
@@ -113,6 +108,10 @@ const App = () => (
     <Resource
       name={constants.resources.goals}
       show={GoalShow}
+    />
+    <Resource
+      name={constants.resources.notifications}
+      list={NotificationsList}
     />
     <GetPlayer />
   </Admin>

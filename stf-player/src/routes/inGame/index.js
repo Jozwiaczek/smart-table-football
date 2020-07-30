@@ -127,7 +127,6 @@ export default ({ history }) => {
       const start = Date.now() - elapsedTimer
       interval = setInterval(() => {
         const currentStepTime = Date.now() - start
-        // setElapsedTimer(currentStepTime)
         socket.emit('currentStepTime', currentStepTime)
       }, 100)
     } else if (!isTimerRun && elapsedTimer !== 0) {
@@ -246,7 +245,7 @@ export default ({ history }) => {
   return (
     <LayoutWrapper finishMatch={finishMatch}>
       <div className={classes.main}>
-        <Typography variant='h1' align='center' color={'textSecondary'} className={classes.title}>
+        <Typography variant='h1' align='center' color='textSecondary' className={classes.title}>
           Match
         </Typography>
 

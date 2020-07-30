@@ -43,24 +43,24 @@
     "feathers-authentication-management": "^2.0.1",
     "feathers-hooks-common": "^4.19.2",
     "feathers-memory": "^4.1.0",
-    "feathers-mongoose": "^6.3.0",
+    "feathers-mongoose": "^8.3.1",
     "googleapis": "^45.0.0",
-    "helmet": "^3.21.2",
+    "helmet": "^3.23.3",
     "html-to-text": "^5.1.1",
+    "lodash": "^4.17.19",
     "mjml": "^4.5.1",
     "moment": "^2.24.0",
     "mongodb-core": "^3.2.7",
-    "mongoose": "^5.7.6",
-    "nodemailer": "^6.4.3",
+    "mongoose": "^5.9.26",
+    "nodemailer": "^6.4.11",
     "qs": "latest",
     "serve-favicon": "^2.5.0",
-    "stf-core": "*",
     "validator": "^10.10.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
     "mocha": "^6.2.2",
-    "nodemon": "^1.19.4",
+    "nodemon": "^2.0.4",
     "standard": "^12.0.1"
   }
 }

@@ -16,11 +16,13 @@
     "eslint-fix": "standard --fix"
   },
   "dependencies": {
+    "electron": "^9.1.1"
     "electron-log": "^4.2.0",
     "electron-updater": "^4.0.0"
   },
   "devDependencies": {
     "concurrently": "latest",
-    "standard": "^12.0.1"
+    "standard": "^14.3.4",
+    "electron-builder": "^22.7.0"
   }
 }

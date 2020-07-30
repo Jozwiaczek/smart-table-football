@@ -1,18 +1,14 @@
+/* eslint-disable */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import classNames from 'classnames'
 
-import {
-  Confirm
-} from 'react-admin'
+import { Confirm } from 'react-admin'
 import ActionDelete from '@material-ui/icons/Delete'
 
-import {
-  withStyles,
-  Button
-} from '@material-ui/core'
+import { Button, withStyles } from '@material-ui/core'
 
 const styles = (theme) => ({
   deleteButtonContained: {
@@ -42,12 +38,15 @@ class ConfirmDeleteButton extends Component {
     this.onClick = this.onClick.bind(this)
     this.onClose = this.onClose.bind(this)
   }
+
   onClick () {
     this.setState({ open: true })
   }
+
   onClose () {
     this.setState({ open: false })
   }
+
   render () {
     const {
       classes,
