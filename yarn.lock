@@ -1247,12 +1247,12 @@
     "@feathersjs/errors" "^4.5.2"
     "@feathersjs/feathers" "^4.5.2"
 
-"@feathersjs/authentication-client@1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@feathersjs/authentication-client/-/authentication-client-1.0.8.tgz#c39dd768023e0d469b55cc33549d1708d20e14f6"
-  integrity sha512-ISE4XFHbCQQan0M/TWe3R7V+bnoExpZWZghBIrK/q5P88G//EJoCzw+nU5lF9BhUxQqViEBqUIgkg1NKwqj/OQ==
+"@feathersjs/authentication-client@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@feathersjs/authentication-client/-/authentication-client-1.0.11.tgz#86352bf4c7179b905c9a977b26f389830c974e72"
+  integrity sha512-4CWQdmdRINMMqHT1/g0N5jqw16u1RjaSPhlZtJZ0OLdqgN3tl5wL+Lb8ThPxihvt1WHiOdwGt141LvWQ446Bsw==
   dependencies:
-    "@feathersjs/errors" "^3.3.4"
+    "@feathersjs/errors" "^3.3.6"
     debug "^4.0.0"
     jwt-decode "^2.1.0"
 
@@ -1268,7 +1268,7 @@
     lodash.pick "^4.4.0"
     passport-jwt "^4.0.0"
 
-"@feathersjs/authentication-local@^1.0.4", "@feathersjs/authentication-local@^1.2.7":
+"@feathersjs/authentication-local@^1.2.7":
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/@feathersjs/authentication-local/-/authentication-local-1.2.9.tgz#4467230db1775124794efcceb4901efc4568f824"
   integrity sha512-EqUuUgiULpfe46oprIeHkY4CjlWIT+abtMnVOOeRmaJTPRDnPe72wJoQ3jomSTJpr7KARkWog6sAUZa+NMC3UA==
@@ -1278,6 +1278,18 @@
     debug "^4.0.0"
     lodash "^4.17.5"
     passport-local "^1.0.0"
+
+"@feathersjs/authentication-local@^4.3.0":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@feathersjs/authentication-local/-/authentication-local-4.5.7.tgz#e3851a7ba132ad29bf616ff5ad61b79d91481947"
+  integrity sha512-/37HcUm6XpgTJBnoK7+DdoE57SO1EUTjU8tkZ8nexhdCoAdC8CubqwtEyTpw+HTeBJFNqeqOWb4Ca9EeClru5A==
+  dependencies:
+    "@feathersjs/authentication" "^4.5.7"
+    "@feathersjs/errors" "^4.5.7"
+    "@feathersjs/feathers" "^4.5.7"
+    bcryptjs "^2.4.3"
+    debug "^4.1.1"
+    lodash "^4.17.19"
 
 "@feathersjs/authentication-oauth@^4.5.7":
   version "4.5.7"
@@ -1313,7 +1325,7 @@
     passport "^0.4.0"
     uuid "^3.1.0"
 
-"@feathersjs/authentication@^4.5.7":
+"@feathersjs/authentication@^4.3.0", "@feathersjs/authentication@^4.5.7":
   version "4.5.7"
   resolved "https://registry.yarnpkg.com/@feathersjs/authentication/-/authentication-4.5.7.tgz#34bf1825e693531eabc62786af24455bd17fc00b"
   integrity sha512-PeYZ9rp3yEedppEigrKmiT52qjbTwhcanTGGzLjmtGkRku0+eb26tcibsaNaWW+3WcXl3qWw+auVmr6PDk4JEA==
@@ -1351,14 +1363,14 @@
     config "^3.0.0"
     debug "^4.0.0"
 
-"@feathersjs/errors@^3.0.0", "@feathersjs/errors@^3.2.1", "@feathersjs/errors@^3.3.0", "@feathersjs/errors@^3.3.4", "@feathersjs/errors@^3.3.6":
+"@feathersjs/errors@^3.0.0", "@feathersjs/errors@^3.3.0", "@feathersjs/errors@^3.3.4", "@feathersjs/errors@^3.3.6":
   version "3.3.6"
   resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-3.3.6.tgz#c34cfcd0a8fc1519afb36030efb3f835a8088015"
   integrity sha512-VCohY/AQU13xYyZGl6rfdUgE+2bjaI76a4aEb6reIphHKgb4mnjYlg2PzS1/hcU1qUNi515kY9yQa5HsE7J1dQ==
   dependencies:
     debug "^4.0.0"
 
-"@feathersjs/errors@^4.3.4", "@feathersjs/errors@^4.4.3", "@feathersjs/errors@^4.5.2", "@feathersjs/errors@^4.5.7":
+"@feathersjs/errors@^4.3.0", "@feathersjs/errors@^4.3.4", "@feathersjs/errors@^4.4.3", "@feathersjs/errors@^4.5.2", "@feathersjs/errors@^4.5.7":
   version "4.5.7"
   resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-4.5.7.tgz#c25104d3175cc3ea79ea048c56b17fed1da4e150"
   integrity sha512-YCwcNmkXCHc8c8lJMoiBFzwda6W0o1sK7oSLk9rfaQWfacSvOos8zX+1v7bmeQYfHcgWmHhb6tLb2WsNqU+BVg==
@@ -3073,7 +3085,7 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bcryptjs@^2.3.0:
+bcryptjs@^2.3.0, bcryptjs@^2.4.3:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
   integrity sha1-mrVie5PmBiH/fNrF2pczAn3x0Ms=
@@ -6140,18 +6152,19 @@ fd-slicer@~1.1.0:
   dependencies:
     pend "~1.2.0"
 
-feathers-authentication-management@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/feathers-authentication-management/-/feathers-authentication-management-2.0.1.tgz#502c1d544329d57b1934dfe2639d394c694ae2a7"
-  integrity sha512-MsCobz0oeyNkgUGEmiw7Cad9VdkYy3qDzGbmsVlBuaCc+290SWr9mOhkQBdGSEaO+xQxkyzBF9EEhJ7P4W1NYg==
+feathers-authentication-management@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/feathers-authentication-management/-/feathers-authentication-management-3.0.0.tgz#0dc8025316583c2aec2a1fadda319215aa6d37b2"
+  integrity sha512-Ric3AYAa8tbPRkGzdRbGmu/eBiK37rNKrom12IypkaB9bosZKfN49DW2l9HTJ6SZANer1LpGsPkBSATm2g2kyQ==
   dependencies:
-    "@feathersjs/authentication-local" "^1.0.4"
-    "@feathersjs/errors" "^3.2.1"
+    "@feathersjs/authentication" "^4.3.0"
+    "@feathersjs/authentication-local" "^4.3.0"
+    "@feathersjs/errors" "^4.3.0"
     bcryptjs "^2.3.0"
-    debug "^3.0.0"
-    feathers-hooks-common "^4.14.1"
+    debug "^4.1.0"
+    feathers-hooks-common "^4.20.7"
 
-feathers-hooks-common@^4.14.1, feathers-hooks-common@^4.19.2:
+feathers-hooks-common@^4.19.2, feathers-hooks-common@^4.20.7:
   version "4.20.7"
   resolved "https://registry.yarnpkg.com/feathers-hooks-common/-/feathers-hooks-common-4.20.7.tgz#df731842838f88af3094c8eb31d72a22c8b5d8a8"
   integrity sha512-+9CXrj2FeDAOlDmU7MBdmYg72F+na17kss/97Vyus4zRbLJvuV2ky6Jto16NSJ906OsbYjHHXKIKzw1uPnlx3w==
@@ -12267,15 +12280,15 @@ react-dev-utils@^10.2.1:
     strip-ansi "6.0.0"
     text-table "0.2.0"
 
-react-dom@16.13.0:
-  version "16.13.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.13.0.tgz#cdde54b48eb9e8a0ca1b3dc9943d9bb409b81866"
-  integrity sha512-y09d2c4cG220DzdlFkPTnVvGTszVvNpC73v+AaLGLHbkpy3SSgvYq8x0rNwPJ/Rk/CicTNgk0hbHNw1gMEZAXg==
+react-dom@16.13.1:
+  version "16.13.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.13.1.tgz#c1bd37331a0486c078ee54c4740720993b2e0e7f"
+  integrity sha512-81PIMmVLnCNLO/fFOQxdQkvEq/+Hfpv24XNJfpyZhTRfO0QcmQIF/PgCa1zCOj2w1hrn12MFLyaJ/G0+Mxtfag==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.19.0"
+    scheduler "^0.19.1"
 
 react-dropzone@^10.1.7:
   version "10.2.2"
@@ -13098,7 +13111,7 @@ saxes@^3.1.9:
   dependencies:
     xmlchars "^2.1.1"
 
-scheduler@^0.19.0:
+scheduler@^0.19.1:
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
   integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
