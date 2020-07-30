@@ -23,8 +23,7 @@
     "test": "npm run eslint && npm run mocha",
     "eslint": "standard",
     "eslint-fix": "standard --fix",
-    "dev": "nodemon src/",
-    "start": "node src/",
+    "start": "nodemon src/",
     "mocha": "mocha test/ --recursive --exit"
   },
   "dependencies": {
