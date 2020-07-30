@@ -50,7 +50,7 @@ const onMenuTap = (props) => {
   }
 }
 
-const Menu = props => {
+const Sidebar = props => {
   const playerId = getPlayerId()
   const open = useSelector(state => state.admin.ui.sidebarOpen)
   const translate = useTranslate()
@@ -109,4 +109,4 @@ const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps)
 )
 
-export default enhance(Menu)
+export default enhance(Sidebar)
