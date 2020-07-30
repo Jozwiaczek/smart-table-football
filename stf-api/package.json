@@ -52,7 +52,7 @@
     "moment": "^2.24.0",
     "mongodb-core": "^3.2.7",
     "mongoose": "^5.9.25",
-    "nodemailer": "^6.4.3",
+    "nodemailer": "^6.4.11",
     "qs": "latest",
     "serve-favicon": "^2.5.0",
     "validator": "^10.10.0",
