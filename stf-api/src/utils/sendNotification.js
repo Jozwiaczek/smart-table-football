@@ -5,10 +5,12 @@ const { constants } = require('stf-core')
 
 const errors = require('@feathersjs/errors')
 
-module.exports = function (context, player, message, link, type) {
+module.exports = async function (context, player, message, type, link = '/') {
+  const formatMsg = msg => msg.replace(/\s\s+/g, ' ')
+
   try {
     const NotificationsService = context.app.service(constants.resources.notifications)
-    NotificationsService.create({ player, message, link, type })
+    await NotificationsService.create({ player, message: formatMsg(message), link, type })
   } catch (error) {
     console.error(error)
     errors.BadRequest('Failed sending notification')
