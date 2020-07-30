@@ -1,0 +1,24 @@
+{
+  "productName": "Smart Table Football Admin",
+  "artifactName": "STF-Admin-${version}.${ext}",
+  "appId": "com.stf.admin-app",
+  "files": [
+    {
+      "from": "./node_modules/electron-updater/**/*",
+      "to": "./stf-admin-desktop/node_modules/electron-updater"
+    },
+    "./package.json",
+    "./stf-admin-desktop/**/*"
+  ],
+  "directories": {
+    "buildResources": "./stf-admin-desktop/assets",
+    "output": "./stf-admin-desktop/release"
+  },
+  "mac": {
+    "category": "public.app-category.games",
+    "target": "dmg"
+  },
+  "linux": {
+    "publish": "github"
+  }
+}
