@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Filter, List, Responsive, SearchInput, SimpleList, TextField } from 'react-admin'
+import { Filter, List, Responsive, SimpleList, TextField } from 'react-admin'
 
 import { models } from 'stf-core'
 
@@ -11,7 +11,7 @@ import { Datagrid } from 'ra-ui-materialui'
 
 export const Filters = (props) => (
   <Filter {...props}>
-    <SearchInput
+    <TextField
       label='Email'
       source={`${models.admins.fields.email}.$regex`}
       alwaysOn

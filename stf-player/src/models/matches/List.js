@@ -10,7 +10,6 @@ import {
   ReferenceField,
   Responsive,
   sanitizeListRestProps,
-  SearchInput,
   SimpleList,
   TextField,
   TopToolbar,
@@ -41,7 +40,7 @@ const styles = {
 
 export const Filters = (props) => (
   <Filter {...props}>
-    <SearchInput
+    <TextField
       label='Email'
       source={`${models.admins.fields.email}.$regex`}
       alwaysOn
@@ -52,6 +51,8 @@ export const Filters = (props) => (
 )
 
 const ShowStatistic = ({ classes, record, history, mobile }) => {
+  if (!record) return null
+
   return (
     <Button color='primary' onClick={() => history.push(`/${constants.resources.matches}/${record._id}`)}>
       <AssessmentIcon className={classes.buttonIcon} />
@@ -61,6 +62,8 @@ const ShowStatistic = ({ classes, record, history, mobile }) => {
 }
 
 const ContinueButton = ({ classes, record, history, mobile, disabled, isInGame }) => {
+  if (!record) return null
+
   if (isInGame === record.id) {
     return (
       <Button color='action' disabled={disabled} onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}>
@@ -82,7 +85,7 @@ const ContinueButton = ({ classes, record, history, mobile, disabled, isInGame }
 }
 
 const TeamsMobileField = ({ teams, record }) => {
-  if (!teams) return null
+  if (!teams || !record) return null
   const teamA = teams.find(team => team._id === record[models.matches.fields.teamA])
   const teamB = teams.find(team => team._id === record[models.matches.fields.teamB])
   return (
@@ -93,7 +96,7 @@ const TeamsMobileField = ({ teams, record }) => {
 }
 
 const WinnerMobileField = ({ teams, record }) => {
-  if (!teams || !record[models.matches.fields.winner]) return null
+  if (!teams || !record || !record[models.matches.fields.winner]) return null
   const winner = teams.find(team => team._id === record[models.matches.fields.winner])
   return (
     <Typography>

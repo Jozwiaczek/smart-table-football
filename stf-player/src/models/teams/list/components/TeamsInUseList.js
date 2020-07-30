@@ -38,7 +38,7 @@ const TeamsInUseList = ({ data, ids, ...rest }) => {
       data={Object.fromEntries(filteredData)}
       small={
         <SimpleList
-          primaryText={record => record[models.teams.fields.name]}
+          primaryText={record => record && record[models.teams.fields.name]}
         />
       }
       medium={
