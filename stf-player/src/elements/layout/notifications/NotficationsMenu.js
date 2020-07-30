@@ -6,28 +6,23 @@ import Popper from '@material-ui/core/Popper'
 import MenuItem from '@material-ui/core/MenuItem'
 import MenuList from '@material-ui/core/MenuList'
 import { makeStyles } from '@material-ui/core/styles'
-import { GET_LIST, UPDATE, UPDATE_MANY, useDataProvider } from 'react-admin'
+import { GET_LIST, UPDATE_MANY, useDataProvider } from 'react-admin'
 import { constants, models } from 'stf-core'
-import { getPlayerId } from '../../utils/getPlayerId'
+import { getPlayerId } from '../../../utils/getPlayerId'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import Badge from '@material-ui/core/Badge'
 import IconButton from '@material-ui/core/IconButton'
 import { useHistory } from 'react-router-dom'
 import { Divider, Typography } from '@material-ui/core'
-import DotIcon from '@material-ui/icons/FiberManualRecord'
-import { Parser as HtmlToReactParser } from 'html-to-react'
 import NavigateToIcon from '@material-ui/icons/OpenInBrowser'
 import MarkIcon from '@material-ui/icons/EmojiFlags'
+import NotificationMenuItem from './NotificationMenuItem'
 
 const useStyles = makeStyles((theme) => ({
   notificationCard: {
     marginRight: theme.spacing(2),
-    minWidth: 400,
-    maxWidth: 600
-  },
-  invitationMenuItem: {
-    display: 'flex',
-    justifyContent: 'space-between'
+    minWidth: 300,
+    maxWidth: 400
   },
   actionMenuItem: {
     display: 'flex',
@@ -37,10 +32,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     margin: '10px 0'
-  },
-  emptyNotifications: {
-    margin: '10px 0',
-    color: theme.palette.text.disabled
   }
 }))
 
@@ -51,9 +42,6 @@ export default function NotificationsMenu () {
   const [notifications, setNotifications] = useState([])
   const dataProvider = useDataProvider()
   const history = useHistory()
-  const htmlToReactParser = new HtmlToReactParser()
-
-  const parseToHtml = str => htmlToReactParser.parse(str)
 
   useEffect(() => {
     const req = async () => {
@@ -98,17 +86,6 @@ export default function NotificationsMenu () {
     prevOpen.current = open
   }, [open])
 
-  const onClickInvitation = async (event, notification) => {
-    await dataProvider(UPDATE, constants.resources.notifications, {
-      id: notification._id,
-      data: {
-        [models.notifications.fields.isOpen]: true
-      }
-    })
-    history.push(notification[models.notifications.fields.link])
-    handleClose(event)
-  }
-
   const moveToNotificationPanel = (event) => {
     history.push('/notifications')
     handleClose(event)
@@ -128,35 +105,6 @@ export default function NotificationsMenu () {
     })
 
     handleClose(event)
-  }
-
-  // TODO: Rename
-  // TODO: Extract unify notify item
-  // TODO: Add filed toArchive
-  // TODO: Archive elements which is toArchive and on the list
-  const NotificationItem = () => {
-    if (notifications.length === 0) {
-      return (
-        <Typography align='center' className={classes.emptyNotifications}>You dont have any notification</Typography>
-      )
-    }
-    return notifications.map((notification, index) => {
-      if (notification[models.notifications.fields.type] === constants.notificationType.invitation) {
-        return (
-          <MenuItem
-            key={index}
-            className={classes.invitationMenuItem}
-            onClick={(e) => onClickInvitation(e, notification)}
-          >
-            <DotIcon style={{ fontSize: 10 }} color='primary' />
-            {parseToHtml(notification[models.notifications.fields.message])}
-          </MenuItem>
-        )
-      }
-
-      return <MenuItem key={index} onClick={handleClose}>{notification[models.notifications.fields.message]}</MenuItem>
-    }
-    )
   }
 
   return (
@@ -183,7 +131,10 @@ export default function NotificationsMenu () {
                 <MenuList autoFocusItem={open} id='menu-list-grow' onKeyDown={handleListKeyDown}>
                   <Typography color='primary' variant='h5' align='center' gutterBottom>Notifications</Typography>
                   <Divider />
-                  <NotificationItem />
+                  <NotificationMenuItem
+                    notifications={notifications}
+                    closeNotificationPanel={handleClose}
+                  />
                   <Divider />
                   <div className={classes.actionContainer}>
                     <MenuItem className={classes.actionMenuItem} onClick={moveToNotificationPanel}>

@@ -1,8 +1,7 @@
-import React, { forwardRef, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { AppBar, GET_ONE, MenuItemLink, useDataProvider, UserMenu, useTranslate } from 'react-admin'
-import SettingsIcon from '@material-ui/icons/Settings'
+import { AppBar, GET_ONE, useDataProvider } from 'react-admin'
 import SignalIcon from '@material-ui/icons/Power'
 import NoSignalIcon from '@material-ui/icons/PowerOff'
 import TableAvailableIcon from '@material-ui/icons/DoubleArrow'
@@ -13,7 +12,8 @@ import { Button, Typography, useMediaQuery } from '@material-ui/core'
 import Tooltip from '@material-ui/core/Tooltip/Tooltip'
 import { constants, models } from 'stf-core'
 import { getPlayerId } from '../../utils/getPlayerId'
-import NotificationsMenu from './NotficationsMenu'
+import NotificationsMenu from './notifications/NotficationsMenu'
+import UserMenu from './UserMenu'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -51,24 +51,6 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 300
   }
 }))
-
-const ConfigurationMenu = forwardRef((props, ref) => {
-  const translate = useTranslate()
-  return (
-    <MenuItemLink
-      ref={ref}
-      to='/settings'
-      primaryText={translate('pos.settings')}
-      leftIcon={<SettingsIcon />}
-      onClick={props.onClick}
-    />
-  )
-})
-
-const CustomUserMenu = (props) =>
-  <UserMenu {...props}>
-    <ConfigurationMenu />
-  </UserMenu>
 
 const TableStatusItem = ({ classes, isTableActive, isSmall }) => {
   if (isTableActive) {
@@ -173,7 +155,7 @@ export default (props) => {
   }
 
   return (
-    <AppBar {...props} color='primary' userMenu={<CustomUserMenu />}>
+    <AppBar {...props} color='primary' userMenu={<UserMenu />}>
       {
         !isSmall &&
           <Typography
