@@ -76,6 +76,7 @@ const NotificationMenuItem = ({ notifications, closeNotificationPanel }) => {
           )
       }
     }
+    return null
   })
 }
 
