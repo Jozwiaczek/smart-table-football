@@ -11436,7 +11436,7 @@ querystringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
 
-ra-core@^3.7.1, ra-core@^3.7.1:
+ra-core@^3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/ra-core/-/ra-core-3.7.1.tgz#369453d8cce3a1e8ef7d01a6bb2dcd6bbd5faa1c"
   integrity sha512-T6gYppeTMoG4qbpD4cHJ76EQTuf0b6DedMSL8ekFuZdh+MDtpGywUlCzkcSQK9J4Ck31prtVvONXGm9uwEyEyg==
@@ -11483,14 +11483,7 @@ ra-i18n-polyglot@^3.7.1:
     node-polyglot "^2.2.2"
     ra-core "^3.7.1"
 
-ra-language-english@3.7.1, ra-language-english@^3.2.0:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/ra-language-english/-/ra-language-english-3.7.1.tgz#ed1aa4dd827454572fcc43a53c3a2944d5619d68"
-  integrity sha512-85jgvpEdRgfQ1SVVVudUh7AOlmhbiLhT/iLn5tXO9N7HCudK7Fno37y+txjrPywki6Vs/XGkRLG/eNsrYmyMFQ==
-  dependencies:
-    ra-core "^3.7.1"
-
-ra-language-english@^3.7.1:
+ra-language-english@3.7.1, ra-language-english@^3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/ra-language-english/-/ra-language-english-3.7.1.tgz#ed1aa4dd827454572fcc43a53c3a2944d5619d68"
   integrity sha512-85jgvpEdRgfQ1SVVVudUh7AOlmhbiLhT/iLn5tXO9N7HCudK7Fno37y+txjrPywki6Vs/XGkRLG/eNsrYmyMFQ==
