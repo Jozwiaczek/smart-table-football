@@ -3,9 +3,9 @@ const mongoose = require('mongoose')
 module.exports = function (app) {
   mongoose.connect(
     process.env.MONGOLAB_URI || app.get('mongodb'),
-    { useCreateIndex: true, useNewUrlParser: true }
+    { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true }
   ).catch(err => {
-    console.error(err)
+    console.error(`DB Connection Error: ${err.message}`)
     process.exit(1)
   })
 
