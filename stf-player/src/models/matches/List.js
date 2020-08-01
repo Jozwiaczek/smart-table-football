@@ -73,7 +73,7 @@ const ContinueButton = ({ classes, record, history, mobile, disabled, isInGame }
     )
   }
 
-  if (record[models.matches.fields.status] === constants.statusMatch.paused) {
+  if (record[models.matches.fields.status] === constants.statusMatch.paused || record[models.matches.fields.status] === constants.statusMatch.await) {
     return (
       <Button color='primary' disabled={disabled || isInGame} onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}>
         <SlowMotionVideoIcon className={classes.buttonIcon} />
@@ -232,9 +232,9 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
       <Responsive
         small={
           <SimpleList
-            primaryText={record => <TeamsMobileField teams={teams} record={record} />}
-            secondaryText={record => <WinnerMobileField teams={teams} record={record} />}
-            tertiaryText={record => (
+            primaryText={record => record && <TeamsMobileField teams={teams} record={record} />}
+            secondaryText={record => record && <WinnerMobileField teams={teams} record={record} />}
+            tertiaryText={record => record && (
               <>
                 <ContinueButton classes={classes} mobile record={record} {...rest} />
                 <ShowStatistic classes={classes} mobile record={record} {...rest} />
