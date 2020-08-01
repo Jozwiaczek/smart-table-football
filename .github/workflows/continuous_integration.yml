@@ -41,10 +41,7 @@ jobs:
         run: cd stf-rasp && yarn eslint
 
   Electron:
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -52,5 +49,22 @@ jobs:
           node-version: 14
       - name: Install dependency
         run: cd stf-admin-desktop && yarn install
-      - name: Admin-desktop
-        run: cd stf-admin-desktop && yarn eslint && yarn pack
+      - name: ESLint
+        run: cd stf-admin-desktop && yarn eslint
+
+#  Electron:
+#    strategy:
+#      matrix:
+#        os: [macos-latest, ubuntu-latest, windows-latest]
+#    runs-on: ${{ matrix.os }}
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: 14
+#      - name: Install dependency
+#        run: cd stf-admin-desktop && yarn install
+#      - name: ESLint
+#        run: cd stf-admin-desktop && yarn eslint
+#      - name: Pack All
+#        run: yarn electron:pack:all

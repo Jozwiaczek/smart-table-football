@@ -13,24 +13,17 @@ module.exports = function () {
   return async context => {
     try {
       const message = `
-        <b>
-            ${context.params.player[models.players.fields.firstName]} 
-            ${context.params.player[models.players.fields.lastName]}
-          </b>
-          &nbsp;
-          invited you to
-          &nbsp;
-          <b>${context.result[models.teams.fields.name]}</b>
-          &nbsp;
-          team      
+          ${context.params.player[models.players.fields.firstName]} 
+          ${context.params.player[models.players.fields.lastName]}
+          invited you to ${context.result[models.teams.fields.name]} team      
       `
 
-      sendNotification(
+      await sendNotification(
         context,
         context.result[models.teams.fields.invited],
         message,
-        `teams/${context.result._id}`,
-        constants.notificationType.invitation
+        constants.notificationType.invitation,
+        `teams/${context.result._id}/show`
       )
     } catch (error) {
       console.error(error)

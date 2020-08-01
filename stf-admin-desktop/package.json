@@ -1,29 +1,28 @@
 {
   "name": "stf-admin-desktop",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
-  "license": "ISC",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "eslint": "standard",
-    "eslint-fix": "standard --fix",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "postinstall": "electron-builder install-app-deps"
+  "description": "Desktop application for administrators of stf platform",
+  "repository": "git@github.com:Jozwiaczek/smart-table-football.git",
+  "author": {
+    "name": "Jakub Jóźwiak",
+    "email": "kubencki@gmail.com"
   },
-  "build": {
-    "appId": "yourappid",
-    "mac": {
-      "category": "your.app.category.type"
-    }
+  "license": "ISC",
+  "private": true,
+  "main": "src/main.js",
+  "scripts": {
+    "start": "concurrently 'cd ../stf-admin && yarn start' 'NODE_ENV=development electron .'",
+    "eslint": "standard",
+    "eslint-fix": "standard --fix"
   },
   "dependencies": {
-    "electron": "latest"
+    "electron": "^9.1.2",
+    "electron-log": "^4.2.0",
+    "electron-updater": "^4.0.0"
   },
   "devDependencies": {
-    "standard": "^12.0.1",
-    "electron-builder": "latest"
+    "concurrently": "latest",
+    "standard": "^14.3.4",
+    "electron-builder": "^22.7.0"
   }
 }

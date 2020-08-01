@@ -1,32 +1,28 @@
 import React, { useEffect, useState } from 'react'
 
 import {
-  List,
+  BooleanField,
+  ChipField,
   DateField,
   Filter,
-  SearchInput,
-  TextField,
-  Responsive,
-  SimpleList,
-  ReferenceField,
-  ChipField,
   FunctionField,
-  withDataProvider,
+  List,
+  ReferenceField,
+  Responsive,
   ShowButton,
-  BooleanField
+  SimpleList,
+  TextField,
+  withDataProvider
 } from 'react-admin'
 import CustomizableDatagrid from 'ra-customizable-datagrid'
 
-import {
-  models,
-  constants
-} from 'stf-core'
+import { constants, models } from 'stf-core'
 
 import DateFilters from '../../elements/DateFilters'
 
 export const Filters = (props) => (
   <Filter {...props}>
-    <SearchInput
+    <TextField
       label='Email'
       source={`${models.admins.fields.email}.$regex`}
       alwaysOn
