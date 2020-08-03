@@ -10,7 +10,7 @@
     "@feathersjs/socketio-client": "1.1.5",
     "classnames": "2.2.6",
     "inflection": "1.12.0",
-    "moment": "2.24.0",
+    "moment": "2.27.0",
     "prop-types": "15.7.2",
     "ra-customizable-datagrid": "1.1.0",
     "ra-data-feathers": "2.8.1",
