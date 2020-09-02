@@ -16,7 +16,7 @@
     "ra-data-feathers": "2.8.1",
     "ra-language-english": "3.7.1",
     "react": "16.13.1",
-    "react-admin": "3.7.1",
+    "react-admin": "3.8.3",
     "react-dom": "16.13.1",
     "react-scripts": "3.4.1",
     "socket.io-client": "2.3.0",
