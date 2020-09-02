@@ -12574,10 +12574,10 @@ querystringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
 
-ra-core@^3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/ra-core/-/ra-core-3.7.1.tgz#369453d8cce3a1e8ef7d01a6bb2dcd6bbd5faa1c"
-  integrity sha512-T6gYppeTMoG4qbpD4cHJ76EQTuf0b6DedMSL8ekFuZdh+MDtpGywUlCzkcSQK9J4Ck31prtVvONXGm9uwEyEyg==
+ra-core@^3.7.1, ra-core@^3.8.3:
+  version "3.8.3"
+  resolved "https://registry.yarnpkg.com/ra-core/-/ra-core-3.8.3.tgz#65b34633e0a6975482d3b84a1297d2200d87d24a"
+  integrity sha512-7dy1uwo9CeYmh94oj426mFPjFc/MO1bBRDdq51jGbgFLBnLlFNYyLj0pVLdZAgSMkybBAKdiOpu1Me6vMGSfDw==
   dependencies:
     "@testing-library/react" "^8.0.7"
     classnames "~2.2.5"
@@ -12587,7 +12587,6 @@ ra-core@^3.7.1:
     lodash "~4.17.5"
     prop-types "^15.6.1"
     query-string "^5.1.1"
-    recompose "~0.26.0"
     reselect "~3.0.0"
 
 ra-customizable-datagrid@1.1.0:
@@ -12612,12 +12611,12 @@ ra-i18n-polyglot@^3.7.1:
     node-polyglot "^2.2.2"
     ra-core "^3.7.1"
 
-ra-language-english@3.7.1, ra-language-english@^3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/ra-language-english/-/ra-language-english-3.7.1.tgz#ed1aa4dd827454572fcc43a53c3a2944d5619d68"
-  integrity sha512-85jgvpEdRgfQ1SVVVudUh7AOlmhbiLhT/iLn5tXO9N7HCudK7Fno37y+txjrPywki6Vs/XGkRLG/eNsrYmyMFQ==
+ra-language-english@3.8.3, ra-language-english@^3.7.1:
+  version "3.8.3"
+  resolved "https://registry.yarnpkg.com/ra-language-english/-/ra-language-english-3.8.3.tgz#85c5ebca85e032c0e79463407e465e356d89966d"
+  integrity sha512-tVCL3aSxZ6V2DVr24kL9GJP8W5NmJ8pL1OO7Id1JGY48+qnFgCK8K8X9iYt/biRzxTSfgaw8AM4AQngQB7SOdg==
   dependencies:
-    ra-core "^3.7.1"
+    ra-core "^3.8.3"
 
 ra-language-polish@^1.2.0:
   version "1.2.0"
