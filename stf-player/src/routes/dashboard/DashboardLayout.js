@@ -105,7 +105,7 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
   }
 
   const getLastMatch = () => {
-    if (!matches) {
+    if (!matches?.length) {
       return null
     }
     return matches.reduce((m, v, i) => (v.createdAt > m.createdAt) && i ? v : m)

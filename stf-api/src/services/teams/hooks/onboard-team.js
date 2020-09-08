@@ -12,19 +12,23 @@ const sendNotification = require('../../../utils/sendNotification')
 module.exports = function () {
   return async context => {
     try {
-      const message = `
-          ${context.params.player[models.players.fields.firstName]} 
+      const params = context.params
+      const playerFirstName = params.player && params.player[models.players.fields.firstName]
+      if (playerFirstName) {
+        const message = `
+          ${playerFirstName} 
           ${context.params.player[models.players.fields.lastName]}
           invited you to ${context.result[models.teams.fields.name]} team      
       `
 
-      await sendNotification(
-        context,
-        context.result[models.teams.fields.invited],
-        message,
-        constants.notificationType.invitation,
-        `teams/${context.result._id}/show`
-      )
+        await sendNotification(
+          context,
+          context.result[models.teams.fields.invited],
+          message,
+          constants.notificationType.invitation,
+          `teams/${context.result._id}/show`
+        )
+      }
     } catch (error) {
       console.error(error)
 

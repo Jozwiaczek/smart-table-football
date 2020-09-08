@@ -13,11 +13,11 @@
     "secure": false,
     "requireTLS": true,
     "auth": {
-      "user": "avery.berge@ethereal.email",
-      "pass": "gXeVgKBkhkdsCyc3th"
+      "user": "lou.hayes45@ethereal.email",
+      "pass": "aUjsd6d31hMM5X9AnZ"
     },
     "from": {
-      "name": "stf@.io",
+      "name": "no-reply@stf.io",
       "address": "STF DEV"
     }
   },
