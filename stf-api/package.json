@@ -24,6 +24,8 @@
     "eslint": "standard",
     "eslint-fix": "standard --fix",
     "start": "nodemon src/",
+    "start:db": "docker start mongodb",
+    "stop:db": "docker stop mongodb",
     "mocha": "mocha test/ --recursive --exit"
   },
   "dependencies": {
