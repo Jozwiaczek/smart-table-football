@@ -1,3 +1,3 @@
-import TableList from './List'
+import TableList from './List';
 
-export { TableList }
+export { TableList };

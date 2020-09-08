@@ -3,7 +3,6 @@
 // const app = require('../src/app')
 // const { models, constants } = require('stf-core')
 
-
 // describe('authentication', () => {
 //   it('registered the authentication service', () => {
 //     assert.ok(app.service('authentication'))

@@ -1,8 +1,8 @@
 const userSchema = {
   email: 'email',
   password: 'password',
-  status: 'status'
-}
+  status: 'status',
+};
 
 const authManagementSchema = {
   isVerified: 'isVerified',
@@ -11,15 +11,15 @@ const authManagementSchema = {
   verifyExpires: 'verifyExpires',
   resetToken: 'resetToken',
   resetShortToken: 'resetShortToken',
-  resetExpires: 'resetExpires'
-}
+  resetExpires: 'resetExpires',
+};
 
 const admins = {
   name: 'admins',
   fields: {
-    ...userSchema
-  }
-}
+    ...userSchema,
+  },
+};
 
 const players = {
   name: 'players',
@@ -30,9 +30,9 @@ const players = {
     lastName: 'lastName',
     locale: 'locale',
     googleId: 'googleId',
-    facebookId: 'facebookId'
-  }
-}
+    facebookId: 'facebookId',
+  },
+};
 
 const notifications = {
   name: 'notifications',
@@ -41,27 +41,27 @@ const notifications = {
     message: 'message',
     link: 'link',
     type: 'type',
-    isOpen: 'isOpen'
-  }
-}
+    isOpen: 'isOpen',
+  },
+};
 
 const teams = {
   name: 'teams',
   fields: {
     name: 'name',
     players: 'players',
-    invited: 'invited'
-  }
-}
+    invited: 'invited',
+  },
+};
 
 const table = {
   name: 'table',
   fields: {
     id: 'id',
     isActive: 'isActive',
-    inGame: 'inGame'
-  }
-}
+    inGame: 'inGame',
+  },
+};
 
 const matches = {
   name: 'matches',
@@ -71,18 +71,18 @@ const matches = {
     winner: 'winner',
     status: 'status',
     replayTime: 'replayTime',
-    elapsedTime: 'elapsedTime'
-  }
-}
+    elapsedTime: 'elapsedTime',
+  },
+};
 
 const goals = {
   name: 'goals',
   fields: {
     team: 'team',
     match: 'match',
-    replay: 'replay'
-  }
-}
+    replay: 'replay',
+  },
+};
 
 module.exports = {
   userSchema,
@@ -93,5 +93,5 @@ module.exports = {
   matches,
   goals,
   table,
-  notifications
-}
+  notifications,
+};

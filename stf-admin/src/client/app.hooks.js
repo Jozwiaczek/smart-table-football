@@ -1,29 +1,23 @@
-import removeFieldFromData from '../hooks/removeFieldFromData'
-import parsMongoDbQueries from '../hooks/parsMongoDbQueries'
-import parsMongoDbRegexQueries from '../hooks/parsMongoDbRegexQueries'
-import mapQuery from '../hooks/mapQuery'
-import attachKind from '../hooks/attachKind'
+import removeFieldFromData from '../hooks/removeFieldFromData';
+import parsMongoDbQueries from '../hooks/parsMongoDbQueries';
+import parsMongoDbRegexQueries from '../hooks/parsMongoDbRegexQueries';
+import mapQuery from '../hooks/mapQuery';
+import attachKind from '../hooks/attachKind';
 
 export default {
   before: {
     all: [],
-    find: [
-      mapQuery(),
-      parsMongoDbQueries(),
-      parsMongoDbRegexQueries()
-    ],
+    find: [mapQuery(), parsMongoDbQueries(), parsMongoDbRegexQueries()],
     get: [],
     create: [
       removeFieldFromData('_id'),
       removeFieldFromData('resetToken'),
       removeFieldFromData('resetShortToken'),
-      removeFieldFromData('resetExpires')
+      removeFieldFromData('resetExpires'),
     ],
     update: [],
-    patch: [
-      attachKind()
-    ],
-    remove: []
+    patch: [attachKind()],
+    remove: [],
   },
 
   after: {
@@ -33,7 +27,7 @@ export default {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -43,6 +37,6 @@ export default {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
-}
+    remove: [],
+  },
+};

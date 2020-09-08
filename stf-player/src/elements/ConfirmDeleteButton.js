@@ -1,53 +1,53 @@
 /* eslint-disable */
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import compose from 'recompose/compose'
-import { fade } from '@material-ui/core/styles/colorManipulator'
-import classNames from 'classnames'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import compose from 'recompose/compose';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import classNames from 'classnames';
 
-import { Confirm } from 'react-admin'
-import ActionDelete from '@material-ui/icons/Delete'
+import { Confirm } from 'react-admin';
+import ActionDelete from '@material-ui/icons/Delete';
 
-import { Button, withStyles } from '@material-ui/core'
+import { Button, withStyles } from '@material-ui/core';
 
 const styles = (theme) => ({
   deleteButtonContained: {
     color: '#fff',
     backgroundColor: theme.palette.error.main,
     '&:hover': {
-      backgroundColor: theme.palette.error.dark
-    }
+      backgroundColor: theme.palette.error.dark,
+    },
   },
   deleteButton: {
     color: theme.palette.error.main,
     '&:hover': {
       backgroundColor: fade(theme.palette.error.main, 0.12),
       '@media (hover: none)': {
-        backgroundColor: 'transparent'
-      }
-    }
-  }
-})
+        backgroundColor: 'transparent',
+      },
+    },
+  },
+});
 
 class ConfirmDeleteButton extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-      open: false
-    }
-    this.onClick = this.onClick.bind(this)
-    this.onClose = this.onClose.bind(this)
+      open: false,
+    };
+    this.onClick = this.onClick.bind(this);
+    this.onClose = this.onClose.bind(this);
   }
 
-  onClick () {
-    this.setState({ open: true })
+  onClick() {
+    this.setState({ open: true });
   }
 
-  onClose () {
-    this.setState({ open: false })
+  onClose() {
+    this.setState({ open: false });
   }
 
-  render () {
+  render() {
     const {
       classes,
       title,
@@ -60,10 +60,10 @@ class ConfirmDeleteButton extends Component {
       history,
       variant,
       className,
-      style
-    } = this.props
+      style,
+    } = this.props;
 
-    const { open } = this.state
+    const { open } = this.state;
 
     return (
       <>
@@ -73,24 +73,28 @@ class ConfirmDeleteButton extends Component {
           title={title}
           content={content}
           confirm={confirm}
-          confirmColor='primary'
+          confirmColor="primary"
           cancel={cancel}
           onConfirm={() => {
-            onConfirm(record, history)
-            this.onClose()
+            onConfirm(record, history);
+            this.onClose();
           }}
           onClose={this.onClose}
         />
         <Button
-          className={classNames(variant === 'contained' ? classes.deleteButtonContained : classes.deleteButton, className)}
+          className={classNames(
+            variant === 'contained' ? classes.deleteButtonContained : classes.deleteButton,
+            className,
+          )}
           variant={variant}
           onClick={this.onClick}
           style={style}
         >
-          <ActionDelete />&nbsp;{label}
+          <ActionDelete />
+          &nbsp;{label}
         </Button>
       </>
-    )
+    );
   }
 }
 
@@ -101,20 +105,18 @@ ConfirmDeleteButton.propTypes = {
   content: PropTypes.string,
   confirm: PropTypes.string,
   cancel: PropTypes.string,
-  variant: PropTypes.string
-}
+  variant: PropTypes.string,
+};
 
 ConfirmDeleteButton.defaultProps = {
   title: 'Are you sure?',
-  content: 'You won\'t be able to revert this.',
+  content: "You won't be able to revert this.",
   confirm: 'Yes',
   cancel: 'Cancel',
   label: 'Delete',
-  variant: 'text'
-}
+  variant: 'text',
+};
 
-const enhance = compose(
-  withStyles(styles)
-)
+const enhance = compose(withStyles(styles));
 
-export default enhance(ConfirmDeleteButton)
+export default enhance(ConfirmDeleteButton);

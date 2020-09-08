@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import { FormTab, required, TextInput } from 'react-admin'
+import { FormTab, required, TextInput } from 'react-admin';
 
-import { models } from 'stf-core'
+import { models } from 'stf-core';
 
 const PersonalTab = ({
   classes,
@@ -14,16 +14,10 @@ const PersonalTab = ({
   basePath,
   ...rest
 }) => (
-  <FormTab label='Personal details' {...rest}>
-    <TextInput
-      source={models.players.fields.firstName}
-      validate={required()}
-    />
-    <TextInput
-      source={models.players.fields.lastName}
-      validate={required()}
-    />
+  <FormTab label="Personal details" {...rest}>
+    <TextInput source={models.players.fields.firstName} validate={required()} />
+    <TextInput source={models.players.fields.lastName} validate={required()} />
   </FormTab>
-)
+);
 
-export default PersonalTab
+export default PersonalTab;

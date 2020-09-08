@@ -1,12 +1,12 @@
-import inflection from 'inflection'
+import inflection from 'inflection';
 
-export function getChoices (object = {}) {
-  return Object.keys(object).map(key => ({
+export function getChoices(object = {}) {
+  return Object.keys(object).map((key) => ({
     id: key,
-    name: inflection.transform(object[key], ['singularize', 'capitalize'])
-  }))
+    name: inflection.transform(object[key], ['singularize', 'capitalize']),
+  }));
 }
 
-export function getFirstKey (object = {}) {
-  return Object.keys(object)[0]
+export function getFirstKey(object = {}) {
+  return Object.keys(object)[0];
 }

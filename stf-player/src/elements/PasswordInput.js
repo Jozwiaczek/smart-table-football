@@ -1,19 +1,15 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import compose from 'recompose/compose'
-import {
-  InputAdornment,
-  withStyles,
-  TextField
-} from '@material-ui/core'
-import Visibility from '@material-ui/icons/Visibility'
-import VisibilityOff from '@material-ui/icons/VisibilityOff'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import compose from 'recompose/compose';
+import { InputAdornment, withStyles, TextField } from '@material-ui/core';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const styles = () => ({
   eye: {
-    cursor: 'pointer'
-  }
-})
+    cursor: 'pointer',
+  },
+});
 
 const PasswordInput = ({
   meta: { touched, error } = { touched: false, error: '' },
@@ -21,32 +17,20 @@ const PasswordInput = ({
   classes,
   ...rest
 }) => {
-  const [passwordIsMasked, setPasswordIsMasked] = useState(true)
+  const [passwordIsMasked, setPasswordIsMasked] = useState(true);
 
   const togglePasswordMask = () => {
-    setPasswordIsMasked(!passwordIsMasked)
-  }
+    setPasswordIsMasked(!passwordIsMasked);
+  };
 
   const VisibilityIcon = () => {
-    if (!inputProps.value) return null
+    if (!inputProps.value) return null;
 
     if (passwordIsMasked) {
-      return (
-        <VisibilityOff
-          className={classes.eye}
-          onClick={togglePasswordMask}
-          color='primary'
-        />
-      )
+      return <VisibilityOff className={classes.eye} color="primary" onClick={togglePasswordMask} />;
     }
-    return (
-      <Visibility
-        className={classes.eye}
-        onClick={togglePasswordMask}
-        color='primary'
-      />
-    )
-  }
+    return <Visibility className={classes.eye} color="primary" onClick={togglePasswordMask} />;
+  };
 
   return (
     <TextField
@@ -55,26 +39,24 @@ const PasswordInput = ({
       type={passwordIsMasked ? 'password' : 'text'}
       InputProps={{
         endAdornment: (
-          <InputAdornment position='end'>
+          <InputAdornment position="end">
             <VisibilityIcon />
           </InputAdornment>
-        )
+        ),
       }}
       {...inputProps}
       {...rest}
       fullWidth
     />
-  )
-}
+  );
+};
 
 PasswordInput.propTypes = {
   classes: PropTypes.object,
   onChange: PropTypes.func,
-  value: PropTypes.func
-}
+  value: PropTypes.func,
+};
 
-const enhance = compose(
-  withStyles(styles)
-)
+const enhance = compose(withStyles(styles));
 
-export default enhance(PasswordInput)
+export default enhance(PasswordInput);

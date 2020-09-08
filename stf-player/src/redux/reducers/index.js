@@ -1,9 +1,9 @@
-import { TableReducer } from './table'
-import { ThemeReducer } from './theme'
+import { TableReducer } from './table';
+import { ThemeReducer } from './theme';
 
 const customReducers = {
   table: TableReducer,
-  theme: ThemeReducer
-}
+  theme: ThemeReducer,
+};
 
-export default customReducers
+export default customReducers;

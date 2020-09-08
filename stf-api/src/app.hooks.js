@@ -1,27 +1,29 @@
 // Application hooks that run for every service
-const translateDateToUTC = require('./hooks/translate-date-to-utc')
+const { iff } = require('feathers-hooks-common');
 
-const { iff } = require('feathers-hooks-common')
+const { constants } = require('stf-core');
 
-const authenticate = require('./hooks/authenticate')
+const translateDateToUTC = require('./hooks/translate-date-to-utc');
 
-const { constants } = require('stf-core')
+const authenticate = require('./hooks/authenticate');
 
 module.exports = {
   before: {
     all: [
       iff(
-        hook => hook.params.provider && `/${hook.path}` !== hook.app.get(constants.resources.authentication).path, // ignore authentication
-        authenticate()
+        (hook) =>
+          hook.params.provider &&
+          `/${hook.path}` !== hook.app.get(constants.resources.authentication).path, // ignore authentication
+        authenticate(),
       ),
-      translateDateToUTC('date')
+      translateDateToUTC('date'),
     ],
     find: [],
     get: [],
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   after: {
@@ -31,7 +33,7 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -41,6 +43,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
-}
+    remove: [],
+  },
+};

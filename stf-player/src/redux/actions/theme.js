@@ -1,6 +1,6 @@
-import { SET_THEME } from './types'
+import { SET_THEME } from './types';
 
-export const setTheme = mode => ({
+export const setTheme = (mode) => ({
   type: SET_THEME,
-  payload: mode
-})
+  payload: mode,
+});

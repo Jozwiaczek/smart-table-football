@@ -1,45 +1,31 @@
-import React from 'react'
+import React from 'react';
 
-import { Card, CardActions, CardContent, CardHeader, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Card, CardActions, CardContent, CardHeader, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.primary['500'],
     minWidth: '30%',
     padding: '0 0.2em 0.2em 0.2em',
-    textAlign: 'center'
-  }
-}))
+    textAlign: 'center',
+  },
+}));
 
 const CardStatistic = ({ title, actions, children }) => {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      {
-        title &&
-          <CardHeader
-            title={title}
-          />
-      }
+      {title && <CardHeader title={title} />}
       <CardContent>
-        <Typography variant='body1'>
-          {children}
-        </Typography>
+        <Typography variant="body1">{children}</Typography>
       </CardContent>
-      {
-        actions &&
-          <CardActions>
-            {actions}
-          </CardActions>
-      }
+      {actions && <CardActions>{actions}</CardActions>}
     </Card>
-  )
-}
+  );
+};
 
-CardStatistic.propTypes = {
+CardStatistic.propTypes = {};
 
-}
-
-export default CardStatistic
+export default CardStatistic;

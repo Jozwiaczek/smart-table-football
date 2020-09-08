@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   ChipField,
@@ -10,65 +10,49 @@ import {
   Responsive,
   SimpleList,
   SingleFieldList,
-  TextField
-} from 'react-admin'
-import CustomizableDatagrid from 'ra-customizable-datagrid'
+  TextField,
+} from 'react-admin';
+import CustomizableDatagrid from 'ra-customizable-datagrid';
 
-import { constants, models } from 'stf-core'
+import { constants, models } from 'stf-core';
 
-import DateFilters from '../../elements/DateFilters'
+import DateFilters from '../../elements/DateFilters';
 
 export const Filters = (props) => (
   <Filter {...props}>
-    <TextField
-      label='Email'
-      source={`${models.admins.fields.email}.$regex`}
-      alwaysOn
-    />
+    <TextField alwaysOn label="Email" source={`${models.admins.fields.email}.$regex`} />
 
     {DateFilters}
   </Filter>
-)
+);
 
 const TeamsList = (props) => {
   return (
-    <List
-      {...props}
-      filters={<Filters />}
-    >
+    <List {...props} filters={<Filters />}>
       <Responsive
-        small={
-          <SimpleList
-            primaryText={record => record[models.teams.fields.name]}
-          />
-        }
+        small={<SimpleList primaryText={(record) => record[models.teams.fields.name]} />}
         medium={
           <CustomizableDatagrid
-            defaultColumns={[
-              models.teams.fields.name,
-              models.teams.fields.players
-            ]}
+            defaultColumns={[models.teams.fields.name, models.teams.fields.players]}
           >
-            <TextField source='_id' />
+            <TextField source="_id" />
             <TextField source={models.teams.fields.name} />
             <ReferenceArrayField
               source={models.teams.fields.players}
               reference={constants.resources.players}
             >
               <SingleFieldList>
-                <ChipField
-                  source={models.players.fields.email}
-                />
+                <ChipField source={models.players.fields.email} />
               </SingleFieldList>
             </ReferenceArrayField>
-            <DateField source='createdAt' />
-            <DateField source='updatedAt' />
+            <DateField source="createdAt" />
+            <DateField source="updatedAt" />
             <EditButton />
           </CustomizableDatagrid>
         }
       />
     </List>
-  )
-}
+  );
+};
 
-export default TeamsList
+export default TeamsList;

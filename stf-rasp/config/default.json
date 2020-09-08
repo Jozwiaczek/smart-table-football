@@ -3,7 +3,7 @@
   "port": 3030,
   "public": "../public/",
   "paginate": {
-  "default": 10,
+    "default": 10,
     "max": 50
   },
   "API_URL": "http://192.168.1.2:8080",

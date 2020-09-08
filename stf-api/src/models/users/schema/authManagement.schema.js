@@ -1,6 +1,4 @@
-const {
-  models
-} = require('stf-core')
+const { models } = require('stf-core');
 
 module.exports = {
   [models.authManagementSchema.isVerified]: { type: Boolean },
@@ -10,5 +8,5 @@ module.exports = {
   // verifyChanges: // an object (key-value map), e.g. { field: "value" }
   [models.authManagementSchema.resetToken]: { type: String },
   [models.authManagementSchema.resetShortToken]: { type: String },
-  [models.authManagementSchema.resetExpires]: { type: Date } // or a long integer
-}
+  [models.authManagementSchema.resetExpires]: { type: Date }, // or a long integer
+};

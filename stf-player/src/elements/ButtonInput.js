@@ -1,33 +1,34 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {
-  Labeled,
-  translate
-} from 'react-admin'
-import { connect } from 'react-redux'
-import { startUndoable as startUndoableAction } from 'ra-core'
-import MuiButton from '@material-ui/core/Button'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Labeled, translate } from 'react-admin';
+import { connect } from 'react-redux';
+import { startUndoable as startUndoableAction } from 'ra-core';
+import MuiButton from '@material-ui/core/Button';
 
-const ButtonInput = (props) => {
+const ButtonInput = ({
+  action,
+  translate,
+  startUndoable,
+  record,
+  onClick,
+  label,
+  buttonLabel,
+  children,
+}) => {
   const handleClick = () => {
-    const { startUndoable, record } = props
-    if (props.onClick) props.onClick(record.id, record)
-    if (props.action) startUndoable(props.action(record.id, record))
-  }
+    if (onClick) onClick(record.id, record);
+    if (action) startUndoable(action(record.id, record));
+  };
 
   return (
-    <Labeled label={props.translate(props.label)}>
-      <MuiButton
-        label={props.translate(props.buttonLabel)}
-        onClick={handleClick}
-        color='primary'
-      >
-        {props.children}&nbsp;
-        {props.translate(props.buttonLabel)}
+    <Labeled label={translate(label)}>
+      <MuiButton label={translate(buttonLabel)} color="primary" onClick={handleClick}>
+        {children}&nbsp;
+        {translate(buttonLabel)}
       </MuiButton>
     </Labeled>
-  )
-}
+  );
+};
 
 ButtonInput.propTypes = {
   startUndoable: PropTypes.func,
@@ -35,13 +36,16 @@ ButtonInput.propTypes = {
   label: PropTypes.string,
   buttonLabel: PropTypes.string,
   action: PropTypes.func,
-  onClick: PropTypes.func
-}
+  onClick: PropTypes.func,
+  children: PropTypes.array,
+};
 
 ButtonInput.contextTypes = {
-  translate: PropTypes.func
-}
+  translate: PropTypes.func,
+};
 
-export default translate(connect(null, {
-  startUndoable: startUndoableAction
-})(ButtonInput))
+export default translate(
+  connect(null, {
+    startUndoable: startUndoableAction,
+  })(ButtonInput),
+);

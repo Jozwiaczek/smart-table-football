@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import { DateField, FormTab, required, TextField, TextInput } from 'react-admin'
+import { DateField, FormTab, required, TextField, TextInput } from 'react-admin';
 
-import { models } from 'stf-core'
+import { models } from 'stf-core';
 
 const AccountTab = ({
   classes,
@@ -14,20 +14,18 @@ const AccountTab = ({
   basePath,
   ...rest
 }) => (
-  <FormTab label='Account details' {...rest}>
+  <FormTab label="Account details" {...rest}>
     <TextInput
-      source={models.players.fields.email}
-      type='email'
-      validate={required()}
       disabled
-      helperText='To change your email contact: support@stf.io'
+      source={models.players.fields.email}
+      type="email"
+      validate={required()}
+      helperText="To change your email contact: support@stf.io"
     />
-    <TextField
-      source={models.players.fields.status}
-    />
-    <DateField source='createdAt' showTime />
-    <DateField source='updatedAt' showTime />
+    <TextField source={models.players.fields.status} />
+    <DateField showTime source="createdAt" />
+    <DateField showTime source="updatedAt" />
   </FormTab>
-)
+);
 
-export default AccountTab
+export default AccountTab;

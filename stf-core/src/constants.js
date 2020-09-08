@@ -8,71 +8,71 @@ const resources = {
   goals: 'goals',
   mailer: 'mailer',
   table: 'table',
-  notifications: 'notifications'
-}
+  notifications: 'notifications',
+};
 
 const notificationType = {
   general: 'general',
   invitation: 'invitation',
-  update: 'update'
-}
+  update: 'update',
+};
 
-const storageKey = 'feathers-jwt'
+const storageKey = 'feathers-jwt';
 
 const themeMode = {
   name: 'themeMode',
   type: {
     light: 'light',
-    dark: 'dark'
-  }
-}
+    dark: 'dark',
+  },
+};
 
 const userEntities = {
   admin: 'admin',
-  player: 'player'
-}
+  player: 'player',
+};
 
 const authStrategies = {
   jwtAdmin: 'jwtAdmin',
-  jwtPlayer: 'jwtPlayer'
-}
+  jwtPlayer: 'jwtPlayer',
+};
 
 const locales = {
   en: 'en',
-  pl: 'pl'
-}
+  pl: 'pl',
+};
 
 const authorizationHeaders = {
   admin: 'authorization-admin',
-  player: 'authorization-player'
-}
+  player: 'authorization-player',
+};
 
 const playerRoutes = {
-  passwordReset: 'password/edit'
-}
+  passwordReset: 'password/edit',
+};
 
 const statusEnum = {
   approved: 'approved',
   rejected: 'rejected',
-  pending: 'pending'
-}
+  pending: 'pending',
+};
 
 const statusMatch = {
   await: 'await',
   active: 'active',
   finished: 'finished',
-  paused: 'paused'
-}
+  paused: 'paused',
+};
 
 const cardStatusEnum = {
   updating: 'updating',
   error: 'error',
-  ok: 'ok'
-}
+  ok: 'ok',
+};
 
 const formNames = {
-  registrationForm: 'registrationForm'
-}
+  registrationForm: 'registrationForm',
+};
 
 const socketEvents = {
   disconnect: 'disconnect',
@@ -84,8 +84,8 @@ const socketEvents = {
   stopListening: 'stopListening',
   createdGoal: 'createdGoal',
   goal: 'goal',
-  isTableInGame: 'isTableInGame'
-}
+  isTableInGame: 'isTableInGame',
+};
 
 module.exports = {
   resources,
@@ -101,5 +101,5 @@ module.exports = {
   locales,
   socketEvents,
   themeMode,
-  notificationType
-}
+  notificationType,
+};

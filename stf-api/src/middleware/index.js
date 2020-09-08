@@ -1,7 +1,6 @@
 module.exports = function (app) {
   // Add your custom middleware here. Remember that
   // in Express, the order matters.
-
   // // Create test mail
   // app.use('/test-mail', function (req, res) {
   //   console.log('/test-mail')
@@ -20,4 +19,4 @@ module.exports = function (app) {
   //     password: '123123'
   //   })
   // })
-}
+};

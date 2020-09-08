@@ -1,6 +1,6 @@
 # stf-api
 
-> 
+>
 
 ## About
 
@@ -13,16 +13,16 @@ Getting up and running is as easy as 1, 2, 3.
 1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
 2. Install your dependencies
 
-    ```
-    cd path/to/stf-api
-    npm install
-    ```
+   ```
+   cd path/to/stf-api
+   npm install
+   ```
 
 3. Start your app
 
-    ```
-    npm start
-    ```
+   ```
+   npm start
+   ```
 
 ## Testing
 
@@ -49,18 +49,23 @@ For more information on all the things you can do with Feathers visit [docs.feat
 ## How To Deploy And Manage MongoDB With Docker
 
 ### Download MongoDB Image for Docker
+
 Proceed to download the latest official Docker image for the MongoDB database:
+
 ```bash
 docker pull mongo
 ```
 
 List the images in your Docker repository with the following command:
+
 ```bash
 docker images
 ```
 
 ### Deploy MongoDB Container
+
 Start the Docker container with the run command using the mongo image.
+
 ```bash
 docker run -it -v $(pwd)/data/db:/data/db -p 27017:27017 --name mongodb -d mongo
 ```
@@ -78,6 +83,7 @@ docker logs mongodb
 ```
 
 ### Start Interactive Docker Terminal to Manage Database
+
 The container is currently running in detached mode. Connect to the container using the interactive terminal instead:
 
 ```bash
@@ -87,6 +93,7 @@ docker exec -it mongodb bash
 Start the MongoDB shell by typing `mongo` in the interactive terminal.
 
 ### Stopping and Restarting MongoDB Database
+
 The docker stop command is a short and clear command that stops running container instances:
 
 ```bash
@@ -94,12 +101,15 @@ docker stop mongodb
 ```
 
 Inspect the list of running Docker containers by typing:
+
 ```bash
 docker ps -a
 ```
+
 - `-a` - list all containers, both running and stopped
 
 Containers are started by using the docker start command:
+
 ```bash
 docker start mongodb
 ```

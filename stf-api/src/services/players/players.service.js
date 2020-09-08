@@ -1,24 +1,25 @@
 // Initializes the `players` service on path `/players`
-const createService = require('feathers-mongoose')
-const createModel = require('../../models/users/players.model')
-const hooks = require('./players.hooks')
+const createService = require('feathers-mongoose');
 
-const { constants } = require('stf-core')
+const { constants } = require('stf-core');
+
+const createModel = require('../../models/users/players.model');
+const hooks = require('./players.hooks');
 
 module.exports = function (app) {
-  const Model = createModel(app)
-  const paginate = app.get('paginate')
+  const Model = createModel(app);
+  const paginate = app.get('paginate');
 
   const options = {
     Model,
-    paginate
-  }
+    paginate,
+  };
 
   // Initialize our service with any options it requires
-  app.use(`/${constants.resources.players}`, createService(options))
+  app.use(`/${constants.resources.players}`, createService(options));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service(constants.resources.players)
+  const service = app.service(constants.resources.players);
 
-  service.hooks(hooks)
-}
+  service.hooks(hooks);
+};

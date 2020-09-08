@@ -1,6 +1,6 @@
-const { authenticate } = require('@feathersjs/authentication').hooks
+const { authenticate } = require('@feathersjs/authentication').hooks;
 
-const htmlToPlainText = require('./hooks/html-to-plain-text')
+const htmlToPlainText = require('./hooks/html-to-plain-text');
 
 module.exports = {
   before: {
@@ -11,7 +11,7 @@ module.exports = {
     create: [htmlToPlainText()],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   after: {
@@ -21,7 +21,7 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -31,6 +31,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
-}
+    remove: [],
+  },
+};

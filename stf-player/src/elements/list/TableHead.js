@@ -1,21 +1,36 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Checkbox, TableCell, TableHead as TableHeadUI, TableRow, TableSortLabel } from '@material-ui/core'
+import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  Checkbox,
+  TableCell,
+  TableHead as TableHeadUI,
+  TableRow,
+  TableSortLabel,
+} from '@material-ui/core';
 
-const TableHead = ({ headCells, classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort }) => {
+const TableHead = ({
+  headCells,
+  classes,
+  onSelectAllClick,
+  order,
+  orderBy,
+  numSelected,
+  rowCount,
+  onRequestSort,
+}) => {
   const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property)
-  }
+    onRequestSort(event, property);
+  };
 
   return (
     <TableHeadUI>
       <TableRow>
-        <TableCell padding='checkbox'>
+        <TableCell padding="checkbox">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
             inputProps={{ 'aria-label': 'select all desserts' }}
+            onChange={onSelectAllClick}
           />
         </TableCell>
         {headCells.map((headCell) => (
@@ -41,8 +56,8 @@ const TableHead = ({ headCells, classes, onSelectAllClick, order, orderBy, numSe
         ))}
       </TableRow>
     </TableHeadUI>
-  )
-}
+  );
+};
 
 TableHead.propTypes = {
   headCells: PropTypes.array.isRequired,
@@ -52,7 +67,7 @@ TableHead.propTypes = {
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired
-}
+  rowCount: PropTypes.number.isRequired,
+};
 
-export default TableHead
+export default TableHead;

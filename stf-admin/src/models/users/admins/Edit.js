@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   DateField,
@@ -11,57 +11,36 @@ import {
   CloneButton,
   TabbedForm,
   FormTab,
-  required
-} from 'react-admin'
+  required,
+} from 'react-admin';
 
-import {
-  constants,
-  models
-} from 'stf-core'
+import { constants, models } from 'stf-core';
 
-import {
-  getChoices
-} from '../../../enum'
+import { getChoices } from '../../../enum';
 
 const EditActions = ({ basePath, data }) => (
   <TopToolbar>
     <ListButton basePath={basePath} />
     <CloneButton basePath={basePath} record={data} />
   </TopToolbar>
-)
+);
 
 const AdminEdit = (props) => (
-  <Edit
-    {...props}
-    actions={<EditActions />}
-    undoable={false}
-    title='Admin Edit'
-  >
-    <TabbedForm
-      redirect={false}
-    >
-      <FormTab
-        label='summary'
-      >
-        <TextField source='id' />
-        <TextInput
-          source={models.admins.fields.email}
-          type='email'
-          validate={required()}
-        />
-        <TextInput
-          source={models.admins.fields.password}
-          type='password'
-        />
+  <Edit {...props} actions={<EditActions />} undoable={false} title="Admin Edit">
+    <TabbedForm redirect={false}>
+      <FormTab label="summary">
+        <TextField source="id" />
+        <TextInput source={models.admins.fields.email} type="email" validate={required()} />
+        <TextInput source={models.admins.fields.password} type="password" />
         <SelectInput
           source={models.admins.fields.status}
           choices={getChoices(constants.statusEnum)}
         />
-        <DateField source='createdAt' showTime />
-        <DateField source='updatedAt' showTime />
+        <DateField showTime source="createdAt" />
+        <DateField showTime source="updatedAt" />
       </FormTab>
     </TabbedForm>
   </Edit>
-)
+);
 
-export default AdminEdit
+export default AdminEdit;

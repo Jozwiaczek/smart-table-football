@@ -1,33 +1,33 @@
-const { constants } = require('stf-core')
-const nodemailer = require('nodemailer')
+const { constants } = require('stf-core');
+const nodemailer = require('nodemailer');
 
 exports.Mailer = class Mailer {
-  constructor (options) {
-    this.options = options || {}
+  constructor(options) {
+    this.options = options || {};
   }
 
-  setup (app) {
-    this.app = app
+  setup(app) {
+    this.app = app;
   }
 
-  async create (data, params) {
+  async create(data, params) {
     if (Array.isArray(data)) {
-      return Promise.all(data.map(current => this.create(current, params)))
+      return Promise.all(data.map((current) => this.create(current, params)));
     }
 
-    const mailerConfig = this.app.get(constants.resources.mailer)
+    const mailerConfig = this.app.get(constants.resources.mailer);
 
-    const email = { ...data }
+    const email = { ...data };
 
     // set default from
-    if (!email.from) email.from = mailerConfig.from
+    if (!email.from) email.from = mailerConfig.from;
 
-    const transporter = await nodemailer.createTransport(mailerConfig)
+    const transporter = await nodemailer.createTransport(mailerConfig);
 
-    const mailResponse = await transporter.sendMail(email)
+    const mailResponse = await transporter.sendMail(email);
 
-    console.log('Preview new mail URL: %s', nodemailer.getTestMessageUrl(mailResponse))
+    console.log('Preview new mail URL: %s', nodemailer.getTestMessageUrl(mailResponse));
 
-    return mailResponse
+    return mailResponse;
   }
-}
+};

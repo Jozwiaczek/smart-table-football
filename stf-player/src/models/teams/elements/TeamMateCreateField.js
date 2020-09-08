@@ -1,46 +1,46 @@
-import React from 'react'
-import { Field } from 'react-final-form'
-import { makeStyles } from '@material-ui/core'
-import Grid from '@material-ui/core/Grid'
-import CheckIcon from '@material-ui/icons/Check'
-import CancelIcon from '@material-ui/icons/Cancel'
-import { models } from 'stf-core'
-import FormTextField from '../../../elements/forms/FormTextField'
+import React from 'react';
+import { Field } from 'react-final-form';
+import { makeStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import CheckIcon from '@material-ui/icons/Check';
+import CancelIcon from '@material-ui/icons/Cancel';
+import { models } from 'stf-core';
+
+import FormTextField from '../../../elements/forms/FormTextField';
 
 const useStyles = makeStyles(() => ({
   container: {
     marginBottom: '1.5em',
     height: '4em',
-    width: '50%'
+    width: '50%',
   },
   field: {
-    width: '80%'
-  }
-}))
+    width: '80%',
+  },
+}));
 
 const CheckIconElement = ({ touched, error }) => {
-  if (!touched) return null
-  else if (error) {
-    return <CancelIcon color='error' />
-  } else {
-    return <CheckIcon color='primary' />
+  if (!touched) return null;
+  if (error) {
+    return <CancelIcon color="error" />;
   }
-}
+  return <CheckIcon color="primary" />;
+};
 
 // TODO: Add invite mail if provided user doesnt exists
 const TeamMateCreateField = ({ loading, touched, errors }) => {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
-    <Grid container spacing={1} alignItems='center' className={classes.container}>
+    <Grid container spacing={1} alignItems="center" className={classes.container}>
       <Grid item className={classes.field}>
         <Field
+          required
           id={models.teams.fields.invited}
           name={models.teams.fields.invited}
           component={FormTextField}
-          label='Team Mate Email'
+          label="Team Mate Email"
           disabled={loading}
-          required
         />
       </Grid>
       <Grid item>
@@ -50,11 +50,9 @@ const TeamMateCreateField = ({ loading, touched, errors }) => {
         />
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-TeamMateCreateField.propTypes = {
+TeamMateCreateField.propTypes = {};
 
-}
-
-export default TeamMateCreateField
+export default TeamMateCreateField;

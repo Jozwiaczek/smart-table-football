@@ -1,5 +1,5 @@
-import React, { cloneElement, useEffect, useState } from 'react'
-import compose from 'recompose/compose'
+import React, { cloneElement, useEffect, useState } from 'react';
+import compose from 'recompose/compose';
 
 import {
   CreateButton,
@@ -14,96 +14,104 @@ import {
   TextField,
   TopToolbar,
   useRefresh,
-  withDataProvider
-} from 'react-admin'
+  withDataProvider,
+} from 'react-admin';
 
-import { Button, Typography } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
-import AssessmentIcon from '@material-ui/icons/Assessment'
-import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo'
-import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'
+import { Button, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
-import { constants, models } from 'stf-core'
+import { constants, models } from 'stf-core';
 
-import DateFilters from '../../elements/DateFilters'
-import { getTimerUnit } from '../../utils/getTimerUnits'
-import { useSelector } from 'react-redux'
-import { getPlayerId } from '../../utils/getPlayerId'
-import { socket } from '../../client/feathersSocketClient'
-import { Datagrid } from 'ra-ui-materialui'
+import { useSelector } from 'react-redux';
+
+import { Datagrid } from 'ra-ui-materialui';
+
+import DateFilters from '../../elements/DateFilters';
+import { getTimerUnit } from '../../utils/getTimerUnits';
+import { getPlayerId } from '../../utils/getPlayerId';
+import { socket } from '../../client/feathersSocketClient';
 
 const styles = {
   buttonIcon: {
-    marginRight: '0.3em'
-  }
-}
+    marginRight: '0.3em',
+  },
+};
 
 export const Filters = (props) => (
   <Filter {...props}>
-    <TextField
-      label='Email'
-      source={`${models.admins.fields.email}.$regex`}
-      alwaysOn
-    />
+    <TextField alwaysOn label="Email" source={`${models.admins.fields.email}.$regex`} />
 
     {DateFilters}
   </Filter>
-)
+);
 
 const ShowStatistic = ({ classes, record, history, mobile }) => {
-  if (!record) return null
+  if (!record) return null;
 
   return (
-    <Button color='primary' onClick={() => history.push(`/${constants.resources.matches}/${record._id}`)}>
+    <Button
+      color="primary"
+      onClick={() => history.push(`/${constants.resources.matches}/${record._id}`)}
+    >
       <AssessmentIcon className={classes.buttonIcon} />
       {mobile ? null : 'Statistic'}
     </Button>
-  )
-}
+  );
+};
 
 const ContinueButton = ({ classes, record, history, mobile, disabled, isInGame }) => {
-  if (!record) return null
+  if (!record) return null;
 
   if (isInGame === record.id) {
     return (
-      <Button color='action' disabled={disabled} onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}>
-        <EmojiPeopleIcon className={classes.buttonIcon} color='action' />
+      <Button
+        color="action"
+        disabled={disabled}
+        onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}
+      >
+        <EmojiPeopleIcon className={classes.buttonIcon} color="action" />
         {mobile ? null : 'Join'}
       </Button>
-    )
+    );
   }
 
-  if (record[models.matches.fields.status] === constants.statusMatch.paused || record[models.matches.fields.status] === constants.statusMatch.await) {
+  if (
+    record[models.matches.fields.status] === constants.statusMatch.paused ||
+    record[models.matches.fields.status] === constants.statusMatch.await
+  ) {
     return (
-      <Button color='primary' disabled={disabled || isInGame} onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}>
+      <Button
+        color="primary"
+        disabled={disabled || isInGame}
+        onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}
+      >
         <SlowMotionVideoIcon className={classes.buttonIcon} />
         {mobile ? null : 'Resume'}
       </Button>
-    )
+    );
   }
-  return null
-}
+  return null;
+};
 
 const TeamsMobileField = ({ teams, record }) => {
-  if (!teams || !record) return null
-  const teamA = teams.find(team => team._id === record[models.matches.fields.teamA])
-  const teamB = teams.find(team => team._id === record[models.matches.fields.teamB])
+  if (!teams || !record) return null;
+  const teamA = teams.find((team) => team._id === record[models.matches.fields.teamA]);
+  const teamB = teams.find((team) => team._id === record[models.matches.fields.teamB]);
   return (
     <Typography>
       {teamA[models.teams.fields.name]} vs {teamB[models.teams.fields.name]}
     </Typography>
-  )
-}
+  );
+};
 
 const WinnerMobileField = ({ teams, record }) => {
-  if (!teams || !record || !record[models.matches.fields.winner]) return null
-  const winner = teams.find(team => team._id === record[models.matches.fields.winner])
-  return (
-    <Typography>
-      Winner: {winner[models.teams.fields.name]}
-    </Typography>
-  )
-}
+  if (!teams || !record || !record[models.matches.fields.winner]) return null;
+  const winner = teams.find((team) => team._id === record[models.matches.fields.winner]);
+  return <Typography>Winner: {winner[models.teams.fields.name]}</Typography>;
+};
 
 const Timer = ({ record, globalElapsedTimer, isInGame, ...rest }) => {
   if (isInGame === record.id) {
@@ -113,75 +121,75 @@ const Timer = ({ record, globalElapsedTimer, isInGame, ...rest }) => {
         record={record}
         source={models.matches.fields.elapsedTime}
         render={() => {
-          return (
-            `${getTimerUnit(globalElapsedTimer).min}:${getTimerUnit(globalElapsedTimer).sec}`
-          )
+          return `${getTimerUnit(globalElapsedTimer).min}:${getTimerUnit(globalElapsedTimer).sec}`;
         }}
       />
-    )
+    );
   }
   return (
     <FunctionField
       {...rest}
       record={record}
       source={models.matches.fields.elapsedTime}
-      render={record => {
-        const elapsedTime = record[models.matches.fields.elapsedTime]
-        return (
-          `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
-        )
+      render={(record) => {
+        const elapsedTime = record[models.matches.fields.elapsedTime];
+        return `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`;
       }}
     />
-  )
-}
+  );
+};
 
 const rowStyle = (record = {}, isInGame) => {
   if (isInGame === record.id) {
-    return { backgroundColor: 'rgba(255,152,0,0.10)' }
+    return { backgroundColor: 'rgba(255,152,0,0.10)' };
   }
-  return {}
-}
+  return {};
+};
 
 const MatchList = ({ classes, dataProvider, ...rest }) => {
-  const [teams, setTeams] = useState([])
-  const [playerTeamsIds, setPlayerTeamsIds] = useState([])
-  const [globalElapsedTimer, setGlobalElapsedTimer] = useState(0)
-  const refresh = useRefresh()
+  const [teams, setTeams] = useState([]);
+  const [playerTeamsIds, setPlayerTeamsIds] = useState([]);
+  const [globalElapsedTimer, setGlobalElapsedTimer] = useState(0);
+  const refresh = useRefresh();
 
-  const tableStatus = useSelector(state => state.table.isActive)
-  const isInGame = useSelector(state => state.table.isInGame)
+  const tableStatus = useSelector((state) => state.table.isActive);
+  const isInGame = useSelector((state) => state.table.isInGame);
 
   useEffect(() => {
     const call = async () => {
       try {
-        const teamsRes = await dataProvider(GET_LIST, constants.resources.teams, { filter: {} }).then(res => res.data)
-        setTeams(teamsRes)
-        const playerTeamsRes = teamsRes.filter(team => team[models.teams.fields.players].includes(getPlayerId()))
-        setPlayerTeamsIds(playerTeamsRes.map(team => team.id))
+        const teamsRes = await dataProvider(GET_LIST, constants.resources.teams, {
+          filter: {},
+        }).then((res) => res.data);
+        setTeams(teamsRes);
+        const playerTeamsRes = teamsRes.filter((team) =>
+          team[models.teams.fields.players].includes(getPlayerId()),
+        );
+        setPlayerTeamsIds(playerTeamsRes.map((team) => team.id));
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-    }
-    call()
-  }, [dataProvider, isInGame])
+    };
+    call();
+  }, [dataProvider, isInGame]);
 
   useEffect(() => {
     const req = () => {
-      socket.on('currentStepTime', currentStepTime => {
-        setGlobalElapsedTimer(currentStepTime)
-      })
-    }
-    req()
-  }, [isInGame, setGlobalElapsedTimer])
+      socket.on('currentStepTime', (currentStepTime) => {
+        setGlobalElapsedTimer(currentStepTime);
+      });
+    };
+    req();
+  }, [isInGame, setGlobalElapsedTimer]);
 
   useEffect(() => {
     const req = () => {
       if (!isInGame) {
-        refresh()
+        refresh();
       }
-    }
-    req()
-  }, [isInGame, refresh])
+    };
+    req();
+  }, [isInGame, refresh]);
 
   const ListActions = ({
     className,
@@ -194,19 +202,20 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
     ...rest
   }) => (
     <TopToolbar className={className} {...sanitizeListRestProps(rest)}>
-      {filters && cloneElement(filters, {
-        resource,
-        showFilter,
-        displayedFilters,
-        filterValues,
-        context: 'button'
-      })}
+      {filters &&
+        cloneElement(filters, {
+          resource,
+          showFilter,
+          displayedFilters,
+          filterValues,
+          context: 'button',
+        })}
       <CreateButton basePath={basePath} disabled={isInGame} />
     </TopToolbar>
-  )
+  );
 
   if (!playerTeamsIds || playerTeamsIds.length === 0) {
-    return null
+    return null;
   }
 
   return (
@@ -218,46 +227,48 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
         $or: [
           {
             [models.matches.fields.teamA]: {
-              $in: playerTeamsIds
-            }
+              $in: playerTeamsIds,
+            },
           },
           {
             [models.matches.fields.teamB]: {
-              $in: playerTeamsIds
-            }
-          }
-        ]
+              $in: playerTeamsIds,
+            },
+          },
+        ],
       }}
     >
       <Responsive
         small={
           <SimpleList
-            primaryText={record => record && <TeamsMobileField teams={teams} record={record} />}
-            secondaryText={record => record && <WinnerMobileField teams={teams} record={record} />}
-            tertiaryText={record => record && (
-              <>
-                <ContinueButton classes={classes} mobile record={record} {...rest} />
-                <ShowStatistic classes={classes} mobile record={record} {...rest} />
-              </>
-            )}
+            primaryText={(record) => record && <TeamsMobileField teams={teams} record={record} />}
+            secondaryText={(record) =>
+              record && <WinnerMobileField teams={teams} record={record} />
+            }
+            tertiaryText={(record) =>
+              record && (
+                <>
+                  <ContinueButton mobile classes={classes} record={record} {...rest} />
+                  <ShowStatistic mobile classes={classes} record={record} {...rest} />
+                </>
+              )
+            }
             linkType={false}
           />
         }
         medium={
-          <Datagrid
-            rowStyle={record => rowStyle(record, isInGame)}
-          >
+          <Datagrid rowStyle={(record) => rowStyle(record, isInGame)}>
             <ReferenceField
               source={models.matches.fields.teamA}
               reference={constants.resources.teams}
-              label='Team A'
+              label="Team A"
             >
               <TextField source={models.teams.fields.name} />
             </ReferenceField>
             <ReferenceField
               source={models.matches.fields.teamB}
               reference={constants.resources.teams}
-              label='Team B'
+              label="Team B"
             >
               <TextField source={models.teams.fields.name} />
             </ReferenceField>
@@ -273,29 +284,31 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
               classes={classes}
               disabled={!tableStatus}
               isInGame={isInGame}
-              label='Time NEW'
+              label="Time NEW"
               {...rest}
             />
             <FunctionField
-              source={models.matches.fields.elapsedTime} label='Time' render={record => {
-                const elapsedTime = record[models.matches.fields.elapsedTime]
-                return (
-                  `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
-                )
+              source={models.matches.fields.elapsedTime}
+              label="Time"
+              render={(record) => {
+                const elapsedTime = record[models.matches.fields.elapsedTime];
+                return `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`;
               }}
             />
-            <ContinueButton classes={classes} disabled={!tableStatus} isInGame={isInGame} {...rest} />
+            <ContinueButton
+              classes={classes}
+              disabled={!tableStatus}
+              isInGame={isInGame}
+              {...rest}
+            />
             <ShowStatistic classes={classes} {...rest} />
           </Datagrid>
         }
       />
     </List>
-  )
-}
+  );
+};
 
-const enhance = compose(
-  withStyles(styles),
-  withDataProvider
-)
+const enhance = compose(withStyles(styles), withDataProvider);
 
-export default enhance(MatchList)
+export default enhance(MatchList);

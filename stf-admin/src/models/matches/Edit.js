@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   CloneButton,
@@ -19,52 +19,44 @@ import {
   SelectInput,
   TabbedForm,
   TextField,
-  TopToolbar
-} from 'react-admin'
+  TopToolbar,
+} from 'react-admin';
 
-import { InputAdornment } from '@material-ui/core'
+import { InputAdornment } from '@material-ui/core';
 
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core/styles';
 
-import { constants, models } from 'stf-core'
-import { getChoices } from '../../enum'
-import { getTimerUnit } from '../../utils/getTimerUnits'
+import { constants, models } from 'stf-core';
+
+import { getChoices } from '../../enum';
+import { getTimerUnit } from '../../utils/getTimerUnits';
 
 const styles = {
   fullWidth: {
-    width: '100%'
-  }
-}
+    width: '100%',
+  },
+};
 
 const EditActions = ({ basePath, data }) => (
   <TopToolbar>
     <ListButton basePath={basePath} />
     <CloneButton basePath={basePath} record={data} />
   </TopToolbar>
-)
+);
 
-const MatchEdit = props => (
-  <Edit
-    {...props}
-    actions={<EditActions />}
-    undoable={false}
-    title='Match Edit'
-  >
-    <TabbedForm
-      redirect={false}
-    >
-      <FormTab
-        label='summary'
-      >
-        <TextField source='id' />
+const MatchEdit = ({ classes, ...rest }) => (
+  <Edit {...rest} actions={<EditActions />} undoable={false} title="Match Edit">
+    <TabbedForm redirect={false}>
+      <FormTab label="summary">
+        <TextField source="id" />
         <ReferenceInput
           source={models.matches.fields.teamA}
           reference={constants.resources.teams}
           validate={required()}
-          label='Team A'
+          label="Team A"
           sort={{
             field: models.teams.fields.name,
-            order: 'ASC'
+            order: 'ASC',
           }}
         >
           <SelectInput optionText={models.teams.fields.name} />
@@ -73,10 +65,10 @@ const MatchEdit = props => (
           source={models.matches.fields.teamB}
           reference={constants.resources.teams}
           validate={required()}
-          label='Team B'
+          label="Team B"
           sort={{
             field: models.teams.fields.name,
-            order: 'ASC'
+            order: 'ASC',
           }}
         >
           <SelectInput optionText={models.teams.fields.name} />
@@ -91,54 +83,45 @@ const MatchEdit = props => (
           validate={[required(), minValue(4), maxValue(10), number()]}
           default={7}
           options={{
-            InputProps: { endAdornment: <InputAdornment position='start'>seconds</InputAdornment> }
+            InputProps: { endAdornment: <InputAdornment position="start">seconds</InputAdornment> },
           }}
         />
         <FunctionField
-          label='Elapsed Time'
-          render={record => {
-            const elapsedTime = record[models.matches.fields.elapsedTime]
-            return `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`
+          label="Elapsed Time"
+          render={(record) => {
+            const elapsedTime = record[models.matches.fields.elapsedTime];
+            return `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`;
           }}
         />
-        <DateField source='createdAt' showTime />
-        <DateField source='updatedAt' showTime />
+        <DateField showTime source="createdAt" />
+        <DateField showTime source="updatedAt" />
       </FormTab>
 
-      <FormTab
-        label='goals'
-      >
+      <FormTab label="goals">
         <ReferenceManyField
           addLabel={false}
           reference={constants.resources.goals}
           target={models.goals.fields.match}
-          className={props.classes.fullWidth}
+          className={classes.fullWidth}
           sort={{
             field: 'createdAt',
-            order: 'DESC'
+            order: 'DESC',
           }}
         >
-          <Datagrid
-            rowClick='show'
-          >
-            <ReferenceField
-              source={models.goals.fields.team}
-              reference={constants.resources.teams}
-            >
+          <Datagrid rowClick="show">
+            <ReferenceField source={models.goals.fields.team} reference={constants.resources.teams}>
               <TextField source={models.teams.fields.name} />
             </ReferenceField>
-            <DateField source='createdAt' showTime />
+            <DateField showTime source="createdAt" />
           </Datagrid>
         </ReferenceManyField>
       </FormTab>
 
-      <FormTab
-        label='test'
-      >
+      <FormTab label="test">
         <p>test</p>
       </FormTab>
     </TabbedForm>
   </Edit>
-)
+);
 
-export default withStyles(styles)(MatchEdit)
+export default withStyles(styles)(MatchEdit);

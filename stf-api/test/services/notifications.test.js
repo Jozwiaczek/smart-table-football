@@ -1,11 +1,11 @@
 /* eslint-disable */
-const assert = require('assert')
-const app = require('../../src/app')
+const assert = require('assert');
+const app = require('../../src/app');
 
-describe('\'Notifications\' service', () => {
+describe("'Notifications' service", () => {
   it('registered the service', () => {
-    const service = app.service('notifications')
+    const service = app.service('notifications');
 
-    assert.ok(service, 'Registered the service')
-  })
-})
+    assert.ok(service, 'Registered the service');
+  });
+});

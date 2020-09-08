@@ -1,10 +1,10 @@
-const { authenticate } = require('@feathersjs/authentication').hooks
+const { authenticate } = require('@feathersjs/authentication').hooks;
 
-const checkNumberOfGoals = require('./hooks/check-number-of-goals')
-const checkMatchStatus = require('./hooks/check-match-status')
-const removeReplay = require('./hooks/remove-replay')
+const checkNumberOfGoals = require('./hooks/check-number-of-goals');
+const checkMatchStatus = require('./hooks/check-match-status');
+const removeReplay = require('./hooks/remove-replay');
 
-const createdGoalEmitter = require('./hooks/created-goal-emitter')
+const createdGoalEmitter = require('./hooks/created-goal-emitter');
 
 module.exports = {
   before: {
@@ -14,7 +14,7 @@ module.exports = {
     create: [checkMatchStatus()],
     update: [],
     patch: [],
-    remove: [removeReplay()]
+    remove: [removeReplay()],
   },
 
   after: {
@@ -24,7 +24,7 @@ module.exports = {
     create: [checkNumberOfGoals(), createdGoalEmitter()],
     update: [checkNumberOfGoals()],
     patch: [checkNumberOfGoals()],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -34,6 +34,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
-}
+    remove: [],
+  },
+};

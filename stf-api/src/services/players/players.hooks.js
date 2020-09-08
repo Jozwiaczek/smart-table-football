@@ -1,14 +1,8 @@
-const {
-  hashPassword,
-  protect
-} = require('@feathersjs/authentication-local').hooks
-const verifyHooks = require('feathers-authentication-management').hooks
-const {
-  models,
-  constants
-} = require('stf-core')
+const { hashPassword, protect } = require('@feathersjs/authentication-local').hooks;
+const verifyHooks = require('feathers-authentication-management').hooks;
+const { models, constants } = require('stf-core');
 
-const onboardPlayer = require('./hooks/onboard-player')
+const onboardPlayer = require('./hooks/onboard-player');
 
 module.exports = {
   before: {
@@ -17,25 +11,25 @@ module.exports = {
     get: [],
     create: [
       hashPassword(models.players.fields.password),
-      verifyHooks.addVerification(constants.resources.playerAuthManagement)
+      verifyHooks.addVerification(constants.resources.playerAuthManagement),
     ],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   after: {
     all: [
       // Make sure the password field is never sent to the client
       // Always must be the last hook
-      protect(models.players.fields.password)
+      protect(models.players.fields.password),
     ],
     find: [],
     get: [],
     create: [onboardPlayer()],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -45,6 +39,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
-}
+    remove: [],
+  },
+};

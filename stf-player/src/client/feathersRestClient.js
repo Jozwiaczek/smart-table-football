@@ -1,25 +1,27 @@
-/* global process */
-import feathers from '@feathersjs/feathers'
-import rest from '@feathersjs/rest-client'
-import auth from '@feathersjs/authentication-client'
+import feathers from '@feathersjs/feathers';
+import rest from '@feathersjs/rest-client';
+import auth from '@feathersjs/authentication-client';
 
-import appHooks from './app.hooks'
-import { constants } from 'stf-core'
+import { constants } from 'stf-core';
 
-const app = feathers()
+import appHooks from './app.hooks';
 
-const APIEndpoint = process.env.REACT_APP_API_URL
+const app = feathers();
 
-const restClient = rest(APIEndpoint)
+const APIEndpoint = process.env.REACT_APP_API_URL;
 
-app.configure(restClient.fetch(window.fetch))
+const restClient = rest(APIEndpoint);
 
-app.configure(auth({
-  jwtStrategy: constants.authStrategies.jwtPlayer,
-  storage: window.localStorage,
-  header: constants.authorizationHeaders.player
-}))
+app.configure(restClient.fetch(window.fetch));
 
-app.hooks(appHooks)
+app.configure(
+  auth({
+    jwtStrategy: constants.authStrategies.jwtPlayer,
+    storage: window.localStorage,
+    header: constants.authorizationHeaders.player,
+  }),
+);
 
-export default app
+app.hooks(appHooks);
+
+export default app;

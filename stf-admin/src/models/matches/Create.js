@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Create,
@@ -11,36 +11,32 @@ import {
   required,
   SelectInput,
   SimpleForm,
-  TopToolbar
-} from 'react-admin'
+  TopToolbar,
+} from 'react-admin';
 
-import { InputAdornment } from '@material-ui/core'
+import { InputAdornment } from '@material-ui/core';
 
-import { constants, models } from 'stf-core'
+import { constants, models } from 'stf-core';
 
-import { getChoices } from '../../enum'
+import { getChoices } from '../../enum';
 
 const CreateActions = ({ basePath }) => (
   <TopToolbar>
     <ListButton basePath={basePath} />
   </TopToolbar>
-)
+);
 
 const MatchCreate = (props) => (
-  <Create
-    {...props}
-    actions={<CreateActions />}
-    title='Match Create'
-  >
+  <Create {...props} actions={<CreateActions />} title="Match Create">
     <SimpleForm>
       <ReferenceInput
         source={models.matches.fields.teamA}
         reference={constants.resources.teams}
         validate={required()}
-        label='Team A'
+        label="Team A"
         sort={{
           field: models.teams.fields.name,
-          order: 'ASC'
+          order: 'ASC',
         }}
       >
         <SelectInput optionText={models.teams.fields.name} />
@@ -50,10 +46,10 @@ const MatchCreate = (props) => (
         source={models.matches.fields.teamB}
         reference={constants.resources.teams}
         validate={[required()]}
-        label='Team B'
+        label="Team B"
         sort={{
           field: models.teams.fields.name,
-          order: 'ASC'
+          order: 'ASC',
         }}
       >
         <SelectInput optionText={models.teams.fields.name} />
@@ -70,11 +66,11 @@ const MatchCreate = (props) => (
         validate={[required(), minValue(4), maxValue(10), number()]}
         default={7}
         options={{
-          InputProps: { endAdornment: <InputAdornment position='start'>seconds</InputAdornment> }
+          InputProps: { endAdornment: <InputAdornment position="start">seconds</InputAdornment> },
         }}
       />
     </SimpleForm>
   </Create>
-)
+);
 
-export default MatchCreate
+export default MatchCreate;

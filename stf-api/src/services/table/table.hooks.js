@@ -1,17 +1,17 @@
-const { authenticate } = require('@feathersjs/authentication').hooks
+const { authenticate } = require('@feathersjs/authentication').hooks;
 
-const changeStatusManager = require('./hooks/change-status-manager')
-const removeActiveMatches = require('./hooks/remove-active-matches')
+const changeStatusManager = require('./hooks/change-status-manager');
+const removeActiveMatches = require('./hooks/remove-active-matches');
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [authenticate('jwt')],
     find: [],
     get: [],
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   after: {
@@ -19,18 +19,9 @@ module.exports = {
     find: [],
     get: [],
     create: [changeStatusManager()],
-    update: [
-      changeStatusManager(),
-      removeActiveMatches()
-    ],
-    patch: [
-      changeStatusManager(),
-      removeActiveMatches()
-    ],
-    remove: [
-      changeStatusManager(),
-      removeActiveMatches()
-    ]
+    update: [changeStatusManager(), removeActiveMatches()],
+    patch: [changeStatusManager(), removeActiveMatches()],
+    remove: [changeStatusManager(), removeActiveMatches()],
   },
 
   error: {
@@ -40,6 +31,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
-}
+    remove: [],
+  },
+};

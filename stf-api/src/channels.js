@@ -1,13 +1,13 @@
 module.exports = function (app) {
   if (typeof app.channel !== 'function') {
     // If no real-time functionality has been configured just return
-    return
+    return;
   }
 
-  app.on('connection', connection => {
+  app.on('connection', (connection) => {
     // On a new real-time connection, add it to the anonymous channel
-    app.channel('anonymous').join(connection)
-  })
+    app.channel('anonymous').join(connection);
+  });
 
   app.on('login', (authResult, { connection }) => {
     // connection can be undefined if there is no
@@ -17,10 +17,10 @@ module.exports = function (app) {
       // const user = connection.user;
 
       // The connection is no longer anonymous, remove it
-      app.channel('anonymous').leave(connection)
+      app.channel('anonymous').leave(connection);
 
       // Add it to the authenticated user channel
-      app.channel('authenticated').join(connection)
+      app.channel('authenticated').join(connection);
 
       // Channels can be named anything and joined on any condition
 
@@ -34,7 +34,7 @@ module.exports = function (app) {
       // app.channel(`emails/${user.email}`).join(channel);
       // app.channel(`userIds/$(user.id}`).join(channel);
     }
-  })
+  });
 
   // eslint-disable-next-line no-unused-vars
   app.publish(async (data, hook) => {
@@ -42,15 +42,15 @@ module.exports = function (app) {
     // To publish only for a specific event use `app.publish(eventname, () => {})`
     // const resource = hook.path
 
-    const channels = new Set(['admins'])
+    const channels = new Set(['admins']);
 
-    const channelsToPublish = Array.from(channels)
+    const channelsToPublish = Array.from(channels);
 
     // console.log('Publishing all events to all authenticated players. See `channels.js` and https://docs.feathersjs.com/api/channels.html for more information.'); // eslint-disable-line
 
     // e.g. to publish all service events to all authenticated players use
-    return app.channel(channelsToPublish)
-  })
+    return app.channel(channelsToPublish);
+  });
 
   // Here you can also add service specific event publishers
   // e.g. the publish the `players` service `created` event to the `admins` channel
@@ -63,4 +63,4 @@ module.exports = function (app) {
   //     app.channel(`emails/${data.recipientEmail}`)
   //   ];
   // });
-}
+};

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   DateField,
@@ -18,97 +18,75 @@ import {
   ReferenceManyField,
   ChipField,
   SingleFieldList,
-  Datagrid
-} from 'react-admin'
+  Datagrid,
+} from 'react-admin';
 
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core/styles';
 
-import VerifiedUser from '@material-ui/icons/VerifiedUser'
-import Send from '@material-ui/icons/Send'
+import VerifiedUser from '@material-ui/icons/VerifiedUser';
+import Send from '@material-ui/icons/Send';
 
-import {
-  constants,
-  models
-} from 'stf-core'
+import { constants, models } from 'stf-core';
 
-import { getChoices } from '../../../enum'
-import playerAuthManagementActionFactory from '../../../actions/playerAuthManagement'
-import ButtonInput from '../../../elements/ButtonInput'
+import { getChoices } from '../../../enum';
+import playerAuthManagementActionFactory from '../../../actions/playerAuthManagement';
+import ButtonInput from '../../../elements/ButtonInput';
 
 const styles = {
   fullWidth: {
-    width: '100%'
-  }
-}
+    width: '100%',
+  },
+};
 
 const EditActions = ({ basePath, data }) => (
   <TopToolbar>
     <ListButton basePath={basePath} />
     <CloneButton basePath={basePath} record={data} />
   </TopToolbar>
-)
+);
 
-const PlayerEdit = (props) => (
-  <Edit
-    {...props}
-    actions={<EditActions />}
-    undoable={false}
-    title='Player Edit'
-  >
-    <TabbedForm
-      redirect={false}
-    >
-      <FormTab
-        label='summary'
-      >
-        <TextField source='id' />
-        <TextInput
-          source={models.players.fields.email}
-          type='email'
-          validate={required()}
-        />
-        <TextInput
-          source={models.players.fields.firstName}
-          validate={required()}
-        />
-        <TextInput
-          source={models.players.fields.lastName}
-          validate={required()}
-        />
+const PlayerEdit = ({ classes, ...rest }) => (
+  <Edit {...rest} actions={<EditActions />} undoable={false} title="Player Edit">
+    <TabbedForm redirect={false}>
+      <FormTab label="summary">
+        <TextField source="id" />
+        <TextInput source={models.players.fields.email} type="email" validate={required()} />
+        <TextInput source={models.players.fields.firstName} validate={required()} />
+        <TextInput source={models.players.fields.lastName} validate={required()} />
         <SelectInput
           source={models.players.fields.status}
           choices={getChoices(constants.statusEnum)}
         />
         <SelectInput
-          label='Language'
+          label="Language"
           source={models.players.fields.locale}
           choices={getChoices(constants.locales)}
           validate={required()}
         />
-        <DateField source='createdAt' showTime />
-        <DateField source='updatedAt' showTime />
+        <DateField showTime source="createdAt" />
+        <DateField showTime source="updatedAt" />
       </FormTab>
 
-      <FormTab label='verify'>
+      <FormTab label="verify">
         <ButtonInput
-          label='resources.users.actions.verifySignupLong.label'
-          buttonLabel='resources.users.actions.verifySignupLong.buttonLabel'
+          label="resources.users.actions.verifySignupLong.label"
+          buttonLabel="resources.users.actions.verifySignupLong.buttonLabel"
           action={playerAuthManagementActionFactory('verifySignupLong', (id, data) => ({
-            value: data[models.players.fields.verifyToken] || ''
+            value: data[models.players.fields.verifyToken] || '',
           }))}
         >
           <VerifiedUser />
         </ButtonInput>
         <ButtonInput
-          label='resources.users.actions.verifySignupShort.label'
-          buttonLabel='resources.users.actions.verifySignupShort.buttonLabel'
+          label="resources.users.actions.verifySignupShort.label"
+          buttonLabel="resources.users.actions.verifySignupShort.buttonLabel"
           action={playerAuthManagementActionFactory('verifySignupShort', (id, data) => ({
             value: {
               user: {
-                email: data[models.players.fields.email]
+                email: data[models.players.fields.email],
               },
-              token: data[models.players.fields.verifyShortToken] || ''
-            }
+              token: data[models.players.fields.verifyShortToken] || '',
+            },
           }))}
         >
           <VerifiedUser />
@@ -117,14 +95,14 @@ const PlayerEdit = (props) => (
         <DateTimeInput source={models.players.fields.verifyExpires} />
       </FormTab>
 
-      <FormTab label='password reset'>
+      <FormTab label="password reset">
         <ButtonInput
-          label='resources.users.actions.sendResetPwd.label'
-          buttonLabel='resources.users.actions.sendResetPwd.buttonLabel'
+          label="resources.users.actions.sendResetPwd.label"
+          buttonLabel="resources.users.actions.sendResetPwd.buttonLabel"
           action={playerAuthManagementActionFactory('sendResetPwd', (id, data) => ({
             value: {
-              email: data[models.players.fields.email]
-            }
+              email: data[models.players.fields.email],
+            },
           }))}
         >
           <Send />
@@ -132,39 +110,33 @@ const PlayerEdit = (props) => (
         <DateTimeInput source={models.players.fields.resetExpires} />
       </FormTab>
 
-      <FormTab
-        label='Teams'
-      >
+      <FormTab label="Teams">
         <ReferenceManyField
           addLabel={false}
           reference={constants.resources.teams}
-          className={props.classes.fullWidth}
+          className={classes.fullWidth}
           sort={{
             field: 'createdAt',
-            order: 'DESC'
+            order: 'DESC',
           }}
         >
-          <Datagrid
-            rowClick='edit'
-          >
+          <Datagrid rowClick="edit">
             <TextField source={models.teams.fields.name} />
             <ReferenceArrayField
               source={models.teams.fields.players}
               reference={constants.resources.players}
             >
               <SingleFieldList>
-                <ChipField
-                  source={models.players.fields.email}
-                />
+                <ChipField source={models.players.fields.email} />
               </SingleFieldList>
             </ReferenceArrayField>
 
-            <DateField source='createdAt' />
+            <DateField source="createdAt" />
           </Datagrid>
         </ReferenceManyField>
       </FormTab>
     </TabbedForm>
   </Edit>
-)
+);
 
-export default withStyles(styles)(PlayerEdit)
+export default withStyles(styles)(PlayerEdit);

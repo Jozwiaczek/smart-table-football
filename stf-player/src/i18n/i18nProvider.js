@@ -1,13 +1,14 @@
-import polyglotI18nProvider from 'ra-i18n-polyglot'
-import polishMessages from './pl'
-import englishMessages from './en'
+import polyglotI18nProvider from 'ra-i18n-polyglot';
 
-const i18nProvider = polyglotI18nProvider(locale => {
+import polishMessages from './pl';
+import englishMessages from './en';
+
+const i18nProvider = polyglotI18nProvider((locale) => {
   if (locale === 'pl') {
-    return polishMessages
+    return polishMessages;
   }
 
-  return englishMessages
-}, 'en')
+  return englishMessages;
+}, 'en');
 
-export default i18nProvider
+export default i18nProvider;

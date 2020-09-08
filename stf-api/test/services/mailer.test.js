@@ -1,11 +1,12 @@
 /* eslint-env mocha */
-const assert = require('assert')
-const app = require('../../src/app')
+const assert = require('assert');
 
-describe('\'mailer\' service', () => {
+const app = require('../../src/app');
+
+describe("'mailer' service", () => {
   it('registered the service', () => {
-    const service = app.service('mailer')
+    const service = app.service('mailer');
 
-    assert.ok(service, 'Registered the service')
-  })
-})
+    assert.ok(service, 'Registered the service');
+  });
+});

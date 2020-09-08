@@ -1,15 +1,13 @@
 /* eslint-disable */
-const assert = require('assert')
-const app = require('../../src/app')
+const assert = require('assert');
+const app = require('../../src/app');
 
-const {
-  constants
-} = require('stf-core')
+const { constants } = require('stf-core');
 
-describe('\'admins\' service', () => {
+describe("'admins' service", () => {
   it('registered the service', () => {
-    const service = app.service(constants.resources.admins)
+    const service = app.service(constants.resources.admins);
 
-    assert.ok(service, 'Registered the service')
-  })
-})
+    assert.ok(service, 'Registered the service');
+  });
+});

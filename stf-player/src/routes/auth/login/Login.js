@@ -1,42 +1,43 @@
-import React, { createRef } from 'react'
-import PropTypes from 'prop-types'
-import classnames from 'classnames'
+import React, { createRef } from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
-import { Notification } from 'react-admin'
-import { Card } from '@material-ui/core'
-import { createStyles, withStyles } from '@material-ui/core/styles'
+import { Notification } from 'react-admin';
+import { Card } from '@material-ui/core';
+import { createStyles, withStyles } from '@material-ui/core/styles';
 
-import DefaultLoginForm from './LoginForm'
-import BackgroundGraphic from '../../../elements/BackgroundGraphic'
-import Logo from '../../../elements/Logo'
-import ThemeWrapper from '../../../elements/ThemeWrapper'
+import DefaultLoginForm from './LoginForm';
+import BackgroundGraphic from '../../../elements/BackgroundGraphic';
+import Logo from '../../../elements/Logo';
+import ThemeWrapper from '../../../elements/ThemeWrapper';
 
-const styles = () => createStyles({
-  main: {
-    display: 'flex',
-    minHeight: '100vh',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  card: {
-    padding: '1rem',
-    width: '100%',
-    minWidth: 200,
-    maxWidth: 400,
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    boxSizing: 'border-box'
-  },
-  logo: {
-    marginTop: '1rem',
-    display: 'flex',
-    justifyContent: 'center'
-  }
-})
+const styles = () =>
+  createStyles({
+    main: {
+      display: 'flex',
+      minHeight: '100vh',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    card: {
+      padding: '1rem',
+      width: '100%',
+      minWidth: 200,
+      maxWidth: 400,
+      display: 'flex',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      boxSizing: 'border-box',
+    },
+    logo: {
+      marginTop: '1rem',
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  });
 
 const Login = ({ classes, className, loginForm }) => {
-  const containerRef = createRef()
+  const containerRef = createRef();
   return (
     <ThemeWrapper>
       <BackgroundGraphic>
@@ -49,17 +50,17 @@ const Login = ({ classes, className, loginForm }) => {
         </div>
       </BackgroundGraphic>
     </ThemeWrapper>
-  )
-}
+  );
+};
 
 Login.propTypes = {
   classes: PropTypes.object,
   className: PropTypes.string,
-  loginForm: PropTypes.element
-}
+  loginForm: PropTypes.element,
+};
 
 Login.defaultProps = {
-  loginForm: <DefaultLoginForm />
-}
+  loginForm: <DefaultLoginForm />,
+};
 
-export default withStyles(styles)(Login)
+export default withStyles(styles)(Login);

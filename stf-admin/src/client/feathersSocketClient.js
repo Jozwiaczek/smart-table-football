@@ -1,16 +1,17 @@
-import feathers from '@feathersjs/feathers'
-import socketio from '@feathersjs/socketio-client'
-import io from 'socket.io-client'
-import appHooks from './app.hooks'
+import feathers from '@feathersjs/feathers';
+import socketio from '@feathersjs/socketio-client';
+import io from 'socket.io-client';
 
-const app = feathers()
+import appHooks from './app.hooks';
 
-const APIEndpoint = process.env.REACT_APP_API_URL
+const app = feathers();
 
-export const socket = io(APIEndpoint)
+const APIEndpoint = process.env.REACT_APP_API_URL;
 
-app.configure(socketio(socket))
+export const socket = io(APIEndpoint);
 
-app.hooks(appHooks)
+app.configure(socketio(socket));
 
-export default app
+app.hooks(appHooks);
+
+export default app;

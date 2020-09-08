@@ -20,6 +20,7 @@
     "start": "if [ -n \"$START_API\" ]; then cd stf-api && echo api && yarn start; elif [ -n \"$START_ADMIN\" ]; then cd stf-admin && echo admin && yarn start; else cd stf-player && echo player && yarn start; fi",
     "lint": "yarn wsrun eslint",
     "lint:fix": "yarn wsrun eslint-fix",
+    "prettier": "npx prettier --write --config .prettierrc .",
     "electron:clean:build": "cd ./stf-admin-desktop && rimraf ./build",
     "electron:clean:release": "cd ./stf-admin-desktop && rimraf ./release",
     "electron:clean": "yarn electron:clean:build && yarn electron:clean:release",
@@ -38,8 +39,29 @@
   "devDependencies": {
     "electron": "latest",
     "electron-builder": "^22.8.0",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jsx-a11y": "^6.3.0",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "4.0.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.3.0",
+    "prettier": "2.1.1",
     "rimraf": "latest",
-    "standard": "latest",
     "wsrun": "latest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --config .prettierrc --write",
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

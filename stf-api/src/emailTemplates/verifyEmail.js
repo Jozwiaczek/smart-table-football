@@ -1,10 +1,8 @@
-const mjml2html = require('mjml')
+const mjml2html = require('mjml');
 
 module.exports = function ({ verifyURL = '' }) {
-  const {
-    html,
-    errors
-  } = mjml2html(`
+  const { html, errors } = mjml2html(
+    `
     <mjml>
       <mj-head>
         <mj-title>📧 Verify your email</mj-title>
@@ -33,12 +31,14 @@ module.exports = function ({ verifyURL = '' }) {
         </mj-section>
       </mj-body>
     </mjml>
-  `, {})
+  `,
+    {},
+  );
 
   if (!html || errors.length) {
-    errors.forEach(e => console.error(e))
-    throw new Error('Failed to generate html.')
+    errors.forEach((e) => console.error(e));
+    throw new Error('Failed to generate html.');
   }
 
-  return html
-}
+  return html;
+};

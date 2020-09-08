@@ -12,8 +12,8 @@
   "main": "src/main.js",
   "scripts": {
     "start": "concurrently 'cd ../stf-admin && yarn start' 'NODE_ENV=development electron .'",
-    "eslint": "standard",
-    "eslint-fix": "standard --fix"
+    "eslint": "eslint .",
+    "eslint-fix": "eslint --fix ."
   },
   "dependencies": {
     "electron": "^9.1.2",
@@ -22,7 +22,6 @@
   },
   "devDependencies": {
     "concurrently": "latest",
-    "standard": "^14.3.4",
     "electron-builder": "^22.7.0"
   }
 }

@@ -1,43 +1,35 @@
-import React from 'react'
+import React from 'react';
 
-import { Filter, List, Responsive, SimpleList, TextField } from 'react-admin'
+import { Filter, List, Responsive, SimpleList, TextField } from 'react-admin';
 
-import { models } from 'stf-core'
+import { models } from 'stf-core';
 
-import DateFilters from '../../elements/DateFilters'
-import { Datagrid } from 'ra-ui-materialui'
+import { Datagrid } from 'ra-ui-materialui';
+
+import DateFilters from '../../elements/DateFilters';
 
 // const useStyles = makeStyles(() => ({}))
 
 export const Filters = (props) => (
   <Filter {...props}>
-    <TextField
-      label='Email'
-      source={`${models.admins.fields.email}.$regex`}
-      alwaysOn
-    />
+    <TextField alwaysOn label="Email" source={`${models.admins.fields.email}.$regex`} />
 
     {DateFilters}
   </Filter>
-)
+);
 
-const NotificationsList = props => {
+const NotificationsList = (props) => {
   // const classes = useStyles()
   // const dataProvider = useDataProvider()
 
   return (
-    <List
-      {...props}
-      filters={<Filters />}
-    >
+    <List {...props} filters={<Filters />}>
       <Responsive
         small={
           <SimpleList
-            primaryText={record => <p>primaryText</p>}
-            secondaryText={record => <p>secondaryText</p>}
-            tertiaryText={record => (
-              <p>tertiaryText</p>
-            )}
+            primaryText={(record) => <p>primaryText</p>}
+            secondaryText={(record) => <p>secondaryText</p>}
+            tertiaryText={(record) => <p>tertiaryText</p>}
             linkType={false}
           />
         }
@@ -48,7 +40,7 @@ const NotificationsList = props => {
         }
       />
     </List>
-  )
-}
+  );
+};
 
-export default NotificationsList
+export default NotificationsList;

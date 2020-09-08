@@ -1,28 +1,25 @@
-const validator = require('validator')
+const validator = require('validator');
 
-const {
-  models,
-  constants
-} = require('stf-core')
+const { models, constants } = require('stf-core');
 
 module.exports = {
   [models.userSchema.email]: {
     type: String,
     validate: {
       validator: validator.isEmail,
-      message: ({ value }) => `${value} is not a valid email address`
+      message: ({ value }) => `${value} is not a valid email address`,
     },
     required: true,
     unique: true,
-    lowercase: true
+    lowercase: true,
   },
   [models.userSchema.password]: {
     type: String,
-    required: true
+    required: true,
   },
   [models.userSchema.status]: {
     type: String,
     enum: Object.keys(constants.statusEnum),
-    default: constants.statusEnum.approved
-  }
-}
+    default: constants.statusEnum.approved,
+  },
+};

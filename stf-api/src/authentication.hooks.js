@@ -1,7 +1,7 @@
 // Application hooks that run for every service
-const { constants } = require('stf-core')
+const { constants } = require('stf-core');
 
-const authentication = require('@feathersjs/authentication')
+const authentication = require('@feathersjs/authentication');
 
 module.exports = (app) => ({
   before: {
@@ -9,11 +9,11 @@ module.exports = (app) => ({
     find: [],
     get: [],
     create: [
-      authentication.hooks.authenticate(app.get(constants.resources.authentication).strategies)
+      authentication.hooks.authenticate(app.get(constants.resources.authentication).strategies),
     ],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   after: {
@@ -23,7 +23,7 @@ module.exports = (app) => ({
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -33,6 +33,6 @@ module.exports = (app) => ({
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
-})
+    remove: [],
+  },
+});

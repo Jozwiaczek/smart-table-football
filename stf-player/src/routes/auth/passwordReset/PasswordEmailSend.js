@@ -1,18 +1,19 @@
-import React from 'react'
-import { Link, Notification } from 'react-admin'
+import React from 'react';
+import { Link, Notification } from 'react-admin';
 
-import { Button, Card, CardContent, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import BackgroundGraphic from '../../../elements/BackgroundGraphic'
-import Logo from '../../../elements/Logo'
-import ThemeWrapper from '../../../elements/ThemeWrapper'
+import { Button, Card, CardContent, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+import BackgroundGraphic from '../../../elements/BackgroundGraphic';
+import Logo from '../../../elements/Logo';
+import ThemeWrapper from '../../../elements/ThemeWrapper';
 
 const useStyles = makeStyles(() => ({
   main: {
     display: 'flex',
     minHeight: '100vh',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   card: {
     padding: '1rem',
@@ -22,39 +23,40 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
   },
   logo: {
-    marginBottom: '2rem'
+    marginBottom: '2rem',
   },
   button: {
-    width: '100%'
+    width: '100%',
   },
   text: {
     textAlign: 'center',
-    marginBottom: '3rem'
-  }
-}))
+    marginBottom: '3rem',
+  },
+}));
 
 const PasswordEmailSend = () => {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <ThemeWrapper>
       <BackgroundGraphic className={classes.main}>
         <Card className={classes.card}>
           <CardContent>
-            <Logo linkTo='/login' className={classes.logo} />
-            <Typography className={classes.text} variant='h5'>
-              Email has been sent.<br />
+            <Logo linkTo="/login" className={classes.logo} />
+            <Typography className={classes.text} variant="h5">
+              Email has been sent.
+              <br />
               Please check your emails.
             </Typography>
             <Button
-              type='submit'
-              variant='contained'
+              type="submit"
+              variant="contained"
               component={Link}
-              to='/login'
-              color='primary'
+              to="/login"
+              color="primary"
               className={classes.button}
             >
               Go to login page
@@ -64,7 +66,7 @@ const PasswordEmailSend = () => {
         <Notification />
       </BackgroundGraphic>
     </ThemeWrapper>
-  )
-}
+  );
+};
 
-export default PasswordEmailSend
+export default PasswordEmailSend;
