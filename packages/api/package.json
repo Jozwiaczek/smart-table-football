@@ -23,7 +23,9 @@
     "test": "npm run eslint && npm run mocha",
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix .",
-    "start": "nodemon src",
+    "start": "node src",
+    "start:dev": "nodemon src",
+    "testNode": "echo NODE_ENV=$NODE_ENV",
     "start:db": "docker start mongodb",
     "stop:db": "docker stop mongodb",
     "mocha": "mocha test --recursive --exit"
@@ -61,8 +63,5 @@
   "devDependencies": {
     "mocha": "^8.1.0",
     "nodemon": "^2.0.4"
-  },
-  "engines": {
-    "node": ">=12"
   }
 }
