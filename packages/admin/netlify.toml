@@ -6,4 +6,3 @@
     base = "packages/admin/"
     publish = "build/"
     command = "yarn build"
-    ignore = "git diff --quiet master ."
