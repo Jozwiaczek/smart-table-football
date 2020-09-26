@@ -1,4 +1,3 @@
-/* global localStorage */
 import React, { useEffect } from 'react';
 import { Admin, GET_ONE, Resource, withDataProvider } from 'react-admin';
 import { authClient } from 'ra-data-feathers';

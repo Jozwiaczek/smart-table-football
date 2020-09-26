@@ -1,4 +1,3 @@
-/* global localStorage */
 import decodeJwt from 'jwt-decode';
 import { constants } from 'stf-core';
 

@@ -61,5 +61,8 @@
   "devDependencies": {
     "mocha": "^8.1.0",
     "nodemon": "^2.0.4"
+  },
+  "engines": {
+    "node": ">=12"
   }
 }

@@ -1,4 +1,3 @@
-/* global localStorage */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '@material-ui/core/Card';
