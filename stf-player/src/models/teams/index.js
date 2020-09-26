@@ -1,5 +1,5 @@
 import TeamCreate from './Create';
-import TeamsList from './list';
+import TeamsList from './List';
 import TeamEdit from './Edit';
 import TeamShow from './Show';
 

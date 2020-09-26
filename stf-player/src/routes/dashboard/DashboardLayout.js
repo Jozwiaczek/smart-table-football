@@ -117,7 +117,7 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
 
   const getPlayerWinRatio = () => {
     const temp = wonMatches();
-    if (!temp) {
+    if (!temp || !matches.length) {
       return 0;
     }
     return ((wonMatches.length / matches.length) * 100).toFixed(0);

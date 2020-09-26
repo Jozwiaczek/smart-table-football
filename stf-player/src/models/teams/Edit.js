@@ -56,6 +56,7 @@ const TeamEdit = ({ classes, ...rest }) => (
         >
           <SelectArrayInput optionText={models.players.fields.email} />
         </ReferenceArrayInput>
+        <TextField source={models.teams.fields.invited} />
         <DateField showTime source="createdAt" />
         <DateField showTime source="updatedAt" />
       </FormTab>

@@ -54,11 +54,21 @@ const validatePasswordChange = (values) => {
   return errors;
 };
 
-const _PlayerEdit = ({ location, classes, players, loading, ...props }) => {
+const _PlayerEdit = ({ location, history, classes, players, loading, ...props }) => {
   if (!players || !players.data) {
     return null;
   }
   const player = players.data[getPlayerId()];
+
+  const { pathname } = location;
+  const isBasic = pathname.match(/^\/players\/.+\/basic$/);
+  const isAccount = pathname.match(/^\/players\/.+\/account$/);
+  const isActions = pathname.match(/^\/players\/.+\/actions$/);
+
+  if (!(isActions || isAccount || isBasic)) {
+    history.replace(`${pathname}/basic`);
+    return null;
+  }
 
   return (
     <Edit title="Profile" actions={null} {...props}>

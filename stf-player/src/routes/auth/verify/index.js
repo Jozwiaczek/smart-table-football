@@ -6,8 +6,6 @@ import { CREATE, Link } from 'react-admin';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import PropTypes from 'prop-types';
-
 import { constants } from 'stf-core';
 
 import dataProvider from '../../../dataProvider';
