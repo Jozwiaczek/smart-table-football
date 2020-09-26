@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "heroku-postbuild": "yarn install",
-    "start": "if [ -n \\\\\\\"$START_API\\\\\\\" ]; then cd stf-api && echo api && yarn start; elif [ -n \\\\\\\"$START_ADMIN\\\\\\\" ]; then cd packages/admin && echo admin && yarn start; else cd stf-player && echo player && yarn start; fi",
+    "start": "if [ -n \\\\\\\"$START_API\\\\\\\" ]; then cd packages/api && echo api && yarn start; elif [ -n \\\\\\\"$START_ADMIN\\\\\\\" ]; then cd packages/admin && echo admin && yarn start; else cd packages/player && echo player && yarn start; fi",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prettier": "prettier --write --config .prettierrc .",
