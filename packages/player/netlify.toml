@@ -5,4 +5,4 @@
 [build]
     base = "packages/player/"
     publish = "build/"
-    command = "build"
+    command = "yarn build"
