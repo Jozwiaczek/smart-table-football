@@ -1,30 +1,29 @@
 {
-  "name": "smart-table-football",
+  "name": "stf",
   "private": true,
   "version": "1.0.0",
-  "repository": "git@github.com:Jozwiaczek/smart-table-football.git",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/Jozwiaczek/smart-table-football.git"
+  },
   "description": "Smart Table Football - App for those who want improves their games experience",
   "author": "jozwiak <kubencki@gmail.com>",
-  "main": "stf-admin-desktop/src/main.js",
+  "main": "packages/admin-desktop/src/main.js",
   "homepage": ".",
   "license": "MIT",
   "workspaces": [
-    "stf-api",
-    "stf-core",
-    "stf-player",
-    "stf-admin",
-    "stf-admin-desktop"
+    "packages/*"
   ],
   "scripts": {
     "heroku-postbuild": "yarn install",
-    "start": "if [ -n \"$START_API\" ]; then cd stf-api && echo api && yarn start; elif [ -n \"$START_ADMIN\" ]; then cd stf-admin && echo admin && yarn start; else cd stf-player && echo player && yarn start; fi",
-    "lint": "yarn wsrun eslint",
-    "lint:fix": "yarn wsrun eslint-fix",
-    "prettier": "npx prettier --write --config .prettierrc .",
-    "electron:clean:build": "cd ./stf-admin-desktop && rimraf ./build",
-    "electron:clean:release": "cd ./stf-admin-desktop && rimraf ./release",
+    "start": "if [ -n \\\\\\\"$START_API\\\\\\\" ]; then cd stf-api && echo api && yarn start; elif [ -n \\\\\\\"$START_ADMIN\\\\\\\" ]; then cd packages/admin && echo admin && yarn start; else cd stf-player && echo player && yarn start; fi",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prettier": "prettier --write --config .prettierrc .",
+    "electron:clean:build": "cd packages/admin-desktop && rimraf ./build",
+    "electron:clean:release": "cd packages/admin-desktop && rimraf ./release",
     "electron:clean": "yarn electron:clean:build && yarn electron:clean:release",
-    "electron:build:renderer": "cd ./stf-admin && yarn build && mv build ../stf-admin-desktop",
+    "electron:build:renderer": "cd packages/admin && yarn build && mv build ../stf-admin-desktop",
     "electron:postinstall": "electron-builder install-app-deps",
     "electron:prepack": "yarn electron:postinstall && yarn electron:build:renderer",
     "electron:pack:mac": "yarn electron:clean && yarn electron:prepack && electron-builder --mac && yarn electron:clean:build",
@@ -37,7 +36,7 @@
     "electron-updater": "^4.3.1"
   },
   "devDependencies": {
-    "electron": "latest",
+    "electron": "^10.1.2",
     "electron-builder": "^22.8.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "18.2.0",
@@ -47,10 +46,10 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "4.0.0",
     "husky": "^4.3.0",
-    "lint-staged": "^10.3.0",
+    "lint-staged": "^10.4.0",
+    "pre-commit": "^1.2.2",
     "prettier": "2.1.1",
-    "rimraf": "latest",
-    "wsrun": "latest"
+    "rimraf": "^3.0.2"
   },
   "husky": {
     "hooks": {
@@ -59,9 +58,8 @@
   },
   "lint-staged": {
     "*.js": [
-      "prettier --config .prettierrc --write",
-      "eslint --fix",
-      "git add"
+      "prettier --write --config .prettierrc .",
+      "eslint --fix ."
     ]
   }
 }

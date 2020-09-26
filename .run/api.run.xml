@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="api" type="js.build_tools.npm" singleton="false">
-    <package-json value="$PROJECT_DIR$/stf-api/package.json" />
+    <package-json value="$PROJECT_DIR$/packages/api/package.json" />
     <command value="run" />
     <scripts>
       <script value="start" />
@@ -8,15 +8,6 @@
     <node-interpreter value="project" />
     <envs />
     <method v="2">
-      <option name="NpmBeforeRunTask" enabled="true">
-        <package-json value="$PROJECT_DIR$/stf-api/package.json" />
-        <command value="run" />
-        <scripts>
-          <script value="start:db" />
-        </scripts>
-        <node-interpreter value="project" />
-        <envs />
-      </option>
       <option name="LaunchBrowser.Before.Run" url="https://trello.com/b/RJ02H7Pz/smart-table-football" />
     </method>
   </configuration>

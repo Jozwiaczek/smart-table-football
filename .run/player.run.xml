@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="player" type="js.build_tools.npm" singleton="false">
-    <package-json value="$PROJECT_DIR$/stf-player/package.json" />
+    <package-json value="$PROJECT_DIR$/packages/player/package.json" />
     <command value="run" />
     <scripts>
       <script value="start" />

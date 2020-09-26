@@ -4,6 +4,9 @@ on: [pull_request]
 jobs:
   Web:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages
     steps:
       - name: Git checkout
         uses: actions/checkout@v1
@@ -19,16 +22,19 @@ jobs:
       - name: Install dependency
         run: yarn install
       - name: Api
-        run: cd stf-api && yarn test
+        run: cd api && yarn test
       - name: Player
-        run: cd stf-player && yarn eslint && yarn build
+        run: cd player && yarn eslint && yarn build
       - name: Admin
-        run: cd stf-admin && yarn eslint && yarn build
+        run: cd admin && yarn eslint && yarn build
       - name: Core
-        run: cd stf-core && yarn eslint
+        run: cd core && yarn eslint
 
   Raspberry:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/rasp
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 14
@@ -36,21 +42,24 @@ jobs:
         with:
           node-version: 14
       - name: Install dependency
-        run: cd stf-rasp && yarn install
+        run: yarn install
       - name: Raspberry Pi
-        run: cd stf-rasp && yarn eslint
+        run: yarn eslint
 
   Electron:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/admin-desktop
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 14
       - name: Install dependency
-        run: cd stf-admin-desktop && yarn install
+        run: yarn install
       - name: ESLint
-        run: cd stf-admin-desktop && yarn eslint
+        run: yarn eslint
 #  Electron:
 #    strategy:
 #      matrix:
@@ -62,8 +71,8 @@ jobs:
 #        with:
 #          node-version: 14
 #      - name: Install dependency
-#        run: cd stf-admin-desktop && yarn install
+#        run: cd admin-desktop && yarn install
 #      - name: ESLint
-#        run: cd stf-admin-desktop && yarn eslint
+#        run: cd admin-desktop && yarn eslint
 #      - name: Pack All
 #        run: yarn electron:pack:all
