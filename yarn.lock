@@ -12418,7 +12418,7 @@ ra-data-feathers@2.8.1, ra-data-feathers@^2.8.1:
     jwt-decode "^2.2.0"
     object-diff "^0.0.4"
 
-ra-i18n-polyglot@^3.7.1:
+ra-i18n-polyglot@^3.8.5:
   version "3.8.5"
   resolved "https://registry.yarnpkg.com/ra-i18n-polyglot/-/ra-i18n-polyglot-3.8.5.tgz#f59a17a757234add7164cbce6fc0a95a925f0065"
   integrity sha512-ck3g3eZHb5jm0IdKpljSyMvlcH38esjFJBbGxKoGx8sQM3v0T1TtnErI2/s+VGTPFC53n5jqnjKPbfzqV7js/g==
@@ -12433,7 +12433,7 @@ ra-language-english@3.7.1:
   dependencies:
     ra-core "^3.7.1"
 
-ra-language-english@^3.7.1:
+ra-language-english@^3.8.5:
   version "3.8.5"
   resolved "https://registry.yarnpkg.com/ra-language-english/-/ra-language-english-3.8.5.tgz#d31f40a7836972fe252c3c98643f246afde24899"
   integrity sha512-j8O/AMGQaEWzRyQpY1tU3erCozmPdX0AHE+tZM7hNBY34MGmIeqhnySc7o7rBN4gS8vGU1tIejgld8xu0QOMdg==
@@ -12445,7 +12445,7 @@ ra-language-polish@^1.2.0:
   resolved "https://registry.yarnpkg.com/ra-language-polish/-/ra-language-polish-1.2.0.tgz#43f6dc0a8df1abd8d5a2a29f5b9ea6733136a4b6"
   integrity sha512-MMv0I6nT+CbtdyB4mVqaDWdFKOCYcEmPPp6/ExaK7lqkhrHI0MTASqjGYz5rhO9ZaIJys8s6mcdhqNQLczCEpg==
 
-ra-ui-materialui@^3.7.1:
+ra-ui-materialui@^3.8.5:
   version "3.8.5"
   resolved "https://registry.yarnpkg.com/ra-ui-materialui/-/ra-ui-materialui-3.8.5.tgz#3e449befd135c3da7d192dfa629355f0696fae03"
   integrity sha512-xe0KznjJNy5hJZH+MHLnKPZhp9WvEoORZJv6TpI5tOWPuTRxrT6xrDt3WtwdDJ4SDau5AjUu+4duyjwPsERn9A==
@@ -12520,10 +12520,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-admin@3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/react-admin/-/react-admin-3.7.1.tgz#315573908361678125085005589c51512be2235e"
-  integrity sha512-eVOdvh7HIc83BmoFjZNTcRU5l9XNhk6rHn5vBu1zcl5i//91jPw0NTS1uxG18STjiERckh/DVphELC5tFRIGwA==
+react-admin@3.8.5:
+  version "3.8.5"
+  resolved "https://registry.yarnpkg.com/react-admin/-/react-admin-3.8.5.tgz#37418758455544617a189f3bcc822567f5309750"
+  integrity sha512-jTxZG7E3efVNZ4MGgBnlYm/dw5m63S+sgHcOw+mlh4xTch8KZgwlJxik59Rejtm2K8bjR2yc4p91XZw83IlwUA==
   dependencies:
     "@material-ui/core" "^4.3.3"
     "@material-ui/icons" "^4.2.1"
@@ -12531,10 +12531,10 @@ react-admin@3.7.1:
     connected-react-router "^6.5.2"
     final-form "^4.18.5"
     final-form-arrays "^3.0.1"
-    ra-core "^3.7.1"
-    ra-i18n-polyglot "^3.7.1"
-    ra-language-english "^3.7.1"
-    ra-ui-materialui "^3.7.1"
+    ra-core "^3.8.5"
+    ra-i18n-polyglot "^3.8.5"
+    ra-language-english "^3.8.5"
+    ra-ui-materialui "^3.8.5"
     react-final-form "^6.3.3"
     react-final-form-arrays "^3.1.1"
     react-redux "^7.1.0"
