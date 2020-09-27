@@ -42,9 +42,6 @@ const authClientOptions = {
 };
 
 const GetPlayer = () => {
-  // TODO: Remove (only for debug)
-  console.log('L:47 | process.env.REACT_APP_API_URL: ', process.env.REACT_APP_API_URL);
-
   const setLocale = useSetLocale();
   const dataProvider = useDataProvider();
   const dispatch = useDispatch();

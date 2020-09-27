@@ -28,7 +28,8 @@
     "testNode": "echo NODE_ENV=$NODE_ENV",
     "start:db": "docker start mongodb",
     "stop:db": "docker stop mongodb",
-    "mocha": "mocha test --recursive --exit"
+    "mocha": "mocha test --recursive --exit",
+    "herokuLogs": "heroku logs --tail -a stf-api"
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.16",
