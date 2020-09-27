@@ -13,6 +13,7 @@ import {
   SimpleList,
   TextField,
   TopToolbar,
+  DateField,
   useRefresh,
   withDataProvider,
 } from 'react-admin';
@@ -222,6 +223,7 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
     <List
       {...rest}
       filters={<Filters />}
+      sort={{ field: 'createdAt', order: 'DESC' }}
       actions={<ListActions />}
       filter={{
         $or: [
@@ -295,6 +297,7 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
                 return `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`;
               }}
             />
+            <DateField source="createdAt" label="Date" />
             <ContinueButton
               classes={classes}
               disabled={!tableStatus}
