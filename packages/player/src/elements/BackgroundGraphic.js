@@ -1,4 +1,3 @@
-/* global localStorage */
 import React, { cloneElement } from 'react';
 import { Responsive } from 'react-admin';
 import { makeStyles } from '@material-ui/core';

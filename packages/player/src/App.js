@@ -1,4 +1,3 @@
-/* global localStorage */
 import React, { useEffect } from 'react';
 import { Admin, GET_ONE, Resource, useDataProvider, useSetLocale } from 'react-admin';
 import { useDispatch } from 'react-redux';

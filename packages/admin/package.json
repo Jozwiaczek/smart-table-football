@@ -10,17 +10,16 @@
     "@feathersjs/socketio-client": "1.1.5",
     "classnames": "2.2.6",
     "inflection": "1.12.0",
-    "moment": "2.24.0",
+    "moment": "2.29.0",
     "prop-types": "15.7.2",
     "ra-customizable-datagrid": "1.1.0",
     "ra-data-feathers": "2.8.1",
-    "ra-language-english": "3.7.1",
+    "ra-language-english": "3.8.5",
     "react": "16.13.1",
-    "react-admin": "3.7.1",
+    "react-admin": "3.8.5",
     "react-dom": "16.13.1",
     "react-scripts": "3.4.1",
-    "socket.io-client": "2.3.0",
-    "stf-core": "*"
+    "socket.io-client": "2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
