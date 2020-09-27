@@ -20,7 +20,7 @@ exports.Mailer = class Mailer {
     const email = { ...data };
 
     // set default from
-    if (!email.from) email.from = mailerConfig.from;
+    if (!email.from) email.from = mailerConfig.from.name;
 
     const transporter = await nodemailer.createTransport(mailerConfig);
 

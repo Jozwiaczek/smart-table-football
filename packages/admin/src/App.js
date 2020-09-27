@@ -25,8 +25,9 @@ import { PlayerCreate, PlayerEdit, PlayersList } from './models/users/players';
 import { TeamCreate, TeamEdit, TeamsList } from './models/teams';
 import { MatchCreate, MatchEdit, MatchList } from './models/matches';
 import { GoalShow, GoalsList } from './models/goals';
-import { MailerCreate } from './models/mailer';
 import { TableList } from './models/table';
+import MailerList from './models/mailer/List';
+import MailerCreate from './models/mailer/Create';
 
 const authClientOptions = {
   storageKey: constants.storageKey, // The key in localStorage used to store the authentication token
@@ -105,7 +106,12 @@ const App = () => (
       show={GoalShow}
     />
     <Resource name={constants.resources.table} icon={TableSignal} list={TableList} />
-    <Resource name={constants.resources.mailer} icon={EmailIcon} create={MailerCreate} />
+    <Resource
+      name={constants.resources.mailer}
+      icon={EmailIcon}
+      list={MailerList}
+      create={MailerCreate}
+    />
     <GetAdmin />
   </Admin>
 );

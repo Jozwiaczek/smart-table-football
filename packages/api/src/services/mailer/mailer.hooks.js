@@ -4,7 +4,6 @@ const htmlToPlainText = require('./hooks/html-to-plain-text');
 
 module.exports = {
   before: {
-    // TODO check if needed
     all: [authenticate('jwt')],
     find: [],
     get: [],

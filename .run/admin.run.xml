@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="player" type="js.build_tools.npm" singleton="true">
-    <package-json value="$PROJECT_DIR$/packages/player/package.json" />
+  <configuration default="false" name="admin" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/packages/admin/package.json" />
     <command value="run" />
     <scripts>
       <script value="start" />
