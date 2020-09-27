@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '@material-ui/core/Card';
 import { Button, Divider, Typography } from '@material-ui/core';
 import CustomerIcon from '@material-ui/icons/PersonAdd';
@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslate } from 'react-admin';
 
 import CardIcon from './CardIcon';
+import InviteFriendModal from './InviteFriendModal';
 
 const useStyles = makeStyles({
   main: {
@@ -36,56 +37,38 @@ const useStyles = makeStyles({
   },
 });
 
-const FriendsSection = () => {
+const FriendsSection = ({ teamsNumber }) => {
   const classes = useStyles();
   const translate = useTranslate();
+  const [isInviteFriendModalOpen, setInviteFriendModalOpen] = useState(false);
 
   return (
     <div className={classes.main}>
       <CardIcon Icon={CustomerIcon} bgColor="#FF9800" />
       <Card className={classes.card}>
         <Typography className={classes.title} color="textSecondary">
-          {translate('pos.dashboard.friendsSection.title')}
+          {translate('pos.dashboard.teamsSection.title')}
         </Typography>
         <Typography variant="h5" component="h2" className={classes.value}>
-          {0}
+          {teamsNumber}
         </Typography>
         <Divider />
-        {/* <List> */}
-        {/*  {visitors */}
-        {/*    ? visitors.map((record) => ( */}
-        {/*      <ListItem */}
-        {/*        button */}
-        {/*        to={`/customers/${record.id}`} */}
-        {/*        component={Link} */}
-        {/*        key={record.id} */}
-        {/*      > */}
-        {/*        <ListItemAvatar> */}
-        {/*          <Avatar */}
-        {/*            src={`${record.avatar}?size=32x32`} */}
-        {/*          /> */}
-        {/*        </ListItemAvatar> */}
-        {/*        <ListItemText */}
-        {/*          primary={`${record.first_name} ${ */}
-        {/*            record.last_name */}
-        {/*          }`} */}
-        {/*        /> */}
-        {/*      </ListItem> */}
-        {/*    )) */}
-        {/*    : null} */}
-        {/* </List> */}
         <div className={classes.addFriendBtnContainer}>
           <Button
             color="primary"
             variant="contained"
             className={classes.addFriendBtn}
-            onClick={() => console.log('Invite friend btn clicked')}
+            onClick={() => setInviteFriendModalOpen(true)}
           >
             <InviteFirendsIcon />
             &nbsp; Invite friend
           </Button>
         </div>
       </Card>
+      <InviteFriendModal
+        isOpen={isInviteFriendModalOpen}
+        onClose={() => setInviteFriendModalOpen(false)}
+      />
     </div>
   );
 };

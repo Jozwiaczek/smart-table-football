@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 import { Backdrop, Dialog, Fade, Slide, makeStyles } from '@material-ui/core';
 import classnames from 'classnames';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   paper: {
-    backgroundColor: '#FFF',
+    backgroundColor: theme.palette.background.default,
     padding: '2em',
   },
-});
+}));
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

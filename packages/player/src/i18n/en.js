@@ -16,9 +16,8 @@ export default {
         description: 'If you want to play a game, click button below',
         button: 'Prepare match',
       },
-      friendsSection: {
-        title: 'Friends',
-        description: 'If you want invite friends, click button below',
+      teamsSection: {
+        title: 'Teams',
         button: 'Invite friend',
       },
       statisticSection: {

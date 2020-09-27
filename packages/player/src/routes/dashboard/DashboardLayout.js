@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux';
-import { GET_LIST, GET_ONE, showNotification, Title, withDataProvider } from 'react-admin';
+import {
+  GET_LIST,
+  GET_ONE,
+  showNotification,
+  Title,
+  useTranslate,
+  withDataProvider,
+} from 'react-admin';
 
 import { Button, Typography } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
@@ -54,8 +61,11 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
   const [teams, setTeams] = useState(null);
   const [matches, setMatches] = useState(null);
   const [goals, setGoals] = useState(null);
+  const translate = useTranslate();
 
   const isTableInGame = useSelector((state) => state.table.isInGame);
+
+  console.log('L:68 | teams: ', teams);
 
   useEffect(() => {
     const call = async () => {
@@ -69,9 +79,9 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
           filter: {},
         }).then((res) => res.data);
 
-        if (Array.isArray(resTeams) && resTeams.length > 0 && resPlayer) {
+        if (Array.isArray(resTeams) && resTeams.length > 0) {
           const playersTeams = resTeams.filter((team) =>
-            team[models.teams.fields.players].find((player) => player === resPlayer._id),
+            team[models.teams.fields.players].find((player) => player === getPlayerId()),
           );
           setTeams(playersTeams);
 
@@ -197,9 +207,9 @@ const DashboardLayout = ({ small, history, dataProvider }) => {
 
           <DashboardSection>
             <Typography gutterBottom variant="h4" color="textPrimary">
-              Friends
+              {translate('pos.dashboard.teamsSection.title')}
             </Typography>
-            <FriendsSection />
+            <FriendsSection teamsNumber={teams?.length} />
           </DashboardSection>
         </DashboardFragment>
 
