@@ -23,10 +23,13 @@
     "test": "npm run eslint && npm run mocha",
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix .",
-    "start": "nodemon src",
+    "start": "node src",
+    "start:dev": "nodemon src",
+    "testNode": "echo NODE_ENV=$NODE_ENV",
     "start:db": "docker start mongodb",
     "stop:db": "docker stop mongodb",
-    "mocha": "mocha test --recursive --exit"
+    "mocha": "mocha test --recursive --exit",
+    "herokuLogs": "heroku logs --tail -a stf-api"
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.16",

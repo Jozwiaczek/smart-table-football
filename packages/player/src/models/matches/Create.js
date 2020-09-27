@@ -98,6 +98,11 @@ const MatchCreate = (props) => (
         source={models.matches.fields.teamB}
         reference={constants.resources.teams}
         validate={[required()]}
+        filter={{
+          [models.teams.fields.players]: {
+            $nin: getPlayerId(),
+          },
+        }}
         label="Opponent Team"
         sort={{
           field: models.teams.fields.name,
