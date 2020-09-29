@@ -1,9 +1,13 @@
-# Smart Table Football
+# [Smart Table Football](https://github.com/Jozwiaczek/smart-table-football)
 
 ![CI](https://github.com/Jozwiaczek/smart-table-football/workflows/Continuous%20Integration/badge.svg)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-[Trello Board](https://trello.com/b/RJ02H7Pz/smart-table-football)
+- [Trello Board](https://trello.com/b/RJ02H7Pz/smart-table-football)
+- [React-Admin Docs](https://marmelab.com/react-admin/Readme.html)
+- [Material-UI Docs](https://material-ui.com/)
+- [Material-UI Icons](https://material-ui.com/components/material-icons/)
+
 
 | Module | Status                                                                                                                                                                          | Public URL                                     |
 | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
