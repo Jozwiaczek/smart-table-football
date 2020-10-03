@@ -2,11 +2,14 @@ const fs = require('fs');
 
 const { google } = require('googleapis');
 
-const { GOOGLE_DRIVE_MAIL, GOOGLE_DRIVE_KEY } = require('../../config/default.json');
-
 const SCOPES = ['https://www.googleapis.com/auth/drive'];
 
-const auth = new google.auth.JWT(GOOGLE_DRIVE_MAIL, null, GOOGLE_DRIVE_KEY, SCOPES);
+const auth = new google.auth.JWT(
+  process.env.GOOGLE_DRIVE_MAIL,
+  null,
+  process.env.GOOGLE_DRIVE_KEY,
+  SCOPES,
+);
 const drive = google.drive({ version: 'v3', auth });
 
 const createPermissions = (fileId, role, type) =>

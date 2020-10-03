@@ -3,7 +3,7 @@ const Path = require('path');
 
 const googleDriveService = require('./GoogleDriveService');
 
-const stopAndRemoveVideo = (replayDir) => {
+const stopAndRemoveVideoStream = (replayDir) => {
   const fileNameToRemove = Path.join(replayDir, 'dontRemove');
 
   const pgrep = spawnSync('pgrep', ['raspivid']);
@@ -15,7 +15,7 @@ const stopAndRemoveVideo = (replayDir) => {
   }
 };
 
-const saveVideo = async (replayDir) => {
+const saveReplay = async (replayDir) => {
   const videoFileName = Path.join(replayDir, 'test');
   const fileNameToRemove = Path.join(replayDir, 'dontRemove');
 
@@ -29,7 +29,7 @@ const saveVideo = async (replayDir) => {
   return googleDriveService.uploadFile(videoFileName);
 };
 
-const startRecordVideo = (replayTime, replayDir) => {
+const startVideoStream = (replayTime, replayDir) => {
   const fileNameToRemove = Path.join(replayDir, 'dontRemove');
   const time = replayTime * 1000;
   exec(
@@ -38,7 +38,7 @@ const startRecordVideo = (replayTime, replayDir) => {
 };
 
 module.exports = {
-  stopAndRemoveVideo,
-  saveVideo,
-  startRecordVideo,
+  stopAndRemoveVideoStream,
+  saveReplay,
+  startVideoStream,
 };
