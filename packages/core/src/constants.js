@@ -85,6 +85,7 @@ const socketEvents = {
   createdGoal: 'createdGoal',
   goal: 'goal',
   isTableInGame: 'isTableInGame',
+  connect: 'connect',
 };
 
 module.exports = {

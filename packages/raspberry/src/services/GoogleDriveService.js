@@ -24,7 +24,7 @@ const createPermissions = (fileId, role, type) =>
       },
       (err, res) => {
         if (err) {
-          console.log(`The API returned an error: ${err}`);
+          console.error('Error in GoogleDriveService -> createPermissions: ', err);
           reject(err);
         }
         resolve(res);
@@ -49,7 +49,7 @@ const uploadFile = (fileName) =>
       },
       async function (err, res) {
         if (err) {
-          console.log(`The API returned an error: ${err}`);
+          console.error('Error in GoogleDriveService -> uploadFile: ', err);
           reject(err);
         }
         await createPermissions(res.data.id, 'reader', 'anyone');
@@ -63,6 +63,7 @@ const removeFile = (id) =>
     drive.files.delete({ fileId: id }, (err, res) => {
       if (err) {
         console.log(`The API returned an error: ${err}`);
+        console.error('Error in GoogleDriveService -> removeFile: ', err);
         reject(err);
       }
       resolve(res.data);
@@ -76,7 +77,10 @@ const listFiles = () => {
       fields: 'nextPageToken, files(id, name)',
     },
     (err, res) => {
-      if (err) return console.log(`The API returned an error: ${err}`);
+      if (err) {
+        console.error('Error in GoogleDriveService -> listFiles: ', err);
+        return;
+      }
       const { files } = res.data;
       if (files.length) {
         console.log('Files:');
@@ -92,7 +96,10 @@ const listFiles = () => {
 
 const getFile = (fileId) => {
   drive.files.get({ fileId, fields: '*' }, (err, res) => {
-    if (err) return console.log(`The API returned an error: ${err}`);
+    if (err) {
+      console.error('Error in GoogleDriveService -> getFile: ', err);
+      return;
+    }
     console.log(res.data);
   });
 };

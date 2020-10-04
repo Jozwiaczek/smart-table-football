@@ -10,8 +10,12 @@ const stopAndRemoveVideoStream = (replayDir) => {
   const pid = parseInt(pgrep.stdout.toString());
 
   if (!isNaN(pid)) {
-    execSync(`kill -USR1 ${pid}`);
-    execSync(`rm ${fileNameToRemove}.h264`);
+    try {
+      execSync(`kill -USR1 ${pid}`);
+      execSync(`rm ${fileNameToRemove}.h264`);
+    } catch (error) {
+      console.error('Error in CameraService -> stopAndRemoveVideoStream: ', error);
+    }
   }
 };
 
@@ -22,9 +26,13 @@ const saveReplay = async (replayDir) => {
   const pgrep = spawnSync('pgrep', ['raspivid']);
   const pid = parseInt(pgrep.stdout.toString());
 
-  execSync(`kill -USR1 ${pid}`);
-  execSync(`MP4Box -add ${fileNameToRemove}.h264 ${videoFileName}.mp4 -fps 50`);
-  execSync(`rm ${fileNameToRemove}.h264`);
+  try {
+    execSync(`kill -USR1 ${pid}`);
+    execSync(`MP4Box -add ${fileNameToRemove}.h264 ${videoFileName}.mp4 -fps 50`);
+    execSync(`rm ${fileNameToRemove}.h264`);
+  } catch (error) {
+    console.error('Error in CameraService -> saveReplay: ', error);
+  }
 
   return googleDriveService.uploadFile(videoFileName);
 };
@@ -32,9 +40,13 @@ const saveReplay = async (replayDir) => {
 const startVideoStream = (replayTime, replayDir) => {
   const fileNameToRemove = Path.join(replayDir, 'dontRemove');
   const time = replayTime * 1000;
-  exec(
-    `raspivid -w 640 -h 480 -fps 50 -c -t ${time} -b 1000000 -ih -s -o ${fileNameToRemove}.h264`,
-  );
+  try {
+    exec(
+      `raspivid -w 640 -h 480 -fps 50 -c -t ${time} -b 1000000 -ih -s -o ${fileNameToRemove}.h264`,
+    );
+  } catch (error) {
+    console.error('Error in CameraService -> startVideoStream: ', error);
+  }
 };
 
 module.exports = {
