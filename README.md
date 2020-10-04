@@ -8,7 +8,6 @@
 - [Material-UI Docs](https://material-ui.com/)
 - [Material-UI Icons](https://material-ui.com/components/material-icons/)
 
-
 | Module | Status                                                                                                                                                                          | Public URL                                     |
 | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
 | Admin  | [![Netlify Status](https://api.netlify.com/api/v1/badges/3335005e-5758-43b6-88bc-ceb21cd6967c/deploy-status)](https://app.netlify.com/sites/smart-table-football-admin/deploys) | https://smart-table-football-admin.netlify.app |
