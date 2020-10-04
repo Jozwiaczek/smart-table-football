@@ -12,13 +12,6 @@ export const themeProvider = (mode) => {
         scrollButtons: 'off',
       },
     },
-    overrides: {
-      MuiTabs: {
-        root: {
-          maxWidth: '100vw',
-        },
-      },
-    },
     palette: {
       type: darkMode ? constants.themeMode.type.dark : constants.themeMode.type.light,
       primary: orange,
@@ -33,6 +26,37 @@ export const themeProvider = (mode) => {
       },
       success: {
         main: darkMode ? green[900] : green[200],
+      },
+    },
+    shape: {
+      borderRadius: 10,
+    },
+    overrides: {
+      MuiTabs: {
+        root: {
+          maxWidth: '100vw',
+        },
+      },
+      RaMenuItemLink: {
+        root: {
+          borderLeft: `3px solid transparent`,
+        },
+        active: {
+          borderLeft: '3px solid #ff9800',
+        },
+      },
+      MuiPaper: {
+        root: {
+          backgroundClip: 'padding-box',
+        },
+      },
+      MuiFilledInput: {
+        root: {
+          backgroundColor: 'rgba(0, 0, 0, 0.04)',
+          '&$disabled': {
+            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+          },
+        },
       },
     },
   });

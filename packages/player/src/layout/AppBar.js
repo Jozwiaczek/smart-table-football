@@ -12,7 +12,7 @@ import { Button, Typography, useMediaQuery } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip';
 import { constants, models } from 'stf-core';
 
-import { getPlayerId } from '../../utils/getPlayerId';
+import { getPlayerId } from '../utils/getPlayerId';
 import NotificationsMenu from './notifications/NotficationsMenu';
 import UserMenu from './UserMenu';
 

@@ -4,7 +4,7 @@ import { MenuItemLink, UserMenu as UIUserMenu, useTranslate } from 'react-admin'
 import ProfileIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import { getPlayerId } from '../../utils/getPlayerId';
+import { getPlayerId } from '../utils/getPlayerId';
 
 const ConfigurationMenu = forwardRef((props, ref) => {
   const translate = useTranslate();

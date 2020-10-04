@@ -1,8 +1,14 @@
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { compose } from 'recompose';
-import { getResources, MenuItemLink, Responsive, toggleSidebar } from 'react-admin';
-import { useTranslate } from 'ra-core';
+import {
+  getResources,
+  MenuItemLink,
+  Responsive,
+  toggleSidebar,
+  DashboardMenuItem,
+  useTranslate,
+} from 'react-admin';
 import { withRouter } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import Person from '@material-ui/icons/Person';
@@ -15,7 +21,7 @@ import Casino from '@material-ui/icons/Casino';
 
 import { Typography, withStyles, withWidth } from '@material-ui/core';
 
-import { getPlayerId } from '../../utils/getPlayerId';
+import { getPlayerId } from '../utils/getPlayerId';
 
 const styles = (theme) => ({
   menuItem: {
@@ -48,16 +54,15 @@ const onMenuTap = (props) => {
   }
 };
 
-const Sidebar = ({ classes, logout, ...rest }) => {
+const Sidebar = ({ classes, dense, logout, ...rest }) => {
   const playerId = getPlayerId();
   const open = useSelector((state) => state.admin.ui.sidebarOpen);
   const translate = useTranslate();
 
   return (
     <List>
-      <MenuItemLink
+      <DashboardMenuItem
         to="/"
-        isActive={(active) => active.isExact}
         primaryText={
           <div className={classes.menuItem}>
             {translate('pos.menu.dashboard')} <BetaTag />
@@ -65,6 +70,7 @@ const Sidebar = ({ classes, logout, ...rest }) => {
         }
         leftIcon={<Dashboard />}
         sidebarIsOpen={open}
+        dense={dense}
         onClick={() => onMenuTap(rest)}
       />
       <MenuItemLink
@@ -72,6 +78,7 @@ const Sidebar = ({ classes, logout, ...rest }) => {
         primaryText={<div className={classes.menuItem}>{translate('pos.menu.profile')}</div>}
         leftIcon={<Person />}
         sidebarIsOpen={open}
+        dense={dense}
         onClick={() => onMenuTap(rest)}
       />
       <MenuItemLink
@@ -79,6 +86,7 @@ const Sidebar = ({ classes, logout, ...rest }) => {
         primaryText={<div className={classes.menuItem}>{translate('pos.menu.teams')}</div>}
         leftIcon={<Group />}
         sidebarIsOpen={open}
+        dense={dense}
         onClick={() => onMenuTap(rest)}
       />
       <MenuItemLink
@@ -86,6 +94,7 @@ const Sidebar = ({ classes, logout, ...rest }) => {
         primaryText={<div className={classes.menuItem}>{translate('pos.menu.matches')}</div>}
         leftIcon={<Casino />}
         sidebarIsOpen={open}
+        dense={dense}
         onClick={() => onMenuTap(rest)}
       />
       <Responsive

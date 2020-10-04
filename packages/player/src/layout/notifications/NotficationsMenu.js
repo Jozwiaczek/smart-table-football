@@ -17,7 +17,7 @@ import { Divider, Typography } from '@material-ui/core';
 import NavigateToIcon from '@material-ui/icons/OpenInBrowser';
 import MarkIcon from '@material-ui/icons/EmojiFlags';
 
-import { getPlayerId } from '../../../utils/getPlayerId';
+import { getPlayerId } from '../../utils/getPlayerId';
 import NotificationMenuItem from './NotificationMenuItem';
 
 const useStyles = makeStyles((theme) => ({

@@ -11,7 +11,7 @@ import customReducers from './redux/reducers';
 import dataProvider from './dataProvider';
 import i18nProvider from './i18n/i18nProvider';
 import { getPlayerId } from './utils/getPlayerId';
-import Layout from './elements/layout';
+import Layout from './layout';
 
 import { PlayerEdit } from './models/players';
 
