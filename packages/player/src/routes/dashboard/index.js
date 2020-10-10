@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { GET_LIST, GET_ONE, Responsive, Title, useDataProvider, useTranslate } from 'react-admin';
 
@@ -10,12 +10,18 @@ import styled, { css } from 'styled-components';
 
 import { constants, models } from 'stf-core';
 
+import moment from 'moment';
+
+import lottie from 'lottie-web';
+
 import BackgroundGraphic from '../../elements/BackgroundGraphic';
 import { getPlayerId } from '../../utils/getPlayerId';
 import WinRatio from './statisticSection/WinRatio';
 import GoalsNumber from './statisticSection/GoalsNumber';
 import FriendsSection from './FriendsSection';
 import WelcomeCard from './WelcomeCard';
+import MatchesInWeek from './statisticSection/MatchesInWeek';
+import LongestWinStreak from './statisticSection/LongestWinStreak';
 
 const DashboardContainer = styled.div`
   padding-top: 1rem;
@@ -27,7 +33,8 @@ const DashboardContainer = styled.div`
 `;
 
 const DashboardSection = styled.div`
-  margin-bottom: ${(props) => (props.children ? '3rem' : 0)};
+  margin-bottom: ${({ children, noBottomMargin }) => (children && !noBottomMargin ? '3rem' : 0)};
+  margin-top: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -35,11 +42,13 @@ const DashboardSection = styled.div`
   align-items: center;
   ${(props) => (props.margin ? 'margin-bottom: 150px' : null)};
 `;
+
 const large = css`
   width: 100%;
-  max-width: 30rem;
+  max-width: 40rem;
   margin-right: 2rem;
 `;
+
 const DashboardFragment = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,18 +57,30 @@ const DashboardFragment = styled.div`
   ${(props) => !props.small && large}
 `;
 
-const WelcomeCardContainer = styled.div``;
-
 const DashboardLayout = ({ small, history }) => {
   const [player, setPlayer] = useState(null);
   const [teams, setTeams] = useState(null);
   const [matches, setMatches] = useState(null);
   const [goals, setGoals] = useState(null);
+  const thisRef = useRef();
 
   const translate = useTranslate();
   const dataProvider = useDataProvider();
 
   const isTableInGame = useSelector((state) => state.table.isInGame);
+
+  useEffect(() => {
+    if (thisRef.current) {
+      const animate = lottie.loadAnimation({
+        container: thisRef.current,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: './animation.json',
+      });
+      animate.setSpeed(1.5);
+    }
+  }, [thisRef.current]);
 
   useEffect(() => {
     const call = async () => {
@@ -79,11 +100,13 @@ const DashboardLayout = ({ small, history }) => {
           );
           setTeams(playersTeams);
 
-          const resMatches = await dataProvider(GET_LIST, constants.resources.matches, {
-            filter: {},
-          }).then((res) => res.data);
+          const resMatches = (
+            await dataProvider(GET_LIST, constants.resources.matches, {
+              filter: {},
+            })
+          ).data;
           const playersMatches = resMatches.filter((match) =>
-            playersTeams.map(
+            playersTeams.find(
               (team) =>
                 match[models.matches.fields.teamA] === team._id ||
                 match[models.matches.fields.teamB] === team._id,
@@ -95,7 +118,7 @@ const DashboardLayout = ({ small, history }) => {
             filter: {},
           }).then((res) => res.data);
           const playersGoals = resGoals.filter((goal) =>
-            resTeams.map((team) => goal[models.goals.fields.team] === team._id),
+            playersTeams.find((team) => goal[models.goals.fields.team] === team._id),
           );
           setGoals(playersGoals);
         }
@@ -124,14 +147,50 @@ const DashboardLayout = ({ small, history }) => {
     if (!temp || !matches.length) {
       return 0;
     }
-    return ((wonMatches.length / matches.length) * 100).toFixed(0);
+
+    return ((temp.length / matches.length) * 100).toFixed(0);
   };
 
   const getLastMatch = () => {
-    if (!matches || !matches.length) {
+    if (!matches?.length) {
       return null;
     }
     return matches.reduce((m, v, i) => (v.createdAt > m.createdAt && i ? v : m));
+  };
+
+  const getMatchesNumberInLastWeek = () => {
+    if (!matches?.length) {
+      return null;
+    }
+
+    const res = matches.filter((match) => {
+      const start = moment().subtract(moment().isoWeekday() - 1, 'days');
+      return start.isSameOrBefore(match.updatedAt);
+    });
+
+    return res.length ? res.length : 0;
+  };
+
+  const getLongestWinStreak = () => {
+    if (!matches?.length) {
+      return null;
+    }
+
+    const sortedMatches = matches.sort((a, b) => a.updatedAt > b.updatedAt);
+    const streaks = sortedMatches.reduce(
+      (streak, currentMatch) => {
+        const isWon = !!teams.find(({ _id }) => currentMatch[models.matches.fields.winner] === _id);
+        if (isWon) {
+          streak[streak.length - 1] = streak[streak.length - 1] + 1;
+        } else {
+          streak.push(0);
+        }
+        return streak;
+      },
+      [0],
+    );
+
+    return streaks?.length ? Math.max(...streaks) : 0;
   };
 
   const LastMatchField = () => {
@@ -169,22 +228,30 @@ const DashboardLayout = ({ small, history }) => {
 
       <DashboardContainer small={small}>
         <DashboardFragment small={small}>
-          <DashboardSection>
-            <Typography gutterBottom variant="h3" color="textPrimary">
+          <DashboardSection noBottomMargin>
+            <Typography variant="h3" color="textPrimary">
               Welcome {player[models.players.fields.firstName]}!
             </Typography>
           </DashboardSection>
 
+          <div ref={thisRef} style={{ width: 360, height: 250 }} />
+
           <DashboardSection>
             {!isTableInGame && (
               <>
-                <br />
-                <Typography gutterBottom variant="h5" align="center" color="textPrimary">
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h5"
+                  align="center"
+                  color="textPrimary"
+                >
                   If you want to play a game, click button below
                 </Typography>
                 <Button
                   color="primary"
                   variant="contained"
+                  style={{ marginTop: 16 }}
                   onClick={() => history.push(`/${constants.resources.matches}/create`)}
                 >
                   <CreateIcon />
@@ -195,7 +262,7 @@ const DashboardLayout = ({ small, history }) => {
           </DashboardSection>
 
           <DashboardSection>
-            <Typography gutterBottom variant="h4" color="textPrimary">
+            <Typography gutterBottom variant="h4" component="h4" color="textPrimary">
               {translate('pos.dashboard.teamsSection.title')}
             </Typography>
             <FriendsSection teamsNumber={teams?.length} />
@@ -207,21 +274,16 @@ const DashboardLayout = ({ small, history }) => {
             <Typography gutterBottom variant="h4" color="textPrimary">
               Statistic
             </Typography>
+            <LongestWinStreak wins={getLongestWinStreak()} />
             <GoalsNumber goals={goals} />
             <WinRatio value={getPlayerWinRatio()} />
-            {/* <Typography variant={'body1'} color={'textPrimary'}> */}
-            {/*  Current Winning Streak: 2 */}
-            {/* </Typography> */}
-            {/* <Typography variant={'body1'} color={'textPrimary'} gutterBottom> */}
-            {/*  Longest Winning Streak: 3 */}
-            {/* </Typography> */}
-          </DashboardSection>
-
-          <DashboardSection>
-            <Typography gutterBottom variant="h4" color="textPrimary">
-              Last Match
-            </Typography>
-            <LastMatchField />
+            <MatchesInWeek value={getMatchesNumberInLastWeek()} />
+            <DashboardSection noBottomMargin>
+              <Typography gutterBottom variant="h4" color="textPrimary">
+                Last Match
+              </Typography>
+              <LastMatchField />
+            </DashboardSection>
           </DashboardSection>
         </DashboardFragment>
       </DashboardContainer>

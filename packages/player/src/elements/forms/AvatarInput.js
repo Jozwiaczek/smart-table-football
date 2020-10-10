@@ -87,13 +87,13 @@ const AvatarInput = ({
 
     setPreview(record[models.players.fields.avatar]);
     setSelected(true);
-  }, [record[models.players.fields.avatar]]);
+  }, [record]);
 
   useEffect(() => {
     if (input) {
       input.onChange(preview);
     }
-  }, [isSelected]);
+  }, [isSelected, preview, input]);
 
   const clickBtnAction = async () => {
     if (source && preview && !isSelected) {
@@ -155,7 +155,7 @@ const AvatarInput = ({
   }, [label, source]);
 
   return (
-    <div className={clsx(classes.container, className)} {...rest}>
+    <div className={formattedLabel && clsx(classes.container, className)} {...rest}>
       {formattedLabel && <Typography variant="subtitle1">{formattedLabel}</Typography>}
       <div
         className={horizontal ? classes.horizontalContainer : classes.verticalContainer}
@@ -202,7 +202,7 @@ const AvatarInput = ({
             className={horizontal ? classes.horizontalButton : classes.verticalButton}
             onClick={clickBtnAction}
           >
-            {!isSelected ? 'Save' : <DeleteForeverIcon />}
+            {!isSelected ? 'Confirm Avatar' : <DeleteForeverIcon />}
           </Button>
         )}
       </div>

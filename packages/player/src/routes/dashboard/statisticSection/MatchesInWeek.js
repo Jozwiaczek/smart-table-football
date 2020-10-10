@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
+import EmojiFlagsIcon from '@material-ui/icons/EmojiFlags';
 import { makeStyles } from '@material-ui/core/styles';
-import EqualizerSharpIcon from '@material-ui/icons/EqualizerSharp';
 import Typography from '@material-ui/core/Typography';
 import { useTranslate } from 'react-admin';
 
@@ -12,6 +12,7 @@ const useStyles = makeStyles({
     flex: '1',
     marginRight: '1em',
     marginTop: '3em',
+    marginBottom: '2em',
     width: '60%',
   },
   card: {
@@ -23,22 +24,23 @@ const useStyles = makeStyles({
   title: {},
 });
 
-const WinRatio = ({ value }) => {
+const MatchesInWeek = ({ value }) => {
   const translate = useTranslate();
   const classes = useStyles();
   return (
     <div className={classes.main}>
-      <CardIcon Icon={EqualizerSharpIcon} bgColor="#f57c00" />
+      <CardIcon Icon={EmojiFlagsIcon} bgColor="#e65100" />
       <Card className={classes.card}>
         <Typography className={classes.title} color="textSecondary">
-          {translate('pos.dashboard.statisticSection.items.winRatio')}
+          Matches in last week
         </Typography>
         <Typography variant="h5" component="h5">
-          {value}%
+          {value}
+          <EmojiFlagsIcon />
         </Typography>
       </Card>
     </div>
   );
 };
 
-export default WinRatio;
+export default MatchesInWeek;
