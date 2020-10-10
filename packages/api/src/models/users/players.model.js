@@ -31,6 +31,9 @@ module.exports = function (app) {
         type: mongoose.SchemaTypes.String,
         default: constants.locales.en,
       },
+      [models.players.fields.avatar]: {
+        type: mongoose.SchemaTypes.String,
+      },
     },
     {
       timestamps: true,

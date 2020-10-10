@@ -15,6 +15,7 @@ import { getPlayerId } from '../../utils/getPlayerId';
 import WinRatio from './statisticSection/WinRatio';
 import GoalsNumber from './statisticSection/GoalsNumber';
 import FriendsSection from './FriendsSection';
+import WelcomeCard from './WelcomeCard';
 
 const DashboardContainer = styled.div`
   padding-top: 1rem;
@@ -46,6 +47,8 @@ const DashboardFragment = styled.div`
   align-items: center;
   ${(props) => !props.small && large}
 `;
+
+const WelcomeCardContainer = styled.div``;
 
 const DashboardLayout = ({ small, history }) => {
   const [player, setPlayer] = useState(null);
@@ -161,9 +164,10 @@ const DashboardLayout = ({ small, history }) => {
 
   return (
     <BackgroundGraphic>
-      <DashboardContainer small={small}>
-        <Title title="Dashboard" />
+      <Title title="Dashboard" />
+      <WelcomeCard />
 
+      <DashboardContainer small={small}>
         <DashboardFragment small={small}>
           <DashboardSection>
             <Typography gutterBottom variant="h3" color="textPrimary">

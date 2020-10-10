@@ -11,6 +11,7 @@ import { constants, models } from 'stf-core';
 import FormTextField from '../../../elements/forms/FormTextField';
 import { validateRegistration } from '../validate';
 import PasswordInput from '../../../elements/PasswordInput';
+import AvatarInput from '../../../elements/forms/AvatarInput';
 
 const styles = () =>
   createStyles({
@@ -77,9 +78,16 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
         <form noValidate onSubmit={handleSubmit}>
           <CardContent>
             <div className={classes.form}>
+              <Field
+                id={models.players.fields.avatar}
+                name={models.players.fields.avatar}
+                component={AvatarInput}
+                disabled={loading}
+                className={classes.input}
+              />
+
               <div className={classes.input}>
                 <Field
-                  autoFocus
                   id={models.players.fields.firstName}
                   name={models.players.fields.firstName}
                   component={FormTextField}

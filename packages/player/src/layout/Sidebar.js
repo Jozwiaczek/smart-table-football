@@ -40,6 +40,9 @@ const styles = (theme) => ({
     lineHeight: 1.1,
     fontSize: '0.65rem',
   },
+  list: {
+    paddingTop: 20,
+  },
 });
 
 const BetaTag = withStyles(styles)(({ classes }) => (
@@ -60,7 +63,7 @@ const Sidebar = ({ classes, dense, logout, ...rest }) => {
   const translate = useTranslate();
 
   return (
-    <List>
+    <List className={classes.list}>
       <DashboardMenuItem
         to="/"
         primaryText={

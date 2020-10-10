@@ -3,6 +3,7 @@ const verifyHooks = require('feathers-authentication-management').hooks;
 const { models, constants } = require('stf-core');
 
 const onboardPlayer = require('./hooks/onboard-player');
+const onRemovePlayer = require('./hooks/on-remove-player');
 
 module.exports = {
   before: {
@@ -15,7 +16,7 @@ module.exports = {
     ],
     update: [],
     patch: [],
-    remove: [],
+    remove: [onRemovePlayer()],
   },
 
   after: {

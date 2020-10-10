@@ -286,16 +286,8 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
               classes={classes}
               disabled={!tableStatus}
               isInGame={isInGame}
-              label="Time NEW"
+              label="Timer"
               {...rest}
-            />
-            <FunctionField
-              source={models.matches.fields.elapsedTime}
-              label="Time"
-              render={(record) => {
-                const elapsedTime = record[models.matches.fields.elapsedTime];
-                return `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`;
-              }}
             />
             <DateField source="createdAt" label="Date" />
             <ContinueButton

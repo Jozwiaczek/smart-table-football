@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  ChipField,
   EditButton,
   Filter,
   List,
@@ -13,10 +12,11 @@ import {
 
 import { constants, models } from 'stf-core';
 
-import { TextField, Datagrid } from 'ra-ui-materialui';
+import { Datagrid, TextField } from 'ra-ui-materialui';
 
 import DateFilters from '../../elements/DateFilters';
 import { getPlayerId } from '../../utils/getPlayerId';
+import PlayerChipField from '../../elements/PlayerChipField';
 
 const Filters = (props) => (
   <Filter {...props}>
@@ -47,7 +47,7 @@ const TeamsList = (props) => (
             reference={constants.resources.players}
           >
             <SingleFieldList>
-              <ChipField source={models.players.fields.email} />
+              <PlayerChipField />
             </SingleFieldList>
           </ReferenceArrayField>
           <EditButton />

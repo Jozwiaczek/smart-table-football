@@ -26,6 +26,7 @@ const players = {
   fields: {
     ...userSchema,
     ...authManagementSchema,
+    avatar: 'avatar',
     firstName: 'firstName',
     lastName: 'lastName',
     locale: 'locale',

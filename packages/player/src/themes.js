@@ -39,10 +39,10 @@ export const themeProvider = (mode) => {
       },
       RaMenuItemLink: {
         root: {
-          borderLeft: `3px solid transparent`,
+          borderLeft: `4px solid transparent`,
         },
         active: {
-          borderLeft: '3px solid #ff9800',
+          borderLeft: '4px solid #ff9800',
         },
       },
       MuiPaper: {

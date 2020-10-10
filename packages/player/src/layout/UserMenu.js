@@ -4,7 +4,21 @@ import { MenuItemLink, UserMenu as UIUserMenu, useTranslate } from 'react-admin'
 import ProfileIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
+
+import { useQueryWithStore } from 'ra-core';
+
+import { models } from 'stf-core';
+
 import { getPlayerId } from '../utils/getPlayerId';
+
+const useStyles = makeStyles({
+  avatar: {
+    height: 30,
+    width: 30,
+  },
+});
 
 const ConfigurationMenu = forwardRef((props, ref) => {
   const translate = useTranslate();
@@ -28,10 +42,32 @@ const ConfigurationMenu = forwardRef((props, ref) => {
   );
 });
 
-const UserMenu = (props) => (
-  <UIUserMenu {...props}>
-    <ConfigurationMenu />
-  </UIUserMenu>
-);
+const UserMenu = (props) => {
+  const classes = useStyles();
+  const { data: player, loading, error } = useQueryWithStore({
+    type: 'getOne',
+    resource: 'players',
+    payload: { id: getPlayerId() },
+  });
+
+  const isAvatarLoaded = !player || loading || error;
+
+  if (isAvatarLoaded) {
+    return (
+      <UIUserMenu {...props}>
+        <ConfigurationMenu />
+      </UIUserMenu>
+    );
+  }
+
+  return (
+    <UIUserMenu
+      {...props}
+      icon={<Avatar className={classes.avatar} src={player[models.players.fields.avatar]} />}
+    >
+      <ConfigurationMenu />
+    </UIUserMenu>
+  );
+};
 
 export default UserMenu;
