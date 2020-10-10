@@ -1,10 +1,11 @@
 import React from 'react';
 import { Box, Card, CardActions, Button, Typography } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import CodeIcon from '@material-ui/icons/Code';
+import SportsSoccerSharpIcon from '@material-ui/icons/SportsSoccerSharp';
 import { makeStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
 
 import publishArticleImage from './welcome_illustration.svg';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,33 +35,32 @@ const useStyles = makeStyles((theme) => ({
 
 const WelcomeCard = () => {
   const classes = useStyles();
+  const [isWatched, setIsWatched] = useLocalStorage('welcomeCardWatched', false);
+
+  if (isWatched) return null;
+
   return (
     <Card className={classes.root}>
       <Box display="flex">
         <Box flex="1">
-          <Typography gutterBottom variant="h5" component="h2">
-            Welcome to the Smart Table Football
+          <Typography gutterBottom variant="h4" component="h4">
+            Welcome in Smart Table Football! <SportsSoccerSharpIcon />
           </Typography>
-          <Box maxWidth="40em">
+          <Box maxWidth="45em">
             <Typography gutterBottom variant="body1" component="p">
               Below you find your dashboard with all statistic from games, teams and all numbers.
-              Below you find your dashboard with all statistic from games, teams and all numbers.
+              <br />
+              For better user experience you can add STF app to your Home Screen (IOS, Android,
+              Web).
             </Typography>
           </Box>
           <CardActions className={classes.actions}>
             <Button
               variant="contained"
-              href="https://marmelab.com/react-admin"
-              startIcon={<HomeIcon />}
+              startIcon={<CloseIcon />}
+              onClick={() => setIsWatched(true)}
             >
-              Home
-            </Button>
-            <Button
-              variant="contained"
-              href="https://github.com/marmelab/react-admin/tree/master/examples/demo"
-              startIcon={<CodeIcon />}
-            >
-              Demo
+              Hide
             </Button>
           </CardActions>
         </Box>

@@ -72,19 +72,28 @@ const AvatarInput = ({
   disabled,
   horizontal = false,
   record,
+  ...rest
 }) => {
   const classes = useStyles();
   const [preview, setPreview] = useState(null);
   const [isSelected, setSelected] = useState(false);
   const notify = useNotify();
   const dataProvider = useDataProvider();
+
   const theme = useTheme();
 
   useEffect(() => {
-    if (!record || !record[models.players.fields.avatar]) return null;
+    if (!record || !record[models.players.fields.avatar]) return;
+
     setPreview(record[models.players.fields.avatar]);
     setSelected(true);
-  }, [record]);
+  }, [record[models.players.fields.avatar]]);
+
+  useEffect(() => {
+    if (input) {
+      input.onChange(preview);
+    }
+  }, [isSelected]);
 
   const clickBtnAction = async () => {
     if (source && preview && !isSelected) {
@@ -122,12 +131,6 @@ const AvatarInput = ({
     }
   };
 
-  useEffect(() => {
-    if (input) {
-      input.onChange(preview);
-    }
-  }, [isSelected]);
-
   const onClose = () => {
     setPreview(null);
   };
@@ -152,7 +155,7 @@ const AvatarInput = ({
   }, [label, source]);
 
   return (
-    <div className={clsx(classes.container, className)}>
+    <div className={clsx(classes.container, className)} {...rest}>
       {formattedLabel && <Typography variant="subtitle1">{formattedLabel}</Typography>}
       <div
         className={horizontal ? classes.horizontalContainer : classes.verticalContainer}

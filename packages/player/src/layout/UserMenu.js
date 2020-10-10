@@ -50,9 +50,9 @@ const UserMenu = (props) => {
     payload: { id: getPlayerId() },
   });
 
-  const isAvatarLoaded = !player || loading || error;
+  const noAvatar = !player || !player[models.players.fields.avatar] || loading || error;
 
-  if (isAvatarLoaded) {
+  if (noAvatar) {
     return (
       <UIUserMenu {...props}>
         <ConfigurationMenu />
