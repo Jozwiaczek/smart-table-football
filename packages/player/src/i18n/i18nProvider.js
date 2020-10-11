@@ -1,3 +1,4 @@
+import { resolveBrowserLocale } from 'react-admin';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 
 import polishMessages from './pl';
@@ -9,6 +10,6 @@ const i18nProvider = polyglotI18nProvider((locale) => {
   }
 
   return englishMessages;
-}, 'en');
+}, resolveBrowserLocale());
 
 export default i18nProvider;

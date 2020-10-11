@@ -4,18 +4,18 @@ import ContentSave from '@material-ui/icons/Save';
 import { FormDataConsumer, Mutation, Toolbar } from 'react-admin';
 import { Button } from '@material-ui/core';
 
-class ClientEditToolbar extends Component {
+class PlayerEditToolbar extends Component {
   constructor(props) {
     super(props);
 
     this.options = {
       undoable: true,
       onSuccess: {
-        notification: { body: 'resources.clients.notification.saveChanges.success', level: 'info' },
+        notification: { body: 'resources.players.notification.saveChanges.success', level: 'info' },
       },
       onError: {
         notification: {
-          body: 'resources.clients.notification.saveChanges.failure',
+          body: 'resources.players.notification.saveChanges.failure',
           level: 'warning',
         },
       },
@@ -28,7 +28,7 @@ class ClientEditToolbar extends Component {
     return (
       <Mutation
         type="UPDATE"
-        resource={constants.resources.clients}
+        resource={constants.resources.players}
         payload={{
           id: props.record._id,
           data: props.formData,
@@ -65,4 +65,4 @@ class ClientEditToolbar extends Component {
   }
 }
 
-export default ClientEditToolbar;
+export default PlayerEditToolbar;

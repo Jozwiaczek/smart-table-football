@@ -1,7 +1,51 @@
 import polishMessages from 'ra-language-polish';
 
 export default {
-  ...polishMessages,
+  ra: {
+    ...polishMessages.ra,
+    action: {
+      ...polishMessages.ra.action,
+      unselect: 'Odznacz',
+    },
+  },
+  layout: {
+    appBar: {
+      notifications: {
+        title: 'Powiadomienia',
+        navigateToPanel: 'Panel powiadomień',
+        emptyList: 'Nie masz nowych powiadomień',
+      },
+      tableStatus: {
+        connected: 'Stół jest połączony',
+        disconnected: 'Stół jest rozłączony',
+        busy: 'Obecnie trwa rozgrywka',
+        ready: 'Gotowy do gry!',
+        join: {
+          tooltip: 'Przycisnij by dołączyć do obecnego meczu',
+          button: 'Dołącz',
+        },
+      },
+    },
+    userMenu: {
+      profile: 'Profil',
+      settings: 'Ustawienia',
+    },
+  },
+  models: {
+    players: {
+      profile: {
+        title: 'Profil',
+        general: 'Ogólne',
+        account: 'Konto',
+        actions: 'Akcje',
+      },
+      avatar: {
+        upload: 'Prześlij Avatar',
+        confirm: 'Potwierdź Avatar',
+        remove: 'Usuń Avatar',
+      },
+    },
+  },
   pos: {
     search: 'Wyszukiwanie',
     settings: 'Ustawienia',
@@ -11,7 +55,36 @@ export default {
       light: 'Jasny',
       dark: 'Ciemny',
     },
+    auth: {
+      login: {
+        sign_up: 'Zarejestruj',
+        forgetPassword: 'Zapomniałem swojego hasła',
+      },
+      registration: {
+        sign_up: 'Zarejestruj',
+        i_have_an_account: 'Mam już konto',
+      },
+    },
     dashboard: {
+      title: 'Pulpit',
+      welcomeTitle: 'Witaj',
+      welcomeCard: {
+        title: 'Witaj w Smart Table Football!',
+        subtitle1:
+          'Poniżej znjadziesz twój pulpit ze wszystkimi statystykami z gier, drużym i wszystkimi liczbami.',
+        subtitle2:
+          'Dla lepszych doswiadczen możesz dodać aplikacje STF do twojego ekranu głównego (IOS, Android, Web).',
+        button: 'Ukryj',
+      },
+      newMatchSection: {
+        title: 'Nowa gra?',
+        description: 'Jesli chcesz rozpoczac nową gre, kliknij przycisk poniżej',
+        button: 'Przygotuj mecz',
+      },
+      teamsSection: {
+        title: 'Zespoły',
+        button: 'Zapros znajomego',
+      },
       statisticSection: {
         title: 'Statystyki',
         items: {
@@ -21,16 +94,11 @@ export default {
           matchesInWeek: 'Liczba meczy w ostatnim tygodniu',
         },
       },
-      teamsSection: {
-        title: 'Zespoły',
-        button: 'Zapros znajomego',
-      },
-      welcome: {
-        title: 'Welcome to react-admin demo',
-        subtitle:
-          "This is the admin of an imaginary poster shop. Feel free to explore and modify the data - it's local to your computer, and will reset each time you reload.",
-        aor_button: 'react-admin site',
-        demo_button: 'Source for this demo',
+      lastMatchSection: {
+        title: 'Ostatnia gra',
+        body: 'Kliknij przycisk poniżej aby przejsć do statystyk ostatniego meczu',
+        button: 'Pokaż',
+        empty: 'Nie masz żadnch rozegranych meczy',
       },
     },
     menu: {
@@ -41,29 +109,17 @@ export default {
     },
   },
   global: {
-    add: 'add',
-    edit: 'edit',
-    delete: 'delete',
+    add: 'Dodaj',
+    edit: 'Edytuj',
+    delete: 'Usuń',
+    saveChanges: 'Zapisz zmiany',
   },
   resources: {
     players: {
-      notification: {
-        removeAccount: 'Account deleted',
-        saveChanges: {
-          success: 'Saving changes successful',
-          failure: 'Saving changes failed',
-        },
-      },
-    },
-    users: {
       actions: {
-        addProfilePicture: {
-          label: 'Profile picture',
-          buttonLabel: 'Add picture',
-        },
         sendResetPwd: {
-          label: 'Password reset',
-          buttonLabel: 'Send password reset email',
+          label: 'Resetowanie hasła',
+          buttonLabel: 'Wyslji email resetujący hasło',
         },
         verifySignupShort: {
           label: 'Verify Sign Up with Short',
@@ -75,24 +131,23 @@ export default {
         },
       },
       notification: {
-        appendImage: {
-          profilePicture: {
-            success: 'Appending profile picture successful',
-            failure: 'Appending profile picture failed',
-          },
+        removeAccount: 'Konto usuniete',
+        saveChanges: {
+          success: 'Poprawnie zapisano zmiany',
+          failure: 'Błąd w zapisywaniu zmian',
         },
         playerAuthManagement: {
           success: {
-            playerAuthManagement: 'Auth management action success',
-            sendResetPwd: 'Send password rest to %{email}',
-            verifySignupShort: 'Verification successful',
-            verifySignupLong: 'Verification successful',
+            playerAuthManagement: 'Sukces akcji autoryzującej',
+            sendResetPwd: 'Mail resetujący wysłany do %{email}',
+            verifySignupShort: 'Weryfikacja poprawna',
+            verifySignupLong: 'Weryfikacja poprawna',
           },
           failure: {
-            playerAuthManagement: 'Auth management action failure',
-            sendResetPwd: 'Failed to send password reset',
-            verifySignupShort: 'Verification failed',
-            verifySignupLong: 'Verification failed',
+            playerAuthManagement: 'Błąd akcji autoryzującej',
+            sendResetPwd: 'Bład wysyłania maila restującego',
+            verifySignupShort: 'Błąd weryfikacji',
+            verifySignupLong: 'Błąd weryfikacji',
           },
         },
       },

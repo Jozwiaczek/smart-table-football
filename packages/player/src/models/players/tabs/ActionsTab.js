@@ -10,6 +10,7 @@ import {
   showNotification,
   TextInput,
   userLogout,
+  useTranslate,
   withDataProvider,
 } from 'react-admin';
 
@@ -93,36 +94,40 @@ const ActionTab = ({
   dispatch,
   basePath,
   ...rest
-}) => (
-  <FormTab label="Actions" {...rest}>
-    <SectionTitle className={classes.sectionTitle}>Change password</SectionTitle>
-    <TextInput source="oldPassword" type="password" />
-    <TextInput source={models.players.fields.password} type="password" label="New password" />
-    <TextInput source="confirmPassword" type="password" label="Confirm new password" />
-    <FormDataConsumer classes={classes}>
-      {changePasswordRender({ dataProvider, classes, showNotification, loading })}
-    </FormDataConsumer>
-    <ValidateEmailButton
-      dataProvider={dataProvider}
-      player={player}
-      classes={classes}
-      showNotification={showNotification}
-    />
-    <SectionTitle className={classes.sectionTitle}>Delete account</SectionTitle>
-    <ConfirmDeleteButton
-      {...rest}
-      label="Delete account"
-      variant="contained"
-      className={classes.buttonContained && classes.deleteAccountBtn}
-      onConfirm={async (record) => {
-        await dataProvider(DELETE, constants.resources.players, {
-          id: record._id,
-        });
-        userLogout();
-      }}
-    />
-  </FormTab>
-);
+}) => {
+  const translate = useTranslate();
+
+  return (
+    <FormTab label={translate('models.players.profile.actions')} {...rest}>
+      <SectionTitle className={classes.sectionTitle}>Change password</SectionTitle>
+      <TextInput source="oldPassword" type="password" />
+      <TextInput source={models.players.fields.password} type="password" label="New password" />
+      <TextInput source="confirmPassword" type="password" label="Confirm new password" />
+      <FormDataConsumer classes={classes}>
+        {changePasswordRender({ dataProvider, classes, showNotification, loading })}
+      </FormDataConsumer>
+      <ValidateEmailButton
+        dataProvider={dataProvider}
+        player={player}
+        classes={classes}
+        showNotification={showNotification}
+      />
+      <SectionTitle className={classes.sectionTitle}>Delete account</SectionTitle>
+      <ConfirmDeleteButton
+        {...rest}
+        label="Delete account"
+        variant="contained"
+        className={classes.buttonContained && classes.deleteAccountBtn}
+        onConfirm={async (record) => {
+          await dataProvider(DELETE, constants.resources.players, {
+            id: record._id,
+          });
+          userLogout();
+        }}
+      />
+    </FormTab>
+  );
+};
 
 const matchStateToProps = {
   userLogout,

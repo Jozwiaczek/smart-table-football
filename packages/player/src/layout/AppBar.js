@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { AppBar, GET_ONE, useDataProvider } from 'react-admin';
+import { AppBar, GET_ONE, useDataProvider, useTranslate } from 'react-admin';
 import SignalIcon from '@material-ui/icons/Power';
 import NoSignalIcon from '@material-ui/icons/PowerOff';
 import TableAvailableIcon from '@material-ui/icons/DoubleArrow';
@@ -54,9 +54,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TableStatusItem = ({ classes, isTableActive, isSmall }) => {
+  const translate = useTranslate();
+
   if (isTableActive) {
     return (
-      <Tooltip title="Table is connected">
+      <Tooltip title={translate('layout.appBar.tableStatus.connected')}>
         <SignalIcon />
       </Tooltip>
     );
@@ -67,7 +69,9 @@ const TableStatusItem = ({ classes, isTableActive, isSmall }) => {
       <div className={classes.noSignalContainer}>
         <NoSignalIcon />
         {!isSmall && (
-          <Typography className={classes.disconnectText}>Table is disconnected</Typography>
+          <Typography className={classes.disconnectText}>
+            {translate('layout.appBar.tableStatus.disconnected')}
+          </Typography>
         )}
       </div>
     </div>
@@ -81,6 +85,7 @@ export default (props) => {
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const classes = useStyles();
   const dataProvider = useDataProvider();
+  const translate = useTranslate();
 
   useEffect(() => {
     const save = async () => {
@@ -130,10 +135,11 @@ export default (props) => {
     const history = useHistory();
 
     if (!isTableActive) return null;
+
     if (isTableInGame) {
       if (isPlayerInGame) {
         return (
-          <Tooltip title="Click to join your current match">
+          <Tooltip title={translate('layout.appBar.tableStatus.join.tooltip')}>
             <Button
               color="action"
               onClick={() =>
@@ -141,19 +147,20 @@ export default (props) => {
               }
             >
               <EmojiPeopleIcon className={classes.buttonIcon} color="action" />
-              Join
+              {translate('layout.appBar.tableStatus.join.button')}
             </Button>
           </Tooltip>
         );
       }
       return (
-        <Tooltip title="There is an active match">
+        <Tooltip title={translate('layout.appBar.tableStatus.busy')}>
           <TableBusyIcon />
         </Tooltip>
       );
     }
+
     return (
-      <Tooltip title="Ready to play!">
+      <Tooltip title={translate('layout.appBar.tableStatus.ready')}>
         <TableAvailableIcon />
       </Tooltip>
     );

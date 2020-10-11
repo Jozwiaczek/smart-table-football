@@ -3,7 +3,7 @@ import { makeStyles, Typography } from '@material-ui/core';
 import { constants, models } from 'stf-core';
 import MenuItem from '@material-ui/core/MenuItem';
 import React from 'react';
-import { UPDATE, useDataProvider } from 'react-admin';
+import { UPDATE, useDataProvider, useTranslate } from 'react-admin';
 import { useHistory } from 'react-router-dom';
 import InvitationIcon from '@material-ui/icons/GroupAdd';
 
@@ -18,13 +18,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// TODO: Add filed toArchive
-// TODO: Archive elements which is toArchive and on the list
-// TODO: Make responsive
 const NotificationMenuItem = ({ notifications, closeNotificationPanel }) => {
   const classes = useStyles();
   const dataProvider = useDataProvider();
   const history = useHistory();
+  const translate = useTranslate();
 
   const onClickInvitation = async (event, notification) => {
     await dataProvider(UPDATE, constants.resources.notifications, {
@@ -40,7 +38,7 @@ const NotificationMenuItem = ({ notifications, closeNotificationPanel }) => {
   if (notifications.length === 0) {
     return (
       <Typography align="center" className={classes.emptyNotifications}>
-        You dont have any <b>new</b> notification
+        {translate('layout.appBar.notifications.emptyList')}
       </Typography>
     );
   }

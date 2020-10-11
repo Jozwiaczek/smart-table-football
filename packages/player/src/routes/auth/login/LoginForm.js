@@ -128,7 +128,7 @@ const LoginForm = ({ classes, redirectTo }) => {
                 <Link to="/passwordReset" {...props} />
               ))}
             >
-              I don't remember my password
+              {translate('pos.auth.login.forgetPassword')}
             </Typography>
           </CardActions>
         </form>

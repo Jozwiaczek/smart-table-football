@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { GET_LIST, Title, useDataProvider } from 'react-admin';
+import { GET_LIST, Title, useDataProvider, useTranslate } from 'react-admin';
 
 import { Card, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,6 +28,7 @@ export default () => {
   const classes = useStyles();
   const dataProvider = useDataProvider();
   const [notifications, setNotifications] = useState([]);
+  const translate = useTranslate();
 
   useEffect(() => {
     const req = async () => {
@@ -46,12 +47,13 @@ export default () => {
 
   return (
     <Card className={classes.card}>
-      <Title title="Notifications" />
+      <Title title={translate('layout.appBar.notifications.title')} />
       <CardContent>
         <List
           source={models.notifications.name}
           data={notifications}
           headCells={headCells}
+          emptyMessage={translate('layout.appBar.notifications.emptyList')}
           onRowClick={() => console.log('test')}
         >
           <MessageTableCell />

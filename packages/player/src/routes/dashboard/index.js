@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { GET_LIST, GET_ONE, Responsive, Title, useDataProvider, useTranslate } from 'react-admin';
 
-import { Button, Typography } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import StatisticsIcon from '@material-ui/icons/BarChart';
 
@@ -216,28 +216,29 @@ const DashboardLayout = ({ small, history, location }) => {
 
   const LastMatchField = () => {
     const lastMatch = getLastMatch();
+    const translate = useTranslate();
+
     if (lastMatch) {
       return (
-        <>
+        <Box maxWidth="17em" display="flex" flexDirection="column" alignItems="center">
           <Typography gutterBottom variant="body1" align="center" color="textPrimary">
-            Click button below to show
-            <br />
-            statistic of your last match
+            {translate('pos.dashboard.lastMatchSection.body')}
           </Typography>
+          <br />
           <Button
             color="primary"
             variant="outlined"
             onClick={() => history.push(`/${constants.resources.matches}/${lastMatch._id}`)}
           >
             <StatisticsIcon />
-            Show
+            {translate('pos.dashboard.lastMatchSection.button')}
           </Button>
-        </>
+        </Box>
       );
     }
     return (
       <Typography gutterBottom variant="body1" align="center" color="textPrimary">
-        You dont have any matches
+        {translate('pos.dashboard.lastMatchSection.empty')}
       </Typography>
     );
   };
@@ -250,14 +251,15 @@ const DashboardLayout = ({ small, history, location }) => {
 
   return (
     <BackgroundGraphic>
-      <Title title="Dashboard" />
+      <Title title={translate('pos.dashboard.title')} />
+
       <WelcomeCard />
 
       <DashboardContainer small={small}>
         <DashboardFragment small={small}>
           <DashboardSection noBottomMargin>
             <Typography variant="h3" color="textPrimary" align="center">
-              Welcome {player[models.players.fields.firstName]}!
+              {translate('pos.dashboard.welcomeTitle')} {player[models.players.fields.firstName]}!
             </Typography>
           </DashboardSection>
 
@@ -266,7 +268,7 @@ const DashboardLayout = ({ small, history, location }) => {
           <DashboardSection>
             {!isTableInGame && (
               <>
-                <SectionTitle>New Match?</SectionTitle>
+                <SectionTitle>{translate('pos.dashboard.newMatchSection.title')}</SectionTitle>
                 <Typography
                   gutterBottom
                   variant="h6"
@@ -274,7 +276,7 @@ const DashboardLayout = ({ small, history, location }) => {
                   align="center"
                   color="textPrimary"
                 >
-                  If you want to play a game, click button below
+                  {translate('pos.dashboard.newMatchSection.description')}
                 </Typography>
                 <Button
                   color="primary"
@@ -283,7 +285,7 @@ const DashboardLayout = ({ small, history, location }) => {
                   onClick={() => history.push(`/${constants.resources.matches}/create`)}
                 >
                   <CreateIcon />
-                  Prepare match
+                  {translate('pos.dashboard.newMatchSection.button')}
                 </Button>
               </>
             )}
@@ -303,7 +305,7 @@ const DashboardLayout = ({ small, history, location }) => {
             <WinRatio value={getPlayerWinRatio()} />
             <MatchesInWeek value={getMatchesNumberInLastWeek()} />
             <DashboardSection noBottomMargin>
-              <SectionTitle>Last Match</SectionTitle>
+              <SectionTitle>{translate('pos.dashboard.lastMatchSection.title')}</SectionTitle>
               <LastMatchField />
             </DashboardSection>
           </DashboardSection>

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box, Card, CardActions, Button, Typography } from '@material-ui/core';
-import SportsSoccerSharpIcon from '@material-ui/icons/SportsSoccerSharp';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
+
+import { useTranslate } from 'react-admin';
 
 import publishArticleImage from './welcome_illustration.svg';
 import useLocalStorage from '../../hooks/useLocalStorage';
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const WelcomeCard = () => {
   const classes = useStyles();
+  const translate = useTranslate();
   const [isWatched, setIsWatched] = useLocalStorage('welcomeCardWatched', false);
 
   if (isWatched) return null;
@@ -44,14 +46,13 @@ const WelcomeCard = () => {
       <Box display="flex">
         <Box flex="1">
           <Typography gutterBottom variant="h4" component="h4">
-            Welcome in Smart Table Football! <SportsSoccerSharpIcon />
+            {translate('pos.dashboard.welcomeCard.title')}
           </Typography>
-          <Box maxWidth="45em">
+          <Box maxWidth="50em">
             <Typography gutterBottom variant="body1" component="p">
-              Below you find your dashboard with all statistic from games, teams and all numbers.
+              {translate('pos.dashboard.welcomeCard.subtitle1')}
               <br />
-              For better user experience you can add STF app to your Home Screen (IOS, Android,
-              Web).
+              {translate('pos.dashboard.welcomeCard.subtitle2')}
             </Typography>
           </Box>
           <CardActions className={classes.actions}>
@@ -60,7 +61,7 @@ const WelcomeCard = () => {
               startIcon={<CloseIcon />}
               onClick={() => setIsWatched(true)}
             >
-              Hide
+              {translate('pos.dashboard.welcomeCard.button')}
             </Button>
           </CardActions>
         </Box>

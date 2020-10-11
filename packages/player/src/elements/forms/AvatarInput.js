@@ -1,13 +1,15 @@
 import Avatar from 'react-avatar-edit';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTheme } from '@material-ui/core/styles';
-import { Button, makeStyles, Typography } from '@material-ui/core';
+import { makeStyles, Typography, IconButton } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DoneIcon from '@material-ui/icons/Done';
 import { useDataProvider, useNotify } from 'ra-core';
+import Tooltip from '@material-ui/core/Tooltip/Tooltip';
 import clsx from 'clsx';
 import { constants, models } from 'stf-core';
-import { UPDATE } from 'react-admin';
+import { UPDATE, useTranslate } from 'react-admin';
 
 import { getPlayerId } from '../../utils/getPlayerId';
 
@@ -79,6 +81,7 @@ const AvatarInput = ({
   const [isSelected, setSelected] = useState(false);
   const notify = useNotify();
   const dataProvider = useDataProvider();
+  const translate = useTranslate();
 
   const theme = useTheme();
 
@@ -173,7 +176,7 @@ const AvatarInput = ({
             imageWidth={170}
             label={
               <span aria-disabled={disabled} className={classes.avatarLabel}>
-                Upload avatar
+                {translate('models.players.avatar.upload')}
                 <CloudUploadIcon className={classes.labelIcon} />
               </span>
             }
@@ -198,12 +201,20 @@ const AvatarInput = ({
           />
         )}
         {preview && (
-          <Button
+          <IconButton
             className={horizontal ? classes.horizontalButton : classes.verticalButton}
             onClick={clickBtnAction}
           >
-            {!isSelected ? 'Confirm Avatar' : <DeleteForeverIcon />}
-          </Button>
+            {!isSelected ? (
+              <Tooltip title={translate('models.players.avatar.confirm')}>
+                <DoneIcon color={!isSelected && 'primary'} />
+              </Tooltip>
+            ) : (
+              <Tooltip title={translate('models.players.avatar.remove')}>
+                <DeleteForeverIcon />
+              </Tooltip>
+            )}
+          </IconButton>
         )}
       </div>
     </div>

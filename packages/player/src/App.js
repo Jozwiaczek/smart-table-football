@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Admin, GET_ONE, Resource, useDataProvider, useSetLocale } from 'react-admin';
+import { Admin, GET_ONE, Resource, useDataProvider, useSetLocale, useLogout } from 'react-admin';
 import { useDispatch } from 'react-redux';
 
 import { authClient } from 'ra-data-feathers';
@@ -27,6 +27,7 @@ import { socket } from './client/feathersSocketClient';
 import { setTableAvailability, setTableStatus } from './redux/actions/table';
 import { setTheme } from './redux/actions/theme';
 import { NotificationsList } from './models/notifications';
+import useLocalStorage from './hooks/useLocalStorage';
 
 const authClientOptions = {
   storageKey: constants.storageKey, // The key in localStorage used to store the authentication token
@@ -45,16 +46,13 @@ const GetPlayer = () => {
   const setLocale = useSetLocale();
   const dataProvider = useDataProvider();
   const dispatch = useDispatch();
+  const [themeMode] = useLocalStorage(constants.themeMode.name, constants.themeMode.type.light);
+  const [token] = useLocalStorage(constants.storageKey);
+  const logout = useLogout();
 
   useEffect(() => {
-    let themeMode = localStorage.getItem(constants.themeMode.name);
-    if (!themeMode) {
-      themeMode = constants.themeMode.type.light;
-      localStorage.setItem(constants.themeMode.name, themeMode);
-    }
     dispatch(setTheme(themeMode));
 
-    const token = localStorage.getItem(constants.storageKey);
     const getter = async () => {
       const resPlayer = await dataProvider(GET_ONE, constants.resources.players, {
         id: getPlayerId(),
@@ -74,7 +72,7 @@ const GetPlayer = () => {
     if (token) {
       getter();
     }
-  }, [dataProvider, setLocale, dispatch]);
+  }, [dataProvider, setLocale, dispatch, themeMode, token, logout]);
   return null;
 };
 
@@ -83,7 +81,6 @@ const App = () => (
     title="STF Player Panel"
     dataProvider={dataProvider}
     authProvider={authClient(feathersRestClient, authClientOptions)}
-    // customSagas={[tableSaga]}
     customReducers={customReducers}
     i18nProvider={i18nProvider}
     customRoutes={customRoutes}

@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const List = ({ data, headCells, onRowClick, children, source }) => {
+const List = ({ data, headCells, onRowClick, children, source, emptyMessage }) => {
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
@@ -133,7 +133,7 @@ const List = ({ data, headCells, onRowClick, children, source }) => {
   if (!records || records.length === 0) {
     return (
       <div>
-        <h2>Your list is empty</h2>
+        <h2>{emptyMessage || 'Your list is empty'}</h2>
       </div>
     );
   }

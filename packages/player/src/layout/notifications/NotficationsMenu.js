@@ -6,7 +6,7 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
-import { GET_LIST, UPDATE_MANY, useDataProvider } from 'react-admin';
+import { GET_LIST, UPDATE_MANY, useDataProvider, useTranslate } from 'react-admin';
 import { constants, models } from 'stf-core';
 
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -16,6 +16,8 @@ import { useHistory } from 'react-router-dom';
 import { Divider, Typography } from '@material-ui/core';
 import NavigateToIcon from '@material-ui/icons/OpenInBrowser';
 import MarkIcon from '@material-ui/icons/EmojiFlags';
+
+import Tooltip from '@material-ui/core/Tooltip/Tooltip';
 
 import { getPlayerId } from '../../utils/getPlayerId';
 import NotificationMenuItem from './NotificationMenuItem';
@@ -44,6 +46,7 @@ export default function NotificationsMenu() {
   const [notifications, setNotifications] = useState([]);
   const dataProvider = useDataProvider();
   const history = useHistory();
+  const translate = useTranslate();
 
   useEffect(() => {
     const req = async () => {
@@ -113,17 +116,19 @@ export default function NotificationsMenu() {
 
   return (
     <>
-      <IconButton
-        ref={anchorRef}
-        aria-controls={open ? 'menu-list-grow' : undefined}
-        aria-haspopup="true"
-        color="inherit"
-        onClick={handleToggle}
-      >
-        <Badge badgeContent={notifications.length} color="secondary">
-          <NotificationsIcon />
-        </Badge>
-      </IconButton>
+      <Tooltip title={translate('layout.appBar.notifications.title')}>
+        <IconButton
+          ref={anchorRef}
+          aria-controls={open ? 'menu-list-grow' : undefined}
+          aria-haspopup="true"
+          color="inherit"
+          onClick={handleToggle}
+        >
+          <Badge badgeContent={notifications.length} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+      </Tooltip>
       <Popper transition disablePortal open={open} anchorEl={anchorRef.current} role={undefined}>
         {({ TransitionProps, placement }) => (
           <Grow
@@ -134,7 +139,7 @@ export default function NotificationsMenu() {
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   <Typography gutterBottom color="primary" variant="h5" align="center">
-                    Notifications
+                    {translate('layout.appBar.notifications.title')}
                   </Typography>
                   <Divider />
                   <NotificationMenuItem
@@ -145,7 +150,7 @@ export default function NotificationsMenu() {
                   <div className={classes.actionContainer}>
                     <MenuItem className={classes.actionMenuItem} onClick={moveToNotificationPanel}>
                       <NavigateToIcon />
-                      &nbsp;Notifications panel
+                      &nbsp;{translate('layout.appBar.notifications.navigateToPanel')}
                     </MenuItem>
                     {notifications.length !== 0 && (
                       <MenuItem className={classes.actionMenuItem} onClick={markAll}>

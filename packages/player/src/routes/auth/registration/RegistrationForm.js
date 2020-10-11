@@ -157,7 +157,7 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
                   <CircularProgress size={15} thickness={2} />
                 </div>
               )}
-              Sign Up
+              {translate('pos.auth.registration.sign_up')}
             </Button>
             <Typography
               component={Link}
@@ -165,7 +165,7 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
               className={classes.linkToLog}
               variant="caption"
             >
-              I have an account
+              {translate('pos.auth.registration.i_have_an_account')}
             </Typography>
           </CardActions>
         </form>

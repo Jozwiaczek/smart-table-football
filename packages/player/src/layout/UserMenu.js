@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import { useSelector } from 'react-redux';
 import { MenuItemLink, UserMenu as UIUserMenu, useTranslate } from 'react-admin';
 
 import ProfileIcon from '@material-ui/icons/Person';
@@ -22,19 +23,22 @@ const useStyles = makeStyles({
 
 const ConfigurationMenu = forwardRef((props, ref) => {
   const translate = useTranslate();
+  const open = useSelector((state) => state.admin.ui.sidebarOpen);
   return (
     <>
       <MenuItemLink
+        sidebarIsOpen={open}
         ref={ref}
         to={`/players/${getPlayerId()}/basic`}
-        primaryText="Profile"
+        primaryText={translate('layout.userMenu.profile')}
         leftIcon={<ProfileIcon />}
         onClick={props.onClick}
       />
       <MenuItemLink
+        sidebarIsOpen={open}
         ref={ref}
         to="/settings"
-        primaryText={translate('pos.settings')}
+        primaryText={translate('layout.userMenu.settings')}
         leftIcon={<SettingsIcon />}
         onClick={props.onClick}
       />

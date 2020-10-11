@@ -22,6 +22,7 @@ const styles = () =>
     card: {
       padding: '1rem',
       width: '100%',
+      margin: '50px 0',
       minWidth: 200,
       maxWidth: 400,
       display: 'flex',

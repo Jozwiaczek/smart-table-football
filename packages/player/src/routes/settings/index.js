@@ -11,6 +11,7 @@ import { Typography } from '@material-ui/core';
 
 import { getPlayerId } from '../../utils/getPlayerId';
 import { setTheme } from '../../redux/actions/theme';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const useStyles = makeStyles({
   card: {
@@ -37,6 +38,7 @@ export default () => {
   const dispatch = useDispatch();
 
   const theme = useSelector((state) => state.theme.currentTheme);
+  const [, setStoredThemeMode] = useLocalStorage(constants.themeMode.name);
   const [isDarkTheme, setIsDarkTheme] = useState(
     theme.palette.type === constants.themeMode.type.dark,
   );
@@ -46,8 +48,18 @@ export default () => {
   }, [theme]);
 
   const setThemeMode = async (themeMode) => {
-    localStorage.setItem(constants.themeMode.name, themeMode);
+    setStoredThemeMode(themeMode);
     dispatch(setTheme(themeMode));
+  };
+
+  const setLanguage = async (locale) => {
+    await dataProvider(UPDATE, constants.resources.players, {
+      id: getPlayerId(),
+      data: {
+        [models.players.fields.locale]: locale,
+      },
+    });
+    setLocale(locale);
   };
 
   return (
@@ -84,15 +96,7 @@ export default () => {
             variant="contained"
             className={classes.button}
             color={locale === constants.locales.en ? 'primary' : 'default'}
-            onClick={async () => {
-              await dataProvider(UPDATE, constants.resources.players, {
-                id: getPlayerId(),
-                data: {
-                  [models.players.fields.locale]: constants.locales.en,
-                },
-              });
-              setLocale(constants.locales.en);
-            }}
+            onClick={() => setLanguage(constants.locales.en)}
           >
             en
           </Button>
@@ -100,15 +104,7 @@ export default () => {
             variant="contained"
             className={classes.button}
             color={locale === constants.locales.pl ? 'primary' : 'default'}
-            onClick={async () => {
-              await dataProvider(UPDATE, constants.resources.players, {
-                id: getPlayerId(),
-                data: {
-                  [models.players.fields.locale]: constants.locales.pl,
-                },
-              });
-              setLocale(constants.locales.pl);
-            }}
+            onClick={() => setLanguage(constants.locales.pl)}
           >
             pl
           </Button>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormTab, required, TextInput } from 'react-admin';
+import { FormTab, required, TextInput, useTranslate } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
 import { models } from 'stf-core';
@@ -18,9 +18,10 @@ const useStyles = makeStyles(() => ({
 
 const PersonalTab = ({ trainerSite, hasList, hasEdit, hasCreate, hasShow, basePath, ...rest }) => {
   const classes = useStyles();
+  const translate = useTranslate();
 
   return (
-    <FormTab label="Personal details" {...rest}>
+    <FormTab label={translate('models.players.profile.general')} {...rest}>
       <AvatarInput
         horizontal
         className={classes.avatarContainer}

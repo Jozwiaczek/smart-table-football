@@ -6,19 +6,16 @@ import { MuiThemeProvider } from '@material-ui/core';
 import { constants } from 'stf-core';
 
 import { setTheme } from '../redux/actions/theme';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const ThemeWrapper = ({ children }) => {
   const theme = useSelector((state) => state.theme.currentTheme);
   const dispatch = useDispatch();
+  const [themeMode] = useLocalStorage(constants.themeMode.name, constants.themeMode.type.light);
 
   useEffect(() => {
-    let themeMode = localStorage.getItem(constants.themeMode.name);
-    if (!themeMode) {
-      themeMode = constants.themeMode.type.light;
-      localStorage.setItem(constants.themeMode.name, themeMode);
-    }
     dispatch(setTheme(themeMode));
-  }, [dispatch]);
+  }, [dispatch, themeMode]);
   return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
 };
 

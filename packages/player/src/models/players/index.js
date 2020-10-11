@@ -2,13 +2,13 @@ import React from 'react';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
 
-import { Edit, TabbedForm } from 'react-admin';
+import { Edit, TabbedForm, useTranslate } from 'react-admin';
 
 import { withStyles } from '@material-ui/core';
 
 import { models } from 'stf-core';
 
-import ClientEditToolbar from './components/ClientEditToolbar';
+import PlayerEditToolbar from './components/PlayerEditToolbar';
 import { getPlayerId } from '../../utils/getPlayerId';
 import ActionTab from './tabs/ActionsTab';
 import PersonalTab from './tabs/PersonalTab';
@@ -55,6 +55,8 @@ const validatePasswordChange = (values) => {
 };
 
 const _PlayerEdit = ({ location, history, classes, players, loading, ...props }) => {
+  const translate = useTranslate();
+
   if (!players || !players.data) {
     return null;
   }
@@ -71,10 +73,11 @@ const _PlayerEdit = ({ location, history, classes, players, loading, ...props })
   }
 
   return (
-    <Edit title="Profile" actions={null} {...props}>
+    <Edit title={translate('models.players.profile.title')} actions={null} {...props}>
       <TabbedForm
         validate={validatePasswordChange}
-        toolbar={<ClientEditToolbar location={location} />}
+        toolbar={<PlayerEditToolbar location={location} />}
+        onSubmit={() => console.log('test')}
       >
         <PersonalTab path="basic" classes={classes} {...props} />
         <AccountTab path="account" classes={classes} {...props} />
