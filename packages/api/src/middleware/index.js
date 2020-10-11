@@ -3,13 +3,13 @@ module.exports = function (app) {
   // in Express, the order matters.
   // // Create test mail
   // app.use('/test-mail', function (req, res) {
-  //   console.log('/test-mail')
+  //   console.log('/test-mail');
   //   app.service('mailer').create({
   //     to: 'kubencki@gmail.com',
   //     subject: '⚠️ Test middleware mail',
-  //     html: '<p>Test mail html</p>'
-  //   })
-  // })
+  //     html: '<p>Test mail html</p>',
+  //   });
+  // });
   //
   // // Create first admin
   // app.use('/create-first-admin', function (req, res) {

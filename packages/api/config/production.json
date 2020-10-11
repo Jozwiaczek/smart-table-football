@@ -1,26 +1,10 @@
 {
-  "host": "localhost",
-  "port": 8080,
-  "public": "../public/",
-  "url": "https://stf-player.herokuapp.com",
-  "paginate": {
-    "default": 10,
-    "max": 50
-  },
-  "authentication": {
-    "secret": "AUTHENTICATION_SECRET="
-  },
+  "url": "https://smart-table-football.netlify.app",
   "mailer": {
     "host": "smtp.sendgrid.net",
     "port": "587",
     "secure": false,
     "requireTLS": true,
-    "Username": "apikey",
-    "Password": "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",
-    "auth": {
-      "user": "apikey",
-      "pass": "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"
-    },
     "from": {
       "name": "no-reply@stf.io",
       "address": "Smart Table Football"

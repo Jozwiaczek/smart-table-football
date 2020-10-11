@@ -22,16 +22,15 @@
     }
   },
   "authentication": {
-    "secret": "Cq95EofkZV0JAt7cMh5IU5wPaPc=",
     "strategies": ["jwtAdmin", "jwtPlayer", "jwtRaspberry", "admin", "player", "raspberry"],
     "path": "/authentication",
-    "entity": "admins",
-    "service": "admins",
+    "entity": "players",
+    "service": "players",
     "jwt": {
       "header": {
         "typ": "access"
       },
-      "audience": "https://yourdomain.com",
+      "audience": "https://smart-table-football.netlify.app",
       "subject": "anonymous",
       "issuer": "feathers",
       "algorithm": "HS256",
@@ -50,21 +49,7 @@
       "usernameField": "email",
       "passwordField": "password",
       "service": "players"
-    },
-    "oauth": {
-      "redirect": "/",
-      "google": {
-        "key": "<google oauth key>",
-        "secret": "<google oauth secret>",
-        "scope": ["email", "profile", "openid"]
-      },
-      "facebook": {
-        "key": "<facebook oauth key>",
-        "secret": "<facebook oauth secret>"
-      }
     }
   },
-  "mongodb": "mongodb://localhost",
-  "GOOGLE_DRIVE_MAIL": "owner-78@smart-table-football.iam.gserviceaccount.com",
-  "GOOGLE_DRIVE_KEY": "-----BEGIN PRIVATE KEY-----\nMIIEugIBADANBgkqhkiG9w0BAQEFAASCBKQwggSgAgEAAoIBAQCyDwGFPocaeO2W\nIwlOVRfRWMnLJXRBENQubgtspQYkeEqiS1LTMfNXZjgxEXijei+/BoyOsWLg6Y4d\n0FcWETCwyp9SQwWKeE///VaEzcAa+f7nUXybo6QTVnsRI3yA2E3PEB+FBMqcQi8u\nUSgnUtggnZWbiEohkr9vBFUYbZ+T2UVCsRfqmR9mRwStFIjwJp1DzXyli04TUIm4\nCbsg7jxdd+ZFRacegVexCgXvkA8cz/9v5rFbibaIPhjkFAtWspXRgcxtjK3JmNFc\nVhij8Ih3+bHhC4pA52/3V93dgwRy6MFEW+VoF7vl6XoPR3mGAAGYw+HpTWYBYVhy\nFiwThHnDAgMBAAECgf9xuCPAda7TuWgD+1x2KuKLUamPlNwqshTRkna5bKv/ntQL\n0w+S0tQXfbFlpULnJaJY3lXmzGPaQVACuozkCxaN0truLt/bD/wIAkS/jKikkgW6\nttBelqSztQfkakWaBIutMx7uVaERKzP24N5EPyTJr9tc+i5eQtsAjEPM1jaUtZ5M\njuoDhfkSbJzqFU1M/8rp/ymCcDRs3YiSj5IKyMZHGnm8NcOBo/nliBrzIFfpGFq8\nPU/n+WwZ7iN05Lxi57Gohf6+41wr2WoaoSJO7SJ1dNR1vNUAAcWB1Hmd9d2M6sfg\nHLYAnMA/SprDpnH2fCeXPY7rF5cXDOP7P9wzTj0CgYEA12+OU8zkwDRRfgHBn36e\npd9kHbjZC3iH8AGuF1de+U2CPcBTVvG5R7QjzzLshzVc/qa+L3T68i8+yF88SoJC\n1rSBNLzmd+37ESeh3eTlRtfQu5xT0pte/nlvq/+bdMwtSNi+GHEeL9hxtzm+4OMO\nNQPTsg010Gxse9sxcrOwIh8CgYEA05XLiIE6Q6Uz3dIpFK7oHRsmtQfwjflmzkMg\ns0ic26AzG9rFsOmartpwx5kL+iVkfxgU3HxrzmgaVvWG0NT/q3E2XubZtvBtFAvt\nAbGkAZwaaww+spPHblaat9JDL1c4NjNqx04mjp8EILEfXPYJ4mI3MfWxA66SP/b3\nwtjqW90CgYB3pUfpOHiuWiAMGBOdbafUPT2P2DIKUdVFMNmrsuVXFXnIq8BdIAAj\nV2Mv1ntQGA3ei2JCXvhjemOmymVkh/Vw4myDiomAf5WZEGawIkhHUOJm30oaRBm8\nwFqJrnp6ok5gD6d7UY9PSSjWdmaQ5Ojl/osaboW9jAmvu6s5pZujRwKBgFuqlSBR\npFV0ODFNAKFGWadqgO2DQBOyTnjkGkGyHssD78CMmoNX4b0JRD0lMEwycQSjAT64\n5NfqwCaWfs7wyMeU59Jbv00Dgq5hsE/Aj2ZnJAbmqi8h2RATkzo6bQMQjXjl88ff\nMtMtT1N+iTD0IzoiBPmvEP6gXho6PAL9iSM9AoGAQlSY2u6BVckOn9VQgkjc8DDu\nF6xaZ/hBoEnhE7XNclJQfAu0ou72LNniPviiOAEXBOgZHSQHlU6UOculattxCVyX\n2Hk0a75S9+k039ghHBwxHNneOdEt7wyR1vVZHacAHS2r7ZmCMw/Pql744sybvuSH\n0D84tR+BVt6kNAVReXU=\n-----END PRIVATE KEY-----\n"
+  "mongodb": "mongodb://localhost"
 }

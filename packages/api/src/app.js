@@ -1,3 +1,4 @@
+require('dotenv/config');
 const path = require('path');
 
 const favicon = require('serve-favicon');
@@ -65,7 +66,6 @@ app.configure(mongoose);
 // Configure other middleware (see `middleware/i18nProvider.js`)
 app.configure(middleware);
 app.configure(authentication);
-// test
 // Set up our services (see `services/i18nProvider.js`)
 app.configure(services);
 // Set up event channels (see channels.js)
