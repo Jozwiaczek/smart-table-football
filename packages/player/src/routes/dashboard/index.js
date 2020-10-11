@@ -14,6 +14,8 @@ import moment from 'moment';
 
 import lottie from 'lottie-web';
 
+import { useTheme } from '@material-ui/core/styles';
+
 import BackgroundGraphic from '../../elements/BackgroundGraphic';
 import { getPlayerId } from '../../utils/getPlayerId';
 import WinRatio from './statisticSection/WinRatio';
@@ -57,12 +59,13 @@ const DashboardFragment = styled.div`
   ${(props) => !props.small && large}
 `;
 
-const DashboardLayout = ({ small, history }) => {
+const DashboardLayout = ({ small, history, location }) => {
   const [player, setPlayer] = useState(null);
   const [teams, setTeams] = useState(null);
   const [matches, setMatches] = useState(null);
   const [goals, setGoals] = useState(null);
   const thisRef = useRef();
+  const theme = useTheme();
 
   const translate = useTranslate();
   const dataProvider = useDataProvider();
@@ -76,11 +79,14 @@ const DashboardLayout = ({ small, history }) => {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: './animation.json',
+        path:
+          theme.palette.type === 'dark'
+            ? './animations/dashboard/dark.json'
+            : './animations/dashboard/light.json',
       });
       animate.setSpeed(1.5);
     }
-  }, [thisRef.current]);
+  }, [thisRef.current, location.pathname]);
 
   useEffect(() => {
     const call = async () => {
@@ -90,9 +96,18 @@ const DashboardLayout = ({ small, history }) => {
         }).then((res) => res.data);
         setPlayer(resPlayer);
 
-        const resTeams = await dataProvider(GET_LIST, constants.resources.teams, {
-          filter: {},
-        }).then((res) => res.data);
+        let resTeams;
+        try {
+          resTeams = await dataProvider(GET_LIST, constants.resources.teams, {
+            filter: {},
+          }).then((res) => res.data);
+        } catch (error) {
+          if (error.code === 400 || error.code === 401) {
+            // TODO: Change location or add validator token checker
+            await localStorage.removeItem(constants.storageKey);
+            await window.location.replace('/login');
+          }
+        }
 
         if (Array.isArray(resTeams) && resTeams.length > 0) {
           const playersTeams = resTeams.filter((team) =>
@@ -160,7 +175,7 @@ const DashboardLayout = ({ small, history }) => {
 
   const getMatchesNumberInLastWeek = () => {
     if (!matches?.length) {
-      return null;
+      return 0;
     }
 
     const res = matches.filter((match) => {
@@ -173,7 +188,7 @@ const DashboardLayout = ({ small, history }) => {
 
   const getLongestWinStreak = () => {
     if (!matches?.length) {
-      return null;
+      return 0;
     }
 
     const sortedMatches = matches.sort((a, b) => a.updatedAt > b.updatedAt);

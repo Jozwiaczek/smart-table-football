@@ -26,13 +26,7 @@ const useStyles = makeStyles({
 const GoalsNumber = ({ goals }) => {
   const translate = useTranslate();
   const classes = useStyles();
-  const text = goals ? (
-    <>
-      {goals.length} <SportsSoccerIcon />
-    </>
-  ) : (
-    'You dont have any goals'
-  );
+
   return (
     <div className={classes.main}>
       <CardIcon Icon={SportsSoccerIcon} bgColor="#DE8F0B" />
@@ -41,7 +35,7 @@ const GoalsNumber = ({ goals }) => {
           {translate('pos.dashboard.statisticSection.items.numberOfGoals')}
         </Typography>
         <Typography variant="h5" component="h5">
-          {text}
+          {goals ? goals.length : 0} <SportsSoccerIcon />
         </Typography>
       </Card>
     </div>

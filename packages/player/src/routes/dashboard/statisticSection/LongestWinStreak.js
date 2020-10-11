@@ -26,13 +26,7 @@ const useStyles = makeStyles({
 const LongestWinStreak = ({ wins }) => {
   const translate = useTranslate();
   const classes = useStyles();
-  const text = wins ? (
-    <>
-      {wins} <WhatshotSharpIcon />
-    </>
-  ) : (
-    'You dont have any wins'
-  );
+
   return (
     <div className={classes.main}>
       <CardIcon Icon={WhatshotSharpIcon} bgColor="#ffa726" />
@@ -41,7 +35,7 @@ const LongestWinStreak = ({ wins }) => {
           Longest Win Streak
         </Typography>
         <Typography variant="h5" component="h5">
-          {text}
+          {wins} <WhatshotSharpIcon />
         </Typography>
       </Card>
     </div>
