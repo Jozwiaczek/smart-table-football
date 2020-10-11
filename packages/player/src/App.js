@@ -76,37 +76,51 @@ const GetPlayer = () => {
   return null;
 };
 
-const App = () => (
-  <Admin
-    title="STF Player Panel"
-    dataProvider={dataProvider}
-    authProvider={authClient(feathersRestClient, authClientOptions)}
-    customReducers={customReducers}
-    i18nProvider={i18nProvider}
-    customRoutes={customRoutes}
-    dashboard={Dashboard}
-    loginPage={Login}
-    layout={Layout}
-  >
-    <Resource name={constants.resources.playerAuthManagement} />
-    <Resource name={constants.resources.players} edit={PlayerEdit} />
-    <Resource
-      name={constants.resources.teams}
-      list={TeamsList}
-      create={TeamCreate}
-      edit={TeamEdit}
-      show={TeamShow}
-    />
-    <Resource
-      name={constants.resources.matches}
-      list={MatchList}
-      create={MatchCreate}
-      edit={MatchEdit}
-    />
-    <Resource name={constants.resources.goals} show={GoalShow} />
-    <Resource name={constants.resources.notifications} list={NotificationsList} />
-    <GetPlayer />
-  </Admin>
-);
+const App = () => {
+  const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+  };
+  const isInStandaloneMode = () => 'standalone' in window.navigator && window.navigator.standalone;
+
+  if (isIos() && !isInStandaloneMode()) {
+    console.log('PWA ALERT FOR IOS');
+  }
+
+  return (
+    <>
+      <Admin
+        title="STF Player Panel"
+        dataProvider={dataProvider}
+        authProvider={authClient(feathersRestClient, authClientOptions)}
+        customReducers={customReducers}
+        i18nProvider={i18nProvider}
+        customRoutes={customRoutes}
+        dashboard={Dashboard}
+        loginPage={Login}
+        layout={Layout}
+      >
+        <Resource name={constants.resources.playerAuthManagement} />
+        <Resource name={constants.resources.players} edit={PlayerEdit} />
+        <Resource
+          name={constants.resources.teams}
+          list={TeamsList}
+          create={TeamCreate}
+          edit={TeamEdit}
+          show={TeamShow}
+        />
+        <Resource
+          name={constants.resources.matches}
+          list={MatchList}
+          create={MatchCreate}
+          edit={MatchEdit}
+        />
+        <Resource name={constants.resources.goals} show={GoalShow} />
+        <Resource name={constants.resources.notifications} list={NotificationsList} />
+        <GetPlayer />
+      </Admin>
+    </>
+  );
+};
 
 export default App;

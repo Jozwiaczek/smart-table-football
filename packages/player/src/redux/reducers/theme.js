@@ -1,5 +1,5 @@
 import { SET_THEME } from '../actions/types';
-import { themeProvider } from '../../themes';
+import { themeProvider } from '../../layout/theme/theme';
 
 const INITIAL_STATE = {
   currentTheme: themeProvider(),

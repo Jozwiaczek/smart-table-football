@@ -15,6 +15,7 @@ import { constants, models } from 'stf-core';
 import { getPlayerId } from '../utils/getPlayerId';
 import NotificationsMenu from './notifications/NotficationsMenu';
 import UserMenu from './UserMenu';
+import GlobalStyles from './theme/GlobalStyles';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -184,6 +185,7 @@ export default (props) => {
       <TableInGameSection {...props} />
       <Typography className={classes.iconDivider}>|</Typography>
       <NotificationsMenu />
+      <GlobalStyles />
     </AppBar>
   );
 };
