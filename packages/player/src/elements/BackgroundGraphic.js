@@ -2,6 +2,7 @@ import React, { cloneElement } from 'react';
 import { Responsive } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 import { constants } from 'stf-core';
+import clsx from 'clsx';
 
 import Ball from './Ball';
 
@@ -31,11 +32,11 @@ const BackgroundGraphic = ({ children, className, ref }) => {
   return (
     <div className={classes.background}>
       <Responsive
-        small={<>{children}</>}
+        small={<div className={className}>{children}</div>}
         medium={
           <>
             {cloneElement(<Ball fill={fillColor} />, { className: classes.graphic, ref })}
-            <div className={classes.children && className}>{children}</div>
+            <div className={clsx(classes.children && className)}>{children}</div>
           </>
         }
       />
