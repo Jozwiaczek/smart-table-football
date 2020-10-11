@@ -7,13 +7,25 @@ import { Title, UPDATE, useDataProvider, useLocale, useSetLocale, useTranslate }
 import { makeStyles } from '@material-ui/core/styles';
 import { constants, models } from 'stf-core';
 
+import { Typography } from '@material-ui/core';
+
 import { getPlayerId } from '../../utils/getPlayerId';
 import { setTheme } from '../../redux/actions/theme';
 
 const useStyles = makeStyles({
-  label: { width: '10em', display: 'inline-block' },
-  button: { margin: '1em' },
-  card: { marginTop: '1em' },
+  card: {
+    marginTop: '1em',
+  },
+  cardTitle: {
+    margin: '1em 0 1em 0.5em',
+  },
+  cardContentTitle: {
+    width: '10em',
+    display: 'inline-block',
+  },
+  button: {
+    margin: '1em',
+  },
 });
 
 export default () => {
@@ -41,59 +53,66 @@ export default () => {
   return (
     <Card className={classes.card}>
       <Title title={translate('pos.settings')} />
+      <Typography variant="h4" component="h4" color="textPrimary" className={classes.cardTitle}>
+        {translate('pos.settings')}
+      </Typography>
       <CardContent>
-        <div className={classes.label}>{translate('pos.theme.name')}</div>
-        <Button
-          variant="contained"
-          className={classes.button}
-          color={isDarkTheme ? 'default' : 'primary'}
-          onClick={() => setThemeMode(constants.themeMode.type.light)}
-        >
-          {translate('pos.theme.light')}
-        </Button>
-        <Button
-          variant="contained"
-          className={classes.button}
-          color={isDarkTheme ? 'primary' : 'default'}
-          onClick={() => setThemeMode(constants.themeMode.type.dark)}
-        >
-          {translate('pos.theme.dark')}
-        </Button>
+        <div className={classes.cardContentTitle}>{translate('pos.theme.name')}</div>
+        <div>
+          <Button
+            variant="contained"
+            className={classes.button}
+            color={isDarkTheme ? 'default' : 'primary'}
+            onClick={() => setThemeMode(constants.themeMode.type.light)}
+          >
+            {translate('pos.theme.light')}
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.button}
+            color={isDarkTheme ? 'primary' : 'default'}
+            onClick={() => setThemeMode(constants.themeMode.type.dark)}
+          >
+            {translate('pos.theme.dark')}
+          </Button>
+        </div>
       </CardContent>
       <CardContent>
-        <div className={classes.label}>{translate('pos.language')}</div>
-        <Button
-          variant="contained"
-          className={classes.button}
-          color={locale === constants.locales.en ? 'primary' : 'default'}
-          onClick={async () => {
-            await dataProvider(UPDATE, constants.resources.players, {
-              id: getPlayerId(),
-              data: {
-                [models.players.fields.locale]: constants.locales.en,
-              },
-            });
-            setLocale(constants.locales.en);
-          }}
-        >
-          en
-        </Button>
-        <Button
-          variant="contained"
-          className={classes.button}
-          color={locale === constants.locales.pl ? 'primary' : 'default'}
-          onClick={async () => {
-            await dataProvider(UPDATE, constants.resources.players, {
-              id: getPlayerId(),
-              data: {
-                [models.players.fields.locale]: constants.locales.pl,
-              },
-            });
-            setLocale(constants.locales.pl);
-          }}
-        >
-          pl
-        </Button>
+        <div className={classes.cardContentTitle}>{translate('pos.language')}</div>
+        <div>
+          <Button
+            variant="contained"
+            className={classes.button}
+            color={locale === constants.locales.en ? 'primary' : 'default'}
+            onClick={async () => {
+              await dataProvider(UPDATE, constants.resources.players, {
+                id: getPlayerId(),
+                data: {
+                  [models.players.fields.locale]: constants.locales.en,
+                },
+              });
+              setLocale(constants.locales.en);
+            }}
+          >
+            en
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.button}
+            color={locale === constants.locales.pl ? 'primary' : 'default'}
+            onClick={async () => {
+              await dataProvider(UPDATE, constants.resources.players, {
+                id: getPlayerId(),
+                data: {
+                  [models.players.fields.locale]: constants.locales.pl,
+                },
+              });
+              setLocale(constants.locales.pl);
+            }}
+          >
+            pl
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

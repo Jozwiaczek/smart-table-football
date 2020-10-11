@@ -3,8 +3,8 @@ import compose from 'recompose/compose';
 
 import {
   CreateButton,
+  DateField,
   Filter,
-  FunctionField,
   GET_LIST,
   List,
   ReferenceField,
@@ -13,16 +13,10 @@ import {
   SimpleList,
   TextField,
   TopToolbar,
-  DateField,
   useRefresh,
   withDataProvider,
 } from 'react-admin';
-
-import { Button, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import AssessmentIcon from '@material-ui/icons/Assessment';
-import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo';
-import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
 import { constants, models } from 'stf-core';
 
@@ -31,9 +25,13 @@ import { useSelector } from 'react-redux';
 import { Datagrid } from 'ra-ui-materialui';
 
 import DateFilters from '../../elements/DateFilters';
-import { getTimerUnit } from '../../utils/getTimerUnits';
 import { getPlayerId } from '../../utils/getPlayerId';
 import { socket } from '../../client/feathersSocketClient';
+import ShowStatisticButton from './components/ShowStatisticButton';
+import ContinueButton from './components/ContinueButton';
+import TeamsMobileField from './components/TeamsMobileField';
+import WinnerMobileField from './components/WinnerMobileField';
+import TimerField from './components/TimerField';
 
 const styles = {
   buttonIcon: {
@@ -44,101 +42,9 @@ const styles = {
 export const Filters = (props) => (
   <Filter {...props}>
     <TextField alwaysOn label="Email" source={`${models.admins.fields.email}.$regex`} />
-
     {DateFilters}
   </Filter>
 );
-
-const ShowStatistic = ({ classes, record, history, mobile }) => {
-  if (!record) return null;
-
-  return (
-    <Button
-      color="primary"
-      onClick={() => history.push(`/${constants.resources.matches}/${record._id}`)}
-    >
-      <AssessmentIcon className={classes.buttonIcon} />
-      {mobile ? null : 'Statistic'}
-    </Button>
-  );
-};
-
-const ContinueButton = ({ classes, record, history, mobile, disabled, isInGame }) => {
-  if (!record) return null;
-
-  if (isInGame === record.id) {
-    return (
-      <Button
-        color="action"
-        disabled={disabled}
-        onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}
-      >
-        <EmojiPeopleIcon className={classes.buttonIcon} color="action" />
-        {mobile ? null : 'Join'}
-      </Button>
-    );
-  }
-
-  if (
-    record[models.matches.fields.status] === constants.statusMatch.paused ||
-    record[models.matches.fields.status] === constants.statusMatch.await
-  ) {
-    return (
-      <Button
-        color="primary"
-        disabled={disabled || isInGame}
-        onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}
-      >
-        <SlowMotionVideoIcon className={classes.buttonIcon} />
-        {mobile ? null : 'Resume'}
-      </Button>
-    );
-  }
-  return null;
-};
-
-const TeamsMobileField = ({ teams, record }) => {
-  if (!teams || !record) return null;
-  const teamA = teams.find((team) => team._id === record[models.matches.fields.teamA]);
-  const teamB = teams.find((team) => team._id === record[models.matches.fields.teamB]);
-  return (
-    <Typography>
-      {teamA[models.teams.fields.name]} vs {teamB[models.teams.fields.name]}
-    </Typography>
-  );
-};
-
-const WinnerMobileField = ({ teams, record }) => {
-  if (!teams || !record || !record[models.matches.fields.winner]) return null;
-  const winner = teams.find((team) => team._id === record[models.matches.fields.winner]);
-  return <Typography>Winner: {winner[models.teams.fields.name]}</Typography>;
-};
-
-const Timer = ({ record, globalElapsedTimer, isInGame, ...rest }) => {
-  if (isInGame === record.id) {
-    return (
-      <FunctionField
-        {...rest}
-        record={record}
-        source={models.matches.fields.elapsedTime}
-        render={() => {
-          return `${getTimerUnit(globalElapsedTimer).min}:${getTimerUnit(globalElapsedTimer).sec}`;
-        }}
-      />
-    );
-  }
-  return (
-    <FunctionField
-      {...rest}
-      record={record}
-      source={models.matches.fields.elapsedTime}
-      render={(record) => {
-        const elapsedTime = record[models.matches.fields.elapsedTime];
-        return `${getTimerUnit(elapsedTime).min}:${getTimerUnit(elapsedTime).sec}`;
-      }}
-    />
-  );
-};
 
 const rowStyle = (record = {}, isInGame) => {
   if (isInGame === record.id) {
@@ -251,7 +157,7 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
               record && (
                 <>
                   <ContinueButton mobile classes={classes} record={record} {...rest} />
-                  <ShowStatistic mobile classes={classes} record={record} {...rest} />
+                  <ShowStatisticButton mobile classes={classes} record={record} {...rest} />
                 </>
               )
             }
@@ -281,7 +187,7 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
               <TextField source={models.teams.fields.name} />
             </ReferenceField>
             <TextField source={models.matches.fields.status} />
-            <Timer
+            <TimerField
               globalElapsedTimer={globalElapsedTimer}
               classes={classes}
               disabled={!tableStatus}
@@ -296,7 +202,7 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
               isInGame={isInGame}
               {...rest}
             />
-            <ShowStatistic classes={classes} {...rest} />
+            <ShowStatisticButton classes={classes} {...rest} />
           </Datagrid>
         }
       />

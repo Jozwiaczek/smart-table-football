@@ -59,6 +59,11 @@ const DashboardFragment = styled.div`
   ${(props) => !props.small && large}
 `;
 
+const SoccerPlayerAnimation = styled.div`
+  width: 320px;
+  height: 250px;
+`;
+
 const DashboardLayout = ({ small, history, location }) => {
   const [player, setPlayer] = useState(null);
   const [teams, setTeams] = useState(null);
@@ -237,6 +242,12 @@ const DashboardLayout = ({ small, history, location }) => {
     );
   };
 
+  const SectionTitle = ({ children }) => (
+    <Typography variant="h4" component="h4" color="textPrimary" style={{ marginBottom: 20 }}>
+      {children}
+    </Typography>
+  );
+
   return (
     <BackgroundGraphic>
       <Title title="Dashboard" />
@@ -245,20 +256,21 @@ const DashboardLayout = ({ small, history, location }) => {
       <DashboardContainer small={small}>
         <DashboardFragment small={small}>
           <DashboardSection noBottomMargin>
-            <Typography variant="h3" color="textPrimary">
+            <Typography variant="h3" color="textPrimary" align="center">
               Welcome {player[models.players.fields.firstName]}!
             </Typography>
           </DashboardSection>
 
-          <div ref={thisRef} style={{ width: 360, height: 250 }} />
+          <SoccerPlayerAnimation ref={thisRef} />
 
           <DashboardSection>
             {!isTableInGame && (
               <>
+                <SectionTitle>New Match?</SectionTitle>
                 <Typography
                   gutterBottom
-                  variant="h5"
-                  component="h5"
+                  variant="h6"
+                  component="h6"
                   align="center"
                   color="textPrimary"
                 >
@@ -278,26 +290,20 @@ const DashboardLayout = ({ small, history, location }) => {
           </DashboardSection>
 
           <DashboardSection>
-            <Typography gutterBottom variant="h4" component="h4" color="textPrimary">
-              {translate('pos.dashboard.teamsSection.title')}
-            </Typography>
+            <SectionTitle>{translate('pos.dashboard.teamsSection.title')}</SectionTitle>
             <FriendsSection teamsNumber={teams?.length} />
           </DashboardSection>
         </DashboardFragment>
 
         <DashboardFragment small={small}>
           <DashboardSection>
-            <Typography gutterBottom variant="h4" color="textPrimary">
-              {translate('pos.dashboard.statisticSection.title')}
-            </Typography>
+            <SectionTitle>{translate('pos.dashboard.statisticSection.title')}</SectionTitle>
             <LongestWinStreak wins={getLongestWinStreak()} />
             <GoalsNumber goals={goals} />
             <WinRatio value={getPlayerWinRatio()} />
             <MatchesInWeek value={getMatchesNumberInLastWeek()} />
             <DashboardSection noBottomMargin>
-              <Typography gutterBottom variant="h4" color="textPrimary">
-                Last Match
-              </Typography>
+              <SectionTitle>Last Match</SectionTitle>
               <LastMatchField />
             </DashboardSection>
           </DashboardSection>
