@@ -2,11 +2,11 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { compose } from 'recompose';
 import {
+  DashboardMenuItem,
   getResources,
   MenuItemLink,
   Responsive,
   toggleSidebar,
-  DashboardMenuItem,
   useTranslate,
 } from 'react-admin';
 import { withRouter } from 'react-router-dom';
@@ -19,7 +19,7 @@ import Dashboard from '@material-ui/icons/Dashboard';
 import Group from '@material-ui/icons/Group';
 import Casino from '@material-ui/icons/Casino';
 
-import { Typography, withStyles, withWidth } from '@material-ui/core';
+import { withStyles, withWidth } from '@material-ui/core';
 
 import { getPlayerId } from '../utils/getPlayerId';
 
@@ -45,12 +45,6 @@ const styles = (theme) => ({
   },
 });
 
-const BetaTag = withStyles(styles)(({ classes }) => (
-  <Typography className={classes.betaTag} variant="button">
-    beta
-  </Typography>
-));
-
 const onMenuTap = (props) => {
   if (props.width === 'xs') {
     props.toggleSidebar(props);
@@ -66,11 +60,7 @@ const Sidebar = ({ classes, dense, logout, ...rest }) => {
     <List className={classes.list}>
       <DashboardMenuItem
         to="/"
-        primaryText={
-          <div className={classes.menuItem}>
-            {translate('pos.menu.dashboard')} <BetaTag />
-          </div>
-        }
+        primaryText={<div className={classes.menuItem}>{translate('pos.menu.dashboard')}</div>}
         leftIcon={<Dashboard />}
         sidebarIsOpen={open}
         dense={dense}
