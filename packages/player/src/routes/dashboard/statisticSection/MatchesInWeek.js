@@ -25,14 +25,14 @@ const useStyles = makeStyles({
 });
 
 const MatchesInWeek = ({ value }) => {
-  const translate = useTranslate();
+  const t = useTranslate();
   const classes = useStyles();
   return (
     <div className={classes.main}>
       <CardIcon Icon={EmojiFlagsIcon} bgColor="#e65100" />
       <Card className={classes.card}>
         <Typography className={classes.title} color="textSecondary">
-          Matches in last week
+          {t('pos.dashboard.statisticSection.items.matchesInWeek')}
         </Typography>
         <Typography variant="h5" component="h5">
           {value}

@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 });
 
 const LongestWinStreak = ({ wins }) => {
-  const translate = useTranslate();
+  const t = useTranslate();
   const classes = useStyles();
 
   return (
@@ -32,7 +32,7 @@ const LongestWinStreak = ({ wins }) => {
       <CardIcon Icon={WhatshotSharpIcon} bgColor="#ffa726" />
       <Card className={classes.card}>
         <Typography className={classes.title} color="textSecondary">
-          Longest Win Streak
+          {t('pos.dashboard.statisticSection.items.longestWinStreak')}
         </Typography>
         <Typography variant="h5" component="h5">
           {wins} <WhatshotSharpIcon />

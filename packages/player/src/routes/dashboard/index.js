@@ -86,7 +86,8 @@ const DashboardLayout = ({ small, history, location }) => {
       });
       animate.setSpeed(1.5);
     }
-  }, [thisRef.current, location.pathname]);
+    // eslint-disable-next-line
+  }, [thisRef.current, location.pathname, theme.palette.type]);
 
   useEffect(() => {
     const call = async () => {
@@ -287,7 +288,7 @@ const DashboardLayout = ({ small, history, location }) => {
         <DashboardFragment small={small}>
           <DashboardSection>
             <Typography gutterBottom variant="h4" color="textPrimary">
-              Statistic
+              {translate('pos.dashboard.statisticSection.title')}
             </Typography>
             <LongestWinStreak wins={getLongestWinStreak()} />
             <GoalsNumber goals={goals} />

@@ -62,7 +62,7 @@ const FriendsSection = ({ teamsNumber }) => {
             onClick={() => setInviteFriendModalOpen(true)}
           >
             <InviteFirendsIcon />
-            &nbsp; Invite friend
+            &nbsp;{translate('pos.dashboard.teamsSection.button')}
           </Button>
         </div>
       </Card>

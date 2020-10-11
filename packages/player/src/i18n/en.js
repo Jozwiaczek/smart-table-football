@@ -23,8 +23,10 @@ export default {
       statisticSection: {
         title: 'Statistic',
         items: {
+          longestWinStreak: 'Longest win streak',
           numberOfGoals: 'Number of goals',
           winRatio: 'Win ratio',
+          matchesInWeek: 'Matches in week',
         },
       },
       lastMatchSection: {

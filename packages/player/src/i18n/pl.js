@@ -12,6 +12,19 @@ export default {
       dark: 'Ciemny',
     },
     dashboard: {
+      statisticSection: {
+        title: 'Statystyki',
+        items: {
+          longestWinStreak: 'Najdłuższa seria wygranych',
+          numberOfGoals: 'Liczba goli',
+          winRatio: 'Współczynnik wygranych',
+          matchesInWeek: 'Liczba meczy w ostatnim tygodniu',
+        },
+      },
+      teamsSection: {
+        title: 'Zespoły',
+        button: 'Zapros znajomego',
+      },
       welcome: {
         title: 'Welcome to react-admin demo',
         subtitle:
