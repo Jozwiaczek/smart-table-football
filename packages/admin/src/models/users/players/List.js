@@ -10,6 +10,7 @@ import {
   Responsive,
   SimpleList,
   TextField,
+  ImageField,
 } from 'react-admin';
 import CustomizableDatagrid from 'ra-customizable-datagrid';
 
@@ -24,7 +25,6 @@ import rowStyle from '../../../elements/rowStyle';
 export const Filters = (props) => (
   <Filter {...props}>
     <TextField alwaysOn label="Email" source={`${models.admins.fields.email}.$regex`} />
-
     {DateFilters}
   </Filter>
 );
@@ -51,8 +51,9 @@ const PlayersList = (props) => (
           defaultColumns={[models.players.fields.email, 'name', models.players.fields.status]}
           rowStyle={rowStyle}
         >
+          <ImageField source={models.players.fields.avatar} />
           <TextField source="_id" />
-          <EmailField source={models.admins.fields.email} />
+          <EmailField source={models.players.fields.email} />
           <FunctionField
             source="name"
             render={(record) =>
