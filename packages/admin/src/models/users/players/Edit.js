@@ -31,6 +31,7 @@ import { constants, models } from 'stf-core';
 import { getChoices } from '../../../enum';
 import playerAuthManagementActionFactory from '../../../actions/playerAuthManagement';
 import ButtonInput from '../../../elements/ButtonInput';
+import AvatarInput from '../../../elements/AvatarInput';
 
 const styles = {
   fullWidth: {
@@ -50,6 +51,11 @@ const PlayerEdit = ({ classes, ...rest }) => (
     <TabbedForm redirect={false}>
       <FormTab label="summary">
         <TextField source="id" />
+        <AvatarInput
+          horizontal
+          className={classes.avatarContainer}
+          source={models.players.fields.avatar}
+        />
         <TextInput source={models.players.fields.email} type="email" validate={required()} />
         <TextInput source={models.players.fields.firstName} validate={required()} />
         <TextInput source={models.players.fields.lastName} validate={required()} />

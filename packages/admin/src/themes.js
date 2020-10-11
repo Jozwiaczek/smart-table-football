@@ -2,19 +2,6 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 
 const _compatibilityTheme = {
-  props: {
-    MuiTabs: {
-      scrollable: true,
-      scrollButtons: 'off',
-    },
-  },
-  overrides: {
-    MuiTabs: {
-      root: {
-        maxWidth: '100vw',
-      },
-    },
-  },
   palette: {
     secondary: {
       light: '#5f5fc4',
@@ -28,23 +15,40 @@ const _compatibilityTheme = {
       dark: grey[300],
     },
   },
-};
-
-const _darkTheme = {
-  ..._compatibilityTheme,
-  palette: {
-    type: 'dark', // Switching the dark mode on is a single property value change.
+  props: {
+    MuiTabs: {
+      scrollable: true,
+      scrollButtons: 'off',
+    },
   },
   overrides: {
     MuiTabs: {
       root: {
-        ..._compatibilityTheme.overrides.MuiTabs.root,
-        color: 'white',
+        maxWidth: '100vw',
+      },
+    },
+    RaMenuItemLink: {
+      root: {
+        borderLeft: `4px solid transparent`,
+      },
+      active: {
+        borderLeft: '4px solid #283593',
+      },
+    },
+    MuiPaper: {
+      root: {
+        backgroundClip: 'padding-box',
+      },
+    },
+    MuiFilledInput: {
+      root: {
+        backgroundColor: 'rgba(0, 0, 0, 0.04)',
+        '&$disabled': {
+          backgroundColor: 'rgba(0, 0, 0, 0.04)',
+        },
       },
     },
   },
 };
 
 export const defaultTheme = createMuiTheme(_compatibilityTheme);
-
-export const darkTheme = createMuiTheme(_darkTheme);
