@@ -1,45 +1,15 @@
 import React, { useEffect, useState } from 'react';
-
-import { Button, Card, Typography } from '@material-ui/core';
-
+import { Button, Typography } from '@material-ui/core';
 import { CREATE, Link } from 'react-admin';
-
 import { makeStyles } from '@material-ui/core/styles';
-
 import { constants } from 'stf-core';
 
 import dataProvider from '../../../dataProvider';
+import AuthRouteLayout from '../AuthRouteLayout';
 
-import Logo from '../../../elements/Logo';
-import ThemeWrapper from '../../../elements/ThemeWrapper';
-
-const useStyles = makeStyles((theme) => ({
-  main: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'auto',
-    backgroundColor: theme.palette.background.default,
-  },
-  card: {
-    padding: '1rem',
-    width: '100%',
-    minWidth: 200,
-    maxWidth: 400,
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    boxSizing: 'border-box',
-  },
+const useStyles = makeStyles(() => ({
   title: {
     margin: '2rem 0 1rem 0',
-  },
-  logo: {
-    marginTop: '1rem',
-    display: 'flex',
-    justifyContent: 'center',
   },
   button: {
     margin: '2rem 0 0.5rem 0',
@@ -101,23 +71,18 @@ const Verify = ({ location }) => {
   };
 
   return (
-    <ThemeWrapper>
-      <div className={classes.main}>
-        <Card className={classes.card}>
-          <Logo linkTo="/login" className={classes.logo} />
-          {renderMessage()}
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            component={Link}
-            to="/login"
-          >
-            Back to app
-          </Button>
-        </Card>
-      </div>
-    </ThemeWrapper>
+    <AuthRouteLayout>
+      {renderMessage()}
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        component={Link}
+        to="/login"
+      >
+        Back to app
+      </Button>
+    </AuthRouteLayout>
   );
 };
 
