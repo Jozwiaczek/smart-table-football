@@ -2,6 +2,15 @@ import englishMessages from 'ra-language-english';
 
 export default {
   ...englishMessages,
+  installPWAModal: {
+    title: 'Install STF App',
+    subtitle: 'Install this application on your homescreen for a better experience.',
+    actionLabel: {
+      tap: 'Tap',
+      thenAddToHomeScreen: 'then "Add to Home Screen"',
+    },
+    closeButton: 'Close',
+  },
   layout: {
     appBar: {
       notifications: {

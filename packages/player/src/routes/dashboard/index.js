@@ -24,6 +24,7 @@ import FriendsSection from './FriendsSection';
 import WelcomeCard from './WelcomeCard';
 import MatchesInWeek from './statisticSection/MatchesInWeek';
 import LongestWinStreak from './statisticSection/LongestWinStreak';
+import InstallPWAModal from '../../elements/InstallPWAModal';
 
 const DashboardContainer = styled.div`
   padding-top: 1rem;
@@ -39,6 +40,7 @@ const DashboardSection = styled.div`
   margin-top: 20px;
   width: 100%;
   display: flex;
+  max-width: 400px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -62,6 +64,10 @@ const DashboardFragment = styled.div`
 const SoccerPlayerAnimation = styled.div`
   width: 320px;
   height: 250px;
+`;
+
+const RootContainer = styled.div`
+  padding: 0 30px;
 `;
 
 const DashboardLayout = ({ small, history, location }) => {
@@ -251,66 +257,69 @@ const DashboardLayout = ({ small, history, location }) => {
 
   return (
     <BackgroundGraphic>
-      <Title title={translate('pos.dashboard.title')} />
+      <RootContainer>
+        <Title title={translate('pos.dashboard.title')} />
 
-      <WelcomeCard />
+        <WelcomeCard />
 
-      <DashboardContainer small={small}>
-        <DashboardFragment small={small}>
-          <DashboardSection noBottomMargin>
-            <Typography variant="h3" color="textPrimary" align="center">
-              {translate('pos.dashboard.welcomeTitle')} {player[models.players.fields.firstName]}!
-            </Typography>
-          </DashboardSection>
-
-          <SoccerPlayerAnimation ref={thisRef} />
-
-          <DashboardSection>
-            {!isTableInGame && (
-              <>
-                <SectionTitle>{translate('pos.dashboard.newMatchSection.title')}</SectionTitle>
-                <Typography
-                  gutterBottom
-                  variant="h6"
-                  component="h6"
-                  align="center"
-                  color="textPrimary"
-                >
-                  {translate('pos.dashboard.newMatchSection.description')}
-                </Typography>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  style={{ marginTop: 16 }}
-                  onClick={() => history.push(`/${constants.resources.matches}/create`)}
-                >
-                  <CreateIcon />
-                  {translate('pos.dashboard.newMatchSection.button')}
-                </Button>
-              </>
-            )}
-          </DashboardSection>
-
-          <DashboardSection>
-            <SectionTitle>{translate('pos.dashboard.teamsSection.title')}</SectionTitle>
-            <FriendsSection teamsNumber={teams?.length} />
-          </DashboardSection>
-        </DashboardFragment>
-
-        <DashboardFragment small={small}>
-          <DashboardSection>
-            <SectionTitle>{translate('pos.dashboard.statisticSection.title')}</SectionTitle>
-            <LongestWinStreak wins={getLongestWinStreak()} />
-            <GoalsNumber goals={goals} />
-            <WinRatio value={getPlayerWinRatio()} />
-            <MatchesInWeek value={getMatchesNumberInLastWeek()} />
+        <DashboardContainer small={small}>
+          <DashboardFragment small={small}>
             <DashboardSection noBottomMargin>
-              <SectionTitle>{translate('pos.dashboard.lastMatchSection.title')}</SectionTitle>
-              <LastMatchField />
+              <Typography variant="h3" color="textPrimary" align="center">
+                {translate('pos.dashboard.welcomeTitle')} {player[models.players.fields.firstName]}!
+              </Typography>
             </DashboardSection>
-          </DashboardSection>
-        </DashboardFragment>
-      </DashboardContainer>
+
+            <SoccerPlayerAnimation ref={thisRef} />
+
+            <DashboardSection>
+              {!isTableInGame && (
+                <>
+                  <SectionTitle>{translate('pos.dashboard.newMatchSection.title')}</SectionTitle>
+                  <Typography
+                    gutterBottom
+                    variant="h6"
+                    component="h6"
+                    align="center"
+                    color="textPrimary"
+                  >
+                    {translate('pos.dashboard.newMatchSection.description')}
+                  </Typography>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    style={{ marginTop: 16 }}
+                    onClick={() => history.push(`/${constants.resources.matches}/create`)}
+                  >
+                    <CreateIcon />
+                    {translate('pos.dashboard.newMatchSection.button')}
+                  </Button>
+                </>
+              )}
+            </DashboardSection>
+
+            <DashboardSection>
+              <SectionTitle>{translate('pos.dashboard.teamsSection.title')}</SectionTitle>
+              <FriendsSection teamsNumber={teams?.length} />
+            </DashboardSection>
+          </DashboardFragment>
+
+          <DashboardFragment small={small}>
+            <DashboardSection>
+              <SectionTitle>{translate('pos.dashboard.statisticSection.title')}</SectionTitle>
+              <LongestWinStreak wins={getLongestWinStreak()} />
+              <GoalsNumber goals={goals} />
+              <WinRatio value={getPlayerWinRatio()} />
+              <MatchesInWeek value={getMatchesNumberInLastWeek()} />
+              <DashboardSection noBottomMargin>
+                <SectionTitle>{translate('pos.dashboard.lastMatchSection.title')}</SectionTitle>
+                <LastMatchField />
+              </DashboardSection>
+            </DashboardSection>
+          </DashboardFragment>
+        </DashboardContainer>
+      </RootContainer>
+      <InstallPWAModal />
     </BackgroundGraphic>
   );
 };

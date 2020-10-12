@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     marginRight: '1em',
     marginTop: '3em',
     marginBottom: '2em',
-    width: '60%',
+    width: '80%',
   },
   card: {
     overflow: 'inherit',

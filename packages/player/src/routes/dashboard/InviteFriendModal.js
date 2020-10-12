@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    minWidth: 300,
+    width: '80%',
   },
   title: {
     marginBottom: '1em',

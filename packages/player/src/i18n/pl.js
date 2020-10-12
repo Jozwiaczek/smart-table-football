@@ -8,6 +8,15 @@ export default {
       unselect: 'Odznacz',
     },
   },
+  installPWAModal: {
+    title: 'Zainstaluj aplikacje STF',
+    subtitle: 'Zainstaluj tą aplikacje na swoim ekranie początkowym dla lepszych doswiadczen',
+    actionLabel: {
+      tap: 'Przycisnij',
+      thenAddToHomeScreen: 'nastepnie "Dodaj do ekranu początkowego"',
+    },
+    closeButton: 'Zamknij',
+  },
   layout: {
     appBar: {
       notifications: {

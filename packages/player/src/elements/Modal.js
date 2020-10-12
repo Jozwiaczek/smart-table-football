@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.default,
-    padding: '2em',
+    padding: '1.5em',
   },
 }));
 
@@ -25,6 +25,7 @@ const Modal = ({ isOpen, onClose, children, className, ...rest }) => {
 
   return (
     <Dialog
+      disablePortal
       className={classes.modal}
       open={isOpen}
       TransitionComponent={Transition}

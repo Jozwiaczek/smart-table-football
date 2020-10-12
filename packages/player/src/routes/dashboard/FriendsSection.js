@@ -12,10 +12,9 @@ import InviteFriendModal from './InviteFriendModal';
 const useStyles = makeStyles({
   main: {
     flex: '1',
-    marginLeft: '1em',
     marginTop: 20,
     marginBottom: 30,
-    width: '60%',
+    width: '80%',
   },
   card: {
     padding: '16px 0',
