@@ -25,16 +25,18 @@ const WarningModal = ({ onClose, isOpen, title, body, confirmButtonText }) => {
     <Modal isOpen={isOpen} className={classes.tableIsDisconnectedModal} onClose={onClose}>
       <Typography
         variant="h3"
+        component="h3"
         align="center"
-        color="secondary"
+        color="colorTextPrimary"
         className={classes.tableIsDisconnectedModalTitle}
       >
         {title}
       </Typography>
       <Typography
         variant="h5"
+        component="h5"
         align="center"
-        color="secondary"
+        color="colorTextPrimary"
         className={classes.tableIsDisconnectedModalSubtitle}
       >
         {body}

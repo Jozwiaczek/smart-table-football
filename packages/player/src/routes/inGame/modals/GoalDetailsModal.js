@@ -81,11 +81,11 @@ const GoalDetailsModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Typography variant="h2" align="center">
+      <Typography variant="h2" component="h2" align="center" color="colorTextPrimary">
         GOAL!
       </Typography>
       <div className={classes.newGoalAlertContent}>
-        <Typography gutterBottom variant="h5">
+        <Typography gutterBottom variant="h5" component="h5" color="colorTextPrimary">
           Team: {teamName}
         </Typography>
         {replayId && (
