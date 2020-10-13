@@ -15,7 +15,7 @@ const SCGlobalStyles = createGlobalStyle`
       'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-user-select: none;
     -webkit-touch-callout: none;
-    background-color: ${({ theme }) => theme.palette.background.default};
+    background-color: ${({ theme }) => theme.palette.primary.main};
   }
   
   body::-webkit-scrollbar {
