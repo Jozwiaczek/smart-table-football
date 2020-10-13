@@ -158,7 +158,7 @@ const AvatarInput = ({
   }, [label, source]);
 
   return (
-    <div className={formattedLabel && clsx(classes.container, className)} {...rest}>
+    <div className={formattedLabel ? clsx(classes.container, className) : ''} {...rest}>
       {formattedLabel && <Typography variant="subtitle1">{formattedLabel}</Typography>}
       <div
         className={horizontal ? classes.horizontalContainer : classes.verticalContainer}

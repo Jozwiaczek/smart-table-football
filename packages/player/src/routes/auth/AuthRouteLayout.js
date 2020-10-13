@@ -49,4 +49,5 @@ const AuthRouteLayout = ({ children }) => {
     </ThemeWrapper>
   );
 };
+
 export default AuthRouteLayout;

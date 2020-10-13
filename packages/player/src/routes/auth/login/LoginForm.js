@@ -114,7 +114,10 @@ const LoginForm = ({ classes, redirectTo }) => {
               color="primary"
               disabled={loading}
               className={classes.button}
-              component={forwardRef((props) => (
+              component={forwardRef((
+                props,
+                ref, // dont remove unused ref
+              ) => (
                 <Link to="/registration" {...props} />
               ))}
             >
@@ -124,8 +127,8 @@ const LoginForm = ({ classes, redirectTo }) => {
             <Typography
               className={classes.resetLink}
               variant="caption"
-              component={forwardRef((props) => (
-                <Link to="/passwordReset" {...props} />
+              component={forwardRef((props, ref) => (
+                <Link to="/passwordReset" {...props} ref={ref} />
               ))}
             >
               {translate('pos.auth.login.forgetPassword')}
