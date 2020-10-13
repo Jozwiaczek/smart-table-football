@@ -145,8 +145,8 @@ const AvatarInput = ({
   const megaBytesToBytes = (megaBytes) => megaBytes * 1000000;
 
   const onBeforeFileLoad = (elem) => {
-    if (elem.target.files[0].size > megaBytesToBytes(1)) {
-      notify('File is too big. Max size is 1 MB (1000 KB)', 'warning');
+    if (elem.target.files[0].size > megaBytesToBytes(2)) {
+      notify('File is too big. Max size is 2 MB (2000 KB)', 'warning');
       elem.target.value = '';
     }
   };
