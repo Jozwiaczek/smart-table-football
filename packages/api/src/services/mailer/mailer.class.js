@@ -16,9 +16,9 @@ exports.Mailer = class Mailer {
     }
 
     const mailerConfig = {
-      username: 'apikey',
-      password: process.env.MARILER_KEY,
       ...this.app.get(constants.resources.mailer),
+      Username: 'apikey',
+      Password: process.env.MARILER_KEY,
     };
 
     const email = { ...data };
