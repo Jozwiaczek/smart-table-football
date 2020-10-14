@@ -3,6 +3,7 @@ import { constants } from 'stf-core';
 import ContentSave from '@material-ui/icons/Save';
 import { FormDataConsumer, Mutation, Toolbar } from 'react-admin';
 import { Button } from '@material-ui/core';
+import { withTranslate } from 'ra-core';
 
 class PlayerEditToolbar extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class PlayerEditToolbar extends Component {
   }
 
   saveChangesRender(props) {
+    const { translate } = this.props;
     return (
       <Mutation
         type="UPDATE"
@@ -38,7 +40,7 @@ class PlayerEditToolbar extends Component {
         {(approve) => (
           <Button variant="contained" color="primary" onClick={approve}>
             <ContentSave style={{ marginRight: '0.5rem' }} />
-            Save changes
+            {translate('global.saveChanges')}
           </Button>
         )}
       </Mutation>
@@ -65,4 +67,4 @@ class PlayerEditToolbar extends Component {
   }
 }
 
-export default PlayerEditToolbar;
+export default withTranslate(PlayerEditToolbar);

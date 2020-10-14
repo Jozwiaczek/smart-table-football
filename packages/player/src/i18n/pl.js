@@ -124,7 +124,38 @@ export default {
     saveChanges: 'Zapisz zmiany',
   },
   resources: {
+    teams: {
+      fields: {
+        name: 'Nazwa',
+        players: 'Gracze',
+        invited: 'Zaproszeni',
+        createdAt: 'Data stworzenia',
+        updatedAt: 'Data modyfikacji',
+      },
+    },
+    matches: {
+      fields: {
+        teamA: 'Zespół A',
+        teamB: 'Zespół B',
+        winner: 'Wygrany',
+        createdAt: 'Data stworzenia',
+        updatedAt: 'Data modyfikacji',
+      },
+    },
+    goals: {
+      fields: {
+        team: 'Zespół',
+        createdAt: 'Data stworzenia',
+        updatedAt: 'Data modyfikacji',
+      },
+    },
     players: {
+      fields: {
+        firstName: 'Imie',
+        lastName: 'Nazwisko',
+        createdAt: 'Data stworzenia',
+        updatedAt: 'Data modyfikacji',
+      },
       actions: {
         sendResetPwd: {
           label: 'Resetowanie hasła',
