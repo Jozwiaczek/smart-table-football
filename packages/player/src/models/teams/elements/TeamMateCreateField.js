@@ -8,14 +8,17 @@ import { models } from 'stf-core';
 
 import FormTextField from '../../../elements/forms/FormTextField';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     marginBottom: '1.5em',
     height: '4em',
-    width: '50%',
+    width: '100%%',
   },
   field: {
-    width: '80%',
+    width: '40%',
+    [theme.breakpoints.down('sm')]: {
+      width: '80%',
+    },
   },
 }));
 

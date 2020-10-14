@@ -19,12 +19,15 @@ import FormTextField from '../../elements/forms/FormTextField';
 import { getPlayerId } from '../../utils/getPlayerId';
 import TeamMateCreateField from './elements/TeamMateCreateField';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   cardContent: {
     padding: '3rem 5rem',
     display: 'flex',
     justifyContent: 'space',
     flexDirection: 'column',
+    [theme.breakpoints.down('sm')]: {
+      padding: '3rem 0 3rem 3rem',
+    },
   },
   cardActions: {
     display: 'flex',
@@ -40,18 +43,18 @@ const useStyles = makeStyles({
     marginBottom: '1.5em',
     height: '4em',
     width: '40%',
-  },
-  lastInput: {
-    height: '4em',
+    [theme.breakpoints.down('sm')]: {
+      width: '80%',
+    },
   },
   button: {
     margin: '1rem 5rem',
+    [theme.breakpoints.down('sm')]: {
+      margin: '1rem 0 1rem 2.5rem',
+    },
   },
   loadingBar: {
     marginRight: 8,
-  },
-  linkToLog: {
-    marginTop: 6,
   },
   rootLoading: {
     width: '100%',
@@ -60,7 +63,7 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'center',
   },
-});
+}));
 
 const CreateActions = ({ basePath }) => (
   <TopToolbar>
