@@ -15,10 +15,19 @@ exports.Mailer = class Mailer {
       return Promise.all(data.map((current) => this.create(current, params)));
     }
 
+    console.log(
+      'L:18 | this.app.get(constants.resources.mailer): ',
+      this.app.get(constants.resources.mailer),
+    );
+
     const mailerConfig = {
       ...this.app.get(constants.resources.mailer),
       Username: 'apikey',
       Password: process.env.MARILER_KEY,
+      auth: {
+        user: 'apikey',
+        pass: process.env.MARILER_KEY,
+      },
     };
 
     const email = { ...data };
