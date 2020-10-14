@@ -51,20 +51,20 @@ const Verify = ({ location }) => {
   const renderMessage = () => {
     if (verifying) {
       return (
-        <Typography variant="h6" className={classes.title} align="center">
+        <Typography variant="h5" className={classes.title} align="center">
           Loading
         </Typography>
       );
     }
     if (success) {
       return (
-        <Typography variant="h6" className={classes.title} align="center">
+        <Typography variant="h5" className={classes.title} align="center">
           Verification Successful
         </Typography>
       );
     }
     return (
-      <Typography variant="h6" className={classes.title} align="center">
+      <Typography variant="h5" className={classes.title} align="center">
         Verification Failed
       </Typography>
     );

@@ -15,11 +15,6 @@ exports.Mailer = class Mailer {
       return Promise.all(data.map((current) => this.create(current, params)));
     }
 
-    console.log(
-      'L:18 | this.app.get(constants.resources.mailer): ',
-      this.app.get(constants.resources.mailer),
-    );
-
     const mailerConfig = {
       ...this.app.get(constants.resources.mailer),
       Username: 'apikey',
@@ -39,7 +34,9 @@ exports.Mailer = class Mailer {
 
     const mailResponse = await transporter.sendMail(email);
 
-    console.log('Preview new mail URL: %s', nodemailer.getTestMessageUrl(mailResponse));
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Preview new mail URL: %s', nodemailer.getTestMessageUrl(mailResponse));
+    }
 
     return mailResponse;
   }
