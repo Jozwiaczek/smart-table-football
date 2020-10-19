@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import InGame from './routes/inGame';
+import Game from './routes/game';
 import Registration from './routes/auth/registration/Registration';
 import Verify from './routes/auth/verify';
 import PasswordRecovery from './routes/auth/passwordRecovery/PasswordRecovery';
@@ -12,7 +12,7 @@ import Notifications from './routes/notifications';
 
 export default [
   <Route exact noLayout key={1} path="/registration" component={Registration} />,
-  <Route exact noLayout key={2} path="/inGame" component={InGame} />,
+  <Route exact noLayout key={2} path="/game" component={Game} />,
   <Route exact noLayout key={3} path="/verify" component={Verify} />,
   <Route exact noLayout key={4} path="/passwordRecovery" component={PasswordRecovery} />,
   <Route exact noLayout key={5} path="/passwordReset" component={PasswordReset} />,

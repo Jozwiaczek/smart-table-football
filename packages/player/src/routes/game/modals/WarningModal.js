@@ -27,7 +27,7 @@ const WarningModal = ({ onClose, isOpen, title, body, confirmButtonText }) => {
         variant="h3"
         component="h3"
         align="center"
-        color="colorTextPrimary"
+        color="textPrimary"
         className={classes.tableIsDisconnectedModalTitle}
       >
         {title}
@@ -36,7 +36,7 @@ const WarningModal = ({ onClose, isOpen, title, body, confirmButtonText }) => {
         variant="h5"
         component="h5"
         align="center"
-        color="colorTextPrimary"
+        color="textPrimary"
         className={classes.tableIsDisconnectedModalSubtitle}
       >
         {body}

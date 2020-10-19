@@ -143,9 +143,7 @@ export default (props) => {
           <Tooltip title={translate('layout.appBar.tableStatus.join.tooltip')}>
             <Button
               color="action"
-              onClick={() =>
-                history.push({ pathname: '/inGame', search: `?match=${isTableInGame}` })
-              }
+              onClick={() => history.push({ pathname: '/game', search: `?match=${isTableInGame}` })}
             >
               <EmojiPeopleIcon className={classes.buttonIcon} color="action" />
               {translate('layout.appBar.tableStatus.join.button')}

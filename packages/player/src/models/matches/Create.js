@@ -47,7 +47,7 @@ const CreateMatchButton = ({ dataProvider, history, resource }) => {
     }
 
     const newMatch = await dataProvider(CREATE, resource, { data: formState.values });
-    history.push({ pathname: '/inGame', search: `?match=${newMatch.data._id}` });
+    history.push({ pathname: '/game', search: `?match=${newMatch.data._id}` });
   }, [dataProvider, history, resource, formState.valid, formState.values]);
 
   return (
@@ -80,7 +80,7 @@ const TeamSelect = ({ type, choices, ...rest }) => {
 
 const MatchCreate = (props) => (
   <Create {...props} actions={<CreateActions />} title="Match Create">
-    <SimpleForm toolbar={<CreateToolbar {...props} />}>
+    <SimpleForm toolbar={<CreateToolbar {...props} />} onSubmit={() => {}}>
       <ReferenceInput
         source={models.matches.fields.teamA}
         reference={constants.resources.teams}

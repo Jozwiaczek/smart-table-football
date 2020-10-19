@@ -37,8 +37,8 @@ const styles = () => ({
   },
 });
 
-const Progress = ({ completedCountdown, removeGoal, goal, onClose }) => {
-  if (completedCountdown === 0) {
+const Progress = ({ countdownProgress, removeGoal, goal, onClose }) => {
+  if (countdownProgress !== 0) {
     return (
       <>
         <Button
@@ -55,7 +55,7 @@ const Progress = ({ completedCountdown, removeGoal, goal, onClose }) => {
         <LinearProgress
           style={{ width: '100%', marginTop: '1em' }}
           variant="determinate"
-          value={completedCountdown}
+          value={countdownProgress}
         />
       </>
     );
@@ -69,7 +69,7 @@ const GoalDetailsModal = ({
   getTeamName,
   removeGoal,
   isOpen,
-  completedCountdown,
+  countdownProgress,
   onClose,
 }) => {
   const [isReplayLoading, setReplayLoading] = useState(false);
@@ -81,11 +81,11 @@ const GoalDetailsModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Typography variant="h2" component="h2" align="center" color="colorTextPrimary">
+      <Typography variant="h2" component="h2" align="center" color="textPrimary">
         GOAL!
       </Typography>
       <div className={classes.newGoalAlertContent}>
-        <Typography gutterBottom variant="h5" component="h5" color="colorTextPrimary">
+        <Typography gutterBottom variant="h5" component="h5" color="textPrimary">
           Team: {teamName}
         </Typography>
         {replayId && (
@@ -114,7 +114,7 @@ const GoalDetailsModal = ({
         <Progress
           goal={goal}
           removeGoal={removeGoal}
-          completedCountdown={completedCountdown}
+          countdownProgress={countdownProgress}
           onClose={onClose}
         />
       </div>
@@ -125,7 +125,7 @@ const GoalDetailsModal = ({
 GoalDetailsModal.propTypes = {
   classes: PropTypes.object,
   onClose: PropTypes.func.isRequired,
-  completedCountdown: PropTypes.number.isRequired,
+  countdownProgress: PropTypes.number.isRequired,
   getTeamName: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   removeGoal: PropTypes.func.isRequired,

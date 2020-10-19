@@ -12,7 +12,7 @@ const ContinueButton = ({ classes, record, history, mobile, disabled, isInGame }
       <Button
         color="action"
         disabled={disabled}
-        onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}
+        onClick={() => history.push({ pathname: '/game', search: `?match=${record._id}` })}
       >
         <EmojiPeopleIcon className={classes.buttonIcon} color="action" />
         {mobile ? null : 'Join'}
@@ -28,7 +28,7 @@ const ContinueButton = ({ classes, record, history, mobile, disabled, isInGame }
       <Button
         color="primary"
         disabled={disabled || isInGame}
-        onClick={() => history.push({ pathname: '/inGame', search: `?match=${record._id}` })}
+        onClick={() => history.push({ pathname: '/game', search: `?match=${record._id}` })}
       >
         <SlowMotionVideoIcon className={classes.buttonIcon} />
         {mobile ? null : 'Resume'}
