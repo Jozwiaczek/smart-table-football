@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { GET_LIST, GET_ONE, useDataProvider } from 'react-admin';
 import { constants, models } from 'stf-core';
 
-import useGoal from './resources/useGoal';
+import useGoal from '../../../hooks/resources/useGoal';
 
 const useGameTeams = (match) => {
   const [teamA, setTeamA] = useState(null);

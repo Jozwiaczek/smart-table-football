@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles, Typography } from '@material-ui/core';
 import { constants, models } from 'stf-core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import TeamCard from './TeamCard';
 import GoalDetailsModal from './modals/GoalDetailsModal';
@@ -11,8 +11,8 @@ import WarningModal from './modals/WarningModal';
 import GoalsHistory from './GoalsHistory';
 import GameControls from './GameControls';
 import LayoutWrapper from './LayoutWrapper';
-import useGameMatch from '../../hooks/useGameMatch';
-import useGameTeams from '../../hooks/useGameTeams';
+import useGameMatch from './hooks/useGameMatch';
+import useGameTeams from './hooks/useGameTeams';
 import useCountdown from '../../hooks/useCountdown';
 
 const useStyles = makeStyles(() => ({
@@ -65,7 +65,6 @@ export default () => {
   const classes = useStyles();
   const isTableActive = useSelector((state) => state.table.isActive);
   const isTableInGame = useSelector((state) => state.table.isInGame);
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const closeGoalDetailsModal = useCallback(() => {
@@ -112,49 +111,50 @@ export default () => {
   }, [history, status, stopMatchTimer, updateMatchGame]);
 
   useEffect(() => {
+    if (!isTableActive) {
+      setTableDisconnectedModal(true);
+    }
+  }, [isTableActive]);
+
+  useEffect(() => {
+    if (matchId && isTableInGame && isTableInGame !== matchId) {
+      setOtherMatchStartedModalVisible(true);
+    }
+  }, [matchId, isTableInGame]);
+
+  useEffect(() => {
     const call = async () => {
       try {
-        if (!isTableActive) {
-          setTableDisconnectedModal(true);
-        }
+        if (!matchId || !match || isTableDisconnectedModal) return;
 
-        if (!matchId || !match) return;
+        socket.emit(constants.socketEvents.isTableInGame);
 
-        if (isTableInGame && isTableInGame !== matchId) {
-          setOtherMatchStartedModalVisible(true);
-        }
+        socket.on('currentStepTime', (currentStepTime) => {
+          setElapsedTimer(currentStepTime);
+        });
 
-        if (!isTableDisconnectedModal && matchId) {
-          socket.emit(constants.socketEvents.isTableInGame);
-          socket.on('currentStepTime', (currentStepTime) => {
-            setElapsedTimer(currentStepTime);
+        socket.on(constants.socketEvents.createdGoal, (goal) => {
+          setNewGoal(goal);
+          setTeamAGoals((teamAGoals) => {
+            teamAGoals[teamAGoals.length] = goal;
+            return teamAGoals;
           });
-
-          socket.on(constants.socketEvents.createdGoal, (goal) => {
-            setNewGoal(goal);
-            setTeamAGoals((teamAGoals) => {
-              teamAGoals[teamAGoals.length] = goal;
-              return teamAGoals;
-            });
-            setTeamBGoals((prevState) => prevState);
-            openGoalDetailsModal();
-          });
-        }
+          setTeamBGoals((prevState) => prevState);
+          openGoalDetailsModal();
+        });
       } catch (e) {
         throw new Error(e);
       }
     };
     call();
   }, [
-    openGoalDetailsModal,
+    isTableDisconnectedModal,
     match,
     matchId,
-    isTableActive,
-    isTableDisconnectedModal,
-    dispatch,
-    isTableInGame,
-    setElapsedTimer,
+    openGoalDetailsModal,
+    setTeamBGoals,
     setTeamAGoals,
+    setElapsedTimer,
   ]);
 
   if (!teamA || !teamB) {

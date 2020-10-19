@@ -2,9 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { constants, models } from 'stf-core';
 
-import { socket } from '../client/feathersSocketClient';
-import useMatch from './resources/useMatch';
-import useOnBeforeUnload from './useOnBeforeUnload';
+import { socket } from '../../../client/feathersSocketClient';
+import useMatch from '../../../hooks/resources/useMatch';
+import useOnBeforeUnload from '../../../hooks/useOnBeforeUnload';
 
 const useGameMatch = () => {
   const [matchId, setMatchId] = useState(null);
@@ -15,44 +15,6 @@ const useGameMatch = () => {
 
   const history = useHistory();
   const searchParams = history.location.search;
-
-  useOnBeforeUnload(
-    useCallback(async () => {
-      if (status === constants.statusMatch.active) {
-        await changeMatchStatus();
-      }
-    }, [status]),
-  );
-
-  useEffect(() => {
-    const call = async () => {
-      const urlParams = new URLSearchParams(searchParams);
-      setMatchId(urlParams.get('match'));
-
-      if (!matchId) return;
-
-      const resultMatch = await getMatch(matchId);
-
-      setElapsedTimer(resultMatch[models.matches.fields.elapsedTime]);
-      setStatus(resultMatch[models.matches.fields.status]);
-    };
-    call();
-  }, [matchId, searchParams, getMatch]);
-
-  useEffect(() => {
-    let interval = null;
-    if (isTimerRun) {
-      const start = Date.now() - elapsedTimer;
-
-      interval = setInterval(() => {
-        const currentStepTime = Date.now() - start;
-        socket.emit('currentStepTime', currentStepTime);
-      }, 100);
-    } else if (!isTimerRun && elapsedTimer !== 0) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [isTimerRun, elapsedTimer]);
 
   const startMatchTimer = useCallback(() => {
     setIsTimerRun(true);
@@ -104,6 +66,44 @@ const useGameMatch = () => {
     socket.emit(constants.socketEvents.isTableInGame);
     history.push(`/${constants.resources.matches}`);
   }, [history, stopMatchTimer, updateMatch, matchId]);
+
+  useOnBeforeUnload(
+    useCallback(async () => {
+      if (status === constants.statusMatch.active) {
+        await changeMatchStatus();
+      }
+    }, [status, changeMatchStatus]),
+  );
+
+  useEffect(() => {
+    const call = async () => {
+      const urlParams = new URLSearchParams(searchParams);
+      setMatchId(urlParams.get('match'));
+
+      if (!matchId) return;
+
+      const resultMatch = await getMatch(matchId);
+
+      setElapsedTimer(resultMatch[models.matches.fields.elapsedTime]);
+      setStatus(resultMatch[models.matches.fields.status]);
+    };
+    call();
+  }, [matchId, searchParams, getMatch]);
+
+  useEffect(() => {
+    let interval = null;
+    if (isTimerRun) {
+      const start = Date.now() - elapsedTimer;
+
+      interval = setInterval(() => {
+        const currentStepTime = Date.now() - start;
+        socket.emit('currentStepTime', currentStepTime);
+      }, 100);
+    } else if (!isTimerRun && elapsedTimer !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isTimerRun, elapsedTimer]);
 
   return {
     match,
