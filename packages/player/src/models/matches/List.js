@@ -82,7 +82,7 @@ const MatchList = ({ classes, dataProvider, ...rest }) => {
 
   useEffect(() => {
     const req = () => {
-      socket.on('currentStepTime', (currentStepTime) => {
+      socket.on(constants.socketEvents.currentStepTime, (currentStepTime) => {
         setGlobalElapsedTimer(currentStepTime);
       });
     };

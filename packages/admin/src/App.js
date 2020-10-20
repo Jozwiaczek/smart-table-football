@@ -28,6 +28,7 @@ import { GoalShow, GoalsList } from './models/goals';
 import { TableList } from './models/table';
 import MailerList from './models/mailer/List';
 import MailerCreate from './models/mailer/Create';
+import customRoutes from './customRoutes';
 
 const authClientOptions = {
   storageKey: constants.storageKey, // The key in localStorage used to store the authentication token
@@ -69,6 +70,7 @@ const App = () => (
     dataProvider={dataProvider}
     authProvider={authClient(feathersRestClient, authClientOptions)}
     i18nProvider={i18nProvider}
+    customRoutes={customRoutes}
     theme={defaultTheme}
   >
     <Resource

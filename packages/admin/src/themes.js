@@ -21,6 +21,9 @@ const _compatibilityTheme = {
       scrollButtons: 'off',
     },
   },
+  shape: {
+    borderRadius: 10,
+  },
   overrides: {
     MuiTabs: {
       root: {

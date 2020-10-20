@@ -15,7 +15,7 @@ module.exports = function (app) {
   //   console.log('/create-first-admin');
   //   app.service('admins').create({
   //     email: 'admin@stf.com',
-  //     password: 'password',
+  //     password: '123123',
   //   });
   // });
 };

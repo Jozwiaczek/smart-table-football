@@ -129,7 +129,7 @@ export default () => {
 
         socket.emit(constants.socketEvents.isTableInGame);
 
-        socket.on('currentStepTime', (currentStepTime) => {
+        socket.on(constants.socketEvents.currentStepTime, (currentStepTime) => {
           setElapsedTimer(currentStepTime);
         });
 

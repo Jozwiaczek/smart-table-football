@@ -86,6 +86,18 @@ const socketEvents = {
   goal: 'goal',
   isTableInGame: 'isTableInGame',
   connect: 'connect',
+  manager: 'manager',
+  isManagerRunning: 'isManagerRunning',
+  managerRunning: 'managerRunning',
+  managerUpdated: 'managerUpdated',
+  managerLogs: 'managerLogs',
+  currentStepTime: 'currentStepTime',
+};
+
+const managerActions = {
+  turnOn: 'turnOn',
+  turnOff: 'turnOff',
+  update: 'update',
 };
 
 module.exports = {
@@ -103,4 +115,5 @@ module.exports = {
   socketEvents,
   themeMode,
   notificationType,
+  managerActions,
 };

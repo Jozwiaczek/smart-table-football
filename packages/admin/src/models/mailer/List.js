@@ -1,11 +1,6 @@
-const MailerList = ({ history, location }) => {
-  const { pathname } = location;
-  const isMailer = Boolean(pathname.match(/^\/mailer$/));
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 
-  if (isMailer) {
-    history.replace(`${pathname}/create`);
-  }
-  return null;
-};
+const MailerList = ({ location }) => <Redirect to={`${location.pathname}/create`} />;
 
 export default MailerList;

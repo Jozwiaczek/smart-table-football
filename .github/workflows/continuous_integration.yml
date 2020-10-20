@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./packages/raspberry
+        working-directory: ./packages
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 14
@@ -43,8 +43,10 @@ jobs:
           node-version: 14
       - name: Install dependency
         run: yarn install
-      - name: Raspberry Pi
-        run: yarn eslint
+      - name: Table
+        run: cd table && yarn eslint
+      - name: Table Manager
+        run: cd table-manager && yarn eslint
 
   Electron:
     runs-on: ubuntu-latest

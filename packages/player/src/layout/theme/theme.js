@@ -32,16 +32,6 @@ export const themeProvider = (mode) => {
       borderRadius: 10,
     },
     overrides: {
-      MuiCssBaseline: {
-        '@global': {
-          body: {
-            background: 'red',
-          },
-          '*::-webkit-scrollbar-track': {
-            background: 'red',
-          },
-        },
-      },
       MuiTabs: {
         root: {
           maxWidth: '100vw',

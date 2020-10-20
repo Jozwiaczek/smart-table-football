@@ -97,7 +97,7 @@ const useGameMatch = () => {
 
       interval = setInterval(() => {
         const currentStepTime = Date.now() - start;
-        socket.emit('currentStepTime', currentStepTime);
+        socket.emit(constants.socketEvents.currentStepTime, currentStepTime);
       }, 100);
     } else if (!isTimerRun && elapsedTimer !== 0) {
       clearInterval(interval);

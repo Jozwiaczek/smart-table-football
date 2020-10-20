@@ -4,8 +4,28 @@ module.exports = function (app, socket, io) {
   const tableService = app.service(constants.resources.table);
   tableService.setup(app);
 
-  socket.on('currentStepTime', (currentStepTime) => {
-    io.emit('currentStepTime', currentStepTime);
+  socket.on(constants.socketEvents.manager, (data) => {
+    socket.broadcast.emit(constants.socketEvents.manager, data);
+  });
+
+  socket.on(constants.socketEvents.managerLogs, (logs) => {
+    socket.broadcast.emit(constants.socketEvents.managerLogs, logs);
+  });
+
+  socket.on(constants.socketEvents.managerUpdated, (status) => {
+    socket.broadcast.emit(constants.socketEvents.managerUpdated, status);
+  });
+
+  socket.on(constants.socketEvents.isManagerRunning, () => {
+    socket.broadcast.emit(constants.socketEvents.isManagerRunning);
+  });
+
+  socket.on(constants.socketEvents.managerRunning, () => {
+    socket.broadcast.emit(constants.socketEvents.managerRunning);
+  });
+
+  socket.on(constants.socketEvents.currentStepTime, (currentStepTime) => {
+    io.emit(constants.socketEvents.currentStepTime, currentStepTime);
   });
 
   socket.on(constants.socketEvents.isTableActivePlayer, async () => {
@@ -16,11 +36,19 @@ module.exports = function (app, socket, io) {
     await tableService.emitIsInGame();
   });
 
-  socket.on(constants.socketEvents.tableActiveRasp, () => {
-    tableService.create({
-      [models.table.fields.id]: socket.id,
-      [models.table.fields.isActive]: true,
-    });
+  socket.on(constants.socketEvents.tableActiveRasp, async () => {
+    let tmp;
+    try {
+      tmp = await tableService.get(socket.id);
+      // eslint-disable-next-line no-empty
+    } catch (ignore) {}
+    if (!tmp) {
+      await tableService.create({
+        [models.table.fields.id]: socket.id,
+        [models.table.fields._id]: socket.id,
+        [models.table.fields.isActive]: true,
+      });
+    }
   });
 
   socket.on(constants.socketEvents.goal, async (data) => {

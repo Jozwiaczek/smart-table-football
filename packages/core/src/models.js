@@ -59,6 +59,7 @@ const table = {
   name: 'table',
   fields: {
     id: 'id',
+    _id: '_id',
     isActive: 'isActive',
     inGame: 'inGame',
   },
