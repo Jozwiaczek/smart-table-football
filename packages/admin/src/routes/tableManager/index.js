@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { Title, useNotify } from 'react-admin';
+import { Title, useNotify, Button } from 'react-admin';
 
-import { Button, Card, CardContent, CircularProgress } from '@material-ui/core';
+import { Card, CardContent, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Tooltip from '@material-ui/core/Tooltip/Tooltip';
@@ -21,19 +21,19 @@ import useLocalStorage from '../../raHooks/useLocalStorage';
 import { socket } from '../../client/feathersSocketClient';
 
 import SectionTitle from '../../elements/SectionTitle';
+import ConfirmButton from '../../elements/ConfirmButton';
 
 const useStyles = makeStyles({
   card: {
     marginTop: '1em',
   },
-  tableStateButton: {
-    marginRight: 20,
+  buttonContent: {
+    display: 'flex',
+    alignItems: 'center',
   },
-  tableUpdateButton: {
+  button: {
     marginRight: 20,
-  },
-  clearLogsButton: {
-    marginTop: 20,
+    padding: 10,
   },
   sectionContainer: {
     display: 'flex',
@@ -46,6 +46,7 @@ const useStyles = makeStyles({
     height: 400,
     width: '95%',
     padding: 10,
+    marginBottom: 20,
     border: '2px solid #283593',
     backgroundColor: '#fcfcfc',
     borderRadius: 10,
@@ -66,6 +67,11 @@ const useStyles = makeStyles({
   },
   loadingBar: {
     marginLeft: 8,
+    paddingTop: 3,
+  },
+  emptyProgress: {
+    width: 15,
+    height: 22,
   },
   tableManagerTabLabelContainer: {
     display: 'flex',
@@ -76,13 +82,13 @@ const useStyles = makeStyles({
 });
 
 export default () => {
-  const classes = useStyles();
-  const notify = useNotify();
   const [isTableRunning, setTableRunning] = useState(false);
   const [isManagerRunning, setManagerRunning] = useState(false);
-  const [tableLogs, setTableLogs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [tableLogs, setTableLogs] = useState([]);
   const [lastUpdate, setLastUpdate] = useLocalStorage('lastUpdate', new Date());
+  const classes = useStyles();
+  const notify = useNotify();
 
   const manageTableWorkingState = useCallback(() => {
     if (!isManagerRunning) {
@@ -113,29 +119,32 @@ export default () => {
 
   const clearTableLogs = useCallback(() => {
     if (!isManagerRunning) {
-      notify('Table Manager is offline', 'warning');
+      notify('Table Manager is offline.', 'warning');
       return;
     }
 
     socket.emit(constants.socketEvents.clearLogs);
     setTableLogs([]);
-    notify('Logs cleaned');
+    notify('Logs cleaned.');
   }, [isManagerRunning, notify]);
 
   useEffect(() => {
     socket.emit(constants.socketEvents.isManagerRunning);
-    socket.on(constants.socketEvents.managerRunning, () => {
+    socket.on(constants.socketEvents.managerRunning, (logs) => {
       setManagerRunning(true);
+      logs && setTableLogs(logs);
     });
 
     socket.on(constants.socketEvents.managerUpdated, (status) => {
       setLoading(false);
       if (status === 'up-to-date') {
-        notify('Changes not detected. System is up to date');
-        return;
+        notify('Changes not detected. System is up to date.');
+      } else if (status.toLowerCase().includes('error')) {
+        notify(status, 'error');
+      } else {
+        setLastUpdate(status);
+        notify('System updated.');
       }
-      setLastUpdate(status);
-      notify('System updated');
     });
 
     socket.on(constants.socketEvents.managerLogs, (logs) => {
@@ -145,6 +154,12 @@ export default () => {
     socket.emit(constants.socketEvents.isTableActivePlayer);
     socket.on(constants.socketEvents.isTableActivePlayer, (isActive) => setTableRunning(isActive));
     // eslint-disable-next-line
+  }, []);
+
+  const rebootTableManager = useCallback(() => {
+    socket.emit(constants.socketEvents.manager, constants.managerActions.reboot);
+    setManagerRunning(false);
+    notify('Rebooting table manager...');
   }, []);
 
   const TableManagerTabLabel = () => {
@@ -167,16 +182,37 @@ export default () => {
       <Title title="Table Manager" />
       <CardContent>
         <TableManagerTabLabel />
-        <SectionTitle>Table actions</SectionTitle>
+
+        <SectionTitle>Table Manager Actions</SectionTitle>
+        <div className={classes.sectionContainer}>
+          <ConfirmButton
+            title="Reboot Table Manager"
+            content={
+              <span>
+                Are you sure you want to reboot table manager?
+                <br />
+                It takes about <b>2 minutes</b>.
+              </span>
+            }
+            className={classes.button}
+            disabled={loading || !isManagerRunning}
+            color="secondary"
+            confirmText="Reboot"
+            onConfirm={rebootTableManager}
+          >
+            Reboot Table Manager
+          </ConfirmButton>
+        </div>
+
+        <SectionTitle>Table Actions</SectionTitle>
         <div className={classes.sectionContainer}>
           <Button
             variant="contained"
-            className={classes.tableStateButton}
+            className={classes.button}
             disabled={loading || !isManagerRunning}
+            label={isTableRunning ? 'Turn Off Table' : 'Turn On Table'}
             onClick={manageTableWorkingState}
-          >
-            {isTableRunning ? 'Turn Off Table' : 'Turn On Table'}
-          </Button>
+          />
           {isTableRunning ? (
             <Tooltip title="Table is running">
               <SignalIcon color="primary" />
@@ -187,20 +223,26 @@ export default () => {
             </Tooltip>
           )}
         </div>
+
         <div className={classes.sectionContainer}>
           <Button
             variant="contained"
-            className={classes.tableUpdateButton}
+            className={classes.button}
             disabled={loading || !isManagerRunning}
-            onClick={updateTable}
-          >
-            Update Table
-            {loading && (
-              <div className={classes.loadingBar}>
-                <CircularProgress size={15} thickness={2} />
+            label={
+              <div className={classes.buttonContent}>
+                Update Table
+                <div className={classes.loadingBar}>
+                  {loading ? (
+                    <CircularProgress size={15} thickness={2} />
+                  ) : (
+                    <div className={classes.emptyProgress} />
+                  )}
+                </div>
               </div>
-            )}
-          </Button>
+            }
+            onClick={updateTable}
+          />
           <Tooltip title="Last update">
             <HistoryIcon />
           </Tooltip>
@@ -208,7 +250,7 @@ export default () => {
           {moment(lastUpdate).startOf('second').fromNow()}
         </div>
 
-        <SectionTitle>Table console</SectionTitle>
+        <SectionTitle>Table Console</SectionTitle>
         <div className={classes.logsContainer}>
           {tableLogs.map((tableLog, index) => (
             <p key={index} className={classes.log}>
@@ -216,14 +258,17 @@ export default () => {
             </p>
           ))}
         </div>
-        <Button
-          variant="contained"
-          className={classes.clearLogsButton}
+        <ConfirmButton
+          title="Clear Table Logs"
+          content="Are you sure you want to clear all logs?"
+          className={classes.button}
           disabled={loading || !isManagerRunning}
-          onClick={clearTableLogs}
+          variant="text"
+          confirmText="Clear"
+          onConfirm={clearTableLogs}
         >
           Clear logs
-        </Button>
+        </ConfirmButton>
       </CardContent>
     </Card>
   );

@@ -19,10 +19,10 @@ const SectionTitle = ({ children, loading, loadingColor }) => {
   }
   return (
     <Typography
-      variant="subtitle2"
+      variant="subtitle1"
       style={{
         marginBottom: 10,
-        marginTop: 20,
+        marginTop: 30,
       }}
     >
       {children}

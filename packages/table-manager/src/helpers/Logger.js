@@ -11,6 +11,10 @@ exports.Logger = class Logger {
     });
   }
 
+  get allLogs() {
+    return this.logs;
+  }
+
   logSync(msg = '', withTimestamp = true) {
     const currentDate = new Date();
     const dateOpt = 'pl-PL';

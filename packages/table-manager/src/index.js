@@ -1,5 +1,5 @@
 require('dotenv/config');
-const { fork, execSync } = require('child_process');
+const { fork, execSync, exec } = require('child_process');
 
 const io = require('socket.io-client');
 const { constants } = require('stf-core');
@@ -13,10 +13,10 @@ const tableStartupFilePath = '../table/src/index';
 let forkedProcess;
 
 logger.logSync('Table Manager Started');
-socket.emit(constants.socketEvents.managerRunning);
+socket.emit(constants.socketEvents.managerRunning, logger.allLogs);
 
 socket.on(constants.socketEvents.isManagerRunning, () => {
-  socket.emit(constants.socketEvents.managerRunning);
+  socket.emit(constants.socketEvents.managerRunning, logger.allLogs);
 });
 
 const startTable = () => {
@@ -42,23 +42,42 @@ const stopTable = () => {
 
 const updateTable = () => {
   const isRunning = forkedProcess && forkedProcess.pid;
+  logger.logSync('System updating...');
   if (isRunning) {
     stopTable();
   }
 
-  const pullResult = execSync('git pull');
-  if (pullResult.toString().includes('Already up to date.')) {
+  let pullResult;
+  try {
+    pullResult = execSync('git pull');
+  } catch (error) {
+    logger.logSync(error);
+    socket.emit(constants.socketEvents.managerUpdated, 'Error: updating -> git pull');
+    return;
+  }
+
+  if (pullResult && pullResult.toString().includes('Already up to date.')) {
     logger.logSync('System up to date.');
     socket.emit(constants.socketEvents.managerUpdated, 'up-to-date');
   } else {
-    execSync('yarn install');
-    logger.logSync('Table updated successfully');
+    try {
+      execSync('yarn install');
+    } catch (error) {
+      logger.logSync(error);
+      socket.emit(constants.socketEvents.managerUpdated, 'Error: updating -> yarn install');
+      return;
+    }
+    logger.logSync('Table updated successfully.');
     socket.emit(constants.socketEvents.managerUpdated, new Date());
   }
 
   if (isRunning) {
     startTable();
   }
+};
+
+const rebootManager = () => {
+  exec('reboot');
 };
 
 socket.on(constants.socketEvents.manager, (data) => {
@@ -71,6 +90,9 @@ socket.on(constants.socketEvents.manager, (data) => {
       break;
     case constants.managerActions.update:
       updateTable();
+      break;
+    case constants.managerActions.reboot:
+      rebootManager();
       break;
     default:
       logger.logSync(`Error: No manager event='${data}'`);

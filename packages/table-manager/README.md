@@ -4,7 +4,7 @@
 
 - Node 14.0.0
 - Yarn
-- MP4Box
+- crontab
 
 ## Installing
 
@@ -51,9 +51,19 @@ Install required node version
 $ nvm install 14
 ```
 
-###
+### Runs on Startup with [crontab](https://www.raspberrypi.org/documentation/linux/usage/cron.md)
 
-- Install MP4Box `sudo apt install -y gpac`
-- `yarn` in root project
-- `yarn` in stf-rasp directory
-- `yarn dev` in stf-rasp directory to start
+In console type `crontab` with `-e` flag to edit crontab configuration file
+
+```shell script
+crontab -e
+```
+
+On the end of the file (after comments), add this line:
+
+> If you want your command to be run in the background while the Raspberry Pi continues starting up,
+> add a space and `&` at the end of the line
+
+```
+@reboot cd /home/pi/smart-table-football/packages/table-manager && yarn start &
+```

@@ -24,8 +24,8 @@ module.exports = function (app, socket, io) {
     socket.broadcast.emit(constants.socketEvents.isManagerRunning);
   });
 
-  socket.on(constants.socketEvents.managerRunning, () => {
-    socket.broadcast.emit(constants.socketEvents.managerRunning);
+  socket.on(constants.socketEvents.managerRunning, (logs) => {
+    socket.broadcast.emit(constants.socketEvents.managerRunning, logs);
   });
 
   socket.on(constants.socketEvents.currentStepTime, (currentStepTime) => {

@@ -99,6 +99,7 @@ const managerActions = {
   turnOn: 'turnOn',
   turnOff: 'turnOff',
   update: 'update',
+  reboot: 'reboot',
 };
 
 module.exports = {
