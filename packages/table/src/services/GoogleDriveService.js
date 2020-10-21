@@ -24,10 +24,11 @@ const createPermissions = (fileId, role, type) =>
       },
       (err, res) => {
         if (err) {
-          console.error('Error in GoogleDriveService -> createPermissions: ', err);
+          console.log('Error in GoogleDriveService -> createPermissions: ', err);
           reject(err);
+        } else {
+          resolve(res);
         }
-        resolve(res);
       },
     );
   });
@@ -41,6 +42,7 @@ const uploadFile = (fileName) =>
       mimeType: 'video/mp4',
       body: fs.createReadStream(`${fileName}.mp4`),
     };
+
     drive.files.create(
       {
         resource: fileMetadata,
@@ -48,12 +50,13 @@ const uploadFile = (fileName) =>
         fields: 'id',
       },
       async function (err, res) {
-        if (err) {
-          console.error('Error in GoogleDriveService -> uploadFile: ', err);
+        if (err || !res) {
+          console.log('Error in GoogleDriveService -> uploadFile: ', err);
           reject(err);
+        } else {
+          await createPermissions(res.data.id, 'reader', 'anyone');
+          resolve(res.data.id);
         }
-        await createPermissions(res.data.id, 'reader', 'anyone');
-        resolve(res.data.id);
       },
     );
   });
@@ -62,11 +65,11 @@ const removeFile = (id) =>
   new Promise((resolve, reject) => {
     drive.files.delete({ fileId: id }, (err, res) => {
       if (err) {
-        console.log(`The API returned an error: ${err}`);
-        console.error('Error in GoogleDriveService -> removeFile: ', err);
+        console.log('Error in GoogleDriveService -> removeFile: ', err);
         reject(err);
+      } else {
+        resolve(res.data);
       }
-      resolve(res.data);
     });
   });
 
@@ -78,7 +81,7 @@ const listFiles = () => {
     },
     (err, res) => {
       if (err) {
-        console.error('Error in GoogleDriveService -> listFiles: ', err);
+        console.log('Error in GoogleDriveService -> listFiles: ', err);
         return;
       }
       const { files } = res.data;
@@ -97,7 +100,7 @@ const listFiles = () => {
 const getFile = (fileId) => {
   drive.files.get({ fileId, fields: '*' }, (err, res) => {
     if (err) {
-      console.error('Error in GoogleDriveService -> getFile: ', err);
+      console.log('Error in GoogleDriveService -> getFile: ', err);
       return;
     }
     console.log(res.data);

@@ -123,39 +123,23 @@ export default () => {
   }, [matchId, isTableInGame]);
 
   useEffect(() => {
-    const call = async () => {
-      try {
-        if (!matchId || !match || isTableDisconnectedModal) return;
+    socket.emit(constants.socketEvents.isTableInGame);
 
-        socket.emit(constants.socketEvents.isTableInGame);
+    socket.on(constants.socketEvents.currentStepTime, (currentStepTime) => {
+      setElapsedTimer(currentStepTime);
+    });
 
-        socket.on(constants.socketEvents.currentStepTime, (currentStepTime) => {
-          setElapsedTimer(currentStepTime);
-        });
-
-        socket.on(constants.socketEvents.createdGoal, (goal) => {
-          setNewGoal(goal);
-          setTeamAGoals((teamAGoals) => {
-            teamAGoals[teamAGoals.length] = goal;
-            return teamAGoals;
-          });
-          setTeamBGoals((prevState) => prevState);
-          openGoalDetailsModal();
-        });
-      } catch (e) {
-        throw new Error(e);
-      }
-    };
-    call();
-  }, [
-    isTableDisconnectedModal,
-    match,
-    matchId,
-    openGoalDetailsModal,
-    setTeamBGoals,
-    setTeamAGoals,
-    setElapsedTimer,
-  ]);
+    socket.on(constants.socketEvents.createdGoal, (goal) => {
+      setNewGoal(goal);
+      setTeamAGoals((teamAGoals) => {
+        teamAGoals[teamAGoals.length] = goal;
+        return teamAGoals;
+      });
+      setTeamBGoals((prevState) => prevState);
+      openGoalDetailsModal();
+    });
+    // eslint-disable-next-line
+  }, []);
 
   if (!teamA || !teamB) {
     return null;

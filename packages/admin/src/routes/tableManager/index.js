@@ -32,6 +32,9 @@ const useStyles = makeStyles({
   tableUpdateButton: {
     marginRight: 20,
   },
+  clearLogsButton: {
+    marginTop: 20,
+  },
   sectionContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -40,7 +43,7 @@ const useStyles = makeStyles({
   },
   logsContainer: {
     marginTop: 10,
-    height: 200,
+    height: 400,
     width: '95%',
     padding: 10,
     border: '2px solid #283593',
@@ -57,6 +60,9 @@ const useStyles = makeStyles({
       background: '#283593',
       borderRadius: 10,
     },
+  },
+  log: {
+    whiteSpace: 'pre-wrap',
   },
   loadingBar: {
     marginLeft: 8,
@@ -105,6 +111,17 @@ export default () => {
     socket.emit(constants.socketEvents.manager, constants.managerActions.update);
   }, [isManagerRunning, notify]);
 
+  const clearTableLogs = useCallback(() => {
+    if (!isManagerRunning) {
+      notify('Table Manager is offline', 'warning');
+      return;
+    }
+
+    socket.emit(constants.socketEvents.clearLogs);
+    setTableLogs([]);
+    notify('Logs cleaned');
+  }, [isManagerRunning, notify]);
+
   useEffect(() => {
     socket.emit(constants.socketEvents.isManagerRunning);
     socket.on(constants.socketEvents.managerRunning, () => {
@@ -127,6 +144,7 @@ export default () => {
 
     socket.emit(constants.socketEvents.isTableActivePlayer);
     socket.on(constants.socketEvents.isTableActivePlayer, (isActive) => setTableRunning(isActive));
+    // eslint-disable-next-line
   }, []);
 
   const TableManagerTabLabel = () => {
@@ -193,9 +211,19 @@ export default () => {
         <SectionTitle>Table console</SectionTitle>
         <div className={classes.logsContainer}>
           {tableLogs.map((tableLog, index) => (
-            <p key={index}>- {tableLog}</p>
+            <p key={index} className={classes.log}>
+              {tableLog}
+            </p>
           ))}
         </div>
+        <Button
+          variant="contained"
+          className={classes.clearLogsButton}
+          disabled={loading || !isManagerRunning}
+          onClick={clearTableLogs}
+        >
+          Clear logs
+        </Button>
       </CardContent>
     </Card>
   );

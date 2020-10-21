@@ -28,7 +28,7 @@ export const Filters = (props) => (
 const MatchList = (props) => (
   <List {...props} filters={<Filters />}>
     <Responsive
-      small={<SimpleList primaryText={(record) => record.id} />}
+      small={<SimpleList primaryText={(record) => record && record.id} />}
       medium={
         <CustomizableDatagrid
           defaultColumns={[models.matches.fields.status, models.matches.fields.winner]}

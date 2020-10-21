@@ -17,7 +17,7 @@ const onMatchStart = (socket, replayDirPath, gpio) => {
     startVideoStream(match.replayTime, replayDirPath);
     GATE_A_SENSOR.watch(async (err, gateValue) => {
       if (err) {
-        console.error('Error in onMatchStart -> GATE_A_SENSOR: ', err);
+        console.log('Error in onMatchStart -> GATE_A_SENSOR: ', err);
         return;
       }
 

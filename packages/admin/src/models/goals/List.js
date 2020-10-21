@@ -72,8 +72,8 @@ const GoalsList = ({ dataProvider, ...rest }) => {
       <Responsive
         small={
           <SimpleList
-            primaryText={(record) => record[models.goals.fields.match]}
-            secondaryText={(record) => record[models.goals.fields.team]}
+            primaryText={(record) => record && record[models.goals.fields.match]}
+            secondaryText={(record) => record && record[models.goals.fields.team]}
           />
         }
         medium={

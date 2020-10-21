@@ -92,6 +92,7 @@ const socketEvents = {
   managerUpdated: 'managerUpdated',
   managerLogs: 'managerLogs',
   currentStepTime: 'currentStepTime',
+  clearLogs: 'clearLogs',
 };
 
 const managerActions = {

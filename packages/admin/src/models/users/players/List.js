@@ -52,8 +52,9 @@ const PlayersList = (props) => {
       <Responsive
         small={
           <SimpleList
-            primaryText={(record) => record[models.players.fields.email]}
+            primaryText={(record) => record && record[models.players.fields.email]}
             secondaryText={(record) =>
+              record &&
               `${record[models.players.fields.firstName]} ${record[models.players.fields.lastName]}`
             }
             rightIcon={_getRightIcon}

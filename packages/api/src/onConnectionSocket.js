@@ -4,6 +4,10 @@ module.exports = function (app, socket, io) {
   const tableService = app.service(constants.resources.table);
   tableService.setup(app);
 
+  socket.on(constants.socketEvents.clearLogs, () => {
+    socket.broadcast.emit(constants.socketEvents.clearLogs);
+  });
+
   socket.on(constants.socketEvents.manager, (data) => {
     socket.broadcast.emit(constants.socketEvents.manager, data);
   });

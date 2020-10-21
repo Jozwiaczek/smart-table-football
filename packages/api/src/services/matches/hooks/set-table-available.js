@@ -12,7 +12,7 @@ module.exports = () => {
     ) {
       const tableService = app.service(constants.resources.table);
       const table = await tableService.getTable();
-      if (table[models.table.fields.inGame]) {
+      if (table && table[models.table.fields.inGame]) {
         tableService.patch(table.id, {
           [models.table.fields.inGame]: null,
         });

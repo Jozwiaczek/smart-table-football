@@ -6,6 +6,9 @@ exports.Logger = class Logger {
   constructor(socket) {
     this.socket = socket;
     this.logs = [];
+    socket.on(constants.socketEvents.clearLogs, () => {
+      this.logs = [];
+    });
   }
 
   logSync(msg = '', withTimestamp = true) {

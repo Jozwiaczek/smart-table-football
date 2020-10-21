@@ -30,7 +30,7 @@ const TeamsList = (props) => {
   return (
     <List {...props} filters={<Filters />}>
       <Responsive
-        small={<SimpleList primaryText={(record) => record[models.teams.fields.name]} />}
+        small={<SimpleList primaryText={(record) => record && record[models.teams.fields.name]} />}
         medium={
           <CustomizableDatagrid
             defaultColumns={[models.teams.fields.name, models.teams.fields.players]}

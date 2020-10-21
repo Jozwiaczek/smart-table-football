@@ -29,7 +29,7 @@ export const Filters = (props) => (
 const AdminsList = (props) => (
   <List {...props} filters={<Filters />}>
     <Responsive
-      small={<SimpleList primaryText={(record) => record[models.admins.fields.email]} />}
+      small={<SimpleList primaryText={(record) => record && record[models.admins.fields.email]} />}
       medium={
         <CustomizableDatagrid
           defaultColumns={[models.admins.fields.email, models.admins.fields.status]}
