@@ -129,6 +129,14 @@ export default () => {
   }, [isManagerRunning, notify]);
 
   useEffect(() => {
+    if (!isManagerRunning) {
+      if (loading) {
+        setLoading(false);
+      }
+    }
+  }, [isManagerRunning]);
+
+  useEffect(() => {
     socket.emit(constants.socketEvents.isManagerRunning);
     socket.on(constants.socketEvents.managerRunning, (logs) => {
       setManagerRunning(true);

@@ -10,7 +10,7 @@ const socket = io(process.env.API_URL);
 const logger = new Logger(socket);
 const tableStartupFilePath = '../table/src/index';
 // const tableStartupFilePath = 'src/test'; // left for debugging
-let forkedProcess;
+let forkedTableProcess;
 
 logger.logSync('Table Manager Started');
 socket.emit(constants.socketEvents.managerRunning, logger.allLogs);
@@ -20,20 +20,20 @@ socket.on(constants.socketEvents.isManagerRunning, () => {
 });
 
 const startTable = () => {
-  forkedProcess = fork(tableStartupFilePath, [], {
+  forkedTableProcess = fork(tableStartupFilePath, [], {
     stdio: 'pipe',
   });
 
   logger.logSync('Table turned ON');
-  forkedProcess.stdout.on('data', function (data) {
+  forkedTableProcess.stdout.on('data', function (data) {
     logger.logSync(data.toString(), false);
   });
 };
 
 const stopTable = () => {
-  if (forkedProcess && forkedProcess.pid) {
-    execSync(`kill ${forkedProcess.pid}`);
-    forkedProcess = undefined;
+  if (forkedTableProcess && forkedTableProcess.pid) {
+    execSync(`kill ${forkedTableProcess.pid}`);
+    forkedTableProcess = undefined;
     logger.logSync('Table turned OFF');
   } else {
     logger.logSync('No process PID');
@@ -41,16 +41,22 @@ const stopTable = () => {
 };
 
 const updateTable = () => {
-  const isRunning = forkedProcess && forkedProcess.pid;
+  const isTableRunning = forkedTableProcess && forkedTableProcess.pid;
   logger.logSync('System updating...');
-  if (isRunning) {
+
+  if (isTableRunning) {
     stopTable();
   }
 
   let pullResult;
   try {
-    execSync('git reset --hard');
+    logger.logSync('git reset --hard');
+    const gitResetResult = execSync('git reset --hard');
+    logger.logSync(gitResetResult);
+
+    logger.logSync('git pull');
     pullResult = execSync('git pull');
+    logger.logSync(pullResult);
   } catch (error) {
     logger.logSync(error);
     socket.emit(constants.socketEvents.managerUpdated, 'Error: updating -> git pull');
@@ -62,7 +68,9 @@ const updateTable = () => {
     socket.emit(constants.socketEvents.managerUpdated, 'up-to-date');
   } else {
     try {
-      execSync('yarn install');
+      logger.logSync('yarn install');
+      const yarnInstallResult = execSync('yarn install');
+      logger.logSync(yarnInstallResult);
     } catch (error) {
       logger.logSync(error);
       socket.emit(constants.socketEvents.managerUpdated, 'Error: updating -> yarn install');
@@ -72,12 +80,13 @@ const updateTable = () => {
     socket.emit(constants.socketEvents.managerUpdated, new Date());
   }
 
-  if (isRunning) {
+  if (isTableRunning) {
     startTable();
   }
 };
 
 const rebootManager = () => {
+  logger.logSync('Table manager reboot');
   exec('reboot');
 };
 
