@@ -27,5 +27,9 @@
     "eslint-plugin-jsx-a11y": "^6.3.0",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "4.0.0"
+  },
+  "engines": {
+    "node": ">=12",
+    "yarn": ">=1.22"
   }
 }

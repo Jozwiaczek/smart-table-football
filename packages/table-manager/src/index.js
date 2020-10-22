@@ -49,6 +49,7 @@ const updateTable = () => {
 
   let pullResult;
   try {
+    execSync('git reset --hard HEAD');
     pullResult = execSync('git pull');
   } catch (error) {
     logger.logSync(error);

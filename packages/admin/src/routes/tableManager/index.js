@@ -191,7 +191,7 @@ export default () => {
               <span>
                 Are you sure you want to reboot table manager?
                 <br />
-                It takes about <b>2 minutes</b>.
+                It takes about <b>1-2 minutes</b>.
               </span>
             }
             className={classes.button}
