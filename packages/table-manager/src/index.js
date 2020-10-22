@@ -50,7 +50,7 @@ const updateTable = () => {
   execSync('nvm use 14');
   let pullResult;
   try {
-    execSync('git reset --hard HEAD');
+    execSync('git reset --hard');
     pullResult = execSync('git pull');
   } catch (error) {
     logger.logSync(error);
