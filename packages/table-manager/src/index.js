@@ -47,6 +47,7 @@ const updateTable = () => {
     stopTable();
   }
 
+  execSync('nvm use 14');
   let pullResult;
   try {
     execSync('git reset --hard HEAD');
