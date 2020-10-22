@@ -50,17 +50,23 @@ const updateTable = () => {
 
   let pullResult;
   try {
-    logger.logSync('git reset --hard');
-    const gitResetResult = execSync('git reset --hard');
-    logger.logSync(gitResetResult);
-
     logger.logSync('git pull');
     pullResult = execSync('git pull');
     logger.logSync(pullResult);
   } catch (error) {
-    logger.logSync(error);
-    socket.emit(constants.socketEvents.managerUpdated, 'Error: updating -> git pull');
-    return;
+    try {
+      logger.logSync(error);
+      logger.logSync('git reset --hard');
+      const gitResetResult = execSync('git reset --hard');
+      logger.logSync(gitResetResult);
+
+      logger.logSync('git pull');
+      pullResult = execSync('git pull');
+      logger.logSync(pullResult);
+    } catch (error2) {
+      logger.logSync(error2);
+      return;
+    }
   }
 
   if (pullResult && pullResult.toString().includes('Already up to date.')) {
