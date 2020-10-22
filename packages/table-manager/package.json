@@ -29,7 +29,7 @@
     "eslint-plugin-react-hooks": "4.0.0"
   },
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "yarn": ">=1.22"
   }
 }
