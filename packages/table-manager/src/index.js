@@ -47,10 +47,6 @@ const updateTable = () => {
     stopTable();
   }
 
-  execSync('nvm use 14');
-  const nodeV = execSync('git pull');
-  logger.logSync(nodeV);
-
   let pullResult;
   try {
     execSync('git reset --hard');
