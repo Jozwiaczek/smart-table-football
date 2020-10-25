@@ -2,11 +2,11 @@
 
 ## Requires:
 
-- Node 14.0.0
-- Yarn
-- crontab
+- [NodeJS](https://nodejs.org/)
+- [Yarn](https://yarnpkg.com/)
+- [MP4Box](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md)
 
-## Installing
+## Installing on Raspberry
 
 ### Yarn
 
@@ -51,9 +51,9 @@ Install required node version
 $ nvm install 14
 ```
 
-### Runs on Startup with [crontab](https://www.raspberrypi.org/documentation/linux/usage/cron.md)
+### Runs Table Manger on Raspberry Boot with [crontab](https://www.raspberrypi.org/documentation/linux/usage/cron.md)
 
-In console type `crontab` with `-e` flag to edit crontab configuration file
+In raspberry console type `crontab` with `-e` flag to edit crontab configuration file
 
 ```shell script
 crontab -e
@@ -67,3 +67,5 @@ On the end of the file (after comments), add this line:
 ```
 @reboot cd /home/pi/smart-table-football/packages/table-manager && yarn start &
 ```
+
+After previous step table manager will be launched in background on every raspberry reboot.

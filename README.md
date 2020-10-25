@@ -33,7 +33,14 @@ Abstract
    - [NodeJS](https://nodejs.org/)
    - [Yarn](https://yarnpkg.com/)
    - [Docker](https://www.docker.com/)
-2. Deploy MongoDB Docker image
+
+2.  Add `.env` files with secrets based on `.env.example` in: 
+    - [Api](./packages/api)
+    - [Table Manager](./packages/table-manager)
+    - [Admin](./packages/admin)
+    - [Player](./packages/player)
+   
+3. Deploy MongoDB Docker image
 
    - Go to [Api Docs](./packages/api/README.md)
    - Follow `How To Deploy And Manage MongoDB With Docker` section

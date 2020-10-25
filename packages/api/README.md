@@ -39,9 +39,9 @@ For more information on all the things you can do with Feathers visit [docs.feat
 
 ---
 
-## How To Deploy And Manage MongoDB With Docker
+## How to deploy and manage MongoDB with Docker
 
-### Download MongoDB Image for Docker
+### Download MongoDB image for Docker
 
 Proceed to download the latest official Docker image for the MongoDB database:
 
