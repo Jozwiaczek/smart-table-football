@@ -25,12 +25,12 @@ With Raspberry Pi with few sensors it gives You ability to move game in a physic
 
 <br/>
 
-## Player Preview
+### Player Preview
 
 <img alt="player dashboard preview" src="assets/screenshots/player-dashboard.png" />
 <br/>
 
-## Admin Preview
+### Admin Preview
 
 <img alt="player dashboard preview" src="assets/screenshots/admin-table-manager.png" />
 <br/>
