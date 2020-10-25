@@ -23,8 +23,6 @@
 Smart Table Football is the whole system built for propose of managing and track games on physical table football.
 With Raspberry Pi with few sensors it gives You ability to move game in a physical table football on the next level.
 
-<br/>
-
 ### Player Preview
 
 <img alt="player dashboard preview" src="assets/screenshots/player-dashboard.png" />
@@ -33,7 +31,6 @@ With Raspberry Pi with few sensors it gives You ability to move game in a physic
 ### Admin Preview
 
 <img alt="player dashboard preview" src="assets/screenshots/admin-table-manager.png" />
-<br/>
 
 ## 👀 Live Apps
 
@@ -41,7 +38,6 @@ With Raspberry Pi with few sensors it gives You ability to move game in a physic
 | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
 | Admin  | [![Netlify Status](https://api.netlify.com/api/v1/badges/3335005e-5758-43b6-88bc-ceb21cd6967c/deploy-status)](https://app.netlify.com/sites/smart-table-football-admin/deploys) | https://smart-table-football-admin.netlify.app |
 | Player | [![Netlify Status](https://api.netlify.com/api/v1/badges/24c1e8b5-9fd2-4508-a0a8-ee00626f036c/deploy-status)](https://app.netlify.com/sites/smart-table-football/deploys)       | https://smart-table-football.netlify.app       |
-| Api    | -                                                                                                                                                                               | https://stf-api.herokuapp.com/                 |
 
 ## 📦 Packages Docs
 
