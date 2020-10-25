@@ -10,6 +10,9 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-around',
     marginTop: 30,
   },
+  goalsHistoryContainer: {
+    minHeight: 400,
+  },
 }));
 
 const GoalsHistory = ({
@@ -22,7 +25,7 @@ const GoalsHistory = ({
   const classes = useStyles();
 
   return (
-    <>
+    <div className={classes.goalsHistoryContainer}>
       <Typography align="center" variant="h3" color="textSecondary">
         Goals history
       </Typography>
@@ -42,7 +45,7 @@ const GoalsHistory = ({
           onItemClick={showGoalDetailsModal}
         />
       </div>
-    </>
+    </div>
   );
 };
 

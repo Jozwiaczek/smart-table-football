@@ -2,8 +2,6 @@
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 const { models, constants } = require('stf-core');
 
-const errors = require('@feathersjs/errors');
-
 const googleDrive = require('../../../integrations/googleDrive');
 
 module.exports = function () {
@@ -17,11 +15,9 @@ module.exports = function () {
       if (replayId) {
         await googleDrive.removeFile(replayId);
       }
-
-      return context;
     } catch (error) {
       console.log(error);
-      throw new errors.BadRequest(` ${error.message}`);
     }
+    return context;
   };
 };

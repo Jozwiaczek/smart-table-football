@@ -23,6 +23,9 @@ const styles = () => ({
   listContainer: {
     minWidth: '5em',
   },
+  noGoalsInfo: {
+    marginTop: 20,
+  },
 });
 
 const getTime = (time) => {
@@ -43,27 +46,38 @@ const GoalsList = ({ title, goals, classes, removeGoal, getTeamName, onItemClick
       </Typography>
       <List>
         {/* TODO add possibility for mark GREAT GOALS || Add button show all goals */}
-        {goals.map((goal) => {
-          return (
-            <ListItem button key={goal._id} onClick={() => onItemClick(goal)}>
-              <ListItemAvatar>
-                <Avatar>
-                  <SportsSoccerIcon color="action" />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={!isMobile && getTeamName(goal[models.goals.fields.team])}
-                primaryTypographyProps={{ color: 'textPrimary' }}
-                secondary={getTime(goal.createdAt)}
-              />
-              <ListItemSecondaryAction className={classes.listItemSecondaryAction}>
-                <IconButton edge="end" onClick={async () => removeGoal(goal)}>
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          );
-        })}
+        {goals.length ? (
+          goals.map((goal) => {
+            return (
+              <ListItem button key={goal._id} onClick={() => onItemClick(goal)}>
+                <ListItemAvatar>
+                  <Avatar>
+                    <SportsSoccerIcon color="action" />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={!isMobile && getTeamName(goal[models.goals.fields.team])}
+                  primaryTypographyProps={{ color: 'textPrimary' }}
+                  secondary={getTime(goal.createdAt)}
+                />
+                <ListItemSecondaryAction>
+                  <IconButton edge="end" onClick={async () => removeGoal(goal)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            );
+          })
+        ) : (
+          <Typography
+            variant="h6"
+            align="center"
+            color="textSecondary"
+            className={classes.noGoalsInfo}
+          >
+            There are no any goals
+          </Typography>
+        )}
       </List>
     </div>
   );
