@@ -10,18 +10,6 @@
 
 ![CI](https://github.com/Jozwiaczek/smart-table-football/workflows/Continuous%20Integration/badge.svg)
 
-<br/>
-
-## Player Preview
-
-<img alt="player dashboard preview" src="assets/screenshots/player-dashboard.png" />
-<br/>
-
-## Admin Preview
-
-<img alt="player dashboard preview" src="assets/screenshots/admin-table-manager.png" />
-<br/>
-
 ## 🚩 Table of Contents
 
 - [About](#-about)
@@ -34,6 +22,18 @@
 
 Smart Table Football is the whole system built for propose of managing and track games on physical table football.
 With Raspberry Pi with few sensors it gives You ability to move game in a physical table football on the next level.
+
+<br/>
+
+## Player Preview
+
+<img alt="player dashboard preview" src="assets/screenshots/player-dashboard.png" />
+<br/>
+
+## Admin Preview
+
+<img alt="player dashboard preview" src="assets/screenshots/admin-table-manager.png" />
+<br/>
 
 ## 👀 Live Apps
 
