@@ -2,4 +2,4 @@
 
 ## About
 
-This package contains all constants and models using in all packages. 
+This package contains all constants and models using in all packages.
