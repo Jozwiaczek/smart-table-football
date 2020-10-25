@@ -21,7 +21,7 @@ module.exports = function () {
       const Teams = context.app.service(constants.resources.teams);
 
       await Teams.create({
-        [models.teams.fields.name]: `Personal: ${email}`,
+        [models.teams.fields.name]: email,
         [models.teams.fields.players]: [context.result._id],
       });
     } catch (error) {

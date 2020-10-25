@@ -74,9 +74,8 @@ const TeamEdit = ({ classes, ...rest }) => {
 
   return (
     <Edit {...rest} classes={classes} actions={<EditActions />} undoable={false} title="Team Edit">
-      <TabbedForm redirect={false}>
+      <TabbedForm redirect={false} onSubmit={() => {}}>
         <FormTab label="summary">
-          <TextField source="id" />
           <TextInput source={models.teams.fields.name} validate={required()} />
           <ReferenceArrayInput
             source={models.teams.fields.players}

@@ -6,13 +6,31 @@
 
 # [Smart Table Football](https://github.com/Jozwiaczek/smart-table-football)
 
+> Plug&Play System for managing Smart Table Football with a lot of features. 
+
 ![CI](https://github.com/Jozwiaczek/smart-table-football/workflows/Continuous%20Integration/badge.svg)
 
-## About
+<br/>
+<br/>
+<img alt="player dashboard preview" src="assets/screenshots/player-dashboard.png" width="300" />
+<img alt="player dashboard preview" src="assets/screenshots/admin-table-manager.png" width="300" />
+<br/>
+<br/>
 
-Abstract
+## 🚩 Table of Contents
+- About
+- Live Apps
+- Packages Docs
+- Features
+- Getting Started
 
-## Deployed apps
+## 📖 About
+
+> TLTR - 
+
+Long desc
+
+## 👀 Live Apps
 
 | Module | Status                                                                                                                                                                          | Public URL                                     |
 | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
@@ -20,7 +38,7 @@ Abstract
 | Player | [![Netlify Status](https://api.netlify.com/api/v1/badges/24c1e8b5-9fd2-4508-a0a8-ee00626f036c/deploy-status)](https://app.netlify.com/sites/smart-table-football/deploys)       | https://smart-table-football.netlify.app       |
 | Api    | -                                                                                                                                                                               | https://stf-api.herokuapp.com/                 |
 
-## Packages Docs
+## 📦 Packages Docs
 
 - Backend:
   - [Api](./packages/api/README.md)
@@ -32,8 +50,15 @@ Abstract
   - [Admin](./packages/admin/README.md)
   - [Admin Desktop](./packages/admin-desktop/README.md)
   - [Player](./packages/player/README.md)
+  
+## 🎨 Features
+- Plug and Play
+- Mobile, Tablet and Desktop friendly
+- App works offline, and it can be added to phone/desktop home screen
+- Real-time connection with Raspberry PI
+- Mailing system
 
-## Getting Started
+## 🎓 Getting Started
 
 1. Make sure you have all required tools:
    - [NodeJS](https://nodejs.org/)

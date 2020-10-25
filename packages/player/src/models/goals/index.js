@@ -134,7 +134,6 @@ const GoalShow = ({ dataProvider, classes, history, ...rest }) => {
     <Show {...rest} actions={<ShowActions history={history} />} title="Goal Show">
       <TabbedShowLayout>
         <Tab label="summary">
-          <TextField source="id" />
           <ReferenceField
             source={models.goals.fields.match}
             reference={constants.resources.matches}
