@@ -8,6 +8,7 @@ const useStyles = makeStyles(() => ({
   goalsList: {
     display: 'flex',
     justifyContent: 'space-around',
+    marginTop: 30,
   },
 }));
 

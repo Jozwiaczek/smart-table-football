@@ -9,10 +9,22 @@ import { constants } from 'stf-core';
 
 import Timer from './Timer';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   controlsSection: {
     display: 'flex',
     flexDirection: 'column',
+    [theme.breakpoints.down('sm')]: {
+      margin: '3em 0',
+    },
+  },
+  matchStateButton: {
+    borderRadius: '10px 10px 0 0',
+    height: 50,
+    marginTop: 25,
+  },
+  finishButton: {
+    borderRadius: '0 0 10px 10px',
+    height: 50,
   },
 }));
 
@@ -26,6 +38,7 @@ const GameControls = ({ elapsedTimer, status, changeStatus, finishMatch, startBu
         variant="outlined"
         color="primary"
         disabled={startButtonDisabled}
+        className={classes.matchStateButton}
         onClick={() => changeStatus()}
       >
         {status !== constants.statusMatch.active ? (
@@ -40,7 +53,12 @@ const GameControls = ({ elapsedTimer, status, changeStatus, finishMatch, startBu
           </>
         )}
       </Button>
-      <Button variant="contained" color="primary" onClick={() => finishMatch()}>
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.finishButton}
+        onClick={() => finishMatch()}
+      >
         Finish match
       </Button>
     </div>

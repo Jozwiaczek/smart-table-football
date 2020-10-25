@@ -2,17 +2,32 @@ require('dotenv/config');
 const { fork, execSync, exec } = require('child_process');
 
 const io = require('socket.io-client');
+const exitHook = require('exit-hook');
+
 const { constants } = require('stf-core');
+
+const { lightOff } = require('./helpers/manageLights');
+
+const { lightOn } = require('./helpers/manageLights');
 
 const { Logger } = require('./helpers/Logger');
 
 const socket = io(process.env.API_URL);
 const logger = new Logger(socket);
 const tableStartupFilePath = '../table/src/index';
+const {
+  TABLE_MANAGER_LIGHT,
+  TABLE_LIGHT,
+  MATCH_LIGHT,
+  GATE_A_LIGHT,
+  GATE_B_LIGHT,
+} = require('./GPIO');
 // const tableStartupFilePath = 'src/test'; // left for debugging
 let forkedTableProcess;
 
-logger.logSync('Table Manager Started');
+lightOn(TABLE_MANAGER_LIGHT);
+
+logger.logSync('⚪️ Table Manager Started');
 socket.emit(constants.socketEvents.managerRunning, logger.allLogs);
 
 socket.on(constants.socketEvents.isManagerRunning, () => {
@@ -113,4 +128,13 @@ socket.on(constants.socketEvents.manager, (data) => {
     default:
       logger.logSync(`Error: No manager event='${data}'`);
   }
+});
+
+exitHook(() => {
+  lightOff(GATE_A_LIGHT);
+  lightOff(GATE_B_LIGHT);
+  lightOff(MATCH_LIGHT);
+  lightOff(TABLE_LIGHT);
+  lightOff(TABLE_MANAGER_LIGHT);
+  logger.logSync('⚪️ Exit Table Manager');
 });

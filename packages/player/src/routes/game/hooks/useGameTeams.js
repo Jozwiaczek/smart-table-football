@@ -74,7 +74,12 @@ const useGameTeams = (match) => {
 
   const removeMatchGoal = useCallback(
     async (goal) => {
-      await removeGoal(goal._id);
+      try {
+        await removeGoal(goal._id);
+      } catch (error) {
+        console.log('L:83 | error: ', error);
+        return;
+      }
       if (goal[models.goals.fields.team] === teamA._id) {
         setTeamAGoals((teamGoals) => teamGoals.filter((teamGoal) => teamGoal !== goal));
       } else {

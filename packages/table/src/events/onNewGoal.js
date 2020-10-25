@@ -3,25 +3,27 @@ const { constants } = require('stf-core');
 const { logDivider, logCurrentDateWithMsg } = require('../helpers/logger');
 const { lightOn, lightOff } = require('../helpers/manageLights');
 const { saveReplay, startVideoStream } = require('../services/CameraService');
+const { GATE_A_LIGHT, GATE_B_LIGHT } = require('../GPIO');
 
-const onNewGoal = async (socket, replayDirPath, gateStopper, match, gpio) => {
-  const { teamA, replayTime, _id: matchId } = match;
-  const { RED_LIGHT, gateValue } = gpio;
+const onNewGoal = async (type, socket, replayDirPath, match) => {
+  const { teamA, teamB, replayTime, _id: matchId } = match;
+  const isTeamA = type === 'A';
+  const team = isTeamA ? teamA : teamB;
+  const light = isTeamA ? GATE_A_LIGHT : GATE_B_LIGHT;
 
-  if (gateStopper === 0 && gateValue === 0) {
-    logCurrentDateWithMsg('⚽️ Team A scored a new goal');
-    gateStopper = 1;
-    lightOn(RED_LIGHT);
-    const replayId = await saveReplay(replayDirPath);
-    socket.emit(constants.socketEvents.goal, { team: teamA, replayId, matchId });
+  logCurrentDateWithMsg(`🔴 Team ${type} scored a new goal`);
+  lightOn(light);
+  const replayId = await saveReplay(replayDirPath);
+  socket.emit(constants.socketEvents.goal, { team, replayId, matchId });
 
-    await setTimeout(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
       startVideoStream(replayTime, replayDirPath);
-      lightOff(RED_LIGHT);
-      gateStopper = 0;
+      lightOff(light);
       logDivider();
+      resolve(0);
     }, 1500);
-  }
+  });
 };
 
 module.exports = onNewGoal;

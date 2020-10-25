@@ -1,18 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, makeStyles } from '@material-ui/core';
+import { Button, makeStyles, Typography } from '@material-ui/core';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   navBar: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '1em',
   },
-  icon: {
+  backIcon: {
     fontSize: 60,
+  },
+  title: {
+    display: 'none',
+    [theme.breakpoints.down('sm')]: {
+      display: 'inline',
+    },
+  },
+  fullScreenIcon: {
+    fontSize: 60,
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
 }));
 
@@ -22,14 +34,18 @@ const GameBar = ({ finishMatch, setFullScreen, isFullScreen }) => {
   return (
     <div className={classes.navBar}>
       <Button color="primary" onClick={() => finishMatch()}>
-        <ArrowBackIcon className={classes.icon} />
+        <ArrowBackIcon className={classes.backIcon} />
       </Button>
+
+      <Typography variant="h2" align="center" color="textSecondary" className={classes.title}>
+        Match
+      </Typography>
 
       <Button color="primary" onClick={() => setFullScreen((prevState) => !prevState)}>
         {isFullScreen ? (
-          <FullscreenExitIcon className={classes.icon} />
+          <FullscreenExitIcon className={classes.fullScreenIcon} />
         ) : (
-          <FullscreenIcon className={classes.icon} />
+          <FullscreenIcon className={classes.fullScreenIcon} />
         )}
       </Button>
     </div>

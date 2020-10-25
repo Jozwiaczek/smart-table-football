@@ -15,7 +15,7 @@ import useGameMatch from './hooks/useGameMatch';
 import useGameTeams from './hooks/useGameTeams';
 import useCountdown from '../../hooks/useCountdown';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   main: {
     minHeight: '100vh',
     overflow: 'auto',
@@ -26,12 +26,20 @@ const useStyles = makeStyles(() => ({
   },
   title: {
     marginTop: '5vh',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   game: {
     marginTop: '10em',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      marginTop: '2em',
+    },
   },
 }));
 
@@ -129,13 +137,21 @@ export default () => {
       setElapsedTimer(currentStepTime);
     });
 
-    socket.on(constants.socketEvents.createdGoal, (goal) => {
+    socket.on(constants.socketEvents.createdGoal, ({ goal, forTeam }) => {
       setNewGoal(goal);
-      setTeamAGoals((teamAGoals) => {
-        teamAGoals[teamAGoals.length] = goal;
-        return teamAGoals;
-      });
-      setTeamBGoals((prevState) => prevState);
+
+      if (forTeam === 'A') {
+        setTeamAGoals((teamAGoals) => {
+          teamAGoals[teamAGoals.length] = goal;
+          return teamAGoals;
+        });
+      } else {
+        setTeamBGoals((teamBGoals) => {
+          teamBGoals[teamBGoals.length] = goal;
+          return teamBGoals;
+        });
+      }
+
       openGoalDetailsModal();
     });
     // eslint-disable-next-line

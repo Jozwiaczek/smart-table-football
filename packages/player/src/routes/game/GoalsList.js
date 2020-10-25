@@ -11,6 +11,7 @@ import {
   ListItemText,
   Typography,
   withStyles,
+  useMediaQuery,
 } from '@material-ui/core';
 
 import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
@@ -33,13 +34,14 @@ const getTime = (time) => {
 };
 
 const GoalsList = ({ title, goals, classes, removeGoal, getTeamName, onItemClick }) => {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+
   return (
     <div className={classes.listContainer}>
       <Typography variant="h4" align="center" color="textSecondary">
         {title}
       </Typography>
       <List>
-        {' '}
         {/* TODO add possibility for mark GREAT GOALS || Add button show all goals */}
         {goals.map((goal) => {
           return (
@@ -50,7 +52,7 @@ const GoalsList = ({ title, goals, classes, removeGoal, getTeamName, onItemClick
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={getTeamName(goal[models.goals.fields.team])}
+                primary={!isMobile && getTeamName(goal[models.goals.fields.team])}
                 primaryTypographyProps={{ color: 'textPrimary' }}
                 secondary={getTime(goal.createdAt)}
               />
