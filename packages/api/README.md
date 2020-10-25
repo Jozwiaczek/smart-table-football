@@ -1,6 +1,4 @@
-# stf-api
-
->
+# Api STF
 
 ## About
 
@@ -10,13 +8,8 @@ This project uses [Feathers](http://feathersjs.com). An open source web framewor
 
 Getting up and running is as easy as 1, 2, 3.
 
-1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
+1. Make sure you have [NodeJS](https://nodejs.org/) and [yarn](https://yarnpkg.com/) installed.
 2. Install your dependencies
-
-   ```
-   cd path/to/stf-api
-   npm install
-   ```
 
 3. Start your app
 

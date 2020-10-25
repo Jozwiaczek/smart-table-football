@@ -19,7 +19,7 @@ function createWindow() {
     mainWindow.webContents.openDevTools();
     mainWindow.loadURL('http://localhost:8082');
   } else {
-    mainWindow.loadFile(`${app.getAppPath()}/stf-admin-desktop/build/index.html`);
+    mainWindow.loadFile(`${app.getAppPath()}/admin-desktop/build/index.html`);
   }
   return mainWindow;
 }

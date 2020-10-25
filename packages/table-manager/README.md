@@ -1,4 +1,4 @@
-# Table Manager
+# Table Manager STF
 
 ## Requires:
 

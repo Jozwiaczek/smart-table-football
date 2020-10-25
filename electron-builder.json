@@ -5,14 +5,14 @@
   "files": [
     {
       "from": "./node_modules/electron-updater/**/*",
-      "to": "./stf-admin-desktop/node_modules/electron-updater"
+      "to": "./admin-desktop/node_modules/electron-updater"
     },
     "./package.json",
-    "./stf-admin-desktop/**/*"
+    "./admin-desktop/**/*"
   ],
   "directories": {
-    "buildResources": "./stf-admin-desktop/assets",
-    "output": "./stf-admin-desktop/release"
+    "buildResources": "./admin-desktop/assets",
+    "output": "./admin-desktop/release"
   },
   "mac": {
     "category": "public.app-category.games",

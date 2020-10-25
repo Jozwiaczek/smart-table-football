@@ -134,6 +134,7 @@ export default () => {
         setLoading(false);
       }
     }
+    // eslint-disable-next-line
   }, [isManagerRunning]);
 
   useEffect(() => {
@@ -168,7 +169,7 @@ export default () => {
     socket.emit(constants.socketEvents.manager, constants.managerActions.reboot);
     setManagerRunning(false);
     notify('Rebooting table manager...');
-  }, []);
+  }, [notify]);
 
   const TableManagerTabLabel = () => {
     let icon = <DisconnectedIcon color="error" />;
