@@ -12,8 +12,15 @@
 
 <br/>
 <br/>
-<img alt="player dashboard preview" src="assets/screenshots/player-dashboard.png" width="300" />
-<img alt="player dashboard preview" src="assets/screenshots/admin-table-manager.png" width="300" />
+
+## Player Preview
+
+<img alt="player dashboard preview" src="assets/screenshots/player-dashboard.png" />
+<br/>
+
+## Admin Preview
+
+<img alt="player dashboard preview" src="assets/screenshots/admin-table-manager.png" />
 <br/>
 <br/>
 
