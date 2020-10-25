@@ -31,8 +31,9 @@
 - [Getting Started](#-getting-started)
 
 ## 📖 About
+
 Smart Table Football is the whole system built for propose of managing and track games on physical table football.
-With Raspberry Pi with few sensors it gives You ability to move game in a physical table football on the next level.  
+With Raspberry Pi with few sensors it gives You ability to move game in a physical table football on the next level.
 
 ## 👀 Live Apps
 
@@ -49,11 +50,11 @@ With Raspberry Pi with few sensors it gives You ability to move game in a physic
   - [Core](./packages/core/README.md) - Package with all constants and models used in all others packages.
   - Raspberry:
     - [Table](./packages/table/README.md) - Main hardware server which manage every connected sensors like camera or gate sensor.
-    - [Table Manager](./packages/table-manager/README.md) - This package contains manager for managing table server in run. It provides ability to remotely starts, stops and upgrade table server. 
+    - [Table Manager](./packages/table-manager/README.md) - This package contains manager for managing table server in run. It provides ability to remotely starts, stops and upgrade table server.
 - Frontend:
   - [Admin](./packages/admin/README.md) - Administration app for managing all system resources like players, teams, matches and table server.
   - [Admin Desktop](./packages/admin-desktop/README.md) - Desktop version of Admin package. (It wraps whole admin package into electron app)
-  - [Player](./packages/player/README.md) - Main app for players/users. It provides abilities for managing account, creating teams, matches and track all statistics from all games. 
+  - [Player](./packages/player/README.md) - Main app for players/users. It provides abilities for managing account, creating teams, matches and track all statistics from all games.
 
 ## 🎨 Features
 
@@ -62,6 +63,11 @@ With Raspberry Pi with few sensors it gives You ability to move game in a physic
 - App works offline, and it can be added to phone/desktop home screen
 - Real-time connection with Raspberry PI
 - Mailing system
+- Internationalization (i18n)
+- Themeable, Highly customizable interface
+- Super-fast UI
+- All kinds of statistics for players
+- Goals replay (They can be also saved into provided Google Drive)
 
 ## 🎓 Getting Started
 
