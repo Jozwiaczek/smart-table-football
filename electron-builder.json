@@ -8,11 +8,11 @@
       "to": "./admin-desktop/node_modules/electron-updater"
     },
     "./package.json",
-    "./admin-desktop/**/*"
+    "./packages/admin-desktop/**/*"
   ],
   "directories": {
-    "buildResources": "./admin-desktop/assets",
-    "output": "./admin-desktop/release"
+    "buildResources": "./packages/admin-desktop/assets",
+    "output": "./packages/admin-desktop/release"
   },
   "mac": {
     "category": "public.app-category.games",

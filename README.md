@@ -3,9 +3,11 @@
 ![CI](https://github.com/Jozwiaczek/smart-table-football/workflows/Continuous%20Integration/badge.svg)
 
 ## About
+
 Abstract
 
 ## Deployed apps
+
 | Module | Status                                                                                                                                                                          | Public URL                                     |
 | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
 | Admin  | [![Netlify Status](https://api.netlify.com/api/v1/badges/3335005e-5758-43b6-88bc-ceb21cd6967c/deploy-status)](https://app.netlify.com/sites/smart-table-football-admin/deploys) | https://smart-table-football-admin.netlify.app |
@@ -13,56 +15,63 @@ Abstract
 | Api    | -                                                                                                                                                                               | https://stf-api.herokuapp.com/                 |
 
 ## Packages Docs
+
 - Backend:
-    - [Api](./packages/api/README.md)
-    - [Core](./packages/core/README.md)
-    - Raspberry:
-        - [Table](./packages/table/README.md)
-        - [Table Manager](./packages/table-manager/README.md)
+  - [Api](./packages/api/README.md)
+  - [Core](./packages/core/README.md)
+  - Raspberry:
+    - [Table](./packages/table/README.md)
+    - [Table Manager](./packages/table-manager/README.md)
 - Frontend:
-    - [Admin](./packages/admin/README.md)
-    - [Admin Desktop](./packages/admin-desktop/README.md)
-    - [Player](./packages/player/README.md) 
+  - [Admin](./packages/admin/README.md)
+  - [Admin Desktop](./packages/admin-desktop/README.md)
+  - [Player](./packages/player/README.md)
 
 ## Getting Started
+
 1. Make sure you have all required tools:
-    - [NodeJS](https://nodejs.org/)
-    - [Yarn](https://yarnpkg.com/)
-    - [Docker](https://www.docker.com/)
-        
+   - [NodeJS](https://nodejs.org/)
+   - [Yarn](https://yarnpkg.com/)
+   - [Docker](https://www.docker.com/)
 2. Deploy MongoDB Docker image
-    - Go to [Api Docs](./packages/api/README.md)
-    - Follow `How To Deploy And Manage MongoDB With Docker` section
+
+   - Go to [Api Docs](./packages/api/README.md)
+   - Follow `How To Deploy And Manage MongoDB With Docker` section
 
 3. Install project dependencies
-    ```shell script
-         yarn install
-    ```
+
+   ```shell script
+        yarn install
+   ```
 
 4. Run Api
-    ```shell script
-         cd packages/api
-         yarn start
-    ```
+
+   ```shell script
+        cd packages/api
+        yarn start
+   ```
 
 5. Prepare Raspberry and run Table Manager
-    - Go to [Table Manager Docs](./packages/table-manager/README.md)
-    - Follow `Getting Started` section
+
+   - Go to [Table Manager Docs](./packages/table-manager/README.md)
+   - Follow `Getting Started` section
 
 6. Run Player App
-    ```shell script
-        cd packages/player
-        yarn start
-    ```
+
+   ```shell script
+       cd packages/player
+       yarn start
+   ```
 
 7. Run Admin App
-    ```shell script
-        cd packages/admin
-        yarn start
-    ```
-   
+
+   ```shell script
+       cd packages/admin
+       yarn start
+   ```
+
    or if You want run admin app as a desktop app:
-   
+
    ```shell script
        cd packages/admin-desktop
        yarn start

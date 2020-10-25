@@ -23,7 +23,7 @@
     "electron:clean:build": "cd packages/admin-desktop && rimraf ./build",
     "electron:clean:release": "cd packages/admin-desktop && rimraf ./release",
     "electron:clean": "yarn electron:clean:build && yarn electron:clean:release",
-    "electron:build:renderer": "cd packages/admin && yarn build && mv build ../stf-admin-desktop",
+    "electron:build:renderer": "cd packages/admin && yarn build && mv build ../admin-desktop",
     "electron:postinstall": "electron-builder install-app-deps",
     "electron:prepack": "yarn electron:postinstall && yarn electron:build:renderer",
     "electron:pack:mac": "yarn electron:clean && yarn electron:prepack && electron-builder --mac && yarn electron:clean:build",
