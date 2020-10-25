@@ -1,11 +1,10 @@
-# [Smart Table Football](https://github.com/Jozwiaczek/smart-table-football)
-
 <div align="center">
   <a href="https://smart-table-football-admin.netlify.app">
     <img alt="Guitar Book" src="assets/stf-logo_ball_orange_transparent.png" width="300" />
   </a>
-  <hr/>
 </div>
+
+# [Smart Table Football](https://github.com/Jozwiaczek/smart-table-football)
 
 ![CI](https://github.com/Jozwiaczek/smart-table-football/workflows/Continuous%20Integration/badge.svg)
 
