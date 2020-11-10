@@ -15,10 +15,6 @@ module.exports = function (app) {
     {
       ...userSchema,
       ...authManagementSchema,
-      [models.players.fields.googleId]: { type: String },
-
-      [models.players.fields.facebookId]: { type: String },
-
       [models.players.fields.firstName]: {
         type: mongoose.SchemaTypes.String,
         required: true,
