@@ -29,7 +29,7 @@ import Send from '@material-ui/icons/Send';
 import { constants, models } from 'stf-core';
 
 import { getChoices } from '../../../enum';
-import playerAuthManagementActionFactory from '../../../actions/playerAuthManagement';
+import playerAuthManagementActionFactory from '../../../redux/actions/playerAuthManagement';
 import ButtonInput from '../../../elements/ButtonInput';
 import AvatarInput from '../../../elements/AvatarInput';
 

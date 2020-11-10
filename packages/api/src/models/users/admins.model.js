@@ -5,12 +5,14 @@
 const { models } = require('stf-core');
 
 const userSchema = require('./schema/user.schema');
+const authManagementSchema = require('./schema/authManagement.schema');
 
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const admins = new mongooseClient.Schema(
     {
       ...userSchema,
+      ...authManagementSchema,
     },
     {
       timestamps: true,

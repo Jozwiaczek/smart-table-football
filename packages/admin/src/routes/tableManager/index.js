@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { Title, useNotify, Button } from 'react-admin';
+import { Button, Title, useAuthenticated, useNotify } from 'react-admin';
 
 import { Card, CardContent, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,7 +17,7 @@ import ConnectedIcon from '@material-ui/icons/VerifiedUser';
 
 import moment from 'moment';
 
-import useLocalStorage from '../../raHooks/useLocalStorage';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import { socket } from '../../client/feathersSocketClient';
 
 import SectionTitle from '../../elements/SectionTitle';
@@ -82,6 +82,7 @@ const useStyles = makeStyles({
 });
 
 export default () => {
+  useAuthenticated();
   const [isTableRunning, setTableRunning] = useState(false);
   const [isManagerRunning, setManagerRunning] = useState(false);
   const [loading, setLoading] = useState(false);

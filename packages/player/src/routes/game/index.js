@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useAuthenticated } from 'react-admin';
 import { useHistory } from 'react-router-dom';
 import { makeStyles, Typography } from '@material-ui/core';
 import { constants, models } from 'stf-core';
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default () => {
+  useAuthenticated();
   const [newGoal, setNewGoal] = useState(null);
   const [isGoalModalOpen, setGoalModalOpen] = useState(false);
   const [isTableDisconnectedModal, setTableDisconnectedModal] = useState(false);

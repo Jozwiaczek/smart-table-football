@@ -1,8 +1,9 @@
-import removeFieldFromData from '../hooks/removeFieldFromData';
-import parsMongoDbQueries from '../hooks/parsMongoDbQueries';
-import parsMongoDbRegexQueries from '../hooks/parsMongoDbRegexQueries';
-import mapQuery from '../hooks/mapQuery';
-import attachKind from '../hooks/attachKind';
+import removeFieldFromData from './hooks/removeFieldFromData';
+import parsMongoDbQueries from './hooks/parsMongoDbQueries';
+import parsMongoDbRegexQueries from './hooks/parsMongoDbRegexQueries';
+import mapQuery from './hooks/mapQuery';
+import attachKind from './hooks/attachKind';
+import checkAuth from './hooks/checkAuth';
 
 export default {
   before: {
@@ -31,7 +32,7 @@ export default {
   },
 
   error: {
-    all: [],
+    all: [checkAuth()],
     find: [],
     get: [],
     create: [],

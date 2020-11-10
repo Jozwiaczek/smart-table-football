@@ -28,7 +28,7 @@
     "service": "players",
     "jwt": {
       "header": {
-        "typ": "access"
+        "type": "access"
       },
       "audience": "https://smart-table-football.netlify.app",
       "subject": "anonymous",

@@ -1,3 +1,5 @@
+import checkAuth from 'stf-admin/src/client/hooks/checkAuth';
+
 import removeFieldFromData from './hooks/removeFieldFromData';
 import parsMongoDbQueries from './hooks/parsMongoDbQueries';
 import parsMongoDbRegexQueries from './hooks/parsMongoDbRegexQueries';
@@ -31,7 +33,7 @@ export default {
   },
 
   error: {
-    all: [],
+    all: [checkAuth()],
     find: [],
     get: [],
     create: [],

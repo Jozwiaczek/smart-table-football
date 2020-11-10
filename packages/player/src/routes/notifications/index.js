@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { GET_LIST, Title, useDataProvider, useTranslate } from 'react-admin';
+import { GET_LIST, Title, useDataProvider, useTranslate, useAuthenticated } from 'react-admin';
 
 import { Card, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,6 +25,7 @@ const useStyles = makeStyles({
 });
 
 export default () => {
+  useAuthenticated();
   const classes = useStyles();
   const dataProvider = useDataProvider();
   const [notifications, setNotifications] = useState([]);

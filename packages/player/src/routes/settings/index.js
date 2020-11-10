@@ -3,7 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import { Title, UPDATE, useDataProvider, useLocale, useSetLocale, useTranslate } from 'react-admin';
+import {
+  Title,
+  UPDATE,
+  useDataProvider,
+  useLocale,
+  useSetLocale,
+  useTranslate,
+  useAuthenticated,
+} from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 import { constants, models } from 'stf-core';
 
@@ -30,6 +38,7 @@ const useStyles = makeStyles({
 });
 
 export default () => {
+  useAuthenticated();
   const translate = useTranslate();
   const locale = useLocale();
   const setLocale = useSetLocale();
