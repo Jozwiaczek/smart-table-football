@@ -8,7 +8,6 @@
   },
   "description": "Smart Table Football - App for those who want improves their games experience",
   "author": "jozwiak <kubencki@gmail.com>",
-  "main": "packages/admin-desktop/src/main.js",
   "homepage": ".",
   "license": "MIT",
   "workspaces": [
@@ -20,24 +19,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prettier": "prettier --write --config .prettierrc .",
-    "electron:clean:build": "cd packages/admin-desktop && rimraf ./build",
-    "electron:clean:release": "cd packages/admin-desktop && rimraf ./release",
-    "electron:clean": "yarn electron:clean:build && yarn electron:clean:release",
-    "electron:build:renderer": "cd packages/admin && yarn build && mv build ../admin-desktop",
-    "electron:postinstall": "electron-builder install-app-deps",
-    "electron:prepack": "yarn electron:postinstall && yarn electron:build:renderer",
-    "electron:pack:mac": "yarn electron:clean && yarn electron:prepack && electron-builder --mac && yarn electron:clean:build",
-    "electron:pack:win": "yarn electron:clean && yarn electron:prepack && electron-builder --win && yarn electron:clean:build",
-    "electron:pack:linux": "yarn electron:clean && yarn electron:prepack && electron-builder --linux && yarn electron:clean:build",
-    "electron:pack:all": "yarn electron:clean yarn electron:prepack && electron-builder -mwl && yarn electron:clean:build",
     "removeNodeModules": "find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"
   },
-  "dependencies": {
-    "electron-updater": "^4.3.1"
-  },
   "devDependencies": {
-    "electron": "^10.1.2",
-    "electron-builder": "^22.8.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "18.2.0",
     "eslint-config-prettier": "^6.11.0",

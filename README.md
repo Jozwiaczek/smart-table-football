@@ -49,7 +49,6 @@ With Raspberry Pi with few sensors it gives You ability to move game in a physic
     - [Table Manager](./packages/table-manager/README.md) - This package contains manager for managing table server in run. It provides ability to remotely starts, stops and upgrade table server.
 - Frontend:
   - [Admin](./packages/admin/README.md) - Administration app for managing all system resources like players, teams, matches and table server.
-  - [Admin Desktop](./packages/admin-desktop/README.md) - Desktop version of Admin package. (It wraps whole admin package into electron app)
   - [Player](./packages/player/README.md) - Main app for players/users. It provides abilities for managing account, creating teams, matches and track all statistics from all games.
 
 ## 🎨 Features
@@ -114,12 +113,5 @@ With Raspberry Pi with few sensors it gives You ability to move game in a physic
 
    ```shell script
        cd packages/admin
-       yarn start
-   ```
-
-   or if You want run admin app as a desktop app:
-
-   ```shell script
-       cd packages/admin-desktop
        yarn start
    ```
