@@ -1,3 +1,4 @@
+// Left for debugging table-manager
 console.log('IT WORKS');
 
 setInterval(() => {

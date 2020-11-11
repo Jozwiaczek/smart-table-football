@@ -9,7 +9,7 @@ jobs:
         working-directory: ./packages
     steps:
       - name: Git checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
@@ -20,7 +20,7 @@ jobs:
           mongodb-version: 4.2
           mongodb-replica-set: test-stf-db
       - name: Install dependency
-        run: yarn install
+        run: yarn install --frozen-lockfile
       - name: Api
         run: cd api && yarn test
       - name: Player
@@ -42,7 +42,7 @@ jobs:
         with:
           node-version: 14
       - name: Install dependency
-        run: yarn install
+        run: yarn install --frozen-lockfile
       - name: Table
         run: cd table && yarn eslint
       - name: Table Manager
