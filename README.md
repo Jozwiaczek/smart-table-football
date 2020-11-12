@@ -50,6 +50,7 @@ With Raspberry Pi with few sensors it gives You ability to move game in a physic
 - Frontend:
   - [Admin](./packages/admin/README.md) - Administration app for managing all system resources like players, teams, matches and table server.
   - [Player](./packages/player/README.md) - Main app for players/users. It provides abilities for managing account, creating teams, matches and track all statistics from all games.
+  - [UI Components](./packages/ui-components/README.md) - Package which contains all sharable UI components between [admin](../admin/README.md) and [player](../player/README.md) packages.
 
 ## 🎨 Features
 
@@ -115,3 +116,12 @@ With Raspberry Pi with few sensors it gives You ability to move game in a physic
        cd packages/admin
        yarn start
    ```
+   
+9. Play with UI Components
+
+   ```shell script
+       cd packages/ui-components
+       yarn storybook
+   ```
+   
+   For more details about this package check [ui-components README](./packages/api/README.md) in section `Getting started`.
