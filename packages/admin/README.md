@@ -1,5 +1,9 @@
 # Admin STF
 
+## About
+
+Package with Admin panel for stf system.
+
 ## Available Scripts
 
 In the project directory, you can run:

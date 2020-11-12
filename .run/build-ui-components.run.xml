@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="build-ui-components" type="js.build_tools.npm" singleton="true">
+    <package-json value="$PROJECT_DIR$/packages/ui-components/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="build:watch" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>

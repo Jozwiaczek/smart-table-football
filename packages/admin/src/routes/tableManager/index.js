@@ -17,10 +17,11 @@ import ConnectedIcon from '@material-ui/icons/VerifiedUser';
 
 import moment from 'moment';
 
+import { SectionTitle } from 'stf-ui-components';
+
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { socket } from '../../client/feathersSocketClient';
 
-import SectionTitle from '../../elements/SectionTitle';
 import ConfirmButton from '../../elements/ConfirmButton';
 
 const useStyles = makeStyles({

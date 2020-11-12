@@ -7,6 +7,11 @@
 - [Raspberry Pi](https://www.raspberrypi.org/)
 - [Camera](https://www.raspberrypi.org/products/camera-module-v2/?resellerType=home) (You can use every camera compatible with Raspberry Pi)
 - [Gate sensor](https://botland.com.pl/pl/czujniki-ruchu/3078-czujnik-przerwania-wiazki-ir-led-5mm.html?gclid=CjwKCAiAkan9BRAqEiwAP9X6UQG3aO2cFnJKK-csWC2BhK16cDcUppkIL2QR9XoCT1pKuaZRmUSOuRoCckIQAvD_BwE) (It can be every sensor that can be recognized as a input)
+- Wires
+
+#### Optional
+
+- [LED Lights](https://www.amazon.com/s?k=LED+Light+Emitting+Diodes&ref=nb_sb_noss_2) (5 Diodes in 4 different colors)
 
 ### Software:
 
@@ -53,19 +58,19 @@ whilst displaying various informational messages.
 
 #### Connect LED lights and gate sensors
 
-> _Important note:_ Table below describe GPIO for Raspberry Pi 4. It may differ on other devices.
+> _Important note:_ Table below describe [GPIO for Raspberry Pi 4](https://www.raspberrypi.org/documentation/usage/gpio/). It may differ on other devices.
 
-| Name                | GPIO | Direction | Required |
-| ------------------- | ---- | --------- | -------- |
-| TABLE_MANAGER_LIGHT | 23   | out       |          |
-| GATE_A_LIGHT        | 21   | out       |          |
-| GATE_B_LIGHT        | 25   | out       |          |
-| MATCH_LIGHT         | 15   | out       |          |
-| TABLE_LIGHT         | 13   | out       |          |
-| GATE_A_SENSOR       | 2    | in        | ❗️      |
-| GATE_B_SENSOR       | 14   | in        | ❗ ️     |
+| Name                | GPIO | Direction | Required | Recommended LED color |
+| ------------------- | ---- | --------- | -------- | --------------------- |
+| TABLE_MANAGER_LIGHT | 23   | out       |          | ⚪                    |
+| GATE_A_LIGHT        | 21   | out       |          | 🔴                    |
+| GATE_B_LIGHT        | 25   | out       |          | 🔴                    |
+| MATCH_LIGHT         | 15   | out       |          | 🟡                    |
+| TABLE_LIGHT         | 13   | out       |          | 🟢                    |
+| GATE_A_SENSOR       | 2    | in        | ❗️      | -                     |
+| GATE_B_SENSOR       | 14   | in        | ❗ ️     | -                     |
 
-#### *Custom GPIO
+#### \*Custom GPIO
 
 For custom pins go to [Table manager GPIO configuration](./src/GPIO.js) and [Table GPIO configuration](../table/src/GPIO.js)
 and set manually all GPIO.

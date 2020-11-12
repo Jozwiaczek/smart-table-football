@@ -1,8 +1,9 @@
+import { defaultThemeProvider } from 'stf-ui-components';
+
 import { SET_THEME } from '../actions/types';
-import { themeProvider } from '../../layout/theme/theme';
 
 const INITIAL_STATE = {
-  currentTheme: themeProvider(),
+  currentTheme: defaultThemeProvider(),
 };
 
 export const ThemeReducer = (state = INITIAL_STATE, action) => {
@@ -10,7 +11,7 @@ export const ThemeReducer = (state = INITIAL_STATE, action) => {
     case SET_THEME:
       return {
         ...state,
-        currentTheme: themeProvider(action.payload),
+        currentTheme: defaultThemeProvider(action.payload),
       };
     default:
       return state;

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { constants, models } from 'stf-core';
 import { Button, CircularProgress } from '@material-ui/core';
 import Send from '@material-ui/icons/Send';
-
-import SectionTitle from '../../../elements/SectionTitle';
+import { SectionTitle } from 'stf-ui-components';
 
 const _sendVerificationEmail = async (dataProvider, player, showNotification, setIsLoading) => {
   try {

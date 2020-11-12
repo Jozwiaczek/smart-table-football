@@ -110,3 +110,6 @@ dist
 build
 
 data
+
+storybook-static
+/build

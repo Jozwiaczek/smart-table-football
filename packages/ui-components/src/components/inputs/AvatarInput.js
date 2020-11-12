@@ -1,17 +1,13 @@
-import Avatar from 'react-avatar-edit';
 import React, { useEffect, useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
+import Avatar from 'react-avatar-edit';
 import { useTheme } from '@material-ui/core/styles';
-import { makeStyles, Typography, IconButton } from '@material-ui/core';
+import { Button, makeStyles, Typography } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import DoneIcon from '@material-ui/icons/Done';
-import { useDataProvider, useNotify } from 'ra-core';
-import Tooltip from '@material-ui/core/Tooltip/Tooltip';
 import clsx from 'clsx';
 import { constants, models } from 'stf-core';
-import { UPDATE, useTranslate } from 'react-admin';
-
-import { getPlayerId } from '../../utils/getPlayerId';
+import { UPDATE } from 'react-admin';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -74,14 +70,12 @@ const AvatarInput = ({
   disabled,
   horizontal = false,
   record,
-  ...rest
+  notify,
+  dataProvider,
 }) => {
   const classes = useStyles();
   const [preview, setPreview] = useState(null);
   const [isSelected, setSelected] = useState(false);
-  const notify = useNotify();
-  const dataProvider = useDataProvider();
-  const translate = useTranslate();
 
   const theme = useTheme();
 
@@ -103,7 +97,7 @@ const AvatarInput = ({
       setSelected(true);
       try {
         await dataProvider(UPDATE, constants.resources.players, {
-          id: getPlayerId(),
+          id: record._id,
           data: {
             [source]: preview,
           },
@@ -117,7 +111,7 @@ const AvatarInput = ({
       setSelected(false);
       try {
         await dataProvider(UPDATE, constants.resources.players, {
-          id: getPlayerId(),
+          id: record._id,
           data: {
             [source]: null,
           },
@@ -145,8 +139,8 @@ const AvatarInput = ({
   const megaBytesToBytes = (megaBytes) => megaBytes * 1000000;
 
   const onBeforeFileLoad = (elem) => {
-    if (elem.target.files[0].size > megaBytesToBytes(2)) {
-      notify('File is too big. Max size is 2 MB (2000 KB)', 'warning');
+    if (elem.target.files[0].size > megaBytesToBytes(1)) {
+      notify('File is too big. Max size is 1 MB (1000 KB)', 'warning');
       elem.target.value = '';
     }
   };
@@ -158,7 +152,7 @@ const AvatarInput = ({
   }, [label, source]);
 
   return (
-    <div className={formattedLabel ? clsx(classes.container, className) : ''} {...rest}>
+    <div className={formattedLabel && clsx(classes.container, className)}>
       {formattedLabel && <Typography variant="subtitle1">{formattedLabel}</Typography>}
       <div
         className={horizontal ? classes.horizontalContainer : classes.verticalContainer}
@@ -176,7 +170,7 @@ const AvatarInput = ({
             imageWidth={170}
             label={
               <span aria-disabled={disabled} className={classes.avatarLabel}>
-                {translate('models.players.avatar.upload')}
+                Upload avatar
                 <CloudUploadIcon className={classes.labelIcon} />
               </span>
             }
@@ -201,24 +195,31 @@ const AvatarInput = ({
           />
         )}
         {preview && (
-          <IconButton
+          <Button
             className={horizontal ? classes.horizontalButton : classes.verticalButton}
             onClick={clickBtnAction}
           >
-            {!isSelected ? (
-              <Tooltip title={translate('models.players.avatar.confirm')}>
-                <DoneIcon color={!isSelected && 'primary'} />
-              </Tooltip>
-            ) : (
-              <Tooltip title={translate('models.players.avatar.remove')}>
-                <DeleteForeverIcon />
-              </Tooltip>
-            )}
-          </IconButton>
+            {!isSelected ? 'Confirm Avatar' : <DeleteForeverIcon />}
+          </Button>
         )}
       </div>
     </div>
   );
+};
+
+AvatarInput.propTypes = {
+  className: PropTypes.object,
+  source: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  disabled: PropTypes.bool,
+  horizontal: PropTypes.bool,
+  record: PropTypes.object,
+  notify: PropTypes.func,
+  dataProvider: PropTypes.func,
+};
+
+AvatarInput.defaultProps = {
+  horizontal: false,
 };
 
 export default AvatarInput;

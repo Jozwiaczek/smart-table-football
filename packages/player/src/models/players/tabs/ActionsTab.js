@@ -19,8 +19,9 @@ import Security from '@material-ui/icons/Security';
 
 import { constants, models } from 'stf-core';
 
+import { SectionTitle } from 'stf-ui-components';
+
 import ConfirmDeleteButton from '../../../elements/ConfirmDeleteButton';
-import SectionTitle from '../../../elements/SectionTitle';
 import ValidateEmailButton from '../components/ValidateEmailButton';
 
 const changePasswordRender = ({ dataProvider, classes, showNotification, loading }) => ({

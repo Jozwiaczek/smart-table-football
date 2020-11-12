@@ -8,10 +8,11 @@ import { useLogin, useNotify, useSafeSetState, useTranslate } from 'ra-core';
 import { Link, withDataProvider } from 'react-admin';
 import { constants, models } from 'stf-core';
 
+import { AvatarInput } from 'stf-ui-components';
+
 import FormTextField from '../../../elements/forms/FormTextField';
 import { validateRegistration } from '../validate';
 import PasswordInput from '../../../elements/PasswordInput';
-import AvatarInput from '../../../elements/forms/AvatarInput';
 
 const styles = () =>
   createStyles({
@@ -82,6 +83,8 @@ const RegistrationForm = ({ classes, redirectTo, dataProvider }) => {
                 id={models.players.fields.avatar}
                 name={models.players.fields.avatar}
                 component={AvatarInput}
+                dataProvider={dataProvider}
+                notify={notify}
                 disabled={loading}
                 className={classes.input}
               />

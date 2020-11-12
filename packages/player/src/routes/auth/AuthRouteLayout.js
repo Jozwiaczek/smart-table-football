@@ -3,7 +3,7 @@ import { Notification } from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card } from '@material-ui/core';
 
-import GlobalStyles from '../../layout/theme/GlobalStyles';
+import GlobalStyles from '../../layout/GlobalStyles';
 import BackgroundGraphic from '../../elements/BackgroundGraphic';
 import ThemeWrapper from '../../elements/ThemeWrapper';
 import Logo from '../../elements/Logo';

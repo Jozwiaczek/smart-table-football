@@ -3,12 +3,26 @@
   "version": "0.0.1",
   "description": "Set of core elements for stf projects.",
   "main": "src/index.js",
+  "author": {
+    "name": "Jakub Jóźwiak",
+    "email": "kubencki@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jozwiaczek/smart-table-football",
+    "directory": "packages/core"
+  },
+  "keywords": [
+    "Smart Table Football",
+    "STF",
+    "table football",
+    "table soccer",
+    "foosball"
+  ],
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix ."
-  },
-  "keywords": [],
-  "author": "Jakub Jóźwiak",
-  "license": "ISC"
+  }
 }

@@ -1,7 +1,27 @@
 {
   "name": "stf-admin",
   "version": "0.1.0",
-  "homepage": ".",
+  "description": "Smart Table Football Admin panel for administrators",
+  "homepage": "https://smart-table-football-admin.netlify.app/",
+  "author": {
+    "name": "Jakub Jóźwiak",
+    "email": "kubencki@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jozwiaczek/smart-table-football",
+    "directory": "packages/admin"
+  },
+  "keywords": [
+    "Admin",
+    "PWA",
+    "Smart Table Football",
+    "STF",
+    "React-admin",
+    "table football",
+    "table soccer",
+    "foosball"
+  ],
   "private": true,
   "dependencies": {
     "@feathersjs/authentication-client": "^1.0.11",

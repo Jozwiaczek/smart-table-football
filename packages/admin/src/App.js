@@ -14,10 +14,13 @@ import EmailIcon from '@material-ui/icons/Email';
 
 import { constants } from 'stf-core';
 
+import { defaultThemeProvider } from 'stf-ui-components';
+
+import { blueGrey, orange } from '@material-ui/core/colors';
+
 import feathersRestClient from './client/feathersRestClient';
 import dataProvider from './dataProvider';
 import domainMessages from './i18n';
-import { defaultTheme } from './themes';
 import { getAdminId } from './utils/getAdminId';
 
 import { AdminCreate, AdminEdit, AdminsList } from './models/users/admins';
@@ -71,7 +74,7 @@ const App = () => (
     authProvider={authClient(feathersRestClient, authClientOptions)}
     i18nProvider={i18nProvider}
     customRoutes={customRoutes}
-    theme={defaultTheme}
+    theme={defaultThemeProvider(constants.themeMode.type.light, orange, blueGrey)}
   >
     <Resource
       name={constants.resources.admins}

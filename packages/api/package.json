@@ -2,18 +2,27 @@
   "name": "stf-api",
   "description": "Smart Table Football API",
   "version": "0.0.1",
-  "license": "MIT",
-  "homepage": "",
+  "private": true,
+  "homepage": "https://stf-api.herokuapp.com/",
   "main": "src",
-  "keywords": [
-    "feathers"
-  ],
   "author": {
     "name": "Jakub Jóźwiak",
     "email": "kubencki@gmail.com"
   },
-  "contributors": [],
-  "bugs": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jozwiaczek/smart-table-football",
+    "directory": "packages/api"
+  },
+  "keywords": [
+    "feathers",
+    "iot",
+    "Smart Table Football",
+    "STF",
+    "table football",
+    "table soccer",
+    "foosball"
+  ],
   "directories": {
     "lib": "src",
     "test": "test/",

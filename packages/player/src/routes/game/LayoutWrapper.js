@@ -5,7 +5,7 @@ import BackgroundGraphic from '../../elements/BackgroundGraphic';
 import GameBar from './GameBar';
 import { FullScreen } from '../../elements/FullScreen';
 import ThemeWrapper from '../../elements/ThemeWrapper';
-import GlobalStyles from '../../layout/theme/GlobalStyles';
+import GlobalStyles from '../../layout/GlobalStyles';
 
 const LayoutWrapper = ({ children, finishMatch }) => {
   const [isFullScreen, setFullScreen] = useState(false);

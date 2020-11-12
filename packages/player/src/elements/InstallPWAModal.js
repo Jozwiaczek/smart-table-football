@@ -3,10 +3,10 @@ import { Button, makeStyles, Typography } from '@material-ui/core';
 
 import { useTranslate } from 'react-admin';
 
+import { IOSShareIcon, STFIcon } from 'stf-ui-components';
+
 import usePWAIsIOS from '../hooks/usePWAIsIOS';
 import Modal from './Modal';
-import IOSShareIcon from './icons/IOSShareIcon';
-import STFIcon from './icons/STFIcon';
 
 const useStyles = makeStyles(() => ({
   contentContainer: {

@@ -2,30 +2,29 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { green, grey, orange } from '@material-ui/core/colors';
 import { constants } from 'stf-core';
 
-export const themeProvider = (mode) => {
-  const darkMode = mode === constants.themeMode.type.dark && true;
+export const defaultThemeProvider = (
+  type = constants.themeMode.type.light,
+  primary = orange,
+  secondary = grey,
+  overrides = {},
+) => {
+  const isDarkMode = type === constants.themeMode.type.dark;
 
   return createMuiTheme({
-    props: {
-      MuiTabs: {
-        scrollable: true,
-        scrollButtons: 'off',
-      },
-    },
     palette: {
-      type: darkMode ? constants.themeMode.type.dark : constants.themeMode.type.light,
-      primary: orange,
-      secondary: grey,
+      type: isDarkMode ? constants.themeMode.type.dark : constants.themeMode.type.light,
+      primary,
+      secondary,
       background: {
-        default: darkMode ? '#363636' : '#fafafa',
+        default: isDarkMode ? '#363636' : '#fafafa',
       },
       loading: {
-        light: darkMode ? grey[800] : grey[50],
-        color: darkMode ? grey[900] : grey[200],
-        dark: darkMode ? 'black' : grey[300],
+        light: isDarkMode ? grey[800] : grey[50],
+        color: isDarkMode ? grey[900] : grey[200],
+        dark: isDarkMode ? 'black' : grey[300],
       },
       success: {
-        main: darkMode ? green[900] : green[200],
+        main: isDarkMode ? green[900] : green[200],
       },
     },
     shape: {
@@ -42,7 +41,7 @@ export const themeProvider = (mode) => {
           borderLeft: `4px solid transparent`,
         },
         active: {
-          borderLeft: '4px solid #ff9800',
+          borderLeft: `4px solid ${primary['500']}`,
         },
       },
       MuiPaper: {
@@ -59,5 +58,6 @@ export const themeProvider = (mode) => {
         },
       },
     },
+    ...overrides,
   });
 };

@@ -1,5 +1,9 @@
 # Player STF
 
+## About
+
+Package with Player panel for stf system.
+
 ## Available Scripts
 
 In the project directory, you can run:

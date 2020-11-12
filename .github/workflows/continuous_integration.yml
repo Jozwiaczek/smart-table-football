@@ -29,6 +29,8 @@ jobs:
         run: cd admin && yarn eslint && yarn build
       - name: Core
         run: cd core && yarn eslint
+      - name: UI Components
+        run: cd ui-components && yarn eslint && yarn build && yarn build:storybook
 
   Raspberry:
     runs-on: ubuntu-latest

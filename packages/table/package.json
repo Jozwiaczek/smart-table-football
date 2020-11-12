@@ -3,17 +3,32 @@
   "description": "Smart Table Football Raspberry Pi Server",
   "version": "0.0.1",
   "main": "src",
+  "author": {
+    "name": "Jakub Jóźwiak",
+    "email": "kubencki@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jozwiaczek/smart-table-football",
+    "directory": "packages/table"
+  },
+  "keywords": [
+    "Raspberry Pi",
+    "SocketIO",
+    "IoT",
+    "Smart Table Football",
+    "STF",
+    "table football",
+    "table soccer",
+    "foosball"
+  ],
+  "private": true,
   "scripts": {
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix .",
     "dev": "nodemon src",
     "start": "node src"
   },
-  "author": {
-    "name": "Jakub Jóźwiak",
-    "email": "kubencki@gmail.com"
-  },
-  "license": "ISC",
   "dependencies": {
     "exit-hook": "^2.2.0",
     "googleapis": "^60.0.1",

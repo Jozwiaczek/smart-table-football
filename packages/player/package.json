@@ -1,6 +1,27 @@
 {
   "name": "stf-player",
   "version": "0.1.0",
+  "description": "Smart Table Football the main Player app",
+  "homepage": "https://smart-table-football.netlify.app",
+  "author": {
+    "name": "Jakub Jóźwiak",
+    "email": "kubencki@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jozwiaczek/smart-table-football",
+    "directory": "packages/player"
+  },
+  "keywords": [
+    "Player",
+    "PWA",
+    "Smart Table Football",
+    "STF",
+    "React-admin",
+    "table football",
+    "table soccer",
+    "foosball"
+  ],
   "private": true,
   "dependencies": {
     "@feathersjs/authentication-client": "^1.0.11",

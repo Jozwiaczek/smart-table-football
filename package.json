@@ -7,9 +7,23 @@
     "url": "http://github.com/Jozwiaczek/smart-table-football.git"
   },
   "description": "Smart Table Football - App for those who want improves their games experience",
-  "author": "jozwiak <kubencki@gmail.com>",
-  "homepage": ".",
-  "license": "MIT",
+  "author": {
+    "name": "Jakub Jóźwiak",
+    "email": "kubencki@gmail.com"
+  },
+  "homepage": "https://smart-table-football.netlify.app",
+  "keywords": [
+    "Feathers.js",
+    "Socket.io",
+    "React-admin",
+    "IoT",
+    "PWA",
+    "Smart Table Football",
+    "STF",
+    "table football",
+    "table soccer",
+    "foosball"
+  ],
   "workspaces": [
     "packages/*"
   ],
@@ -34,17 +48,6 @@
     "pre-commit": "^1.2.2",
     "prettier": "2.1.1",
     "rimraf": "^3.0.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --write --config .prettierrc .",
-      "eslint --fix ."
-    ]
   },
   "engines": {
     "node": ">=12",

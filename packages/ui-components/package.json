@@ -1,0 +1,63 @@
+{
+  "name": "stf-ui-components",
+  "main": "dist/index.js",
+  "description": "Smart Table Football sharable UI Components",
+  "files": [
+    "/dist"
+  ],
+  "version": "0.1.0",
+  "author": {
+    "name": "Jakub Jóźwiak",
+    "email": "kubencki@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jozwiaczek/smart-table-football",
+    "directory": "packages/ui-components"
+  },
+  "keywords": [
+    "Components",
+    "UI",
+    "Smart Table Football",
+    "STF",
+    "Storybook",
+    "table football",
+    "table soccer",
+    "foosball"
+  ],
+  "private": true,
+  "scripts": {
+    "postinstall": "yarn build",
+    "storybook": "start-storybook -p 6006 -s public --no-dll",
+    "build": "rimraf dist && babel src -d dist --config-file ./babelConfig/.babelrc",
+    "build:watch": "yarn build --watch",
+    "build:storybook": "rimraf storybook-static && build-storybook -s public --no-dll",
+    "eslint": "eslint .",
+    "eslint-fix": "eslint --fix ."
+  },
+  "peerDependencies": {
+    "react": "16.x",
+    "react-dom": "16.x",
+    "styled-components": "5.2.0"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "babel-loader": "8.1.0",
+    "@babel/core": "^7.12.3",
+    "@babel/cli": "^7.12.1",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-env": "^7.12.1",
+    "@storybook/addon-controls": "^6.0.28",
+    "@storybook/addon-actions": "^6.0.28",
+    "@storybook/addon-essentials": "^6.0.28",
+    "@storybook/addon-links": "^6.0.28",
+    "@storybook/node-logger": "^6.0.28",
+    "@storybook/react": "^6.0.28",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "styled-components": "5.2.0"
+  }
+}
