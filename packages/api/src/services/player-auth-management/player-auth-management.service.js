@@ -2,7 +2,7 @@
 const authManagement = require('feathers-authentication-management');
 
 const config = require('config');
-const { resources, playerRoutes } = require('stf-core').constants;
+const { resources } = require('stf-core').constants;
 
 const resetPasswordEmail = require('../../emailTemplates/resetPassword');
 const verifyEmail = require('../../emailTemplates/verifyEmail');
@@ -42,9 +42,7 @@ function notifier(app) {
       // case 'verifySignupLong': {}
       case 'sendResetPwd': {
         try {
-          const resetURL = `${config.get('url')}/#/${playerRoutes.passwordReset}?reset_token=${
-            user.resetToken
-          }`;
+          const resetURL = `${config.get('url')}/#/password/edit?reset_token=${user.resetToken}`;
 
           const html = resetPasswordEmail({ resetURL });
 

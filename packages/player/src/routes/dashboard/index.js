@@ -1,19 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { GET_LIST, GET_ONE, Responsive, Title, useDataProvider, useTranslate } from 'react-admin';
-
 import { Box, Button, Typography } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import StatisticsIcon from '@material-ui/icons/BarChart';
-
 import styled, { css } from 'styled-components';
-
 import { constants, models } from 'stf-core';
-
 import moment from 'moment';
-
 import lottie from 'lottie-web';
-
 import { useTheme } from '@material-ui/core/styles';
 
 import BackgroundGraphic from '../../elements/BackgroundGraphic';

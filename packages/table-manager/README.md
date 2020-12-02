@@ -53,12 +53,11 @@ To test that the system is installed and working, try the following command:
 raspistill -v -o test.jpg
 ```
 
-The display should show a five-second preview from the camera and then take a picture, saved to the file `test.jpg`,
-whilst displaying various informational messages.
+It should take the photo and save in your home directory under test.jpg
 
 #### Connect LED lights and gate sensors
 
-> _Important note:_ Table below describe [GPIO for Raspberry Pi 4](https://www.raspberrypi.org/documentation/usage/gpio/). It may differ on other devices.
+> _Note:_ [GPIO for Raspberry Pi 4](https://www.raspberrypi.org/documentation/usage/gpio/). It may differ on other devices.
 
 | Name                | GPIO | Direction | Required | Recommended LED color |
 | ------------------- | ---- | --------- | -------- | --------------------- |
@@ -115,7 +114,7 @@ $ nvm -v
 Install required node version
 
 ```shell script
-$ nvm install 14
+$ nvm install 12
 ```
 
 ### Runs Table Manger on Raspberry Boot with [crontab](https://www.raspberrypi.org/documentation/linux/usage/cron.md)

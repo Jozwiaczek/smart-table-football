@@ -47,10 +47,6 @@ const authorizationHeaders = {
   player: 'authorization-player',
 };
 
-const playerRoutes = {
-  passwordReset: 'password/edit',
-};
-
 const statusEnum = {
   approved: 'approved',
   rejected: 'rejected',
@@ -62,16 +58,6 @@ const statusMatch = {
   active: 'active',
   finished: 'finished',
   paused: 'paused',
-};
-
-const cardStatusEnum = {
-  updating: 'updating',
-  error: 'error',
-  ok: 'ok',
-};
-
-const formNames = {
-  registrationForm: 'registrationForm',
 };
 
 const socketEvents = {
@@ -107,11 +93,8 @@ module.exports = {
   userEntities,
   authStrategies,
   authorizationHeaders,
-  playerRoutes,
   storageKey,
   statusEnum,
-  cardStatusEnum,
-  formNames,
   statusMatch,
   locales,
   socketEvents,

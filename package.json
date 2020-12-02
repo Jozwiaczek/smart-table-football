@@ -28,6 +28,7 @@
     "packages/*"
   ],
   "scripts": {
+    "postinstall": "cd packages/ui-components && yarn postinstall",
     "heroku-postbuild": "yarn install",
     "start": "if [ -n \\\\\\\"$START_API\\\\\\\" ]; then cd packages/api && echo api && yarn start; elif [ -n \\\\\\\"$START_ADMIN\\\\\\\" ]; then cd packages/admin && echo admin && yarn start; else cd packages/player && echo player && yarn start; fi",
     "lint": "eslint .",

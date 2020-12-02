@@ -7,10 +7,7 @@ const { constants } = require('stf-core');
 const createAuthHooks = require('./authentication.hooks');
 
 module.exports = function (app) {
-  const config = {
-    secret: process.env.API_SECRET,
-    ...app.get('authentication'),
-  };
+  const config = app.get('authentication');
 
   // Set up authentication with the secret
   app.configure(authentication(config));

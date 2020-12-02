@@ -22,6 +22,7 @@
     }
   },
   "authentication": {
+    "secret": "Cq95EofkZV0JAt7cMh5IU5wPaPc=",
     "strategies": ["jwtAdmin", "jwtPlayer", "jwtRaspberry", "admin", "player", "raspberry"],
     "path": "/authentication",
     "entity": "players",
