@@ -116,12 +116,12 @@ With Raspberry Pi with few sensors it gives You ability to move game in a physic
        cd packages/admin
        yarn start
    ```
-   
+
 9. Play with UI Components
 
    ```shell script
        cd packages/ui-components
        yarn storybook
    ```
-   
+
    For more details about this package check [ui-components README](./packages/api/README.md) in section `Getting started`.

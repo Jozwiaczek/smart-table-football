@@ -1,19 +1,8 @@
 {
   "name": "stf-api",
-  "description": "Smart Table Football API",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://stf-api.herokuapp.com/",
-  "main": "src",
-  "author": {
-    "name": "Jakub Jóźwiak",
-    "email": "kubencki@gmail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Jozwiaczek/smart-table-football",
-    "directory": "packages/api"
-  },
+  "description": "Smart Table Football API",
   "keywords": [
     "feathers",
     "iot",
@@ -23,22 +12,33 @@
     "table soccer",
     "foosball"
   ],
+  "homepage": "https://stf-api.herokuapp.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jozwiaczek/smart-table-football",
+    "directory": "packages/api"
+  },
+  "author": {
+    "name": "Jakub Jóźwiak",
+    "email": "kubencki@gmail.com"
+  },
+  "main": "src",
   "directories": {
     "lib": "src",
     "test": "test/",
     "config": "config/"
   },
   "scripts": {
-    "test": "npm run eslint && npm run mocha",
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix .",
-    "start": "node src",
-    "start:dev": "nodemon src",
-    "testNode": "echo NODE_ENV=$NODE_ENV",
-    "start:db": "docker start mongodb",
-    "stop:db": "docker stop mongodb",
+    "herokuLogs": "heroku logs --tail -a stf-api",
     "mocha": "mocha test --recursive --exit",
-    "herokuLogs": "heroku logs --tail -a stf-api"
+    "start": "node src",
+    "start:db": "docker start mongodb",
+    "start:dev": "nodemon src",
+    "stop:db": "docker stop mongodb",
+    "test": "npm run eslint && npm run mocha",
+    "testNode": "echo NODE_ENV=$NODE_ENV"
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.16",

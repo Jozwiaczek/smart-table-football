@@ -1,17 +1,8 @@
 {
   "name": "stf-player",
   "version": "0.1.0",
+  "private": true,
   "description": "Smart Table Football the main Player app",
-  "homepage": "https://smart-table-football.netlify.app",
-  "author": {
-    "name": "Jakub Jóźwiak",
-    "email": "kubencki@gmail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Jozwiaczek/smart-table-football",
-    "directory": "packages/player"
-  },
   "keywords": [
     "Player",
     "PWA",
@@ -22,7 +13,31 @@
     "table soccer",
     "foosball"
   ],
-  "private": true,
+  "homepage": "https://smart-table-football.netlify.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jozwiaczek/smart-table-football",
+    "directory": "packages/player"
+  },
+  "author": {
+    "name": "Jakub Jóźwiak",
+    "email": "kubencki@gmail.com"
+  },
+  "scripts": {
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "eslint": "eslint .",
+    "eslint-fix": "eslint --fix .",
+    "serve": "http-server ./build --port 9000",
+    "start": "react-scripts start",
+    "test": "react-scripts test"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "dependencies": {
     "@feathersjs/authentication-client": "^1.0.11",
     "@feathersjs/feathers": "^3.2.3",
@@ -50,20 +65,5 @@
     "socket.io-client": "2.3.1",
     "styled-components": "5.2.0",
     "validator": "13.1.17"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "serve": "http-server ./build --port 9000",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "eslint": "eslint .",
-    "eslint-fix": "eslint --fix ."
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  }
 }

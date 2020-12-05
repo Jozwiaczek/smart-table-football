@@ -1,17 +1,8 @@
 {
   "name": "stf-table-manager",
-  "description": "Smart Table Football Raspberry Pi Manager Server",
   "version": "0.0.1",
-  "main": "src",
-  "author": {
-    "name": "Jakub Jóźwiak",
-    "email": "kubencki@gmail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Jozwiaczek/smart-table-football",
-    "directory": "packages/table-manager"
-  },
+  "private": true,
+  "description": "Smart Table Football Raspberry Pi Manager Server",
   "keywords": [
     "Procces manager",
     "Node.js",
@@ -22,27 +13,36 @@
     "table soccer",
     "foosball"
   ],
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jozwiaczek/smart-table-football",
+    "directory": "packages/table-manager"
+  },
+  "author": {
+    "name": "Jakub Jóźwiak",
+    "email": "kubencki@gmail.com"
+  },
+  "main": "src",
   "scripts": {
+    "dev": "nodemon src",
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix .",
-    "dev": "nodemon src",
     "start": "node src"
   },
   "dependencies": {
-    "socket.io-client": "^2.3.1",
     "dotenv": "^8.2.0",
+    "exit-hook": "^2.2.0",
     "onoff": "^6.0.0",
-    "exit-hook": "^2.2.0"
+    "socket.io-client": "^2.3.1"
   },
   "devDependencies": {
-    "nodemon": "^1.19.4",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "18.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-jsx-a11y": "^6.3.0",
     "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-react-hooks": "4.0.0"
+    "eslint-plugin-react-hooks": "4.0.0",
+    "nodemon": "^1.19.4"
   }
 }

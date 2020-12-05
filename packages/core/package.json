@@ -1,17 +1,8 @@
 {
   "name": "stf-core",
   "version": "0.0.1",
+  "private": true,
   "description": "Set of core elements for stf projects.",
-  "main": "src/index.js",
-  "author": {
-    "name": "Jakub Jóźwiak",
-    "email": "kubencki@gmail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Jozwiaczek/smart-table-football",
-    "directory": "packages/core"
-  },
   "keywords": [
     "Smart Table Football",
     "STF",
@@ -19,10 +10,19 @@
     "table soccer",
     "foosball"
   ],
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jozwiaczek/smart-table-football",
+    "directory": "packages/core"
+  },
+  "author": {
+    "name": "Jakub Jóźwiak",
+    "email": "kubencki@gmail.com"
+  },
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint .",
-    "eslint-fix": "eslint --fix ."
+    "eslint-fix": "eslint --fix .",
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
