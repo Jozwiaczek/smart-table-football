@@ -15,13 +15,12 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    width: '80%',
   },
   title: {
     marginBottom: '1em',
   },
   input: {
-    marginBottom: '3em',
+    marginBottom: '2em',
     height: '4em',
   },
   actionContainer: {
@@ -88,7 +87,7 @@ const InviteFriendModal = ({ onClose, isOpen }) => {
   return (
     <Modal isOpen={isOpen} className={classes.modal} onClose={onClose}>
       <Typography variant="h4" align="center" color="textPrimary" className={classes.title}>
-        Invitation
+        Email Invitation to STF
       </Typography>
 
       <TextField
