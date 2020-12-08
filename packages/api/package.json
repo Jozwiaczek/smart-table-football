@@ -29,9 +29,9 @@
     "config": "config/"
   },
   "scripts": {
-    "eslint": "eslint .",
-    "eslint-fix": "eslint --fix .",
     "herokuLogs": "heroku logs --tail -a stf-api",
+    "lint": "scripty",
+    "lint:fix": "yarn lint --fix",
     "mocha": "mocha test --recursive --exit",
     "start": "node src",
     "start:db": "docker start mongodb",
@@ -73,5 +73,8 @@
   "devDependencies": {
     "mocha": "^8.1.0",
     "nodemon": "^2.0.4"
+  },
+  "scripty": {
+    "path": "../../scripts"
   }
 }

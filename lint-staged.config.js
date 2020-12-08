@@ -1,3 +1,3 @@
 module.exports = {
-  '*.{js,jsx}': ['yarn prettier', 'yarn lint'],
+  '*.{js,jsx}': ['eslint --cache --fix', 'prettier --write'],
 };
