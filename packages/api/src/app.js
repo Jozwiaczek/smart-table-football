@@ -16,7 +16,6 @@ const logger = require('./logger');
 const middleware = require('./middleware');
 const services = require('./services');
 const appHooks = require('./app.hooks');
-const channels = require('./channels');
 const onConnectionSocket = require('./onConnectionSocket');
 const authentication = require('./authentication');
 const mongoose = require('./mongoose');
@@ -68,8 +67,6 @@ app.configure(middleware);
 app.configure(authentication);
 // Set up our services (see `services/i18nProvider.js`)
 app.configure(services);
-// Set up event channels (see channels.js)
-app.configure(channels);
 
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
