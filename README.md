@@ -16,6 +16,7 @@
 - [Live Apps](#-live-apps)
 - [Packages Docs](#-packages-docs)
 - [Features](#-features)
+- [Conventional Commits](#-conventional-commits)
 - [Getting Started](#-getting-started)
 
 ## 📖 About
@@ -64,6 +65,19 @@ With Raspberry Pi with few sensors it gives You ability to move game in a physic
 - Super-fast UI
 - All kinds of statistics for players
 - Goals replay (They can be also saved into provided Google Drive)
+
+## 📏 Conventional Commits
+
+Commitlint checks if your commit messages meet the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) format.
+
+Example:
+
+```git
+feat(api): add user service
+```
+
+Common types according to commitlint-config-conventional can be:
+[conventional-commit-types](https://github.com/commitizen/conventional-commit-types/blob/master/index.json)
 
 ## 🎓 Getting Started
 
