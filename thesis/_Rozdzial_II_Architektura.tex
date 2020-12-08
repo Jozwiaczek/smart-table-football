@@ -94,31 +94,42 @@ Innym narzędziem rozwiązującym problem braku typowania jest paczka 'Prop Type
 Dzięki dwóm powyszym rozwiązaniom budowa aplikacji posiadała rodzaj mechanizmu typowania. Przyczyniło się to do szybszego procesu pracy oraz zminiejszyło ilość potencjalnych błędów w systemie.
 
 \section{Środowisko developerskie}
-Podczas wyboru technologii oraz narzędzi do pracy bardzo ważnym etapem był dobór środowiska developerskiego. Przez środowisko developerskie rozumiane są narzędzia służące ogólnej pracy nad programistyczną częścią systemu, zwiększeniu jej bezpieczeństwa oraz jej przyśpieszenia.
+Podczas wyboru technologii oraz narzędzi do pracy bardzo ważnym etapem był dobór środowiska developerskiego. Przez środowisko developerskie rozumiane są narzędzia służące ogólnej pracy nad programistyczną częścią systemu, zwiększeniu jej bezpieczeństwa oraz jej przyśpieszenie.
 
 \subsubsection{Edytor kodu}
+Przy budowie systemu, wybranym edytorem kodu źródłowego został program 'Webstorm' firmy Jetbrains. Głównym przeznaczeniem tego edytora są aplikacje pisane w języku JavaScript. W przeciwieństwie do innych programów przeznaczonych do edycji kodu, jego skupienie się na jednym obaszerze implikuje wiele wbudowanych narzędzi wspierających ten język programowania. Poniżej opisane narzędzia posiadają wbudowaną integrację z edytorem przez co praca z nimi staję się jeszcze prostrza. Innym czynnikiem decydującym o wyborze tego edytora było doświadczenie biznesowe oraz projektowe autora systemu. W tym przypadku doświadczenie w korzystaniu z tego typu narzędzia pełni bardzo dużą rolę pod względem znajomości skrótów klawiszowych, które pozwalają na znaczne przyśpieszenie pracy oraz na skupienie się na realnych problemach ponad powtarzającymi się operacjami.
+
 
 \subsubsection{Menażdżer Wersji Node.js}
+Kolejnym narzędziem, które pozowliło na ułatwienie pracy jest menadżer wersji Node.js - 'NVM' (Node Version Manger).
+Pozwala on na dynamiczne przłączanie się i szybką instalację różnych wersji. Środowisko uruchomieniowe jakim jest wykorzystywany w projekcie Node.js, jest bardzo dynamicznie rozwiającą się platformą. Z każdą wersją staje się on znacznie bezpieczniejszy oraz szybszy. Istnieją jednak bilioteki oraz narzędzia, które wymagają użycia specyficznych i starszych wersji node.js. Rozwiązaniem problemu potrzeby częstego przełączania się pomiędzy wersjami w celu testowania bibliotek oraz częstej aktualizacji do najnowszych wersji jest właśnie NVM. 
+
+Przykładowo w celu szybkiej instalacji oraz przełączenia się na 12 wersje node.js wystarczy w kosnoli wpisać: 'nvm install 12'. W przypadku kiedy w sytemie posiadamy zainstalowaną już wersje 12 i chcemy się tylko na nią przełączyć wystarczy wpisać: 'nvm use 12'. Również kiedy tak jak w omawianym systemie użytkownik w głównym katalogu projektu będzie posiadał plik '.nvmrc' z numerem minimalnie wymaganej wersji node.js, komenda 'nvm use', automatycznie zainstaluje wskazaną wersje.
+
 
 \subsubsection{Lintery}
+W cały projekcie zostały zastosowane różnego rodzaju linery, czyli narzędzia służące unifikacji kodu, utrzymywaniu dobrych praktyk notacji oraz innych opisów.
 
-- Eslint \& Prettier \& commitlint \& sort package json
-- husky \& lint staged
+Najważniejszym ze wszystkich linterów jest Eslint, który na wywołanie komendy lub zapis dowolnego pliku w projekcie (dzięki integracji z edytorem kodu) dokonuje statycznej analizy kodu według zasad określonych w pliku konfiguracyjnym (.eslintrc). Zastosowany w projekcie plik konfiguracyjny został oparty głównie o zestaw zasad użwywanych przez firmę airbnb. Firma ta udostępnia darmową bibliotekę, która umowżlia proste zamontowanie jej z pliku konfiguracyjnym. W notacji narzędzia eslint omawiany system rozszerza zestaw zasad arbinb oraz nadpisuje zaledwie małą część zadeklarowanych zasad na potrzeby wymagań projektu.
+
+Drugim w kolejności najważniejszym linterem jest Prettier, który działa w bardzo podobny sposób co Eslint. Skupia się on jednak na analizie stylu kodu źródłowego w przeciwieństwie do eslinta, który skupia się na składni języka i bibliotek. Przykładowymi elementami kodu na których skupia się Prettier jest długość linij lub odstępy między nawiasami.
+
+Obydwa powyżej opisane lintery oferują możliwość automatycznego formatowania według ustalonych zasad. Dzięki takowemu autoformatowaniu programista mógłby napisać nawet całą klasę, składającą się z wielu metod i pól w jednej linji, a wspomniane dwa lintery przy zapisaniu pliku sofrmatowałyby klasę do czytelnej formy według ustalonych zasad. Ze względu na architektruę systemu monorepozytorium, każdy z pakietów posiada swój własny plik konfiguracyjny, który rozszerza globalny zadeklarowany w katalogu głównym. Takie podejście pozwala na proste zarządzanie plikami konfiguracyjnymi, a w przypadku potrzeby zmian zasad per pakiet, programista może zmienić zasady w wybranej konfiguracji nie zmienijąc przy tym pozostałych pakietów.
+
+Trzecim linterem jest 'Commitlint', który odpowiada za walidację opisów komitów w gicie. Wybrana konfiguracja implementuje specyfikację \href{https://www.conventionalcommits.org/en/v1.0.0/#specification}{Convetional Commits}. W przypadku kiedy wiadomość będzie niezgodna z specyfikacją, użytkonwik uzyska bład oraz komit nie zostanie wysłany. Takie podjeście oferuje spójną historię wiadomości commitów w gicie oraz możliwość automatycznego wygenerowania przy użyciu dodatkowych narzędzi pliku graficznego opisującego zmiany od ostaniej publikacji.
+
+Ostatnim linterem jest paczka sort-package-json, która pozwala na sortowanie plików package.json w projekcie. Uruchomienie sortowania odbywa się poprzez wpisanie komendy 'yarn sortPackageJson' w terminalu znajdując się w głównym katalogu projektu. 
 
 \subsubsection{Zarządzanie monorepozytorium}
+Narzędziem które w projekcie zostało zastosowane do zarządzania monorepozytorium jest zależność 'lerna'. Pozwala ona na wiele czynność dotyczących pracy z tym rodzajem repozytorium. Jest to narzędzie, które pracuje w współpracy z klientem npm (node package manager) co oznacza, że może tak jak npm zarządzać zależnościami. Konfiguracja tego narzędzia znajduje się w katlogu głównym w pliku 'lerna.json'. Funkcjonalności lerny jakie wykorzystywane są w systmie to deklaracja zależności, które mają być unikalne w konkretnym pakiecie, uruchamianie skryptów we wszystkich pakietach jedną komedną oraz dodawanie zależności per pakiet lub do wszystkich pakietów na raz.
+
 
 \subsubsection{Zarządzanie wersją}
+git
+git hooki (husky \& lint staged, postinstall)
 
 \subsubsection{Zdalne repozytorium}
-
-- webstorm/vscode
-- NVM
-
-- Lerna
+github
 
 
-
-\section{Github i Git}
-- Zdalne repozytorium (github vs rest)
-- Wersje
-- Git hooki
+\subsubsection{Scripty}
