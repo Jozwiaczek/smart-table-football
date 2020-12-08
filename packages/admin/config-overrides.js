@@ -1,3 +1,5 @@
+// This file fixes problem with duplicated dependencies
+
 const path = require('path');
 
 module.exports = function override(config) {
