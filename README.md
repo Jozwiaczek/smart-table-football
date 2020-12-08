@@ -84,7 +84,7 @@ Common types according to commitlint-config-conventional can be:
 
 [Scirpty](https://github.com/testdouble/scripty) is the workspace level script's manager. It can run every executable file.
 Every script which is same for every package like 'lint' should be declared in scripts directory.
-After adding new script, it requires granting rights for read/write, to do that, in project root directory run: 
+After adding new script, it requires granting rights for read/write, to do that, in project root directory run:
 
 ```shell
 yarn grant-scripty-permissions

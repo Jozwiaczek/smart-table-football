@@ -37,7 +37,7 @@
     "start:db": "docker start mongodb",
     "start:dev": "nodemon src",
     "stop:db": "docker stop mongodb",
-    "test": "npm run eslint && npm run mocha",
+    "test": "yarn mocha",
     "testNode": "echo NODE_ENV=$NODE_ENV"
   },
   "dependencies": {
