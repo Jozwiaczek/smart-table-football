@@ -1,0 +1,49 @@
+\chapter{Zagadnienia wykorzystania szablonu}
+\label{ch:funplenop}
+
+Ponieważ pisana praca inżynierska jest pracą techniczną, trzeba zachować pewne standardy techniczne charakterystyczne dla prac tego typu. Jednym z przykładów jest odwoływanie się do wszystkich:
+\begin{itemize}
+    \item obrazków,
+    \item rysunków,
+			    \item schamatów,
+			    \item tabel,
+			    \item wykresów,
+    \item \textit{itp}
+\end{itemize}
+Operację tę realizujemy z wykorzystaniem polecenia \texttt{\textbackslash ref}, i tak np gdy chcemy odwołać się do poniższego rysunku mówimy że: \textit{to i to zagadnienie jest ilustrowane przez rysunek \ref{fig:mobile}}. Możliwe są równie odwołanie się do konkretnego rozdziału, pod rozdziału czy punktu, np: \textit{ przykład wypunktowania alfabetycznego pokazano w podrozdziale \ref{ss:ex1}}.
+
+Kolejnym bardzo ważnym elementem pracy technicznej jest wskazanie wszystkich źródeł jakie zostały wykorzystane w Państwa pracy. W tym przypadku wykorzystywany jest plik o rozszerzenie \texttt{.bib} oraz polecenie \texttt{\textbackslash cite} przykładowo odwołuję się do publikacji.\cite{Tomaszewski2000}
+
+\(2d\)
+
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/mobile-banner}
+  \caption{Close-up of a gull}
+  \label{fig:mobile}
+\end{figure}
+
+\lipsum[1]
+
+\section{Structure}
+\lipsum[2]
+
+\subsection{Top Matter}
+\lipsum[1]
+
+\subsubsection{Wypunktowanie}
+\label{ss:ex1}
+
+Przykład wypunktowania:
+
+\begin{description}
+	\item[(a)] minimalizacja liczby niezależnych parametrów funkcji plenoptycznej;
+	\item[(b)] identyfikacja schematu próbkowania plenoptycznego w modelu kamery otworkowej;
+	\item[(c)] identyfikacja ruchu wykonywanego przez element plenoptyczny;
+	\item[(d)] filtracja funkcji plenoptycznej w systemach percepcji wizualnej.
+\end{description}
+\lipsum[1]
+
+\section{Minimalizacja parametrów funkcji plenoptycznej}
+\label{sec:mpfp}

@@ -1,0 +1,45 @@
+\documentclass[inf, h]{pjatkThesis}
+
+\usepackage{times}
+\usepackage[polish]{babel}
+
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{makeidx}
+\usepackage{hyperref}
+\usepackage{lipsum}
+
+\author{Jakub Jóźwiak}
+\album{Numer albumu: S16641}
+\title{Smart Table Football}
+\type{Praca inżynierska}
+\supervisor{Napisana pod kierunkiem \\ dr inż Michała Tomaszewskiego}
+\location{Warszawa}
+\date{miesiąc 2021}
+
+\begin{document}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\include{_Abstrakt}
+
+\pagenumbering{arabic}
+\baselineskip=22pt
+
+\include{_Rozdzial_I_Wstep}
+\include{_Rozdzial_II_Architektura}
+\include{_Rozdzial_III_Backend}
+\include{_Rozdzial_IV_Frontend}
+\include{_Rozdzial_V_Hardware}
+\include{_Rozdzial_VI_Publikacja}
+\include{_Rozdzial_VII_Aplikacja}
+% \include{_Rozdzial_Wzor}
+
+\addcontentsline{toc}{chapter}{Literatura}
+
+\bibliographystyle{abbrv}
+\bibliography{bibliografia}
+    
+\end{document}
