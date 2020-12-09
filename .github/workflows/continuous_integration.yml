@@ -1,51 +1,46 @@
 name: Continuous Integration
 on: [pull_request]
 
+env:
+  NODE_VERSION: '12.x'
+
 jobs:
-  Web:
+  Validate:
+    name: 'Validate Pull Request'
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./packages
     steps:
-      - name: Git checkout
+      - name: 'Git checkout'
         uses: actions/checkout@v2
-      - name: Use Node.js 14
-        uses: actions/setup-node@v1
+      - name: 'Use cached node_modules'
+        uses: actions/cache@v2
         with:
-          node-version: 14
-      - name: Start MongoDB
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: 'Install dependency'
+        run: yarn install --frozen-lockfile
+      - name: 'Prettier'
+        run: cd .. && yarn prettier
+      - name: 'Start MongoDB'
         uses: supercharge/mongodb-github-action@1.3.0
         with:
           mongodb-version: 4.2
           mongodb-replica-set: test-stf-db
-      - name: Install dependency
+      - name: 'Install dependency'
         run: yarn install --frozen-lockfile
-      - name: Api
-        run: cd api && yarn test
-      - name: Player
-        run: cd player && yarn eslint && yarn build
-      - name: Admin
-        run: cd admin && yarn eslint && yarn build
-      - name: Core
-        run: cd core && yarn eslint
-      - name: UI Components
-        run: cd ui-components && yarn eslint && yarn build && yarn build:storybook
-
-  Raspberry:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./packages
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 14
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14
-      - name: Install dependency
-        run: yarn install --frozen-lockfile
-      - name: Table
-        run: cd table && yarn eslint
-      - name: Table Manager
-        run: cd table-manager && yarn eslint
+      - name: 'Api'
+        run: cd api && yarn lint && yarn test
+      - name: 'Player'
+        run: cd player && yarn lint && yarn build
+      - name: 'Admin'
+        run: cd admin && yarn lint && yarn build
+      - name: 'Core'
+        run: cd core && yarn lint
+      - name: 'UI Components'
+        run: cd ui-components && yarn lint && yarn build && yarn build:storybook
+      - name: 'Table'
+        run: cd table && yarn lint
+      - name: 'Table Manager'
+        run: cd table-manager && yarn lint

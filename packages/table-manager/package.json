@@ -25,8 +25,8 @@
   "main": "src",
   "scripts": {
     "dev": "nodemon src",
-    "eslint": "eslint .",
-    "eslint-fix": "eslint --fix .",
+    "lint": "scripty",
+    "lint:fix": "yarn lint --fix",
     "start": "node src"
   },
   "dependencies": {
@@ -44,5 +44,8 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "4.0.0",
     "nodemon": "^1.19.4"
+  },
+  "scripty": {
+    "path": "../../scripts"
   }
 }

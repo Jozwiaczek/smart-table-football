@@ -1,3 +1,4 @@
 module.exports = {
-  '*.{js,jsx}': ['yarn prettier', 'yarn lint'],
+  '*.{js,jsx}': ['eslint --cache --fix'],
+  '**/*.{js,jsx,ts,tsx,md,json}': ['prettier --write --ignore-path .prettierignore'],
 };

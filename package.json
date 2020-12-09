@@ -28,20 +28,22 @@
     "packages/*"
   ],
   "scripts": {
-    "heroku-postbuild": "yarn install",
     "check": "yarn prettier && yarn lint",
+    "grant-scripty-permissions": "chmod -R +x scripts",
+    "heroku-postbuild": "yarn install",
     "postinstall": "cd packages/ui-components && yarn postinstall",
-    "lint": "lerna run eslint",
-    "lint:fix": "lerna run eslint:fix",
+    "lint": "lerna run lint",
+    "lint:fix": "lerna run lint:fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "sortPackageJson": "lerna exec sort-package-json",
     "removeNodeModules": "find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +",
+    "sortPackageJson": "sort-package-json & lerna exec sort-package-json",
     "start": "if [ -n \\\\\\\"$START_API\\\\\\\" ]; then cd packages/api && echo api && yarn start; elif [ -n \\\\\\\"$START_ADMIN\\\\\\\" ]; then cd packages/admin && echo admin && yarn start; else cd packages/player && echo player && yarn start; fi"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/config-lerna-scopes": "^11.0.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "18.2.0",
     "eslint-config-prettier": "^6.11.0",
@@ -55,6 +57,7 @@
     "pre-commit": "^1.2.2",
     "prettier": "2.1.1",
     "rimraf": "^3.0.2",
+    "scripty": "^2.0.0",
     "sort-package-json": "^1.48.0"
   },
   "engines": {

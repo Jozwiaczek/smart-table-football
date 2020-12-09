@@ -21,8 +21,11 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "eslint": "eslint .",
-    "eslint-fix": "eslint --fix .",
+    "lint": "scripty",
+    "lint:fix": "yarn lint --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "scripty": {
+    "path": "../../scripts"
   }
 }

@@ -17,6 +17,7 @@
 - [Packages Docs](#-packages-docs)
 - [Features](#-features)
 - [Conventional Commits](#-conventional-commits)
+- [Scripty](#-scripty)
 - [Getting Started](#-getting-started)
 
 ## 📖 About
@@ -78,6 +79,16 @@ feat(api): add user service
 
 Common types according to commitlint-config-conventional can be:
 [conventional-commit-types](https://github.com/commitizen/conventional-commit-types/blob/master/index.json)
+
+## 📝 Scripty
+
+[Scirpty](https://github.com/testdouble/scripty) is the workspace level script's manager. It can run every executable file.
+Every script which is same for every package like 'lint' should be declared in scripts directory.
+After adding new script, it requires granting rights for read/write, to do that, in project root directory run:
+
+```shell
+yarn grant-scripty-permissions
+```
 
 ## 🎓 Getting Started
 
