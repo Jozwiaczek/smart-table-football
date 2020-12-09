@@ -67,20 +67,21 @@ Ze względu na zakres projektu i cel zapewnienia jak najprostszej dalszej rozbud
   \label{fig:mobile}
 \end{figure}
 
-sdsd
-
-
-\begin{tikzpicture}
-  \begin{class}[text width=8cm]{Player}{0,0}
-    \attribute{User}
-    \attribute{firstName}
-    \attribute{lastName}
-    \attribute{locale}
-    \attribute{avatar}
-  \end{class}
-\end{tikzpicture}
-
-
+\begin{center}
+  \begin{tikzpicture}
+  \umlclass[y=-3]{B}{
+    d : double
+  }{
+    \umlvirt{setB(b : B) : void} \\ getB() : B}
+  \umlclass{Player}{
+    User \\ firstName
+  }{}
+  \umlclass[x=2,y=-10]{D}{
+    n : uint
+    }{}
+  \umlinherit[geometry=-|]{D}{B}
+  \end{tikzpicture}
+  \end{center}
 
 \section{Struktura projektu}
 Ze względu na fakt budowy wielu serwisów, które mogą dzielić między sobą zasoby oraz potrzebują siebie nawzajem do prawidłowego działania potrzebowałem narzędzia, które umożliwi mi dynamiczną pracę miedzy serwisami. Podczas planowania struktury i przyszłego zarządzania projektem brałem pod uwagę 3 podejścia. W każdym z przedstawionym przykładzie zakładam korzystanie z git'a oraz menadżera zależności Yarn.
