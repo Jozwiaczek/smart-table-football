@@ -67,6 +67,21 @@ Ze względu na zakres projektu i cel zapewnienia jak najprostszej dalszej rozbud
   \label{fig:mobile}
 \end{figure}
 
+sdsd
+
+
+\begin{tikzpicture}
+  \begin{class}[text width=8cm]{Player}{0,0}
+    \attribute{User}
+    \attribute{firstName}
+    \attribute{lastName}
+    \attribute{locale}
+    \attribute{avatar}
+  \end{class}
+\end{tikzpicture}
+
+
+
 \section{Struktura projektu}
 Ze względu na fakt budowy wielu serwisów, które mogą dzielić między sobą zasoby oraz potrzebują siebie nawzajem do prawidłowego działania potrzebowałem narzędzia, które umożliwi mi dynamiczną pracę miedzy serwisami. Podczas planowania struktury i przyszłego zarządzania projektem brałem pod uwagę 3 podejścia. W każdym z przedstawionym przykładzie zakładam korzystanie z git'a oraz menadżera zależności Yarn.
 
@@ -123,13 +138,15 @@ Ostatnim linterem jest paczka sort-package-json, która pozwala na sortowanie pl
 \subsubsection{Zarządzanie monorepozytorium}
 Narzędziem które w projekcie zostało zastosowane do zarządzania monorepozytorium jest zależność 'lerna'. Pozwala ona na wiele czynność dotyczących pracy z tym rodzajem repozytorium. Jest to narzędzie, które pracuje w współpracy z klientem npm (node package manager) co oznacza, że może tak jak npm zarządzać zależnościami. Konfiguracja tego narzędzia znajduje się w katlogu głównym w pliku 'lerna.json'. Funkcjonalności lerny jakie wykorzystywane są w systmie to deklaracja zależności, które mają być unikalne w konkretnym pakiecie, uruchamianie skryptów we wszystkich pakietach jedną komedną oraz dodawanie zależności per pakiet lub do wszystkich pakietów na raz.
 
+\subsubsection{Scripty}
+Nawiązując do poprzednio omawianej funkcjonalności lerny odnośnie uruchamiania skryptów dla wszystkich pakietów, do zarządzania powtarzającymi się skrytpami zostało użyte jeszcze jedno narzędzie. 'Scripty' to paczka, która umozliwia uruchamianie wszystkich wykonywalnych skryptów w plikach package.json. Dzięki temu skrypty, które uruchamiane są w każdym z pakietów i ich konfiguracja jest taka sama mogą zostać wydzielone do osobnego folderu. Przy dodawaniu nowych skryptów należy jednak pamiętać o nadawaniu praw odczytu/zapisu. W tym celu najlepiej jest skorzystać z stworzonego skryptu poprzez wywołanie komedny 'yarn grant-scripty-permissions' znajdując się w głównym folderze. Komdena ta nadaje wymagane prawa dla wszystkich skryptów znajdujących się w folderze 'scripts'. Warto mieć na uwadzę, że prawa dla dodanych skryptów będą zapisane w histori gita dlatego też operacja ta wymagana jest tylko jednorazowo dla każdego nowego skryptu.
 
 \subsubsection{Zarządzanie wersją}
+
+
+
 git
 git hooki (husky \& lint staged, postinstall)
 
 \subsubsection{Zdalne repozytorium}
 github
-
-
-\subsubsection{Scripty}
