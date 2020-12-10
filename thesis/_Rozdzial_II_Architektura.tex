@@ -1,7 +1,7 @@
 \chapter{Architektura}
 \label{ch:funplenop}
 
-W tym rozdziale zostanie omówiona część projektu związana z architekturą oraz środowiskiem pracy
+W tym rozdziale zostanie omówiona część projektu związana z architekturą systemu, środowiskiem pracy oraz ogólnie przyjętymi założeniami.
 
 \section{Wiodąca technologia}
 
@@ -144,10 +144,11 @@ Nawiązując do poprzednio omawianej funkcjonalności lerny odnośnie uruchamian
 
 \subsubsection{Zarządzanie wersją}
 
+Praca programistów w dziejszym świecie niezależnie od języka programowania wiąże się z dużą ilością pracy oraz zmian wraz z rozowjem projektów, co w efekcie potrafi powodować wiele problemów. Rozwiązaniem na to są systemy zarządzania wersją. W omawianym projekcie wybrany został system 'git'. Tego rodzaju zarządzanie wersjami pozwala na dowolne przełączanie się pomiędzy wcześniej wysłanymi zmianami, przez co programista jest w stanie wrócić w każdym momencie w bardzo szybki sposób do poprzednich wersji, nie tracą przy tym też obecnie rozwiajnej. Narzędzie te posiada wbudowaną integrację z wybranym edytorem kodu 'Webstorm' przez co używanie tego rozwiązania jest intujcyjne dzięki wbudowanemu interfejsowi graficznemu. Poza wspominym zarządzaniem wersjami, system ten pozwala na budowę różnych funkcjonalności w separacji dzięki tzw. gałęziom (branches). Każda zmiana wymaga utworzenia tzw. commita, który zatwierdza zmiany i montuje je w aktualnie wybranej lub wskazanej gałęzi.
+W połączeniu z wcześniej omówionym narzędziem commitlint w sekcji lintery, narzędzie to jest w stanie prowadzić pewnego rodzaju dokumentacje. Zakładając używanie poprawnej notacji wiadomości kommitów, użytkownik w historii commitów będzie widział jasno udokumentowaną historię zmian.
 
-
-git
-git hooki (husky \& lint staged, postinstall)
+Git oferuje równiez system tzw. hooków czyli mechanizmów, które pozwalają na wpięcię się w cykl życia różnych wywoływanych funkcji gita. (https://git-scm.com/docs/githooks). Dodatkowym narzędziem, który wykorzystuje wspomnianą funkcjonalność oraz został wykorzystany w projekcie jest husky (https://typicode.github.io/husky). Dzięki temu, skrypty takie jak wspomiany eslint, prettier czy commitlint mogą być uruchamiane automatycznie podczas wywoływania wybranych git hooków. W połączeniu z huskym została również zastowana paczka 'lint-staged'(https://github.com/okonet/lint-staged), która w przypadku użycia eslint oraz prettier w git hookach sprawdza tylko pliki, które zostały zmienione od ostatniego commita, dzięki czemu analiza kodu jest dokonywana znacznie szybciej.
 
 \subsubsection{Zdalne repozytorium}
-github
+
+Kolejną rzeczą w kontekście zarządzania wersją jest Github. Serwis hostingowy przeznaczony dla repozytoriów z systemem git. Serwis ten powstał w 2008 roku oraz obecnie rozwijany jest przez firmę Microsoft (https://pl.wikipedia.org/wiki/GitHub). Z punktu widzenia zarządzania projektem (nie tylko programistycznego), jest to idealne oraz główne miejsce służące do przechowywania plików projektowych oraz kopii. Kod źródłowy omawianego projektu przechowywany jest właśnie z pomocą serwisu Github. Utrzymując projekt w sieci programiści w połączeniu z systemem git mają możliwość synchornicznej pracy nad jednym projektem oraz zunifikowany dostęp do projektu z każdego miejsca na świecie. Github posiada również wbudowane narzędzie 'Github Actions', które umożliwia uruchamianie zadeklarowanych skryptów w języtku yarml podczas tworzenia Pull Requestów. Pull Requesty są funkcjonalnością opcjonlną w pracy z tym narzędziem, jednak wysoko zalecanym wedle standardów projektowych. Pozawlają one na zebranie w jednym miejscu podsumowania wszystkich commitów, które chcemy połaczyć z wybraną gałęzią w gicie. Takie podsumowanie umożliwia równiez wyświetlenie informacji o statusie działania wspomnianch 'Github Actions' w kontekście nowo stworzonego pull requesta.

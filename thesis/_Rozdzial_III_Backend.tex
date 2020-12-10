@@ -1,31 +1,44 @@
 \chapter{Backend}
 \label{ch:funplenop}
-
-Wstęp ---
+W tym rozdziale zostaną przedstawione technologie oraz rozwiązania programistyczne z obaszru logiki biznesowej w systemie, przyjęte konkretnie w pakietach 'api', 'table' oraz 'table-manger'.
 
 \section{Node.js}
-Opis
 
-\section*{Express.js}
+% https://developer.mozilla.org/pl/docs/Learn/Server-side/Express_Nodejs/Introduction
+wieloplatformowe środowisko uruchomieniowe do tworzenia aplikacji w języku JavaScript (działa poza przeglądarką) do tworzenia aplikacji backendowych (praca z serwerami)
+komunikacja oraz praca z systemem operacyjnym
+wykorzystuje zoptymalizowany silnik V8 od firmy Google
+jednowątkowy ale bardzo zoptymalizowany
+wykres szybkości na przestrzeni wersji
+wbudowany w node npm (node package manager)
+bardzo duża społeczność
+
 
 \section{Feathers.js}
-Serwisy i hooki
-możliwości
-co ułatwia w projekcie
+% https://feathersjs.com/
+Nakładka na express
+Zorientowany na serwisy i hooki
+Generowanie serwisów
+Generwoanie hooków (warstwa pośrednia dla wszystkich operacji serwisów z podziałem na 'before', 'after', 'errors', łączenie hooków w ciągi)
+Adaptery bazy danych (feathers-mongoose)
+Autentykacja oparta na strategii JWT poprzez zapytania http
+
 
 \section{REST i Sockets}
 Opis Rest
 Opis Socket.IO
 Co realizują
 
+\section{MongoDB}
+mongoose
+mongodb
+połączenie z feathers
+'code as a infrustracure'
+
 \section{Docker}
+problem z uruchaminiem bazy danych w nowych środowiskach
 Opis
 Ze uruchamaia bazę danych lokalnie
-
-\section{MongoDB}
-    mongoose
-    mongodb
-    połączenie z feathers
 
 \section{GoogleDrive}
 - Zapisywanie zdjęć
@@ -38,4 +51,5 @@ Ze uruchamaia bazę danych lokalnie
 \section{System mailngowy}
 - Opis
 - Etheral
+- SendGrid w rozdziale publikacja
 - Wysyłka maili w połączeniu z nodemailer
