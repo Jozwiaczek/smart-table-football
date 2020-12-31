@@ -14,33 +14,45 @@ Zbudowane w systemie serwery opierają się o bibliotkę Express.js, która słu
 
 Podczas budowy pakietu 'api' został wykorzystany również mechanizm tej bilioteki do autogenerowania początkowej z  konfiguracji aplikacji oraz generowania serwisów i hooków na podstawie zbudowanej struktury.
 
-Kolejną bardzo istotną funkcjonalnością feathers.js zdefiniowaną w systemie jest adapter bazy danych 'feathers-mongose' oraz '@feathersjs/authentication', mechanizm autentykacji. Adapter bazy danych pozwala na prostą konfiguracje aplikacji działającej z bazą danych mongodb oraz deklaracje wykorzystywanych modeli opisujących strukture danych. Natomiast mechanizm autentykacji to dodatek oferujący narzedzia służące tworzeniu mechanizmu autentykacji. W systemie został użyty do utworzenia autentykacji ze startegią JWT (JavaScript Web Token) z algorytmem haszowania 'HS256'. 
+Kolejną bardzo istotną funkcjonalnością feathers.js zdefiniowaną w systemie jest adapter bazy danych 'feathers-mongose' oraz '@feathersjs/authentication', mechanizm autentykacji. Adapter bazy danych 'feathers-mongose' pozwala na prostą konfiguracje aplikacji działającej z bazą danych mongodb oraz deklaracje wykorzystywanych modeli opisujących strukture danych. Natomiast mechanizm autentykacji to dodatek oferujący narzedzia służące tworzeniu mechanizmu autentykacji. W systemie został użyty do utworzenia autentykacji ze startegią JWT (JavaScript Web Token) z algorytmem haszowania 'HS256'. 
 
 Łącząc te wszystkie funkcjonalności Feathers.js końcowo zwraca zestaw zabezpieczonych mechanizmem autentykacji endpointów w architekturze REST (Representail State Transfer), umożliwiając w ten sposób pozostałym aplikacją na operacje serwerowe i bazodanowe.
 
 \section{MongoDB}
-mongoose (modelowanie danych oraz operacje -- middleware między serwerem a mongodb)
-mongodb
-połączenie z feathers
-'code as a infrustracure'
+% https://www.mongodb.com
+Wybraną w projekcie bazą danych jest MongoDB. Jest to rodzaj nierelacyjnej bazy danych, w którym to strukturę określa się za pomocą schematów. Podczas tego wyboru rozważna była również baza relacyjna, która w efekcie końcowym mogłaby zapewnić większą integralność danych oraz kontrolę schematów i relacji. Mimo zalet baz relacyjnych, istotną kwestią na rozmiar projektu było utrzymanie całej struktury w jak najbardziej zunifikowanej formie. Dzięki podejściu jakie oferują nierelacyjne bazy danych struktura bazy danych została określna przy pomocy schmatów napisanych w jęzku JavaScript (w pakiecie 'api'). Kolejną bardzo ważną cechą MonoDB była możliwość dynamicznego skalowania bazy danych. Dzięki temu struktura bazy może być rozwijana i poprawiana w prosty i przejrzysty sposób.
+
+% https://mongoosejs.com
+Do określenia wspomnianych schematów i zamodelowania danych został zastosowany pakiet mongoose. Pakiet ten umożliwia budowanie struktury bazy danych w podejściu 'Code as a infrastructure' (Kod jako infrastruktura), co dla projektu oznacza budowanie infrastruktury w jednym miejscu razem z serwerem i jej kontrolę wersji wspólnie z resztą systemu. Wszystkie struktury/modele w projekcie zostały zaimplementowane w folderze 'packages/api/src/models'.
+
+Implementacja i konfiguracja bazdy danych została zaimplementowana przy użyciu paczki 'mongoose' i zrealizowana została w pliku mongoose.js w pakiecie api. Dodatkową paczką, która została zainstalowana w celu integeracji z Feathers.js była 'feathers-mongose'. Umożliwia ona tworzenie zintegrowanych serwisów z podanymi w argumentach modelami mongodb.
 
 \section{Socket.io}
+W celu implementacji funkcjonalności realizowanych w czasie rzeczywistym jak na przykład widok gry użytkownika, została zaimplementowana paczka Socket.io. Pakiet ten u podstawy korzysta z protokółu komunikacji websockets, lecz nie jest jego bezpośrednią formą implementacji. Głównymi funkcjonalnościami paczki jakie zostały zastosowane w budowie systemu oraz odróżniającymi ją od jej podstawy (websocket) jest prosta komunikacja na podstawie wydarzeń, 'broadcasting' (wysyłanie wiadomości do wszystkich oprócz siebie) oraz intuicyjna integracje z biblioteką Feathers.js.
 
 \section{Docker}
-problem z uruchaminiem bazy danych w nowych środowiskach
-Opis
-Ze uruchamaia bazę danych lokalnie
+W celu uniknięcia skomplikowanego i zróżnicowanego sposobu (dla wielu środowisk uruchomieniowych) konfiguracji początkowej bazy danych, zostało zastosowne narzędzie konteneryzacji jakim jest Docker. Dzięki temu narzędziu lokalna praca z projektem wymaga jedynie uruchomienia aplikacji Dockera oraz wpisaniu trzech krótkich komend w terminalu, a całość konfigurowana jest już w sposób automatyczny. Po uruchomieniu wsponianych komend (opisanych w Rozdziale Aplikacja), inicjalizowana jest baza danych MongoDB w lokalnym kontenerze aplikacji docker.
 
 \section{GoogleDrive}
-- Zapisywanie zdjęć
-- API
+Ze względu na maksymalny rozmiar pojdyńczego dokumentu w bazie danych MongoDb jaki wynosi 16MB, do przechowywania powtórek strzelonych goli zastosowano zewnętrzny serwis Google Drive. Serwis ten został wybrany ze względu na nielimitowaną ilość dostępnego miejsca na przechowywanie plików autora. Każdy plik wideo zapisywany jest w tym serwisie po strzelonym golu. Dostęp do tego pliku i jego wyświetlenia uzyskiwany jest po jednoczesnym zapisywaniu linku w bazie danych przypisanego do instacji strzelonego gola.
 
 \section{OnOff - obsługa GPIO}
-- OPIS
-- Prosta obsługa GPIO
+Do obsługi podstawowej funkcjonalności minikomputera Raspberry pi GPIO (General Purpose Input Output), została zastosowana biblioteka 'OnOff'. Umożliwia ona dostęp oraz zarządzanie sensorami, czujnikami oraz wszelkimi urządzeniami wejścia/wyjścia podłaczonymi do Raspberry poprzez GPIO. Jej implementacja oparata jest o język JavaScript i środowisko uruchomieniowe Node.js. Użycie tej biblioteki pozowliło na intuicyjne oraz proste obsługę czujników bramek oraz diod sygnalizujących stan meczu.
+
+Przykładowa implemetnacja uruchomienia diody sygnalizującej stan meczu:
+
+\begin{lstlisting}[breaklines=true]
+    const { Gpio } = require('onoff');
+
+    const MATCH_LIGHT = new Gpio(15, 'out');
+
+    MATCH_LIGHT.writeSync(1);
+\end{lstlisting}
 
 \section{System mailngowy}
-- Opis
-- Etheral
-- SendGrid w rozdziale publikacja
-- Wysyłka maili w połączeniu z nodemailer
+System w swojej budowie wykorzystuje funkcjonalność maillingu na potrzeby bezpieczeństwa kont użytkowników oraz dla większej interaktywności. System automatycznie wysła maile podczas rejestracji użytkownika do potwierdzenia maila oraz podczas akcji resetowania hasła konta użytkownika. Innym miejscem, w którym wykorzystywana jest ta funkcjonalność jest zapraszanie nowych graczy do systemu przez zarejestrowane już osoby. Kolejną funkcjonalnością zbudowanego systemu mailinogowego jest wysyłanie maili do wybranych użytkowników systemu z poziomu panelu administratora.
+
+W celu implementacji tej funkcjonalności zastosowany został moduł 'nodemailer' dla aplikacji Node.js w pakiecie 'api'. Moduł ten, widnieje w systemie jako zdefniowany serwis, a jego głowna definicja znajduje się w klasie (packages/api/services/mailer/mailer.class.js).
+
+% https://ethereal.email/
+Do lokalnej pracy oraz testów z system mailingowym zastosowany został zewnętrzny serwis Etheral. Dzięki temu, lokalna praca nie wymagała konfiguracji oraz korzystania z zewnętrznych serwisów maillingowych oraz wykorzystywania prawdziwych kont mailowych. Użycie tego zewnętrznego serwisu wymaga jedynie wpisania danych użytkownika w ogólnej konfiguracji serwera w pakiecie api ( Rozdział Aplikacja). Wersja produkcjna, która zaś przwiduje dostarczanie widomości mailowych realnym użytkownikom zrealizowana została przy pomocy zewnętrznego serwisu 'SendGrid', który to oferuje darmowy plan wykorzystania w podstawowej formie (Rozdział Publikacja).

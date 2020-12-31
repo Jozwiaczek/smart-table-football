@@ -40,49 +40,12 @@ Ważnym aspektem wersji tego języka jest jego wspieranie w różnych przegląda
 Na podstawie wybranego podejścia budowy aplikacji oraz języku programowania musiałem określić stos technologiczny wykorzystywany w projekcie.
 Ze względu na zakres projektu i cel zapewnienia jak najprostszej dalszej rozbudowy projektu oraz moje doświadczenie komercyjne w budowaniu aplikacji internetowej zdecydowałem się wybrać stos technologiczny zwany MERN (Mongo-Express-React-Node). W poniższych sekcjach rozwinę zagadnienia związane z każdą z tych technologii oraz przeanalizuję podjęty wybór na tle innych alternatyw.
 
-\section{Diagramy}
+\section{Diagram klas}
 
 \begin{tabular}{c}
     \includegraphics[width=\textwidth]{images/diagrams/class_diagram.png}  \\
     \includegraphics[width=\textwidth]{images/diagrams/class_diagram_rest.png}
 \end{tabular}
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.5\textwidth]{images/diagrams/class_diagram.png}
-  \caption{Diagram klas}
-  \label{fig:mobile}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.5\textwidth]{images/diagrams/class_diagram_rest.png}
-  \caption{Digram klas bez relacji}
-  \label{fig:mobile}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.5\textwidth]{images/diagrams/match_event_flow.png}
-  \caption{Digram sekwencji dla działania stołu}
-  \label{fig:mobile}
-\end{figure}
-
-\begin{center}
-  \begin{tikzpicture}
-  \umlclass[y=-3]{B}{
-    d : double
-  }{
-    \umlvirt{setB(b : B) : void} \\ getB() : B}
-  \umlclass{Player}{
-    User \\ firstName
-  }{}
-  \umlclass[x=2,y=-10]{D}{
-    n : uint
-    }{}
-  \umlinherit[geometry=-|]{D}{B}
-  \end{tikzpicture}
-  \end{center}
 
 \section{Struktura projektu}
 Ze względu na fakt budowy wielu serwisów, które mogą dzielić między sobą zasoby oraz potrzebują siebie nawzajem do prawidłowego działania potrzebowałem narzędzia, które umożliwi mi dynamiczną pracę miedzy serwisami. Podczas planowania struktury i przyszłego zarządzania projektem brałem pod uwagę 3 podejścia. W każdym z przedstawionym przykładzie zakładam korzystanie z git'a oraz menadżera zależności Yarn.
