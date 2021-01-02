@@ -37,7 +37,7 @@ W celu uniknięcia skomplikowanego i zróżnicowanego sposobu (dla wielu środow
 Ze względu na maksymalny rozmiar pojdyńczego dokumentu w bazie danych MongoDb jaki wynosi 16MB, do przechowywania powtórek strzelonych goli zastosowano zewnętrzny serwis Google Drive. Serwis ten został wybrany ze względu na nielimitowaną ilość dostępnego miejsca na przechowywanie plików autora. Każdy plik wideo zapisywany jest w tym serwisie po strzelonym golu. Dostęp do tego pliku i jego wyświetlenia uzyskiwany jest po jednoczesnym zapisywaniu linku w bazie danych przypisanego do instacji strzelonego gola.
 
 \section{OnOff - obsługa GPIO}
-Do obsługi podstawowej funkcjonalności minikomputera Raspberry pi GPIO (General Purpose Input Output), została zastosowana biblioteka 'OnOff'. Umożliwia ona dostęp oraz zarządzanie sensorami, czujnikami oraz wszelkimi urządzeniami wejścia/wyjścia podłaczonymi do Raspberry poprzez GPIO. Jej implementacja oparata jest o język JavaScript i środowisko uruchomieniowe Node.js. Użycie tej biblioteki pozowliło na intuicyjne oraz proste obsługę czujników bramek oraz diod sygnalizujących stan meczu.
+Do obsługi podstawowej funkcjonalności minikomputera Raspberry pi GPIO (Rozdział 5 - Hardware - Raspberry), została zastosowana biblioteka 'OnOff'. Umożliwia ona dostęp oraz zarządzanie sensorami, czujnikami oraz wszelkimi urządzeniami wejścia/wyjścia podłaczonymi do Raspberry poprzez GPIO. Jej implementacja oparata jest o język JavaScript i środowisko uruchomieniowe Node.js. Użycie tej biblioteki pozowliło na intuicyjne oraz proste obsługę czujników bramek oraz diod sygnalizujących stan meczu.
 
 Przykładowa implemetnacja uruchomienia diody sygnalizującej stan meczu:
 
