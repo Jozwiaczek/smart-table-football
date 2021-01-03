@@ -26,10 +26,11 @@ Ze względu, że serwer (pakiet api) wymagał środowiska uruchomieniowego node.
 \textit{MONGOLAB\_URI} & Adres url do bazy danych MongoDB \\ \hline
 \textit{NODE\_ENV} & 'production' - definicja środowiska uruchomieniowego \\ \hline
 \end{tabular}
+\caption{Tabela zmiennych środowiskowych dla aplikacji serwera}
 \end{table}
 
 \subsection{Strony internetowe}
-Strony internetowe czyli pakiet admin oraz player zostały upublicznione wykorzystując serwis Netlify.com. Różnicą pomiędzy Heroku jest fakt, że netlify bezpośrednio nie oferuje publikacji serwerów lecz jedynie pliki statyczne. Przewagą tego serwisu jednak jest możliwośc publikacji strony z darmowym certyfikatem ssl. Inną zaletą jest jeszcze konfiguracja i zarządzanie upublicznioną stroną, która jest bardzo przejrzysta, intuicyjna oraz oferuje dużo dodatków ułatwiających prace lub optymalizaje stron. W przypadku stron internetowych obdwa serwisy wymagaja podania w w ekranie konfiguracji stron, jeden zmiennej środowiskowej 'REACT\_APP\_API\_URL', która to wskazuje na adres URL serwera systemu.
+Strony internetowe czyli pakiet admin oraz player zostały upublicznione wykorzystując serwis Netlify.com. Różnicą pomiędzy Heroku jest fakt, że netlify bezpośrednio nie oferuje publikacji serwerów lecz jedynie pliki statyczne. Przewagą tego serwisu jednak jest możliwośc publikacji strony z darmowym certyfikatem ssl. Inną zaletą jest jeszcze konfiguracja i zarządzanie upublicznioną stroną, która jest bardzo przejrzysta, intuicyjna oraz oferuje dużo dodatków ułatwiających prace lub optymalizaje stron. W przypadku stron internetowych obdwa serwisy wymagaja podania w ekranie konfiguracji stron, jeden zmiennej środowiskowej 'REACT\_APP\_API\_URL', która to wskazuje na adres URL serwera systemu.
 
 
 \section{Continous Delivery}
