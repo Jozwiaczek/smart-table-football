@@ -5,7 +5,7 @@ import { useTranslate } from 'react-admin';
 
 import { IOSShareIcon, STFIcon } from 'stf-ui-components';
 
-import usePWAIsIOS from '../hooks/usePWAIsIOS';
+import usePWAPromptCheck from '../hooks/usePWAPromptCheck';
 import Modal from './Modal';
 
 const useStyles = makeStyles(() => ({
@@ -28,7 +28,7 @@ const InstallPWAModal = () => {
   const classes = useStyles();
   const t = useTranslate();
   const [isOpen, setIsOpen] = useState(false);
-  const { prompt } = usePWAIsIOS();
+  const { prompt } = usePWAPromptCheck();
 
   const onClose = () => {
     setIsOpen(false);

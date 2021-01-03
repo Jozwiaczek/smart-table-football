@@ -12,6 +12,7 @@ const checkForIOS = ([installPrompt, setInstallPrompt]) => {
   const lastPrompt = moment(installPrompt);
   const days = moment(today).diff(lastPrompt, 'days');
   const ua = window.navigator.userAgent;
+  const isAndroid = !!ua.match(/Android/i);
   const webkit = !!ua.match(/WebKit/i);
   const isIPad = !!ua.match(/iPad/i);
   const isIPhone = !!ua.match(/iPhone/i);
@@ -19,7 +20,7 @@ const checkForIOS = ([installPrompt, setInstallPrompt]) => {
   const isSafari = isIOS && webkit && !ua.match(/CriOS/i);
 
   // eslint-disable-next-line no-restricted-globals
-  const prompt = (isNaN(days) || days > 30) && isIOS && isSafari;
+  const prompt = (isNaN(days) || days > 30) && ((isIOS && isSafari) || isAndroid);
 
   if (prompt) {
     setInstallPrompt(today);
@@ -28,7 +29,7 @@ const checkForIOS = ([installPrompt, setInstallPrompt]) => {
   return { isIOS, isSafari, prompt };
 };
 
-export default function useIsIOS() {
+export default function usePWAPromptCheck() {
   const [isIOS, setIsIOS] = useState({});
   const installPrompt = useLocalStorage('installPrompt');
 
