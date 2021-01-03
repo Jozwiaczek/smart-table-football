@@ -3,6 +3,7 @@
 
 W tym rozdziale zostanie omówiona część projektu związana z publikacją aplikacji do publicznego dostępu.
 
+\label{publication:sendgrid}
 \section{SendGrid}
 Na etapie publikacji aplikacji, funkcjonalność mailingu wymagała konfiguracji zewnętrznego serwisu odpowiedzialnego za wysyłanie maili, zbieranie statystyk oraz potencjalnych kampani mailiowych. W tym celu pakiet 'api', wymagał zmiany konfiguracji hosta maillingu oraz klucza API do wybranego konta w serwisie SendGrid.
 
@@ -31,7 +32,6 @@ Ze względu, że serwer (pakiet api) wymagał środowiska uruchomieniowego node.
 
 \subsection{Strony internetowe}
 Strony internetowe czyli pakiet admin oraz player zostały upublicznione wykorzystując serwis Netlify.com. Różnicą pomiędzy Heroku jest fakt, że netlify bezpośrednio nie oferuje publikacji serwerów lecz jedynie pliki statyczne. Przewagą tego serwisu jednak jest możliwośc publikacji strony z darmowym certyfikatem ssl. Inną zaletą jest jeszcze konfiguracja i zarządzanie upublicznioną stroną, która jest bardzo przejrzysta, intuicyjna oraz oferuje dużo dodatków ułatwiających prace lub optymalizaje stron. W przypadku stron internetowych obdwa serwisy wymagaja podania w ekranie konfiguracji stron, jeden zmiennej środowiskowej 'REACT\_APP\_API\_URL', która to wskazuje na adres URL serwera systemu.
-
 
 \section{Continous Delivery}
 Zarówno serwis Heroku jak i Netlify oferują możliwość ciągłego dostarczania (po ang. Continous Delivery). Oznacza to, że publikacja strony występuje za każdym razem kiedy programista wyśle zmiany na określony branch w zdalnym repozytorium. Dzięki takiej funkcjonalności nie trzeba za każdym razem przechodzić procesu publikacji strony, gdyż dzieje sie to automatycznie. Podczas realizacji projektu zastosowano podejście tworzenia gałęzi z kolekcją zmian oraz łączenie ich z branchem masterem, po którym autmatycznie następowała publikacja nowych wersji aplikacji.

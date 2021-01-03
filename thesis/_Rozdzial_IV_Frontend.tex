@@ -1,13 +1,12 @@
 \chapter{Frontend}
-\label{ch:funplenop}
+\label{ch:frontend}
 W tym rozdziale zostanie omówiona część projektu związana z oprogramowaniem zbliżonemu temu co widzi docelowy użytkownik aplikacji, skupiając się tym samym na technologiach wykorzystywanych w pakietach 'admin', 'player' oraz 'ui-components'.
 
 \section{HTML5}
-Aplikacje docelowe, które widzi użytkownik to ogólnie mówiąc strony internetowe. U swej podstawy pakiety 'admin', 'player' oraz 'ui-components' wykorzystują hipertesktowy język znaczników w wersji 5 (HTML5 - HyperText Markup Language). W całym systemie jednak nie ma bezpośrenio zdefiniowanych plików z roszerzeniem '.html', lecz jego struktura i semantyka jest wykorzystywana niemalże wszędzie. Omawiana technologia to również międzynarodowy standard, którego przetworzeniem zajmują się współczesne przegladarki internetowe i wiele innych narzędzi. Specyfikacją tego standardu zajmuje się globalna organizacja 'World Wide Consortium' (https://developer.mozilla.org/pl/docs/Web/HTML).
+Aplikacje docelowe, które widzi użytkownik to ogólnie mówiąc strony internetowe. U swej podstawy pakiety 'admin', 'player' oraz 'ui-components' wykorzystują hipertesktowy język znaczników w wersji 5 (HTML5 - HyperText Markup Language). W całym systemie jednak nie ma bezpośrenio zdefiniowanych plików z roszerzeniem '.html', lecz jego struktura i semantyka jest wykorzystywana niemalże wszędzie. Omawiana technologia to również międzynarodowy standard, którego przetworzeniem zajmują się współczesne przegladarki internetowe i wiele innych narzędzi. Specyfikacją tego standardu zajmuje się globalna organizacja 'World Wide Consortium'. \cite{HTMLDocs}
 
 \section{CSS}
-% https://pl.wikipedia.org/wiki/Kaskadowe_arkusze_styl%C3%B3w
-Każda z reprezentowanych obecnie aplikacji internetowych posiada swoją indywidualną formę prezentacji. Do opisów stylów na stronach wykorzystywane są kaskadowe arkusze stylków (ang. Cascading Style Sheets, w skrócie CSS). Pakiety jakie zostały zastosowane w projekcie do stylowania z wykorzystaniem CSS3 to 'Styled Components' oraz '@material-ui/styles', które wykorzystują podejście 'CSS-in-JS'. W praktyce takowe podjeście oznacza deklaracje stylów w plikach JavaScript oraz modularyzacje ich per komponenty. Wykorzystanie tych dwóch pakietów w porówaniu ze standardowym podejściem stylowania CSS3, pozwala na uzyskanie szeregu korzyści:
+Każda z reprezentowanych obecnie aplikacji internetowych posiada swoją indywidualną formę prezentacji. Do opisów stylów na stronach wykorzystywane są kaskadowe arkusze stylków. Pakiety jakie zostały zastosowane w projekcie do stylowania z wykorzystaniem CSS3 to 'Styled Components' oraz '@material-ui/styles', które wykorzystują podejście 'CSS-in-JS'. W praktyce takowe podjeście oznacza deklaracje stylów w plikach JavaScript oraz modularyzacje ich per komponenty. Wykorzystanie tych dwóch pakietów w porówaniu ze standardowym podejściem stylowania CSS3, pozwala na uzyskanie szeregu korzyści:
 
 \begin{itemize}
     \item Kod źródłowy jest znacznie bardziej przejrzysty
@@ -20,7 +19,7 @@ Każda z reprezentowanych obecnie aplikacji internetowych posiada swoją indywid
 
 Wymienione funkcjonalności to zaledwie część wszystkich zalet tych dwóch biliotek, jednak są one najbardziej kluczowe względem budowy całego omawianego systemu. Ich połączenie oraz implementacja razem z bilitoteką React.js tworzy synergie w tworzeniu modularnych (z wykorzystaniem komponentów) aplikacji internetowych. 
 
-
+\label{ch:frontend:react}
 \section{React}
 Główną technologią na której oparte są pakiety w sytemie reprezentujące interfejsy użytkownika to React.js. Javascrpitowa bilioteka zbudowana i rozwiajana przez firmę Facebook od 2013 roku, przeznaczona do budowania interfejsów użytkowników. React w swych głównych założeniach wykorzystuje JSX, który jest rozszerzeniem składni javascriptu o możlwiość dodwania znaczników HTML. Takie podejście oferuje możliwości budowania elementów składających się zarówno ze styli, znaczników HTML jak i logiki napisanej w języku JavaScript, a następnie łączenie wszystkich elementów w całość.
 
@@ -37,17 +36,18 @@ Narzędzie te wymaga jedynie zainstalowanego w systemie 'Node.js'. Stworzenie za
     npx create-react-app nazwa-aplikacji
 \end{lstlisting}
 
-
+\label{ch:frontend:pwa}
 \section{PWA}
-PWA to rodzaj zastosowanego w projekcie podejścia w budowaniu aplikacji internetowych. Jest to skrót od Progressive Web App (Progresywna Aplikacja Internetowa). Głównym założeniem jest budowa stron internetowych możliwie jak najbardziej zbliżonych wyglądem i funkcjonalnościami do aplikacji moblinych i desktopowych bez budowania osobnych aplikacji. Tego rodzaju podejście w swym założeniu zakłada budowe aplikacji opartych o HTML, JavaScript oraz CSS lecz może być ona rozwinięta o technologie jak React. Atrytubutami tego typu aplikacji jest między innymi obsługa użytkownia w trybie offline, responsynwość, bezpieczeństwo (wymagany certyfikat strony SSL), ciągła aktualność z bieżącą wersją, prędkość działania, możliwosc instalacji aplikacji.
+PWA to rodzaj zastosowanego w projekcie podejścia w budowaniu aplikacji internetowych. Jest to skrót od Progressive Web App (Progresywna Aplikacja Internetowa). Głównym założeniem jest budowa stron internetowych możliwie jak najbardziej zbliżonych wyglądem i funkcjonalnościami do aplikacji moblinych i desktopowych bez budowania osobnych aplikacji. Tego rodzaju podejście w swym założeniu zakłada budowe aplikacji opartych o HTML, JavaScript oraz CSS lecz może być ona rozwinięta o technologie jak React. Atrytubutami tego typu aplikacji jest między innymi obsługa użytkownia w trybie offline, responsynwość, bezpieczeństwo (wymagany certyfikat strony SSL), ciągła aktualność z bieżącą wersją, prędkość działania, możliwosc instalacji aplikacji (Przykład instalacji aplikacji PWA na ilustracji \ref{fig:pwa-installation}).
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/player/PWA_install.jpg}
+    \includegraphics[width=0.4\textwidth]{images/player/PWA_install.jpg}
     \caption{Instalacja aplikacji PWA w systemie IOS}
-    \label{fig:mobile}
+    \label{fig:pwa-installation}
 \end{figure}
 
+\label{section:material-ui}
 \section{Material UI}
 Kolejną biblioteką JavaScript'ową zastosowaną w projekcie jest Material-UI. Jest to zbiór komponentów reactowych, rozwiajny przez firmę Google, opartych o zdefinowany i wysoco ceniony przez programistów zbiór zasad designu Material Design. Biblioteka ta pozwala na budowanie aplikacji z gotowych komponentów z możlwiością ich dostosywania i utrzymywania jednolitego stylu w całej aplikacji. Dzięki charakterystycznym komponentom graficznym użytkownicy aplikacji są w stanie znacznie szybciej dokonywać pożądanych akcji przez znane i popularne dla nich elementy graficzne. Wszystkie komponenty zachowują dobre praktyki dostępności oraz zapewniają swoją responsywność na różnych urządzeniach.
 
@@ -68,7 +68,7 @@ Głównymi funkcjonalnościami jakie oferuje react admin i zostały wkorzystane 
 Narzędzie te pozwala na pełną modyfikowalność całego szkieletu interfejsu graficznego. Pakiet 'admin' został zbudowany praktycznie bez wprowadzania żadanych modyfikacji co do wyglądu aplikacji. Pakiet 'player' natomiast wymorzystał pełną gamme możliwości rozbudowy aplikacji oraz funkcjonalności tego framework'u.
 
 \section{Storybook}
-Ostatnim narzędziem użytym w części projektu służącej budowie interfejsu graficznego jest Storybook. Jest to narzędzie to budowania komponentów graficznych w odizolowaniu od ich logiki. W praktyce oznacza to, że programista może przykładowo stworzyć przycisk, który będzie przyjmował jakieś właśności takie jak kształt, kolor czy wariant i będzie mógł przetestować ich różne formy wyświetlania w zależności od tych parametrów bez podawania logiki, która mówić co taki przycisk ma robić.
+Ostatnim narzędziem użytym w części projektu służącej budowie interfejsu graficznego jest Storybook. Jest to narzędzie to budowania komponentów graficznych w odizolowaniu od ich logiki. W praktyce oznacza to, że programista może przykładowo stworzyć przycisk, który będzie przyjmował jakieś właśności takie jak kształt, kolor czy wariant i będzie mógł przetestować ich różne formy wyświetlania w zależności od tych parametrów bez podawania logiki, która mówić co taki przycisk ma robić. Na ilustracji \ref{fig:storybook} znajduje się przykładowy widok działania komponentu w aplikacji storybook.
 
 W systemie znajdują się dwa pakiety zakładające budowe interfejsów graficznych, które wykorzystują nieraz te same komponenty lub konfiguracje. W celu uniknięcie duplikacji kodu powstał pakiet 'ui-components', którego głównym założeniem jest budowa komponentów wykorzystywanych w obydwu tych pakietów z pomocą Storybooka. Jedną z funkcjonalności tego narzędzia jest również autogenerowanie, z którego pomocą został skonfigurowany pakiet 'ui-components'. 
 
@@ -76,5 +76,5 @@ W systemie znajdują się dwa pakiety zakładające budowe interfejsów graficzn
     \centering
     \includegraphics[width=0.5\textwidth]{images/ui-components/storybook.png}
     \caption{Działanie storybook}
-    \label{fig:mobile}
+    \label{fig:storybook}
 \end{figure}
