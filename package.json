@@ -61,7 +61,7 @@
     "sort-package-json": "^1.48.0"
   },
   "engines": {
-    "node": ">=12",
-    "yarn": ">=1.22"
+    "node": ">=12.x",
+    "yarn": ">=1.x"
   }
 }
