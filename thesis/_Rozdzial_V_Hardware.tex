@@ -3,11 +3,11 @@
 W tym rozdziale zostanie omówiona część projektu która skupia się na przedstawieniu zagadnień związanych z realizacją fizycznej części projektu.
 
 \section{Projekt modelu bramki}
-W celu prezentacji funkcjonalności działania czujników oraz zbudowanej aplikacji została zaprojektowana pokazowa bramka do piłkarzyków. Celem tego prototypu jest pokazanie funkcjonalności systemu na realnej bramce, lecz bez zapewnininia możliwości faktycznej gry. 
+W celu prezentacji funkcjonalności działania czujników oraz zbudowanej aplikacji została zaprojektowana pokazowa bramka do piłkarzyków. Celem tego prototypu jest pokazanie funkcjonalności systemu na realnej bramce, lecz bez zapewnienia możliwości faktycznej gry. 
 
 Model bramki z przodu przewiduje 4 małe otwory na potencjalne mocowanie do stołu piłkarzykowego, 2 otwory na kable dla czujników oraz główny otwór bramki.
 
-Tył bramki posiada natomiast otwierany tył (przykręcany wkrętami), tak by montaż czujników i ich potencjalna wymiana była prosta. Podczas projektowania środka przygotowano miejsce na dwa czujniki (w założeniu fotorezytory), z odpowiednim prowadzeniem kabli, które nie ingeruje w ruch piłki. Środek bramki posiada również specyficzną budowę dwóch poziomów co zostało przedstawione na ilustracji \ref{fig:inside-of-gate-model}. Taka budowa pozwala na zmniejszenie dźwięku wpadającej piłki, zmniejszenie jej prędkości przed przejściem przez czujnik (gdyby piłka za szybko wpadła czujnik mógłby nie zliczyć puntu) oraz utrudnia ona dostęp do samego czujnika potencjalnym graczom.
+Tył bramki jest natomiast otwierany (przykręcany wkrętami), tak by montaż czujników i ich potencjalna wymiana była prosta. Podczas projektowania środka przygotowano miejsce na dwa czujniki (w założeniu fotorezystory), z odpowiednim prowadzeniem kabli, które nie ingeruje w ruch piłki. Środek bramki posiada również specyficzną budowę dwóch poziomów co zostało przedstawione na ilustracji \ref{fig:inside-of-gate-model}. Taka budowa pozwala na zmniejszenie dźwięku wpadającej piłki, zmniejszenie jej prędkości przed przejściem przez czujnik (gdyby piłka za szybko wpadła czujnik mógłby nie zliczyć punktu) oraz utrudnia ona dostęp do samego czujnika potencjalnym graczom.
 
 \begin{figure}[h!]
   \centering
@@ -17,7 +17,7 @@ Tył bramki posiada natomiast otwierany tył (przykręcany wkrętami), tak by mo
 \end{figure}
 
 \section{Druk 3D}
-Gotowy projekt modelu został przygotowany do druku w programie Cura. Na ilustracji \ref{fig:cura-file-preparation} przygotowant został główny element bramki w omawianym programie. Czas druku samej bramki zajął około 30 godzin. Poza bramką wydrukowane zostały również elemnty takie jak tył bramki oraz piłka. W celu odwzorowania ruchu piłki taki jaki występuje podczas gry w piłkarzyki, gabaryty oraz waga piłeczki zostały zbliżone tym dostępnych na rynku (średnica 35 milimetrów oraz około 15 gram wagi). Ze względu na cenę i dostępność wszystkie elementy zostały wydukowane z materiału PLA na drukarce Ender CR20 Pro.
+Gotowy projekt modelu został przygotowany do druku w programie Cura. Na ilustracji \ref{fig:cura-file-preparation} przygotowany został główny element bramki w omawianym programie. Czas druku samej bramki zajął około 30 godzin. Poza bramką wydrukowane zostały również elementy takie jak tył bramki oraz piłka. W celu odwzorowania ruchu piłki takiego jaki występuje podczas gry w piłkarzyki, gabaryty oraz waga piłeczki zostały zbliżone do tych dostępnych na rynku (średnica 35 milimetrów oraz około 15 gram wagi). Ze względu na cenę i dostępność wszystkie elementy zostały wydrukowane z materiału PLA na drukarce Ender CR20 Pro.
 
 \begin{figure}[h!]
   \centering
@@ -28,7 +28,7 @@ Gotowy projekt modelu został przygotowany do druku w programie Cura. Na ilustra
 
 \label{ch:hardware:raspberrypi}
 \section{Raspberry PI}
-Kolejnym i ostatnim elementem systemu w tym rozdziale jest zastsowane w projekcie Raspberry Pi. Mini komputer, który odpowiada za zarządzanie i komunikacje urzedzęń takich jak kamera, diody czy sensory bramek z resztą systemu. Zaprojektowany i rozwijany przez brytyjską organizację Raspberry Pi. Alternatywami podczas wyboru mini komputera były inne wersje Raspberry Pi lub Arduino. Projekt wykorzystuje wersje Raspberry Pi 4B ze względu przez posiadanie przez autora już tego modelu. Urzędzenie te oferuje proste podłączenie kamery zarówno po złączu USB jak i natywny dla Raspberry wejściu kamery. Pozostałe czujniki/diody podłączane są z użyciem GPIO. GPIO oznacza wejście-wyjście ogólnego przeznaczenia (od ang. general-purpose input/output).
+Kolejnym i ostatnim elementem systemu w tym rozdziale jest zastosowane w projekcie Raspberry Pi. Mini komputer, który odpowiada za zarządzanie i komunikacje urządzeń, takich jak kamera, diody czy sensory bramek z resztą systemu. Zaprojektowany i rozwijany przez brytyjską organizację Raspberry Pi. Alternatywami podczas wyboru mini komputera były inne wersje Raspberry Pi lub Arduino. Projekt wykorzystuje wersje Raspberry Pi 4B ze względu na posiadanie przez autora już tego modelu. Urządzenie te oferuje proste podłączenie kamery zarówno po złączu USB jak i wykorzystując natywne dla Raspberry wejście kamery. Pozostałe czujniki/diody podłączane są z użyciem GPIO. GPIO oznacza wejście-wyjście ogólnego przeznaczenia (od ang. general-purpose input/output).
 
 Do omawianego narzędzia została podłączona kamera, dwa sensory bramek oraz pięć diod indykujących stan działania stołu co przedstawia rysunek \ref{fig:connected-gate}. Wykorzystany w projekcie sensor bramki to dokładnie czujnik przerwania wiązki IR o wymiarach 20 x 10 x 8 milimetrów.
 

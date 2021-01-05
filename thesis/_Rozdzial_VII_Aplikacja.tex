@@ -6,13 +6,13 @@ System podzielony jest na siedem pakietów, tym samym w tym rozdziale każda sek
 
 \section{Przygotowanie projektu na komputerze}
 Szczegółowy opis instalacji oraz uruchomienia każdej z paczek zostanie przedstawiony w sekcjach poniżej.
-Poniższy sposób uruchomienia opisuję w podejściu jednego Raspberry oraz osobnego komputera w tej samej sieci lokalnej . Cały proces uruchomienia może zostać zrealizowany na jednym Raspberry lecz trwa to znacznie dłużej niż w przypadku pierwszego rozwiązania. Paczki `table` oraz `table-manager` muszą zostać uruchomione na Raspberry Pi. Zalecanym jest by proces przygotowywania projektu przeprowadzić zgodnie z poniszą kolejnością opisywanych paczek.
+Poniższy sposób uruchomienia opisuję w podejściu jednego Raspberry oraz osobnego komputera w tej samej sieci lokalnej . Cały proces uruchomienia może zostać zrealizowany na jednym Raspberry lecz trwa to znacznie dłużej niż w przypadku pierwszego rozwiązania. Paczki `table` oraz `table-manager` muszą zostać uruchomione na Raspberry Pi. Zalecanym jest by proces przygotowywania projektu przeprowadzić zgodnie z poniższą kolejnością opisywanych paczek.
 
 \subsection{Wymagane narzędzia}
 Przed przejściem do instalacji paczek na komputerze, użytkownik powinien sprawdzić obecność oraz wersje potrzebnych w uruchomienia narzędzi i oprogramowania.
 
 \begin{itemize}
-	\item Node.js - Minimalna wersja 12 (Do tej instalacji zalecanym jest użycie menadżera wersji node - NVM). Opisany w rozdziale \ref{section:node}
+	\item Node - Minimalna wersja 12 (Do tej instalacji zalecane jest użycie menadżera wersji node - NVM). Opisany w rozdziale \ref{section:node}
 	\item Yarn - Menadżer pakietów i zależności. W projekcie jego rolą jest instalacja zewnętrznych pakietów oraz zarządzanie workspacesami.
 	\item Docker - W projekcie odpowiada za konteneryzacje instancji bazy danych. Potrzebne tylko w środowisku uruchomienia paczki 'api'. Opisany w rozdziale \ref{section:docker}
 \end{itemize}
@@ -26,15 +26,15 @@ Przed przejściem do instalacji paczek na komputerze, użytkownik powinien spraw
 \end{itemize}
 
 \subsubsection{Google Drive}
-W celu umożliwienia systemowi przechowywanie wideo nagrań odtwarzających sytuacje z zapisanych goli podczas meczu należy skonfigurować zewnętrzny serwis w którym przechowywane są pliki wideo:
+W celu umożliwienia systemowi przechowywania wideo nagrań odtwarzających sytuacje z zapisanych goli podczas meczu należy skonfigurować zewnętrzny serwis, w którym przechowywane są pliki wideo:
 
 \begin{itemize}
 	\item Stworzyć lub/i zalogować się do istniejącego konta Google.
 	\item Zalogować się w developerskiej konsoli Google
 	\item Utworzyć nowy projekt
-	\item W konsoli Google API uaktywnić interfejs 'Drive API' w wersji 3.
+	\item W konsoli Google API uaktywnić interfejs 'Drive API' w wersji 3
 	\item W zakładce \textit{Dane logowania} utworzyć nowe konto usługi
-	\item Po utworzeniu nowego konta nalezy utworzyć nowy klucz prywatny dla nowego konta
+	\item Po utworzeniu nowego konta należy utworzyć nowy klucz prywatny dla nowego konta
   \item Po uzyskaniu nowego klucza Google drive API należy go zapisać  (będzie potrzebny w dalszej części przygotowywania projektu, w kroku \ref{subsection:envs}). Klucz powinien być w postaci: \newline \textit{-----BEGIN PRIVATE KEY-----\textbf{wartość klucza}-----END PRIVATE KEY-----}.
 \end{itemize}
 
@@ -43,9 +43,9 @@ W celu umożliwienia systemowi przechowywanie wideo nagrań odtwarzających sytu
 W celu umożliwienia działania wysyłki maili, serwer wymaga klucza API. W celu uzyskania własnego klucza API należy:
 
 \begin{itemize}
-	\item Stworzyć lub/i zalogować się do istniejącego konta SendGrid.
-	\item W zakładce \textit{Settings} -> \textit{API keys}, wygenerować nowy klucz API.
-	\item Po uzyskaniu nowego klucza API dla serwisu SendGrid należy go zapisać (będzie potrzebny w dalszej części przygotowywania projektu, w korku \ref{subsection:envs}).
+	\item Stworzyć lub/i zalogować się do istniejącego konta SendGrid
+	\item W zakładce \textit{Settings} -> \textit{API keys}, wygenerować nowy klucz API
+	\item Po uzyskaniu nowego klucza API dla serwisu SendGrid należy go zapisać (będzie potrzebny w dalszej części przygotowywania projektu, w sekcji \ref{subsection:envs})
 \end{itemize}
 
 \label{application:preparation:etheral}
@@ -55,13 +55,13 @@ W celu skonfigurowania tego serwisu z całym systemem należy zalogować się na
 
 \label{subsection:envs}
 \subsection{Zmienne środowiskowe}
-Konfiguracja zmiennych środowiskowych realizowana jest na potrzeby ukrywania wrazliwych danych w systemie.
-Do odczytu zmiennych środowiskowych zastosowano paczke \textit{dotenv}, która umożliwia odczytywanie zmiennych ze środowiska.
+Konfiguracja zmiennych środowiskowych realizowana jest na potrzeby ukrywania wrażliwych danych w systemie.
+Do odczytu zmiennych środowiskowych zastosowano paczkę \textit{dotenv}, która umożliwia odczytywanie zmiennych ze środowiska.
 
-W każdym pakiecie (poza \textit{core} oraz \textit{ui-components}) znajduję się plik \textit{.env.example}. Należy skopiować te pliki w każdym z pakietów oraz w tym samym miejscu wkleić go z nazwą \textit{.env}. Po skopiowaniu wspomnianych plików należy je uzupełnić wedle przykładu lub wedle instrukcji zawartych dla każdego pakietu w pliku \textit{README.md}. W tym kroku należy użyć danych uzyskanych z sekcji \ref{subsection:externalServices}.
+W każdym pakiecie (poza \textit{core} oraz \textit{ui-components}) znajduje się plik \textit{.env.example}. Należy skopiować te pliki w każdym z pakietów oraz w tym samym miejscu wkleić go z nazwą \textit{.env}. Po skopiowaniu wspomnianych plików należy je uzupełnić wedle przykładu lub wedle instrukcji zawartych dla każdego pakietu w pliku \textit{README.md}. W tym kroku należy użyć danych uzyskanych z sekcji \ref{subsection:externalServices}.
 
 \subsection{Instalacja zależności paczek}
-W tym kroku w pierwszej kolejności należy upewnić się o prawidłowości działania, wersji NodeJS oraz Yarn. W celu takowego sprawdzenia należy w konsoli wpisać \textit{yarn -v} oraz \textit{node -v}. Wynikiem obydwu tych komend powinna być aktualnie zainstalowana wersja. W przeciwnym wypadku należy ponownie zainstalować te narzędzia.
+W tym kroku w pierwszej kolejności należy upewnić się o prawidłowości działania, wersji Node oraz Yarn. W celu takowego sprawdzenia należy w konsoli wpisać \textit{yarn -v} oraz \textit{node -v}. Wynikiem obydwu tych komend powinna być aktualnie zainstalowana wersja. W przeciwnym wypadku należy ponownie zainstalować te narzędzia.
 Ze względu na podejście architektury systemu jako monolitycznego repozytorium w celu instalacji zewnętrznych zależności, będąc w katalogu głównym projektu w konsoli należy wpisać \textit{yarn}. Komenda ta zainstaluje zależności w folderze node-modules dla wszystkich siedmiu pakietów. Jednocześnie podejście to pozwala na ograniczenie ilości zajmowanego miejsca ponieważ duplikaty tych samych wersji zależności instalowane są jednorazowo dla wszystkich paczek.
 
 \section{Core}
@@ -69,24 +69,24 @@ Paczka \textit{core} reprezentuje zestaw stałych oraz modeli używanych w syste
 JavaScript. W tym przypadku paczka Core nie wymaga żadnej konfiguracji.
 
 \subsection{Stałe}
-Stałe są zestawem obiektów, które przedstawiają stałe elementy wykorzystywane we wszystkich paczkach. Przykładowo \textit{socketEvents} opisuje wszystkie zdefiniowane wydarzenia soketów w systemie.
+Stałe są zestawem obiektów, które przedstawiają stałe elementy wykorzystywane we wszystkich paczkach. Przykładowo \textit{socketEvents} opisuje wszystkie zdefiniowane wydarzenia socket'ów w systemie.
 
 \subsection{Modele}
 Modele reprezentują wszystkie schematy oraz encje w systemie.
-Schematy są wykorzystywane w modelach współdzieląc w ten sposób wspólne atrybuty. Pozostałe modele reprezentują wszystkie encje w systemu, które mają zaimplementowane serwisy oraz są przechowane w pamięci systemu lub bazie danych.
+Schematy są wykorzystywane w modelach współdzieląc w ten sposób wspólne atrybuty. Pozostałe modele reprezentują wszystkie encje systemu, które mają zaimplementowane serwisy oraz są przechowane w pamięci systemu lub bazie danych.
 
 \section{API}
-Pakiet \textit{api} zawiera w sobie główny serwer całego systemu. Jest on sercem, szefem or mostem między wszystkimi pakietami.
+Pakiet \textit{api} zawiera w sobie główny serwer całego systemu. Jest on sercem, szefem oraz mostem między wszystkimi pakietami.
 
 \subsection{Docker}
 Przed uruchomieniem tej paczki należy przygotować wirtualny kontener w dockerze z bazą danych. W pierwszym kroku należy upewnić się o zainstalowanym i uruchomionym Dockerze.
 
-Powinno zwrócić aktualnie zainstalowaną wersje dockera (W przypadku problemów zainstalować ponownie dockera):
+Powinno zwrócić aktualnie zainstalowaną wersje Dockera (W przypadku problemów zainstalować ponownie Dockera):
 \begin{lstlisting}
 docker -v
 \end{lstlisting}
 
-Powinno zwrócić informacje o aktualnie działającym lokalnie serwerze dokera (W przypadku błędu, upewnić się czy proces dockera został prawidłowo uruchomiony):
+Powinno zwrócić informacje o aktualnie działającym lokalnie serwerze dokera (W przypadku błędu, upewnić się czy proces Dockera został prawidłowo uruchomiony):
 \begin{lstlisting}
 docker info
 \end{lstlisting}
@@ -113,7 +113,7 @@ yarn start:db
 yarn stop:db
 \end{lstlisting}
 
-W celu sprawdzenia uruchomionych kontenerów w dockerze (Przed uruchomieniem powinno wyświetlić rekord w liście z nazwą \textit{mongodb}):
+W celu sprawdzenia uruchomionych kontenerów w dockerze (Przed uruchomieniem powinno wyświetlić rekord w liście z nazwą \textit{Mongodb}):
 
 \begin{lstlisting}
 docker container ls
@@ -121,7 +121,7 @@ docker container ls
 
 \subsection{Aplikacja serwera}
 
-Posiadając uruchomiony wirtualny kontener z bazą danych w konsoli należy przejść do folderu 'packages/api' oraz wpisać nastepującą komendę w celu uruchomienia serwera:
+Posiadając uruchomiony wirtualny kontener z bazą danych w konsoli należy przejść do folderu 'packages/api' oraz wpisać następującą komendę w celu uruchomienia serwera:
 
 Uruchamia serwer:
 \begin{lstlisting}
@@ -147,7 +147,7 @@ Pod wskazanym w konsoli adresem powinna ukazać się strona główna serwera.
 
 
 \section{Table Manger}
-Pakiet 'table-manager' jest odpowiedzialny za zarządzanie procesem działania stołu. Dzięki temu pakietowi jesteśmy w stanie zdalnie uruchamiać, restartować, aktualizować stół oraz analizować logi z działającego procesu aplikacji z pakietu 'table' (z panelu administratora), która ta dopiero odpowiada za logikę działania systemu po stronie Raspberry Pi. Tym samym ta i następna sekcja będzie stricte związana z częścią fizyczną w związku z tym całe przygotowanie powinno odbyć się na Przygotowanym Raspberry Pi.
+Pakiet 'table-manager' jest odpowiedzialny za zarządzanie procesem działania stołu. Dzięki temu pakietowi jesteśmy w stanie zdalnie uruchamiać, restartować, aktualizować stół oraz analizować logi z działającego procesu aplikacji z pakietu 'table' (z panelu administratora), która dopiero odpowiada za logikę działania systemu po stronie Raspberry Pi. Tym samym ta i następna sekcja będzie stricte związana z częścią fizyczną w związku z tym całe przygotowanie powinno odbyć się na Przygotowanym Raspberry Pi.
 
 \subsection{Elektronika}
 
@@ -155,10 +155,10 @@ Paczki 'table-manager' oraz 'table' wymagają fizycznego sprzętu w postaci:
 
 \begin{itemize}
 	\item Raspberry Pi z zainstalowanym systemem operacyjnym
-	\item Kamera - Zalecana kamera do systemu to dedykowana kamera 'Camera Module V2' do Rasberry Pi. Kamera na usb, też zadziała.
+	\item Kamera - Zalecana kamera do systemu to dedykowana kamera 'Camera Module V2' do Raspberry Pi. Możliwe jest również wykorzystanie kamery podłączanej kablem USB.
 	\item Sensory do bramek indykujące strzelone gole
-	\item Kable połączniowe
-	\item Diody LED - Są one opcjonalne ale również zalecane. System zapewnia obsługę 5 diód w 4 różnych kolorach w celu odzwierciedlania różnych stanów systemu podczas swojego działania.
+	\item Kable połączeniowe
+	\item Diody LED - Są one opcjonalne ale również zalecane. System zapewnia obsługę 5 diod w 4 różnych kolorach w celu odzwierciedlania różnych stanów systemu podczas swojego działania.
 \end{itemize}
 
 W tej sekcji zostanie omówione podłączenie kamery, sensorów bramek oraz diod LED.
@@ -179,7 +179,7 @@ System zapewnia obsługę pięciu diod indykujących stan działania systemu.
 \begin{tabular}{|l|l|l|l|}
 \hline
 \multicolumn{1}{|c|}{\textbf{Nazwa}} & \multicolumn{1}{c|}{\textbf{GPIO}} & \textbf{Zalecany kolor} & \textbf{Opis} \\ \hline
-\textit{TABLE\_MANAGER\_LIGHT} & 23 & Biały/Niebieski & Działanie table-manger \\ \hline
+\textit{TABLE\_MANAGER\_LIGHT} & 23 & Biały/Niebieski & Działanie table-manager \\ \hline
 \textit{GATE\_A\_LIGHT} & 21 & Czerwony & Gol dla zespołu A \\ \hline
 \textit{GATE\_B\_LIGHT} & 25 & Czerwony & Gol dla zespołu B \\ \hline
 \textit{MATCH\_LIGHT} & 15 & Żółty/Pomarańczowy & Stan meczu \\ \hline
@@ -188,7 +188,7 @@ System zapewnia obsługę pięciu diod indykujących stan działania systemu.
 \caption{Tabela diod z domyślnymi GPIO}
 \end{table}
 
-Przygotowanie diod wymaga podłączenia pod wskazanymi w tabeli wyżej GPIO. System oferuje również możliwość podłączenia diod pod dowolne GPIO,  w tym celu należy zmodyfikować plik GPIO.js dla paczki 'table-manger' oraz 'table'.
+Przygotowanie diod wymaga podłączenia pod wskazanymi w tabeli wyżej GPIO. System oferuje również możliwość podłączenia diod pod dowolne GPIO,  w tym celu należy zmodyfikować plik GPIO.js dla paczki 'table-manager' oraz 'table'.
 
 \subsection{Oprogramowanie}
 
@@ -203,13 +203,13 @@ sudo apt full-upgrade
 
 \subsubsection{Kamera}
 
-Uruchomienie wsparcia kamery wymaga włączenie odpowiedniej opcji w konfiguracji, w tym celu w terminalu należy wpisać:
+Uruchomienie wsparcia kamery wymaga włączenia odpowiedniej opcji w konfiguracji, w tym celu w terminalu należy wpisać:
 
 \begin{lstlisting}
 sudo raspi-config
 \end{lstlisting}
 
-Po uruchomieniu tej komendy pojawi się okno z możliwością konfiguracji Raspberry. Strzałkami klawiatury nalezy wybrać opcje 'Interfacing Options',  zaznaczyć 'Camera' oraz zatwierdzić akcję oraz zrestartować urządzenie.
+Po uruchomieniu tej komendy pojawi się okno z możliwością konfiguracji Raspberry. Strzałkami klawiatury należy wybrać opcje 'Interfacing Options',  zaznaczyć 'Camera' oraz zatwierdzić akcję oraz zrestartować urządzenie.
 
 W celu sprawdzenia poprawności działania kamery można użyć komendy:
 
@@ -253,7 +253,7 @@ Instalacja yarn:
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 \end{lstlisting}
 
-Nastepnie:
+Następnie:
 \begin{lstlisting}[breaklines=true]
 sudo apt update && sudo apt install --no-install-recommends yarn
 \end{lstlisting}
@@ -289,7 +289,7 @@ Na końcu otworzonego pliku konfiguracyjnego należy dodać poniższą linijkę:
 W przypadku pakietu \textit{table-manager}, również należy skonfigurować zmienne środowiskowe. Proces ich konfiguracji przebiega tak samo jak w sekcji \ref{subsection:envs} - Zmienne Środowiskowe. W przypadku intencji uruchomienia stołu bez pakietu \textit{table-manager}, należy uzupełnić plik \textit{.env} w pakiecie \textit{table}.
 
 \subsection{Uruchomienie}
-W pierwszej kolejności należy zainstalować zależności komedną \textit{yarn}. Następnie w przypadku skonfigurowanego automatycznego startu wystarczy uruchomić ponownie raspberry pi. W przeciwnym wypadku w konsoli należy przejść do folderu \textit{packages/table-manger} oraz wpisać: \textit{yarn start}.
+W pierwszej kolejności należy zainstalować zależności komendą \textit{yarn}. Następnie w przypadku skonfigurowanego automatycznego startu wystarczy uruchomić ponownie raspberry pi. W przeciwnym wypadku w konsoli należy przejść do folderu \textit{packages/table-manger} oraz wpisać: \textit{yarn start}.
 
 \section{Table}
 Pakiet \textit{table} jest sercem działania systemu po stronie fizycznej projektu. Uruchomieniem jednak tego pakietu zajmuje się uruchomiony proces pakietu \textit{table-manager}, tym samym paczka ta nie wymaga manualnego uruchomienia. Możliwe jest uruchomienie tego pakietu bez użycia menadżera (przygotowanie takie samo jak w przypadku poprzedniego pakietu), jednak nie jest to zalecane ze względu na brak możliwości zarządzania działaniem stołu w tym przypadku z poziomu admin panelu.
@@ -297,7 +297,7 @@ Pakiet \textit{table} jest sercem działania systemu po stronie fizycznej projek
 \section{UI Components}
 Pakiet \textit{ui-components} jest zbiorem komponentów oraz konfiguracji wykorzystywanych przez paczki Admin oraz Player. Jednocześnie oparta jest o Storybooka, który umożliwia budowanie graficznych komponentów w odizolowaniu (bez logiki).
 
-W celu uruchomienia storybooka, w konsoli należy przejść do folderu 'packages/ui-components' oraz wpisać:
+W celu uruchomienia Storybooka, w konsoli należy przejść do folderu 'packages/ui-components' oraz wpisać:
 
 \begin{lstlisting}
 yarn storybook
@@ -340,7 +340,7 @@ Obydwie aplikacje oferują również możliwość działania w trybie aplikacji 
 
 \section{Admin}
 
-Pakiet \textit{admin} zakłada obsługę całego systemu z użyciem interfejsu graficznego. W tym miejscu użytkownik z odpowiednimi uprawnieniami, może zarządzać wszystkimi dostępnymi zasobami systemu. Najbardziej podstawowymi elementami tej aplikacji jest zarządzanie użytkownikami całego systemu oraz stołem. Ilustracja \ref{fig:admin-manage-resource}, przedstawia widok zarządzania zasaobami dla listy użytkowników.
+Pakiet \textit{admin} zakłada obsługę całego systemu z użyciem interfejsu graficznego. W tym miejscu użytkownik z odpowiednimi uprawnieniami, może zarządzać wszystkimi dostępnymi zasobami systemu. Najbardziej podstawowymi elementami tej aplikacji jest zarządzanie użytkownikami całego systemu oraz stołem. Ilustracja \ref{fig:admin-manage-resource}, przedstawia widok zarządzania zasobami dla listy użytkowników.
 
 \begin{figure}[h!]
   \centering
@@ -349,7 +349,7 @@ Pakiet \textit{admin} zakłada obsługę całego systemu z użyciem interfejsu g
   \label{fig:admin-manage-resource}
 \end{figure}
 
-W celu utworzenia pierwszego użytkownika z rolą administratora należy w edytorze kodu w pliku 'pacakges/api/src/middleware/index.js' odkomentować fragment kodu poprzedzony komentarzem 'CREATE FIRST ADMIN', następnie przy uruchomionym pakiecie wejść na adres serwera: 'http://localhost:8080/create-first-admin', co utworzy nowego administratora z mailem: 'admin@stf.com' oraz hasłem: '123123'. W celu uniknięcia błędów należy natychmiastowo po utworzeniu pierwszego użytkownika ponownie zakomentować omawiany fragment kodu.
+W celu utworzenia pierwszego użytkownika z rolą administratora należy w edytorze kodu w pliku 'pacakges/api/src/middleware/index.js' od-komentować fragment kodu poprzedzony komentarzem 'CREATE FIRST ADMIN', następnie przy uruchomionym pakiecie wejść na adres serwera: 'http://localhost:8080/create-first-admin', co utworzy nowego administratora z mailem: 'admin@stf.com' oraz hasłem: '123123'. W celu uniknięcia błędów należy natychmiastowo po utworzeniu pierwszego użytkownika ponownie za-komentować omawiany fragment kodu.
 
 \newpage
 
@@ -388,7 +388,7 @@ Poza operacjami typu 'CRUD', drugim najważniejszym elementem pakietu \textit{ad
 Najważniejszym elementem z punktu widzenia użytkownika jest pakiet \textit{player}. Jest to główna aplikacja frontendowa łącząca użytkownika z wszystkimi pozostałymi pakietami. U podstawy oparta jest o te same technologie co pakiet 'admin', tzn. CRA, React, React-Admin. W odróżnieniu jednak od pakietu 'admin' posiada ona wiele dodatkowych oraz zmodyfikowanych elementów w kontekście biblioteki React Admin.
 
 \subsection{Logowanie}
-Po uruchomieniu aplikacji, pierwszym widokiem aplikacji powinien być ekran logowania. Domyślnie w bibliotece 'React-Admin' znajduje się wbudowany widok logowania (taki jak w pakiecie 'admin'). W przypadku jednak tego pakietu został utworzony osobny widok logowania, przedstawiony na ilustracji \ref{fig:player-login}, w celu umożliwienia nawigacji do widoku rejestracji lub przypomnienia hasła. Takie podejście zapewnia użytkownikowi pełną rolę nad cyklem życia konta. W prosty sposób użytkownik może utworzyć swoje konto lub zresetować bieżące hasło.
+Po uruchomieniu aplikacji, pierwszym widokiem aplikacji powinien być ekran logowania. Domyślnie w bibliotece 'React-Admin' znajduje się wbudowany widok logowania (taki jak w pakiecie 'admin'). W przypadku jednak tego pakietu został utworzony osobny widok logowania, przedstawiony na ilustracji \ref{fig:player-login}, w celu umożliwienia nawigacji do widoku rejestracji lub przypomnienia hasła. Takie podejście zapewnia użytkownikowi pełną kontrolę nad cyklem życia konta. W prosty sposób użytkownik może utworzyć swoje konto lub zresetować bieżące hasło.
 
 \begin{figure}[h!]
   \centering
@@ -399,7 +399,7 @@ Po uruchomieniu aplikacji, pierwszym widokiem aplikacji powinien być ekran logo
 
 \subsection{Rejestracja}
 
-W celu dodania zintegrowanego z panelem logowania formularzu rejestracji, wbudowany widok logowania z biblioteki react admin musiał zostać nadpisany. Dzięki temu aplikacja gracza z widoku logowania umożliwia nawigacje do formularzu rejestracji gdzie użytkownik może utworzyć swoje konto, podając swoje dane oraz opcjonalnie załadować avatar. Ilustracja \ref{fig:player-registration}, prezentuje zaimplementowany formularz rejestracji. Oprócz logowania i rejestracji w początkowych komponentach widocznych dla użytkownika znajduje się również formularz przypomnienia hasła.
+W celu dodania zintegrowanego z panelem logowania formularzu rejestracji, wbudowany widok logowania z biblioteki React Admin musiał zostać nadpisany. Dzięki temu aplikacja gracza z widoku logowania umożliwia nawigacje do formularzu rejestracji gdzie użytkownik może utworzyć swoje konto, podając swoje dane oraz opcjonalnie załadować awatar. Ilustracja \ref{fig:player-registration}, prezentuje zaimplementowany formularz rejestracji. Oprócz logowania i rejestracji w początkowych komponentach widocznych dla użytkownika znajduje się również formularz przypomnienia hasła.
 
 \begin{figure}[h!]
   \centering
@@ -410,7 +410,7 @@ W celu dodania zintegrowanego z panelem logowania formularzu rejestracji, wbudow
 
 \subsection{Potwierdzenie konta}
 
-Ze względów bezpieczeństwa w systemie zostało wprowadzone wymaganie potwierdzenia konta mailowego. Każdy nowo zarejestrowany gracz otrzymuje na skyrzynkę mailową widomość z prośbą potwierdzenia maila, która została zilustrowana na grafice \ref{fig:verifyEmail}. Zamiarem tego ograniczenia jest zmniejszenie potencjalnych prób zakładania wielu kont przez pojedynczych użytkowników lub botów. Użytkownik, który nie potwierdził swojego konta mailowego ma dostęp do aplikacji, lecz nie może tworzyć nowych zespołów lub uczestniczyć w rozgrywce.
+Ze względów bezpieczeństwa w systemie zostało wprowadzone wymaganie potwierdzenia konta mailowego. Każdy nowo zarejestrowany gracz otrzymuje na skrzynkę mailową wiadomość z prośbą potwierdzenia maila, która została zilustrowana na grafice \ref{fig:verifyEmail}. Zamiarem tego ograniczenia jest zmniejszenie potencjalnych prób zakładania wielu kont przez pojedynczych użytkowników lub botów. Użytkownik, który nie potwierdził swojego konta mailowego ma dostęp do aplikacji, lecz nie może tworzyć nowych zespołów lub uczestniczyć w rozgrywce.
 
 \begin{figure}[h!]
   \centering
@@ -449,7 +449,7 @@ W górnym pasku aplikacji znajdują się między innymi dwie ikony sygnalizując
 
 \subsection{Powiadomienia}
 
-W pakiecie \textit{player} został zaimplementowany mechanizm powiadomień w celu informowania użytkowników o zaproszeniach do nowych zespołów, odrzuceniu własnych zaproszeń przez innych graczy lub ogólnych informacji od systemu. Sama logika wysyłania powiadomień znajduje się w pakiecie 'api'. Wysyłanie odbywa się przy pomocy jednej funkcji 'sendNotifications' zdefiniowanej w folderze 'utils'. W swoich argumentach przyjmuje ogólny kontekst biblioteki feathers, id gracza do którego ma trafić powiadomienie, wiadomość, typ oraz opcjonalnie link. Powiadomienia są osobnym serwisem, ale dzięki wyniesieniu funkcji tworzenia pojedynczego powiadomienia jest to bardzo proste i reużywalne w pozostałej części systemu. Widok listy wszystkich dostepnych powiadomień został przedstawiony na ilustracji \ref{fig:notifications}.
+W pakiecie \textit{player} został zaimplementowany mechanizm powiadomień w celu informowania użytkowników o zaproszeniach do nowych zespołów, odrzuceniu własnych zaproszeń przez innych graczy lub ogólnych informacji od systemu. Sama logika wysyłania powiadomień znajduje się w pakiecie 'api'. Wysyłanie odbywa się przy pomocy jednej funkcji 'sendNotifications' zdefiniowanej w folderze 'utils'. W swoich argumentach przyjmuje ogólny kontekst biblioteki Feathers, id gracza do którego ma trafić powiadomienie, wiadomość, typ oraz opcjonalnie link. Powiadomienia są osobnym serwisem, ale dzięki wyniesieniu funkcji tworzenia pojedynczego powiadomienia jest to bardzo proste i re-używalne w pozostałej części systemu. Widok listy wszystkich dostępnych powiadomień został przedstawiony na ilustracji \ref{fig:notifications}.
 
 \begin{figure}[h!]
   \centering
@@ -462,7 +462,7 @@ W pakiecie \textit{player} został zaimplementowany mechanizm powiadomień w cel
 
 Aplikacja gracza umożliwia dostosowanie aplikacji względem języka aplikacji oraz motywu. Domyślnie motyw pobierany jest na podstawie tego zdefiniowanego w systemie/środowisku w którym uruchamiana jest aplikacja. Dzięki temu mając ustawiony w komputerze motyw ciemny, aplikacja gracza domyślnie uruchomi się z takim samym motywem. Ekran ustawień gracza w aplikacji został przedstawiony na ilustracji \ref{fig:settings}.
 
-Poza motywem, użytkownik może również dostosować wyświetlany język. Dzięki zdefiniowanej funkcji w bibliotece 'react-admin' zarządzanie i dodawanie nowych języków jest bardzo proste. W folderze i18n zostały zdefiniowane tłumaczenia dla języka angielskiego oraz polskiego. Idea tłumaczenia opiera się na określonej strukturze obiektu z tłumaczeniem konkretnych elementów, która jest taka sama dla wszystkich plików z tłumaczeniem. W celu wykorzystania tłumaczenia wewnątrz aplikacji należy skorzystać z funkcji 'useTranslate' pochodzącej z biblioteki React Admin, na początku komponentu wywołać ją oraz jej wynik przypisać do funkcji 'translate'. Zwróca funkcja umożliwi tłumaczenie konkretnie zadeklarowanych obiektów. Przykładowo wywołanie 'translate('pos.dashboard.title')', zwróci główny tytuł widniejący w ekranie głównym aplikacja w zależności od wybranego aktualnie języka.
+Poza motywem, użytkownik może również dostosować wyświetlany język. Dzięki zdefiniowanej funkcji w bibliotece React Admin zarządzanie i dodawanie nowych języków jest bardzo proste. W folderze i18n zostały zdefiniowane tłumaczenia dla języka angielskiego oraz polskiego. Idea tłumaczenia opiera się na określonej strukturze obiektu z tłumaczeniem konkretnych elementów, która jest taka sama dla wszystkich plików z tłumaczeniem. W celu wykorzystania tłumaczenia wewnątrz aplikacji należy skorzystać z funkcji 'useTranslate' pochodzącej z biblioteki React Admin, na początku komponentu wywołać ją oraz jej wynik przypisać do funkcji 'translate'. Zwrócona funkcja umożliwi tłumaczenie konkretnie zadeklarowanych obiektów. Przykładowo wywołanie 'translate('pos.dashboard.title')', zwróci główny tytuł widniejący w ekranie głównym aplikacja w zależności od wybranego aktualnie języka.
 
 \begin{figure}[h!]
   \centering
@@ -523,7 +523,7 @@ Po rozpoczęciu meczu, każdy gol, który zostanie strzelony będzie zapisany w 
 \end{figure}
 
 \subsection{Historia goli w grze}
-W ekranie gry, każdy użytkownik może w dowolnym momencie sprawdzić historie goli przedstawioną na ilustracji \ref{fig:goals-history}, która znajduję pod tablą z wynikiem. Lista goli pozwala na usuwanie oraz oglądanie powtórek wybranych goli.
+W ekranie gry, każdy użytkownik może w dowolnym momencie sprawdzić historie goli przedstawioną na ilustracji \ref{fig:goals-history}, która znajduje się pod tabelą z wynikiem. Lista goli pozwala na usuwanie oraz oglądanie powtórek wybranych goli.
 
 \begin{figure}[h!]
   \centering
@@ -534,7 +534,7 @@ W ekranie gry, każdy użytkownik może w dowolnym momencie sprawdzić historie 
 
 \subsection{Lista gier i zespołów}
 W głównym menu aplikacji, dwoma ostatnimi elementami jest kolejno lista zespołów oraz lista gier aktualnie zalogowanego gracza. Obydwie listy implementują mechanizm sortowania (kliknięcie w nagłówek kolumny) oraz filtrowania po kluczowych polach tych zasobów. Przykładowa lista zespołów została przedstawiona na ilustracji \ref{fig:list-filters}.
-Dzięki ustandaryzowanemu podejściu w komunikacji serwera z aplikacją (REST) oraz implementacji biblioteki 'react-admin', funkcjonalności sortowania i filtrowania wymagają jedynie zadklarowania, które pola mają być brane pod uwagę (sortowanie ustawione jest domyślnie dla wszystkich elementów).
+Dzięki ustandaryzowanemu podejściu w komunikacji serwera z aplikacją (REST) oraz implementacji biblioteki React Admin, funkcjonalności sortowania i filtrowania wymagają jedynie zadeklarowania, które pola mają być brane pod uwagę (sortowanie ustawione jest domyślnie dla wszystkich elementów).
 
 \begin{figure}[h!]
   \centering

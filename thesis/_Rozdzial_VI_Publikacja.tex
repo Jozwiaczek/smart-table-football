@@ -5,16 +5,16 @@ W tym rozdziale zostanie omówiona część projektu związana z publikacją apl
 
 \label{publication:sendgrid}
 \section{SendGrid}
-Na etapie publikacji aplikacji, funkcjonalność mailingu wymagała konfiguracji zewnętrznego serwisu odpowiedzialnego za wysyłanie maili, zbieranie statystyk oraz potencjalnych kampani mailiowych. W tym celu pakiet 'api', wymagał zmiany konfiguracji hosta maillingu oraz klucza API do wybranego konta w serwisie SendGrid.
+Na etapie publikacji aplikacji, funkcjonalność mailingu wymagała konfiguracji zewnętrznego serwisu odpowiedzialnego za wysyłanie maili, zbieranie statystyk oraz potencjalnych kampanii mailowych. W tym celu pakiet 'api', wymagał zmiany konfiguracji hosta mailingu oraz klucza API do wybranego konta w serwisie SendGrid.
 
 \section{Atlas - baza danych}
-Kolejną funkcjonalnościa wymagającą dodatkową konfigurację dla wersji produkcyjnej była baza danych. Baza danych opublikowanej aplikacji wykorzystuje serwis MongoDB Atlas. W tym przypadku opublikowany pakiet 'api' wymagał podania zmiennej środowiskowej z adresem bazy danych zawierającymi dane logowania i adres bazdy danych.
+Kolejną funkcjonalnością wymagającą dodatkowej konfiguracji dla wersji produkcyjnej była baza danych. Baza danych w opublikowanej aplikacji wykorzystuje serwis MongoDB Atlas. W tym przypadku opublikowany pakiet 'api' wymagał podania zmiennej środowiskowej z adresem bazy danych zawierającym dane logowania i adres bazy danych.
 
 \section{Publikacja aplikacji}
 Publikacja aplikacji została podzielona na dwie części: serwer (pakiet api) oraz strony internetowe (pakiety admin oraz player).
 
 \subsection{Serwer}
-Ze względu, że serwer (pakiet api) wymagał środowiska uruchomieniowego node.js, aplikacja została opublikowana na innym serwisie niż strony internetowe. Wybranym serwisem został Heroku.com. Umożliwia on darmową publikację aplikacji między innymi w środowisku node.js. Kod źródłowy aplikacji pobierany jest automatycznue z platformy Github po zintegrowaniu kont tych dwóch serwisów. Upubliczniona aplikacja wymaga również podania zmiennych środowiskowych (ENV) w ekranie zarządzania Heroku:
+Ze względu, że serwer (pakiet api) wymagał środowiska uruchomieniowego Node, aplikacja została opublikowana na innym serwisie niż strony internetowe. Wybranym serwisem został Heroku.com. Umożliwia on darmową publikację aplikacji między innymi w środowisku Node. Kod źródłowy aplikacji pobierany jest automatycznie z platformy Github po zintegrowaniu kont tych dwóch serwisów. Upubliczniona aplikacja wymaga również podania zmiennych środowiskowych (ENV) w ekranie zarządzania Heroku:
 
 \begin{table}[h!]
 \centering
@@ -24,14 +24,14 @@ Ze względu, że serwer (pakiet api) wymagał środowiska uruchomieniowego node.
 \textit{GOOGLE\_DRIVE\_KEY} & Klucz API do serwisu Google Drive \\ \hline
 \textit{GOOGLE\_DRIVE\_MAIL} & Wygenerowany mail w usłudze Google Drive \\ \hline
 \textit{MARILER\_KEY} & Klucz API do serwisu SendGrid \\ \hline
-\textit{MONGOLAB\_URI} & Adres url do bazy danych MongoDB \\ \hline
+\textit{MONGOLAB\_URI} & Adres URL do bazy danych MongoDB \\ \hline
 \textit{NODE\_ENV} & 'production' - definicja środowiska uruchomieniowego \\ \hline
 \end{tabular}
 \caption{Tabela zmiennych środowiskowych dla aplikacji serwera}
 \end{table}
 
 \subsection{Strony internetowe}
-Strony internetowe czyli pakiet admin oraz player zostały upublicznione wykorzystując serwis Netlify.com. Różnicą pomiędzy Heroku jest fakt, że netlify bezpośrednio nie oferuje publikacji serwerów lecz jedynie pliki statyczne. Przewagą tego serwisu jednak jest możliwośc publikacji strony z darmowym certyfikatem ssl. Inną zaletą jest jeszcze konfiguracja i zarządzanie upublicznioną stroną, która jest bardzo przejrzysta, intuicyjna oraz oferuje dużo dodatków ułatwiających prace lub optymalizaje stron. W przypadku stron internetowych obdwa serwisy wymagaja podania w ekranie konfiguracji stron, jeden zmiennej środowiskowej 'REACT\_APP\_API\_URL', która to wskazuje na adres URL serwera systemu.
+Strony internetowe czyli pakiet admin oraz player zostały upublicznione wykorzystując serwis Netlify.com. Różnicą pomiędzy Heroku jest fakt, że Netlify bezpośrednio nie oferuje publikacji serwerów lecz jedynie pliki statyczne. Przewagą tego serwisu jednak jest możliwość publikacji strony z darmowym certyfikatem SSL. Inną zaletą jest jeszcze konfiguracja i zarządzanie upublicznioną stroną, która jest bardzo przejrzysta, intuicyjna oraz oferuje dużo dodatków ułatwiających prace lub optymalizuje stron. W przypadku stron internetowych obydwa serwisy wymagają podania w ekranie konfiguracji stron, jeden zmiennej środowiskowej 'REACT\_APP\_API\_URL', która to wskazuje na adres URL serwera systemu.
 
 \section{Continous Delivery}
-Zarówno serwis Heroku jak i Netlify oferują możliwość ciągłego dostarczania (po ang. Continous Delivery). Oznacza to, że publikacja strony występuje za każdym razem kiedy programista wyśle zmiany na określony branch w zdalnym repozytorium. Dzięki takiej funkcjonalności nie trzeba za każdym razem przechodzić procesu publikacji strony, gdyż dzieje sie to automatycznie. Podczas realizacji projektu zastosowano podejście tworzenia gałęzi z kolekcją zmian oraz łączenie ich z branchem masterem, po którym autmatycznie następowała publikacja nowych wersji aplikacji.
+Zarówno serwis Heroku jak i Netlify oferują możliwość ciągłego dostarczania (po ang. Continous Delivery). Oznacza to, że publikacja strony występuje za każdym razem kiedy programista wyśle zmiany na określony branch w zdalnym repozytorium. Dzięki takiej funkcjonalności nie trzeba za każdym razem przechodzić procesu publikacji strony, gdyż dzieje się to automatycznie. Podczas realizacji projektu zastosowano podejście tworzenia gałęzi z kolekcją zmian oraz łączenie ich z branchem masterem, po którym automatycznie następowała publikacja nowych wersji aplikacji.
