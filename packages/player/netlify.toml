@@ -6,4 +6,4 @@
     base = "packages/player/"
     publish = "build/"
     command = "yarn build"
-#    ignore = "git diff --quiet master ."
+    ignore = "git diff --quiet master ."
