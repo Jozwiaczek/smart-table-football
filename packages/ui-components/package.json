@@ -36,24 +36,24 @@
     "storybook": "start-storybook -p 6006 -s public --no-dll"
   },
   "dependencies": {
-    "prop-types": "^15.7.2"
-  },
-  "devDependencies": {
+    "prop-types": "^15.7.2",
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.0.0",
+    "babel-loader": "8.1.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "styled-components": "5.2.0",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
     "@storybook/addon-actions": "^6.0.28",
     "@storybook/addon-controls": "^6.0.28",
     "@storybook/addon-essentials": "^6.0.28",
     "@storybook/addon-links": "^6.0.28",
     "@storybook/node-logger": "^6.0.28",
-    "@storybook/react": "^6.0.28",
-    "babel-loader": "8.1.0",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "rimraf": "^3.0.2",
-    "styled-components": "5.2.0"
+    "@storybook/react": "^6.0.28"
   },
   "peerDependencies": {
     "react": "16.x",
