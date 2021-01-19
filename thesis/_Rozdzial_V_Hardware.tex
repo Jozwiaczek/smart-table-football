@@ -1,43 +1,40 @@
 \chapter{Hardware}
-\label{ch:funplenop}
-W tym rozdziale zostanie omówiona część projektu związana z oprogramowaniem
-skupia się na przedstawieniu zagadnień związanych z fizyczną częścią projektu, narzędziami jak zostały wykorzystane podczas pracy.
+\label{ch:hardware}
+W tym rozdziale zostanie omówiona część projektu, która skupia się na przedstawieniu zagadnień związanych z realizacją fizycznej części projektu.
 
-\lipsum[1]
+\section{Projekt modelu bramki}
+W celu prezentacji funkcjonalności działania czujników oraz zbudowanej aplikacji została zaprojektowana pokazowa bramka do stołu dla piłkarzyków. Celem tego prototypu jest pokazanie funkcjonalności systemu na realnej bramce.
 
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.5\textwidth]{images/3D/gate_front.png}
-  \caption{Zarządzanie zasobami w panelu administratora}
-  \label{fig:mobile}
-\end{figure}
+Model bramki z przodu przewiduje 4 małe otwory na potencjalne mocowanie do stołu piłkarzykowego, 2 otwory na kable dla czujników oraz główny otwór wlotowy bramki dla piłki.
+
+Tył bramki jest natomiast otwierany (przykręcany wkrętami), tak by montaż czujników i ich potencjalna wymiana była prosta. Podczas projektowania środka przygotowano miejsce na dwa czujniki (w założeniu fotorezystory), z odpowiednim prowadzeniem kabli, które nie ingeruje w ruch piłki. Środek bramki posiada również specyficzną budowę dwóch poziomów co zostało przedstawione na ilustracji \ref{fig:inside-of-gate-model}. Taka budowa pozwala na zmniejszenie dźwięku wpadającej piłki, zmniejszenie jej prędkości przed przejściem przez czujnik (gdyby piłka za szybko wpadła czujnik mógłby nie zliczyć punktu) oraz utrudnia ona dostęp do samego czujnika potencjalnym graczom.
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.5\textwidth]{images/3D/gate_inside.png}
-  \caption{Zarządzanie zasobami w panelu administratora}
-  \label{fig:mobile}
+    \includegraphics[width=0.3\textwidth]{images/3D/gate_inside.png}
+  \caption{Model bramki razem z piłeczką}
+  \label{fig:inside-of-gate-model}
 \end{figure}
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.5\textwidth]{images/3D/gate_with_back.png}
-  \caption{Zarządzanie zasobami w panelu administratora}
-  \label{fig:mobile}
-\end{figure}
-
-\section{Projekt modelu}
-- jaki celu projektu
-- w czym projektowane
-- co uwzględnia projekt
 
 \section{Druk 3D}
-- Rodzaj materiału
-- Czas drukowania
-- Ze to tylko prototyp
+Gotowy projekt modelu został przygotowany do druku w programie Cura. Na ilustracji \ref{fig:cura-file-preparation} przygotowany został projekt głównego elementu bramki w omawianym programie. Czas druku samej bramki zajął około 30 godzin. Poza bramką wydrukowane zostały również elementy takie jak tył bramki oraz piłka. W celu odwzorowania ruchu piłki takiego, jaki występuje podczas gry w piłkarzyki, gabaryty oraz waga piłeczki zostały zbliżone do tych dostępnych na rynku (średnica 35 milimetrów oraz około 15 gram wagi). Ze względu na cenę i dostępność wszystkie elementy zostały wydrukowane z materiału PLA na drukarce Ender CR20 Pro.
 
-\section{Raspberry}
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.4\textwidth]{images/3D/cura_gate.png}
+  \caption{Przygotowanie modelu do druku}
+  \label{fig:cura-file-preparation}
+\end{figure}
 
-\subsection{Czym jest i dlaczego?}
+\label{ch:hardware:raspberrypi}
+\section{Raspberry PI}
+Kolejnym i ostatnim elementem systemu w tym rozdziale, jest zastosowane w projekcie Raspberry Pi. Mini komputer, który odpowiada za zarządzanie i komunikacje urządzeń, takich jak kamera, diody czy sensory bramek z resztą systemu. Został on zaprojektowany i rozwijany jest przez brytyjską organizację Raspberry Pi. Alternatywami podczas wyboru mini komputera, były inne wersje Raspberry Pi lub Arduino. Projekt wykorzystuje wersje Raspberry Pi 4B ze względu na posiadanie przez autora już tego modelu. Urządzenie te oferuje proste podłączenie kamery zarówno po złączu USB jak i wykorzystując natywne dla Raspberry wejście kamery. Pozostałe czujniki/diody podłączane są z użyciem GPIO. GPIO oznacza wejście-wyjście ogólnego przeznaczenia (od ang. general-purpose input/output).
 
-\subsection{Czujniki}
+Do omawianego narzędzia została podłączona kamera, dwa sensory bramek oraz pięć diod indykujących stan działania stołu co przedstawia rysunek \ref{fig:connected-gate}. Wykorzystany w projekcie sensor bramki to dokładnie czujnik przerwania wiązki IR o wymiarach 20 x 10 x 8 milimetrów.
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/hardware/prototyp-bramki.jpg}
+  \caption{Podłączony prototyp bramki}
+  \label{fig:connected-gate}
+\end{figure}

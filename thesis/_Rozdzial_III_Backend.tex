@@ -1,46 +1,56 @@
 \chapter{Backend}
-\label{ch:funplenop}
-W tym rozdziale zostaną przedstawione technologie oraz rozwiązania programistyczne z obaszru logiki biznesowej w systemie, przyjęte konkretnie w pakietach 'api', 'table' oraz 'table-manger'.
+\label{ch:backend}
+W tym rozdziale zostaną przedstawione technologie oraz rozwiązania programistyczne z obszaru logiki biznesowej w systemie, przyjęte konkretnie w pakietach 'api', 'table' oraz 'table-manager'.
 
-\section{Node.js}
+\label{section:node}
+\section{Node}
 
-Wykorzystywany język JavaScript bezpośrednio nie oferuje komunikacji między systemem a aplikacją, jego powszechne środowisko uruchmieniowe to przeglądarka. Założeniami natomiast omawianej pracy było międzyinnymi stworzenie serwerów. W celu realizacji takiej funkcjonalności w systemie zostało zastosowane wieloplatformowe środowisko uruchomieniowe jakim jest node.js. Pozwala ono na tworzenie aplikacji w języku JavaScript, zazwyczaj są to aplikacje serwerowe, które umożliwiają swoje działanie poza przeglądarką. Tym samym Node.js udostępnia interfejs komunikacyjny z systemem, który pozwala na np. odczyt katalogów czy  zapis plików. Silnik omawianego środowiska uruchomieniowego oparty jest na silniku V8, rozwijanym przez firmę google, czyli tym samym co przeglądakra Chrome. Node.js jest bardzo dynamicznie rozwiającą się platformą, systematycznie co roku publikowana jest nowa wersja(https://nodejs.org/en/about/releases/). Omawiany projekt systemu zakłada użycie przynajmniej 12 wersji node.js (w chwili pisania pracy oficalnie aktualna wersja to 14). Poza wieloma wyżej wymienionymi zaletami systemu, wokół tej tenchologi znajduje się ogromna społeczność, która rozwija wiele dodatków oraz oferuje swoje wsparcie w interncie. Wedle ankiety z 2020 roku serwisu StackOverflow, NodeJS uzyskał pierwsze miejsce w kategorii wykorzystywanych technologii (dokładnie 51.9 procent). 
-% https://insights.stackoverflow.com/survey/2020#technology-other-frameworks-libraries-and-tools-professional-developers3
-% https://developer.mozilla.org/pl/docs/Learn/Server-side/Express_Nodejs/Introduction
+Wykorzystywany język JavaScript bezpośrednio nie oferuje komunikacji między systemem a aplikacją, jego powszechne środowisko uruchomieniowe to przeglądarka. Założeniami natomiast omawianej pracy było między innymi stworzenie serwerów. W celu realizacji takiej funkcjonalności w systemie zostało zastosowane wieloplatformowe środowisko uruchomieniowe jakim jest Node. Pozwala ono na tworzenie aplikacji w języku JavaScript. Zazwyczaj są to aplikacje serwerowe, które umożliwiają swoje działanie poza przeglądarką. Tym samym Node udostępnia interfejs komunikacyjny z systemem, który pozwala na np. odczyt katalogów czy  zapis plików. Silnik omawianego środowiska uruchomieniowego oparty jest na silniku V8, rozwijanym przez firmę Google, czyli tym samym co wykorzystuje przeglądarka Chrome. Node jest bardzo dynamicznie rozwijającą się platformą, systematycznie co roku publikowana jest jej nowa wersja. Omawiany projekt systemu zakłada użycie przynajmniej 12 wersji Node (w chwili pisania pracy oficjalnie aktualna wersja to 14). Poza wieloma wyżej wymienionymi zaletami systemu, wokół tej technologi gromadzi się ogromna społeczność, która rozwija wiele dodatków oraz oferuje swoje wsparcie w internecie. Wedle ankiety z 2020 roku serwisu StackOverflow, Node uzyskał pierwsze miejsce w kategorii wykorzystywanych technologii (dokładnie 51.9 procent). \cite{StackOverflowSurvey, ExpressDocs}
 
-\section{Feathers.js}
-% https://feathersjs.com/
-Zbudowane w systemie serwery opierają się o bibliotkę Express.js, która służy do obslugi zapytań HTTP, konfiguracji seerwerów. Całość u podstawy oparta jest własnie o powyżej opisywany Node.js. Ze względu na swoją minimalistyczność Express.js posiada wiele zintegrowanych biliotek/nakładek, które automatyzują wiele powtarzającyh się operacji oraz udostępniają zestaw narzedzi ułatwiających pracę w budowie popularnych funkcjonalności. Użytą w systemie nakładą na Express.js jest kolejna biblioteka Feathers.js. Narzedzie te zorientowane jest na budowanie aplikacji serwerowych z wykorzystaniem serwisów oraz hooków. Głównym założeniem jest zautomatyzowanie budowania aplikacji serwerowych, pozostawiajać przy tym pełną kontrolę oraz zachęcając/zapewniając dobre praktyki oprogramowania. Serwisy są obiektami reprezentujacymi predefiniowane zestawy metod CRUD (Stwórz, Wylistuj, Zzaktualizuj, Usuń). Hooki zaś są wartwą pośrednią serwisów. Umożlwiają one wpięcie się w cykl życia pojedynczych metod serwisów (przed, po i na błąd podczas ich wykonwania) oraz na wykonwyanie zdefiniowanych ciągów metod w tych wybranych etapach. 
+\section{Feathers}
+Zbudowane w systemie serwery opierają się o bibliotkę Express, która służy do obsługi zapytań HTTP oraz konfiguracji serwerów. Całość u podstawy oparta jest właśnie o powyżej opisywany Node. Ze względu na swoją minimalistyczność Express posiada wiele zintegrowanych bibliotek/nakładek, które automatyzują wiele powtarzających się operacji oraz udostępniają zestaw narzędzi ułatwiających pracę w budowie popularnych funkcjonalności. Użytą w systemie nakładką na Express jest kolejna biblioteka Feathers. Narzędzie to zorientowane jest na budowanie aplikacji serwerowych z wykorzystaniem serwisów oraz hooków. Głównym założeniem jest zautomatyzowanie budowania aplikacji serwerowych, pozostawiając przy tym pełną kontrolę oraz zachęcając/zapewniając dobre praktyki oprogramowania. Serwisy są obiektami reprezentującymi predefiniowane zestawy metod CRUD (Stwórz, Wylistuj, Zaktualizuj, Usuń). Hooki zaś są warstwą pośrednią serwisów. Umożliwiają one wpięcie się w cykl życia pojedynczych metod serwisów (przed, po i na błąd podczas ich wykonywania) oraz na wykonywanie zdefiniowanych ciągów metod w tych wybranych etapach. \cite{FeathersDocs}
 
-Podczas budowy pakietu 'api' został wykorzystany również mechanizm tej bilioteki do autogenerowania początkowej z  konfiguracji aplikacji oraz generowania serwisów i hooków na podstawie zbudowanej struktury.
+Podczas budowy pakietu 'api' został wykorzystany również mechanizm tej biblioteki do auto-generowania początkowej z  konfiguracji aplikacji oraz generowania serwisów i hooków na podstawie zbudowanej struktury.
 
-Kolejną bardzo istotną funkcjonalnością feathers.js zdefiniowaną w systemie jest adapter bazy danych 'feathers-mongose' oraz '@feathersjs/authentication', mechanizm autentykacji. Adapter bazy danych pozwala na prostą konfiguracje aplikacji działającej z bazą danych mongodb oraz deklaracje wykorzystywanych modeli opisujących strukture danych. Natomiast mechanizm autentykacji to dodatek oferujący narzedzia służące tworzeniu mechanizmu autentykacji. W systemie został użyty do utworzenia autentykacji ze startegią JWT (JavaScript Web Token) z algorytmem haszowania 'HS256'. 
+Kolejną bardzo istotną funkcjonalnością Feathers zdefiniowaną w systemie jest adapter bazy danych \textit{feathers-mongose} oraz \textit{@feathersjs/authentication}, mechanizm autentykacji. Adapter bazy danych \textit{feathers-mongose} pozwala na prostą konfigurację aplikacji działającej z bazą danych Mongodb oraz deklaracje wykorzystywanych modeli opisujących strukturę danych. Natomiast mechanizm autentykacji to biblioteka oferująca narzędzia służące tworzeniu mechanizmu autentykacji. W systemie został użyty do utworzenia autentykacji ze strategią JWT (JavaScript Web Token) z algorytmem haszowania \textit{HS256}. 
 
-Łącząc te wszystkie funkcjonalności Feathers.js końcowo zwraca zestaw zabezpieczonych mechanizmem autentykacji endpointów w architekturze REST (Representail State Transfer), umożliwiając w ten sposób pozostałym aplikacją na operacje serwerowe i bazodanowe.
+Łącząc te wszystkie funkcjonalności Feathers końcowo zwraca zestaw zabezpieczonych mechanizmem autentykacji end-pointów w architekturze REST (Representational State Transfer), umożliwiając w ten sposób pozostałym aplikacjom na operacje serwerowe i bazodanowe.
 
 \section{MongoDB}
-mongoose (modelowanie danych oraz operacje -- middleware między serwerem a mongodb)
-mongodb
-połączenie z feathers
-'code as a infrustracure'
+Wybraną w projekcie bazą danych jest MongoDB. Jest to rodzaj nierelacyjnej bazy danych, w którym to strukturę określa się za pomocą schematów. Podczas tego wyboru rozważna była również baza relacyjna, która w efekcie końcowym mogłaby zapewnić większą integralność danych oraz kontrolę schematów i relacji. Mimo zalet baz relacyjnych, istotną kwestią na rozmiar projektu było utrzymanie całej struktury w jak najbardziej zunifikowanej formie. Dzięki podejściu jakie oferują nierelacyjne bazy danych struktura bazy danych została określa przy pomocy schematów napisanych w języku JavaScript (w pakiecie \textit{api}). Kolejną bardzo ważną cechą Mongodb była możliwość dynamicznego skalowania bazy danych. Dzięki temu struktura bazy może być rozwijana i poprawiana w prosty i przejrzysty sposób.
+
+Do określenia wspomnianych schematów i zamodelowania danych został zastosowany pakiet Mongoose. Pakiet ten umożliwia budowanie struktury bazy danych w podejściu \textit{Code as a infrastructure} (Kod jako infrastruktura), co dla projektu oznacza budowanie infrastruktury w jednym miejscu razem z serwerem i jej kontrolę wersji wspólnie z resztą systemu. Wszystkie struktury/modele w projekcie zostały zaimplementowane w folderze \textit{packages/api/src/models}.
+
+Implementacja i konfiguracja bazy danych została zaimplementowana przy użyciu paczki \textit{Mongoose} i zrealizowana została w pliku mongoose.js w pakiecie api. Dodatkową paczką, która została zainstalowana w celu integracji z Feathers była \textit{feathers-mongose}. Umożliwia ona tworzenie zintegrowanych serwisów z podanymi w argumentach modelami Mongodb.
 
 \section{Socket.io}
+W celu implementacji funkcjonalności realizowanych w czasie rzeczywistym, jak na przykład widok gry użytkownika, została zaimplementowana paczka Socket.io. Pakiet ten u podstawy korzysta z protokołu komunikacji websockets, lecz nie jest jego bezpośrednią formą implementacji. Głównymi funkcjonalnościami paczki jakie zostały zastosowane w budowie systemu oraz odróżniającymi ją od jej podstawy (websocket) jest prosta komunikacja na podstawie wydarzeń, broadcasting (wysyłanie wiadomości do wszystkich oprócz siebie) oraz intuicyjna integracja z biblioteką Feathers.
 
+\label{section:docker}
 \section{Docker}
-problem z uruchaminiem bazy danych w nowych środowiskach
-Opis
-Ze uruchamaia bazę danych lokalnie
+W celu uniknięcia skomplikowanego i zróżnicowanego sposobu (dla wielu środowisk uruchomieniowych) konfiguracji początkowej bazy danych, zostało zastosowane narzędzie konteneryzacji jakim jest Docker. Dzięki temu narzędziu lokalna praca z projektem wymaga jedynie uruchomienia aplikacji Dockera oraz wpisania trzech krótkich komend w terminalu, a całość konfigurowana jest już w sposób automatyczny. Po uruchomieniu wspomnianych komend (opisanych w Rozdziale Aplikacja), inicjalizowana jest baza danych MongoDB w lokalnym kontenerze aplikacji docker.
 
-\section{GoogleDrive}
-- Zapisywanie zdjęć
-- API
+\label{section:googleDrive}
+\section{Google Drive}
+Ze względu na maksymalny rozmiar pojedynczego dokumentu w bazie danych Mongodb wynoszący 16MB, do przechowywania powtórek strzelonych goli zastosowano zewnętrzny serwis Google Drive. Serwis ten został wybrany ze względu na nielimitowaną ilość dostępnego miejsca na przechowywanie plików autora. Każdy plik wideo zapisywany jest w tym serwisie po strzelonym golu. Dostęp do tego pliku i jego wyświetlenie, uzyskiwane jest po jednoczesnym zapisywaniu linku w bazie danych przypisanego do instancji strzelonego gola.
 
 \section{OnOff - obsługa GPIO}
-- OPIS
-- Prosta obsługa GPIO
+Do obsługi najważniejszej funkcjonalności minikomputera Raspberry pi GPIO, opisanej w Rozdziale \ref{ch:hardware:raspberrypi} (Hardware - Raspberry PI), została zastosowana biblioteka \textit{OnOff}. Umożliwia ona dostęp oraz zarządzanie sensorami, czujnikami oraz wszelkimi urządzeniami wejścia/wyjścia podłączonymi do Raspberry poprzez GPIO. Jej implementacja oparta jest o język JavaScript i środowisko uruchomieniowe Node. Użycie tej biblioteki pozwoliło na intuicyjną oraz prostą obsługę czujników bramek oraz diod sygnalizujących stan meczu.
 
-\section{System mailngowy}
-- Opis
-- Etheral
-- SendGrid w rozdziale publikacja
-- Wysyłka maili w połączeniu z nodemailer
+Przykładowa implementacja uruchomienia diody sygnalizującej stan meczu:
+
+\begin{lstlisting}[breaklines=true]
+    const { Gpio } = require('onoff');
+
+    const MATCH_LIGHT = new Gpio(15, 'out');
+
+    MATCH_LIGHT.writeSync(1);
+\end{lstlisting}
+
+\label{section:mailling}
+\section{System mailingowy}
+System w swojej budowie wykorzystuje funkcjonalność mailingu na potrzeby bezpieczeństwa kont użytkowników oraz dla większej interaktywności. System automatycznie wysyła maile podczas rejestracji użytkownika do potwierdzenia maila oraz podczas akcji resetowania hasła konta użytkownika. Innym miejscem, w którym wykorzystywana jest ta funkcjonalność jest możliwość zapraszania nowych graczy do systemu przez zarejestrowane już osoby. Kolejną funkcjonalnością zbudowanego systemu mailingowego jest wysyłanie maili do wybranych użytkowników systemu z poziomu panelu administratora.
+
+W celu implementacji tej funkcjonalności zastosowany został moduł 'nodemailer' dla aplikacji Node w pakiecie \textit{api}. Moduł ten, widnieje w systemie jako zdefiniowany serwis, a jego główna definicja znajduje się w klasie (\textit{packages/api/services/mailer/mailer.class.js}).
+
+Do lokalnej pracy oraz testów z system mailingowym zastosowany został zewnętrzny serwis Etheral. Dzięki temu serwisowi, lokalna praca nie wymagała konfiguracji oraz korzystania z zewnętrznych serwisów mailingowych oraz wykorzystywania prawdziwych kont mailowych podczas lokalnej pracy. Użycie tego zewnętrznego serwisu wymaga jedynie wpisania danych użytkownika w ogólnej konfiguracji serwera w pakiecie api co zostało opisane w rozdziale \ref{application:preparation:etheral}. Wersja produkcyjna, która zaś przewiduje dostarczanie wiadomości mailowych realnym użytkownikom zrealizowana została przy pomocy zewnętrznego serwisu 'SendGrid', który to został opisany w rozdziale \ref{publication:sendgrid}.

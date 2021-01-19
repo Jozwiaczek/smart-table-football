@@ -1,17 +1,80 @@
 \chapter{Frontend}
-\label{ch:funplenop}
-W tym rozdziale zostanie omówiona część projektu związana z oprogramowaniem
-
-opisuje zaplecze projektowe bliżej zbliżone temu co widzi docelowy użytkownik aplikacji, skupiając się tym samym na technologiach wykorzystywanych w pakietach 'admin', 'player' oraz 'ui-components'.
+\label{ch:frontend}
+W tym rozdziale zostanie omówiona część projektu związana z oprogramowaniem zbliżonym do tego, co widzi docelowy użytkownik aplikacji, skupiając się tym samym na technologiach wykorzystywanych w pakietach 'admin', 'player' oraz 'ui-components'.
 
 \section{HTML5}
-\section{CSS3}
+Aplikacje docelowe, które widzi użytkownik to ogólnie mówiąc strony internetowe. U swej podstawy pakiety 'admin', 'player' oraz 'ui-components' wykorzystują hipertekstowy język znaczników w wersji 5 (HTML5 - HyperText Markup Language). W całym systemie jednak nie ma bezpośrednio zdefiniowanych plików z rozszerzeniem '.html', lecz jego struktura i semantyka jest wykorzystywana niemalże wszędzie. Omawiana technologia to również międzynarodowy standard, którego przetworzeniem zajmują się współczesne przeglądarki internetowe i wiele innych narzędzi. Specyfikacją tego standardu zajmuje się globalna organizacja 'World Wide Consortium'. \cite{HTMLDocs}
+
+\section{CSS}
+Każda z reprezentowanych obecnie aplikacji internetowych posiada swoją indywidualną formę prezentacji. Do opisów stylów na stronach wykorzystywane są kaskadowe arkusze stylów. Pakiety jakie zostały zastosowane w projekcie do stylowania z wykorzystaniem CSS3 to 'Styled Components' oraz '@material-ui/styles', które wykorzystują podejście 'CSS-in-JS'. W praktyce takie podejście oznacza deklaracje stylów w plikach JavaScript oraz modularyzacje ich per komponenty. Wykorzystanie tych dwóch pakietów w porównaniu ze standardowym podejściem stylowania CSS3, pozwala na uzyskanie szeregu korzyści:
+
+\begin{itemize}
+    \item Kod źródłowy jest znacznie bardziej przejrzysty;
+    \item Przekazywanie dynamicznych właściwości do warunkowego stylowania;
+    \item Deklaracja globalnych styli w jednym komponencie;
+    \item Globalny motyw, który może być wykorzystany we wszystkich komponentach;
+    \item Brak problemu z nazewnictwem i duplikacją nazw klas (automatyczne nadawanie nazw);
+    \item Prostszy proces utrzymywania styli (style przypisane są do komponentów).
+\end{itemize}
+
+Wymienione funkcjonalności to zaledwie część zalet tych dwóch bibliotek, jednak są one najbardziej kluczowe względem budowy całego omawianego systemu. Ich połączenie oraz implementacja razem z biblioteką React tworzy synergie w tworzeniu modularnych (z wykorzystaniem komponentów) aplikacji internetowych. 
+
+\label{ch:frontend:react}
 \section{React}
-autogenerowanie z Create React App
-\section{SPA}
+Główną technologią, na której oparte są pakiety w systemie reprezentujące interfejsy użytkownika, to React. Javascrpitowa biblioteka, która zbudowana i rozwijana jest przez firmę Facebook od 2013 roku, przeznaczona do budowania interfejsów graficznych. React w swych głównych założeniach wykorzystuje JSX, który jest rozszerzeniem składni JavaScriptu o możliwość dodawania znaczników HTML. Takie podejście oferuje możliwości budowania elementów składających się zarówno ze styli, znaczników HTML jak i logiki napisanej w języku JavaScript, a następnie łączenie wszystkich elementów w całość.
+
+Jak sama nazwa wskazuje, biblioteka ta jest reaktywna i pozwala na uaktualnianie tylko tych elementów, które tego wymagają na podstawie zmiany ich stanu. W tym celu React wykorzystuje wirtualny model DOM (Document Object Model), który pozwala na deklaratywne podejście w budowaniu interfejsu. Reprezentuje on wirtualny stan dokumentu i synchronizuje z modelem DOM w momencie zmian, aby użytkownik w czasie rzeczywistym je widział.
+
+Razem z tego rodzaju obsługą drzewa DOM, React oferuje możliwość budowy aplikacji w podejściu SPA (Single Page Application) jakim wszystkie trzy omawiane pakiety zostały zbudowane. Oznacza to, że aplikacja tuż po swoim otwarciu jest ładowana w całości i nie wymaga przeładowywania plików HTML, a jedynie zmian w części drzewa DOM.
+
+\section{Create React App}
+Wszystkie 3 pakiety (player, admin, ui-components), zostały początkowo wygenerowane przy użyciu narzędzia 'Create React App'. Narzędzie to po wygenerowaniu projektu oferuje od samego początku działającą i zoptymalizowaną aplikację napisaną w języku JavaScript razem z biblioteką React. Wraz z wygenerowaniem projektu przygotowany jest zestaw funkcjonalności służących zarówno pracy nad projektem jak również jej późniejszej publikacji.
+
+Narzędzie to wymaga jedynie zainstalowanego w systemie 'Node'. Stworzenie zaś nowej aplikacji z wykorzystaniem tego narzędzia to komenda w terminalu:
+
+\begin{lstlisting}[breaklines=true]
+    npx create-react-app nazwa-aplikacji
+\end{lstlisting}
+
+\label{ch:frontend:pwa}
 \section{PWA}
-\section{React-Admin}
-\section{Material Design}
-\section{Material UI + styled-components}
+PWA to rodzaj zastosowanego w projekcie podejścia w budowaniu aplikacji internetowych. Jest to skrót od Progressive Web App (Progresywna Aplikacja Internetowa). Głównym założeniem jest budowa stron internetowych możliwie jak najbardziej zbliżonych wyglądem i funkcjonalnościami do aplikacji mobilnych i desktopowych bez budowania osobnych aplikacji. Tego rodzaju podejście w swym założeniu zakłada budowie aplikacji opartych o HTML, JavaScript oraz CSS lecz może być ona też rozwinięta o technologie takie jak React. Atrybutami tego typu aplikacji jest między innymi obsługa użytkowania w trybie offline, responsywność, bezpieczeństwo (wymagany certyfikat strony SSL), ciągła aktualność z bieżącą wersją, prędkość działania, możliwość instalacji aplikacji (Przykład instalacji aplikacji PWA na ilustracji \ref{fig:pwa-installation}).
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/player/PWA_install.jpg}
+    \caption{Instalacja aplikacji PWA w systemie IOS}
+    \label{fig:pwa-installation}
+\end{figure}
+
+\label{section:material-ui}
+\section{Material UI}
+Kolejną biblioteką JavaScript'ową zastosowaną w projekcie jest Material-UI. Jest to zbiór komponentów reactowych, rozwijany przez firmę Google, opartych o zdefiniowany i wysoce ceniony przez programistów zbiór zasad designu Material Design. Biblioteka ta pozwala na budowanie aplikacji z gotowych komponentów z możliwością ich dostosowywania i utrzymywania jednolitego stylu w całej aplikacji. Dzięki charakterystycznym komponentom graficznym użytkownicy aplikacji są w stanie znacznie szybciej dokonywać pożądanych akcji przez znane i popularne dla nich elementy graficzne. Wszystkie komponenty zachowują dobre praktyki dostępności oraz zapewniają swoją responsywność na różnych urządzeniach.
+
+\section{React Admin}
+Pakiety 'admin' oraz 'player' wykorzystują u swej podstawy framework React Admin. Jest to narzędzie rozwijane od 2016 roku, tworzone przez francuskie studio. Narzędzie to różni się od pozostałych, tym że jest framework'iem a nie biblioteką. Główną różnicą jest narzucenie pewnej struktury budowy aplikacji przez narzędzie. Początkowo, użycie tej technologii miało znaleźć swoje zastosowanie w projekcie tylko przy budowie panelu administracyjnego. Uniwersalność i wachlarz możliwości jakie oferuje to narzędzie w efekcie końcowym pozwoliło również na budowę aplikacji końcowej dla graczy.
+
+Głównymi funkcjonalnościami jakie oferuje React Admin, które zostały wykorzystane w projekcie to:
+
+\begin{itemize}
+    \item Gotowy szkielet aplikacji;
+    \item Zestaw komponentów zbudowanych przy użyciu biblioteki Material UI;
+    \item Adapter warstwy komunikacyjnej (prosta komunikacja z serwerem, który wykorzystuje Feathers);
+    \item Warstwa autentykacji i autoryzacji;
+    \item Internacjonalizacja (Zapewnienie treści w różnych językach);
+    \item Wykorzystuje swój własny wbudowany mechanizm cachowania.
+\end{itemize}
+
+Narzędzie te pozwala na pełną modyfikowalność całego szkieletu interfejsu graficznego. Pakiet 'admin' został zbudowany praktycznie bez wprowadzania żądanych modyfikacji co do wyglądu aplikacji. Pakiet 'player' natomiast wykorzystał pełną gammę możliwości rozbudowy aplikacji oraz funkcjonalności tego framework'u.
+
 \section{Storybook}
-autogenerowanie
+Ostatnim narzędziem użytym w części projektu służącej budowie interfejsu graficznego jest Storybook. Jest to narzędzie to budowania komponentów graficznych w odizolowaniu od ich logiki. W praktyce oznacza to, że programista może przykładowo stworzyć przycisk, który będzie przyjmował właściwości takie jak np. kształt, kolor czy wariant i będzie mógł przetestować ich różne formy wyświetlania w zależności od tych parametrów bez podawania logiki, która mówi co taki przycisk ma robić. Na ilustracji \ref{fig:storybook} znajduje się przykładowy widok działania komponentu w aplikacji Storybook.
+
+W systemie znajdują się dwa pakiety zakładające budowę interfejsów graficznych, które wykorzystują nieraz te same komponenty lub konfiguracje. W celu uniknięcie duplikacji kodu powstał pakiet 'ui-components', którego głównym założeniem jest budowa komponentów wykorzystywanych w obydwu tych pakietów z pomocą Storybooka. Jedną z funkcjonalności tego narzędzia jest również auto-generowanie, z którego pomocą został skonfigurowany pakiet 'ui-components'. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/ui-components/storybook.png}
+    \caption{Działanie Storybook}
+    \label{fig:storybook}
+\end{figure}
