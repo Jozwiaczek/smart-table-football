@@ -55,11 +55,18 @@ frame=single
 \include{_Rozdzial_VI_Publikacja}
 \include{_Rozdzial_VII_Aplikacja}
 \include{_Rozdzial_VIII_Podsumowanie}
+
+\renewcommand\lstlistlistingname{Spis fragmentów kodu}
 % \include{_Rozdzial_Wzor}
 
 \listoffigures
 \listoftables
+
+\clearpage
+\addcontentsline{toc}{chapter}{\lstlistlistingname}
+
 \lstlistoflistings
+
 \addcontentsline{toc}{chapter}{Literatura}
 
 \bibliographystyle{abbrv}
