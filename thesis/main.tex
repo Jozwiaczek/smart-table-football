@@ -12,6 +12,24 @@
 % UML Diagrams
 \usepackage{tikz-uml}
 
+\lstset{
+language=bash,
+keywordstyle=\bfseries\ttfamily\color[rgb]{0,0,1},
+identifierstyle=\ttfamily,
+commentstyle=\color[rgb]{0.133,0.545,0.133}\ttfamily,
+stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
+showstringspaces=false,
+basicstyle=\small,
+tabsize=2,
+breaklines=true,
+prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+breaklines=true, 
+breakatwhitespace=false,
+columns=fixed,
+extendedchars=true
+frame=single
+}
+
 \author{Jakub Jóźwiak}
 \album{Numer albumu: S16641}
 \title{Smart Table Football}
@@ -23,8 +41,6 @@
 \begin{document}
 
 \tableofcontents
-\listoffigures
-\listoftables
 
 \include{_Abstrakt}
 
@@ -41,6 +57,9 @@
 \include{_Rozdzial_VIII_Podsumowanie}
 % \include{_Rozdzial_Wzor}
 
+\listoffigures
+\listoftables
+\lstlistoflistings
 \addcontentsline{toc}{chapter}{Literatura}
 
 \bibliographystyle{abbrv}

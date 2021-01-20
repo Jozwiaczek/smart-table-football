@@ -82,40 +82,40 @@ Pakiet \textit{api} zawiera w sobie główny serwer całego systemu. Jest on ser
 Przed uruchomieniem tej paczki należy przygotować wirtualny kontener w dockerze z bazą danych. W pierwszym kroku należy upewnić się o zainstalowanym i uruchomionym Dockerze.
 
 Poniższa komenda wywołana w terminalu powinna zwrócić aktualnie zainstalowaną wersje Dockera (w przypadku problemów zainstalować ponownie Dockera):
-\begin{lstlisting}
+\begin{lstlisting}[caption={Sprawdzenie zainstalowanej wersji Dockera}]
 docker -v
 \end{lstlisting}
 
 Poniższa komenda wywołana w terminalu powinna zwrócić informacje o aktualnie działającym lokalnie serwerze dokera (w przypadku błędu, upewnić się czy proces Dockera został prawidłowo uruchomiony):
-\begin{lstlisting}
+\begin{lstlisting}[caption={Wyświetlenie informacji o działającym dockerze}]
 docker info
 \end{lstlisting}
 
 Poniższa komenda wywołana w terminalu pobiera najnowszą oficjalną wersję obrazu Dockera dla bazy danych MongoDB:
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Pobranie obrazu dockera dla MongoDB}]
 docker pull mongo
 \end{lstlisting}
 
 W terminalu uruchom kontener Docker za pomocą polecenia run przy użyciu obrazu mongo komendą:
 
-\begin{lstlisting}[breaklines=true]
+\begin{lstlisting}[caption={Uruchomienie kontenera z bazą danych}]
 docker run -it -v $(pwd)/data/db:/data/db -p 27017:27017 --name mongodb -d mongo
 \end{lstlisting}
 
-W celu uruchomienia/zatrzymania kontenera należy użyć gotowego skryptu wewnątrz folderu 'packages/api':
+Po wykonaniu pierwszego uruchomienia, wszystkie następne uruchomienia/zatrzymania mogą odbywać się przy użyciu gotowego skryptu wewnątrz folderu 'packages/api', który korzysta z aliasu do stworzonego kontenera:
 
-\begin{lstlisting}
-# Uruchomienie kontenera bazy danych
+\begin{lstlisting}[caption={Uruchamianie/zatrzymywanie bazy daych z użyciem skryptu w pakiecie api}]
+# Uruchomienie
 yarn start:db
 
-# Zatrzymanie kontenera bazy danych
+# Zatrzymanie
 yarn stop:db
 \end{lstlisting}
 
 W celu sprawdzenia uruchomionych kontenerów w Dockerze (przed uruchomieniem powinno wyświetlić rekord w liście z nazwą \textit{Mongodb}):
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Wylistowanie uruchomionych kontenerów dockera}]
 docker container ls
 \end{lstlisting}
 
@@ -123,13 +123,11 @@ docker container ls
 
 Posiadając uruchomiony wirtualny kontener z bazą danych w konsoli należy przejść do folderu 'packages/api' oraz wpisać następującą komendę w celu uruchomienia serwera:
 
-Uruchamia serwer:
-\begin{lstlisting}
+\begin{lstlisting}[caption={Uruchamianie serwera w pakiecie api}]
 yarn start
 \end{lstlisting}
 
-Uruchamia serwer w trybie śledzenia zmian (automatyczny i natychmiastowy restart serwera podczas wykrytych zmian w kodzie źródłowym):
-\begin{lstlisting}
+\begin{lstlisting}[caption={Uruchamianie serwera w pakiecie api w trybie śledzenia zmian}]
 yarn start:dev
 \end{lstlisting}
 
@@ -196,7 +194,7 @@ Przygotowanie diod wymaga podłączenia pod wskazanymi w tabeli wyżej GPIO. Sys
 
 Następnym krokiem jest zaktualizowanie systemu, dodatków i aplikacji na Raspberry Pi komendą:
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Aktualizacja Raspberry Pi}]
 sudo apt update
 sudo apt full-upgrade
 \end{lstlisting}
@@ -205,7 +203,7 @@ sudo apt full-upgrade
 
 Uruchomienie wsparcia kamery wymaga włączenia odpowiedniej opcji w konfiguracji. W tym celu w terminalu należy wpisać:
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Uruchomienie ekranu konfiguracji Raspberry Pi}]
 sudo raspi-config
 \end{lstlisting}
 
@@ -213,7 +211,7 @@ Po uruchomieniu tej komendy pojawi się okno z możliwością konfiguracji Raspb
 
 W celu sprawdzenia poprawności działania kamery można użyć komendy:
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Wykonanie zdjęcia na Raspberry Pi}]
 raspistill -v -o test.jpg
 \end{lstlisting}
 
@@ -223,43 +221,37 @@ Komenda ta powinna wykonać zdjęcie oraz zapisać je w katalogu domowym pod naz
 
 W celu instalacji Node w systemie Raspberry najlepiej jest skorzystać z NVM (Node Version Manager), który pozwala na prostą instalację Node oraz szybkie przełączanie pomiędzy jego różnymi wersjami.
 
-Pobranie NVM:
-\begin{lstlisting}[breaklines=true]
+\begin{lstlisting}[caption={Pobranie NVM}]
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 \end{lstlisting}
 
-Konfiguracja NVM:
-\begin{lstlisting}[breaklines=true]
+\begin{lstlisting}[caption={Konfiguracja NVM}]
 export NVM_DIR="$HOME/.nvm"
  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 \end{lstlisting}
 
-Sprawdzenie działania:
-\begin{lstlisting}
+\begin{lstlisting}[caption={Sprawdzenie działania NVM}]
 nvm -v
 \end{lstlisting}
 
-Instalacja Node.js w wersji 12 poprzez NVM:
-\begin{lstlisting}
+\begin{lstlisting}[caption={Instalacja Node.js w wersji 12 poprzez NVM}]
 nvm install 12
 \end{lstlisting}
 
 \subsubsection{Yarn}
 W celu możliwości zainstalowania zależności projektu i zarządzania pakietami należy zainstalować menadżer pakietów Yarn.
 
-Instalacja yarn:
-\begin{lstlisting}[breaklines=true]
+\begin{lstlisting}[caption={Pobieranie yarn}]
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 \end{lstlisting}
 
-Następnie:
-\begin{lstlisting}[breaklines=true]
+\begin{lstlisting}[caption={Instalacja yarn}]
 sudo apt update && sudo apt install --no-install-recommends yarn
 \end{lstlisting}
 
 Sprawdzenie poprawności działania Yarn (powinno zwrócić aktualnie zainstalowaną wersję).
-\begin{lstlisting}
+\begin{lstlisting}[caption={Pobranie aktualnej wersji yarn}]
 yarn -v
 \end{lstlisting}
 
@@ -267,21 +259,20 @@ yarn -v
 \subsubsection{MP4Box}
 Rozszerzenie CLI pozwala na konwersje wideo z formatu .h264 do .mp4. Potrzebne jest tylko w środowisku uruchomienia paczek 'table' oraz 'table-manager'.
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Instalacja MP4Box}]
   sudo apt install -y gpac
 \end{lstlisting}
 
 
 \subsubsection{Automatyczny start - opcjonalne}
-Cron jest narzędziem wbudowanym w domyślny system Raspberry Pi. Pozwala on na wykonywanie zaplanowanych zadań w systemie. Z pomocą tego narzędzia jest realizowana możliwość automatycznego uruchomiania pakietu 'table-manager'. \cite{RaspCronDocs}
+Cron jest narzędziem wbudowanym w domyślny system Raspberry Pi. Pozwala on na wykonywanie zaplanowanych zadań w systemie. Z pomocą tego narzędzia jest realizowana możliwość automatycznego uruchomiania pakietu 'table-manager'.\cite{RaspCronDocs}
 
-Uruchomienie oraz konfiguracja crontab:
-\begin{lstlisting}
+\begin{lstlisting}[caption={Uruchomienie oraz konfiguracja crontab}]
 crontab -e
 \end{lstlisting}
 
 Na końcu otworzonego pliku konfiguracyjnego należy dodać poniższą linijkę:
-\begin{lstlisting}[breaklines=true]
+\begin{lstlisting}[caption={Fragment konfiguracji crontab}]
 @reboot cd /home/pi/smart-table-football/packages/table-manager && yarn start &
 \end{lstlisting}
 
@@ -299,19 +290,19 @@ Pakiet \textit{ui-components} jest zbiorem komponentów oraz konfiguracji wykorz
 
 W celu uruchomienia Storybooka, w konsoli należy przejść do folderu 'packages/ui-components' oraz wpisać:
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Uruchamianie aplikacji w pakiecie ui-components}]
 yarn storybook
 \end{lstlisting}
 
 Ze względu na fakt importowania komponentów oraz konfiguracji w innych pakietach kod źródłowy musi być transpilowany z każdą zmianą. Domyślnie proces budowania paczki jest realizowany z każdym instalowaniem zależności w projekcie. W przypadku chęci wprowadzenia zmian w tym pakiecie, za każdym razem należy wykonać komendę:
 
 Transpiluje kod źródłowy paczki:
-\begin{lstlisting}
+\begin{lstlisting}[caption={Budowanie paczki ui-components}]
 yarn build
 \end{lstlisting}
 
 Uruchamia transpilacje w trybie śledzenia zmian:
-\begin{lstlisting}
+\begin{lstlisting}[caption={Uruchamianie budowania paczki ui-components w trybie śledzenia zmian}]
 yarn build:watch
 \end{lstlisting}
 
@@ -322,7 +313,7 @@ Ze względu na ten sam krótki proces uruchomienia pakietów \textit{admin} oraz
 
 W celu uruchomienia omawianych pakietów należy przejść w konsoli do pakietu 'player' oraz 'admin oraz wpisać:
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Uruchomienie pakietu player oraz admin}]
 yarn start
 \end{lstlisting}
 
