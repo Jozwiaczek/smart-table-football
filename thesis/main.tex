@@ -12,19 +12,35 @@
 % UML Diagrams
 \usepackage{tikz-uml}
 
+\lstset{
+language=bash,
+keywordstyle=\bfseries\ttfamily\color[rgb]{0,0,1},
+identifierstyle=\ttfamily,
+commentstyle=\color[rgb]{0.133,0.545,0.133}\ttfamily,
+stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
+showstringspaces=false,
+basicstyle=\small,
+tabsize=2,
+breaklines=true,
+prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+breaklines=true, 
+breakatwhitespace=false,
+columns=fixed,
+extendedchars=true
+frame=single
+}
+
 \author{Jakub Jóźwiak}
 \album{Numer albumu: S16641}
 \title{Smart Table Football}
 \type{Praca inżynierska}
 \supervisor{napisana pod kierunkiem \\ dr inż Michała Tomaszewskiego}
 \location{Warszawa}
-\date{styczeń 2021}
+\date{luty 2021}
 
 \begin{document}
 
 \tableofcontents
-\listoffigures
-\listoftables
 
 \include{_Abstrakt}
 
@@ -39,7 +55,17 @@
 \include{_Rozdzial_VI_Publikacja}
 \include{_Rozdzial_VII_Aplikacja}
 \include{_Rozdzial_VIII_Podsumowanie}
+
+\renewcommand\lstlistlistingname{Spis fragmentów kodu}
 % \include{_Rozdzial_Wzor}
+
+\listoffigures
+\listoftables
+
+\clearpage
+\addcontentsline{toc}{chapter}{\lstlistlistingname}
+
+\lstlistoflistings
 
 \addcontentsline{toc}{chapter}{Literatura}
 

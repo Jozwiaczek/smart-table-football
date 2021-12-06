@@ -3,7 +3,7 @@
 W tym rozdziale zostanie omówiona część projektu związana z oprogramowaniem zbliżonym do tego, co widzi docelowy użytkownik aplikacji, skupiając się tym samym na technologiach wykorzystywanych w pakietach 'admin', 'player' oraz 'ui-components'.
 
 \section{HTML5}
-Aplikacje docelowe, które widzi użytkownik to ogólnie mówiąc strony internetowe. U swej podstawy pakiety 'admin', 'player' oraz 'ui-components' wykorzystują hipertekstowy język znaczników w wersji 5 (HTML5 - HyperText Markup Language). W całym systemie jednak nie ma bezpośrednio zdefiniowanych plików z rozszerzeniem '.html', lecz jego struktura i semantyka jest wykorzystywana niemalże wszędzie. Omawiana technologia to również międzynarodowy standard, którego przetworzeniem zajmują się współczesne przeglądarki internetowe i wiele innych narzędzi. Specyfikacją tego standardu zajmuje się globalna organizacja 'World Wide Consortium'. \cite{HTMLDocs}
+Aplikacje docelowe, które widzi użytkownik to ogólnie mówiąc strony internetowe. U swej podstawy pakiety 'admin', 'player' oraz 'ui-components' wykorzystują hipertekstowy język znaczników w wersji 5 (HTML5 - HyperText Markup Language). W całym systemie jednak nie ma bezpośrednio zdefiniowanych plików z rozszerzeniem '.html', lecz jego struktura i semantyka jest wykorzystywana niemalże wszędzie. Omawiana technologia to również międzynarodowy standard, którego przetworzeniem zajmują się współczesne przeglądarki internetowe i wiele innych narzędzi. Specyfikacją tego standardu zajmuje się globalna organizacja 'World Wide Consortium'.\cite{HTMLDocs}
 
 \section{CSS}
 Każda z reprezentowanych obecnie aplikacji internetowych posiada swoją indywidualną formę prezentacji. Do opisów stylów na stronach wykorzystywane są kaskadowe arkusze stylów. Pakiety jakie zostały zastosowane w projekcie do stylowania z wykorzystaniem CSS3 to 'Styled Components' oraz '@material-ui/styles', które wykorzystują podejście 'CSS-in-JS'. W praktyce takie podejście oznacza deklaracje stylów w plikach JavaScript oraz modularyzacje ich per komponenty. Wykorzystanie tych dwóch pakietów w porównaniu ze standardowym podejściem stylowania CSS3, pozwala na uzyskanie szeregu korzyści:
@@ -29,10 +29,8 @@ Razem z tego rodzaju obsługą drzewa DOM, React oferuje możliwość budowy apl
 
 \section{Create React App}
 Wszystkie 3 pakiety (player, admin, ui-components), zostały początkowo wygenerowane przy użyciu narzędzia 'Create React App'. Narzędzie to po wygenerowaniu projektu oferuje od samego początku działającą i zoptymalizowaną aplikację napisaną w języku JavaScript razem z biblioteką React. Wraz z wygenerowaniem projektu przygotowany jest zestaw funkcjonalności służących zarówno pracy nad projektem jak również jej późniejszej publikacji.
-
-Narzędzie to wymaga jedynie zainstalowanego w systemie 'Node'. Stworzenie zaś nowej aplikacji z wykorzystaniem tego narzędzia to komenda w terminalu:
-
-\begin{lstlisting}[breaklines=true]
+Narzędzie to wymaga jedynie zainstalowanego w systemie Node.
+\begin{lstlisting}[caption={Tworzenie aplikacji z wykorzystaniem Create React App}]
     npx create-react-app nazwa-aplikacji
 \end{lstlisting}
 
